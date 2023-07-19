@@ -1,0 +1,279 @@
+unit WinnerU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Imaging.pngimage,
+  Vcl.Imaging.GIFImg, Vcl.Buttons, Vcl.StdCtrls,System.Math, Vcl.MPlayer,
+  Vcl.OleServer, SpeechLib_TLB,ShellAPI,MMSystem;
+
+type
+  TUWinner = class(TForm)
+    Image1: TImage;
+    SBClose: TSpeedButton;
+    SBClose1: TSpeedButton;
+    Panel1: TPanel;
+    lblAccountNumber: TLabel;
+    lblName: TLabel;
+    lblAddress: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    ImgYellow: TImage;
+    imgBlue: TImage;
+    ImgGreen: TImage;
+    Image3: TImage;
+    Image2: TImage;
+    Timer1: TTimer;
+    mpConfetti1: TMediaPlayer;
+    mpConfetti2: TMediaPlayer;
+    mpWinningBackGround: TMediaPlayer;
+    SpVoice1: TSpVoice;
+    Timer2: TTimer;
+    procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure SBCloseClick(Sender: TObject);
+    procedure SBClose1Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    function getOrderByLastWinner():Integer;
+    procedure FormActivate(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+    procedure RunBatchFile();
+    function isSpeakerAvailable():Boolean;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+
+var
+  UWinner: TUWinner;
+  AAccountNumber : String;
+  CounterTimer,CounterClose:Integer;
+
+implementation
+
+{$R *.dfm}
+
+uses MainModuleU;
+
+
+procedure TUWinner.BitBtn1Click(Sender: TObject);
+begin
+  Self.Close;
+end;
+
+procedure TUWinner.FormActivate(Sender: TObject);
+begin
+  mpConfetti1.FileName := 'Confetti1.wav';
+  mpConfetti1.Open;
+  mpConfetti1.Play;
+
+  mpConfetti2.FileName := 'Confetti2.wav';
+  mpConfetti2.Open;
+  //mpConfetti2.Play;
+
+  mpWinningBackGround.FileName := 'Lottery_uk.wav';
+  mpWinningBackGround.Open;
+  mpWinningBackGround.Play;
+
+  //RunBatchFile();
+end;
+
+procedure TUWinner.FormResize(Sender: TObject);
+begin
+  Image1.Left := (Self.Width DIV 2) - (Image1.Width DIV 2);
+  // TOP
+  Image1.Top := ((Self.Height)  DIV 2) - (Image1.Height DIV 2);
+
+  SBClose.Left := (Image1.Left + Image1.Width - SBClose.Width - 20);
+  SBClose.Top := Image1.Top + 15;
+
+  SBClose1.Left := (Image1.Left + Image1.Width - SBClose1.Width - 20);
+  SBClose1.Top := Image1.Top + Image1.Height - SBClose1.Height - 20;
+
+  Panel1.Left := Image1.Left + 20;
+  Panel1.Top  := Image1.Top + 80 ;
+
+  imgBlue.Left := Image1.Left;
+  imgBlue.Top := Image1.Top;
+  ImgYellow.Left := Image1.Left;
+  ImgYellow.Top := Image1.Top;
+  ImgGreen.Left := Image1.Left;
+  ImgGreen.Top := Image1.Top;
+end;
+
+procedure TUWinner.FormShow(Sender: TObject);
+Var
+  IVar:Integer;
+begin
+  CounterTimer := 0 ;
+  CounterClose := 0 ;
+  //mpConfetti1.Play;
+  //mpWinningBackGround.Play;
+  Image3.Visible := True;
+  (Image3.Picture.Graphic as TGIFImage).Animate := True;
+  Application.ProcessMessages;
+  (Image3.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
+  Application.ProcessMessages;
+  DoubleBuffered := True;// stops flickering
+  Application.ProcessMessages;
+  Image1.Left := (Self.Width DIV 2) - (Image1.Width DIV 2);
+  // TOP
+  Image1.Top := ((Self.Height)  DIV 2) - (Image1.Height DIV 2);
+  Application.ProcessMessages;
+  SBClose.Left := (Image1.Left + Image1.Width - SBClose.Width - 20);
+  SBClose.Top := Image1.Top + 15;
+  Application.ProcessMessages;
+  SBClose1.Left := (Image1.Left + Image1.Width - SBClose1.Width - 20);
+  SBClose1.Top := Image1.Top + Image1.Height - SBClose1.Height - 20;
+  Application.ProcessMessages;
+  Panel1.Left := Image1.Left + 20;
+  Panel1.Top  := Image1.Top + 70 ;
+  Application.ProcessMessages;
+  imgBlue.Left := Image1.Left;
+  imgBlue.Top := Image1.Top;
+  ImgYellow.Left := Image1.Left;
+  ImgYellow.Top := Image1.Top;
+  ImgGreen.Left := Image1.Left;
+  ImgGreen.Top := Image1.Top;
+  Application.ProcessMessages;
+  IVar := RandomRange(0,9000);
+  if IVar <= 900 then begin
+    imgBlue.Visible := True;
+    ImgYellow.Visible := False;
+    ImgGreen.Visible := False;
+    image1.Visible := False;
+  end else if IVar <= 1900 then begin
+    imgBlue.Visible := False;
+    ImgYellow.Visible := True;
+    ImgGreen.Visible := False;
+    image1.Visible := False;
+  end else if IVar <= 3000 then begin
+    imgBlue.Visible := False;
+    ImgYellow.Visible := False;
+    ImgGreen.Visible := True;
+    image1.Visible := False;
+  end else begin
+    imgBlue.Visible := False;
+    ImgYellow.Visible := False;
+    ImgGreen.Visible := False;
+    image1.Visible := True;
+  end;
+  Application.ProcessMessages;
+  with UmainModule do begin
+    lblAccountNumber.Caption := qryMCQualifiedAccountNumber.AsString;
+    lblName.Caption := qryMCQualifiedName.AsString;
+    lblAddress.Caption := qryMCQualifiedAddress.AsString;
+    Application.ProcessMessages;
+    if not qryWinnerMC.Locate('AccountNumber',qryMCQualifiedAccountNumber.AsString,[]) then begin
+      Application.ProcessMessages;
+      qryWinnerMC.Append;
+      qryWinnerMCAccountNumber.AsString := qryMCQualifiedAccountNumber.AsString;
+      qryWinnerMCName.AsString := qryMCQualifiedName.AsString;
+      qryWinnerMCArea.AsString := qryMCQualifiedArea.AsString;
+      qryWinnerMCAddress.AsString := qryMCQualifiedAddress.AsString;
+      qryWinnerMCYear.AsInteger := CurrentYear;
+      qryWinnerMCOrderBy.AsInteger := getOrderByLastWinner();
+      qryWinnerMCGender.AsString := qryMCQualifiedGender.AsString;
+      qryWinnerMC.Post;
+      Application.ProcessMessages;
+      qryMCQualified.Edit;
+      qryMCQualifiedStatus.AsInteger := 2;
+      qryMCQualified.Post;
+      Application.ProcessMessages;
+      qryMCQualified.Refresh;
+      qryWinnerMC.Refresh;
+      
+      Timer2.Enabled := True;
+    end else begin
+
+    end;
+  Application.ProcessMessages;
+  end;
+  Timer1.Enabled := True;
+end;
+
+function TUWinner.getOrderByLastWinner: Integer;
+begin
+  with UMainModule do begin
+    qryGetLastRecord.Close;
+    qryGetLastRecord.ParamByName('AYear').AsInteger := CurrentYear;
+    qryGetLastRecord.Open;
+    result := qryGetLastRecordLastInteger.AsInteger;
+  end;
+end;
+
+function TUWinner.isSpeakerAvailable: Boolean;
+begin
+  result := (waveOutGetNumDevs > 0);
+end;
+
+procedure TUWinner.RunBatchFile;
+begin
+  if isSpeakerAvailable then begin
+    ShellExecute(0, 'open', PChar(ExtractFilePath(Application.ExeName)+'SpeechText.vbs'), nil, nil, SW_HIDE);
+  end;
+end;
+
+procedure TUWinner.SBClose1Click(Sender: TObject);
+begin
+  SBCloseClick(Sender)
+end;
+
+procedure TUWinner.SBCloseClick(Sender: TObject);
+begin
+  Self.Close;
+end;
+
+procedure TUWinner.Timer1Timer(Sender: TObject);
+begin
+   if CounterTimer = 3 then begin
+      Application.ProcessMessages;
+      mpConfetti1.Stop;
+      mpConfetti2.Play;
+      Image2.Visible := True;
+      (Image2.Picture.Graphic as TGIFImage).Animate := True;
+      Application.ProcessMessages;
+      (Image2.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
+      Application.ProcessMessages;
+      DoubleBuffered := True;// stops flickering
+      mpWinningBackGround.Stop;
+   end else if CounterTimer = 6 then begin
+      Application.ProcessMessages;
+      mpConfetti1.Play;
+      mpConfetti2.Stop;
+   end else if CounterTimer = 10 then begin
+      Application.ProcessMessages;
+      mpConfetti1.Play;
+      mpConfetti2.Stop;
+      Image3.Visible := False;
+      Image2.Visible := False;
+      CounterTimer := 0;
+      Image3.Visible := True;
+      (Image3.Picture.Graphic as TGIFImage).Animate := True;
+      Application.ProcessMessages;
+      (Image3.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
+      Application.ProcessMessages;
+      DoubleBuffered := True;// stops flickering
+   end;
+  CounterTimer := CounterTimer + 1;
+end;
+
+procedure TUWinner.Timer2Timer(Sender: TObject);
+begin
+  Application.ProcessMessages;
+  if CounterClose >= 20 then begin
+    CounterClose := 0;
+    Timer2.Enabled := False;
+    Self.Close;
+    Application.ProcessMessages;
+  end;
+  Application.ProcessMessages;
+  CounterClose := CounterClose + 1;
+end;
+
+end.

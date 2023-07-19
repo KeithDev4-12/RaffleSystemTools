@@ -1,0 +1,276 @@
+unit ReportU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, QRCtrls, QuickRpt, qrpctrls,
+  dxGDIPlusClasses, Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TUReport = class(TForm)
+    qrAttendance: TQuickRep;
+    QRBand1: TQRBand;
+    QRPLabel1: TQRPLabel;
+    QRPLabel2: TQRPLabel;
+    qrlblDateRange: TQRPLabel;
+    QRPLabel3: TQRPLabel;
+    QRPLabel4: TQRPLabel;
+    QRPLabel5: TQRPLabel;
+    QRPLabel6: TQRPLabel;
+    QRPLabel7: TQRPLabel;
+    QRPLabel8: TQRPLabel;
+    QRPLabel9: TQRPLabel;
+    QRPLabel10: TQRPLabel;
+    QRPShape1: TQRPShape;
+    QRPShape2: TQRPShape;
+    QRImage1: TQRImage;
+    QRImage2: TQRImage;
+    QRPBand2: TQRPBand;
+    QRSysData1: TQRSysData;
+    QRSysData2: TQRSysData;
+    QRLabel2: TQRLabel;
+    QRLabel5: TQRLabel;
+    colHeader: TQRBand;
+    QRLabel6: TQRLabel;
+    QRLabel7: TQRLabel;
+    QRLabel19: TQRLabel;
+    QRLabel20: TQRLabel;
+    QRPShape11: TQRPShape;
+    QRPShape12: TQRPShape;
+    QRPShape13: TQRPShape;
+    QRPShape14: TQRPShape;
+    QRPShape15: TQRPShape;
+    QRPShape16: TQRPShape;
+    QRLabel21: TQRLabel;
+    qryReportAttendance: TFDQuery;
+    qryReportAttendanceid: TFDAutoIncField;
+    qryReportAttendanceAccountNumber: TStringField;
+    qryReportAttendanceName: TStringField;
+    qryReportAttendanceArea: TStringField;
+    qryReportAttendanceAddress: TStringField;
+    qryReportAttendanceShuffleOrder: TIntegerField;
+    qryReportAttendanceEntryMode: TStringField;
+    qryReportAttendanceYear: TLongWordField;
+    qryReportAttendanceNotes: TStringField;
+    qryReportAttendanceDisconnectionDesc: TStringField;
+    QRLabel22: TQRLabel;
+    QRPShape17: TQRPShape;
+    QRBand2: TQRBand;
+    QRDBText1: TQRDBText;
+    QRDBText4: TQRDBText;
+    QRDBText2: TQRDBText;
+    QRDBText3: TQRDBText;
+    QRPShape3: TQRPShape;
+    QRPShape4: TQRPShape;
+    QRPShape5: TQRPShape;
+    QRPShape6: TQRPShape;
+    QRDBText5: TQRDBText;
+    QRPShape7: TQRPShape;
+    QRDBText6: TQRDBText;
+    QRPShape8: TQRPShape;
+    QRLabel1: TQRLabel;
+    QRPShape9: TQRPShape;
+    QRPShape10: TQRPShape;
+    QRPShape18: TQRPShape;
+    QRPShape19: TQRPShape;
+    QRPShape20: TQRPShape;
+    qrWinner: TQuickRep;
+    QRBand3: TQRBand;
+    QRPLabel11: TQRPLabel;
+    QRPLabel12: TQRPLabel;
+    QRPLabel13: TQRPLabel;
+    QRPLabel14: TQRPLabel;
+    QRPLabel15: TQRPLabel;
+    QRPLabel16: TQRPLabel;
+    QRPLabel17: TQRPLabel;
+    QRPLabel18: TQRPLabel;
+    QRPLabel19: TQRPLabel;
+    QRPLabel20: TQRPLabel;
+    QRPLabel21: TQRPLabel;
+    QRPShape21: TQRPShape;
+    QRPShape22: TQRPShape;
+    QRImage3: TQRImage;
+    QRImage4: TQRImage;
+    QRPBand1: TQRPBand;
+    QRSysData3: TQRSysData;
+    QRSysData4: TQRSysData;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRBand4: TQRBand;
+    QRLabel8: TQRLabel;
+    QRLabel10: TQRLabel;
+    QRLabel11: TQRLabel;
+    QRPShape23: TQRPShape;
+    QRPShape24: TQRPShape;
+    QRPShape25: TQRPShape;
+    QRPShape26: TQRPShape;
+    QRPShape28: TQRPShape;
+    QRLabel12: TQRLabel;
+    QRPShape31: TQRPShape;
+    QRBand5: TQRBand;
+    QRDBText7: TQRDBText;
+    QRDBText9: TQRDBText;
+    QRDBText10: TQRDBText;
+    QRPShape32: TQRPShape;
+    QRPShape33: TQRPShape;
+    QRPShape34: TQRPShape;
+    QRPShape35: TQRPShape;
+    QRDBText11: TQRDBText;
+    QRPShape38: TQRPShape;
+    QRPShape39: TQRPShape;
+    QRLabel9: TQRLabel;
+    QRPShape27: TQRPShape;
+    QRPShape29: TQRPShape;
+    qryReportWinners: TFDQuery;
+    qryReportWinnersid: TFDAutoIncField;
+    qryReportWinnersAccountNumber: TStringField;
+    qryReportWinnersName: TStringField;
+    qryReportWinnersArea: TStringField;
+    qryReportWinnersAddress: TStringField;
+    qryReportWinnersYear: TLongWordField;
+    qryReportWinnersGender: TStringField;
+    qryReportWinnersOrderBy: TLongWordField;
+    QRPShape30: TQRPShape;
+    QRDBText8: TQRDBText;
+    qryReportWinnersOrderToWords: TStringField;
+    qrSummary: TQuickRep;
+    QRBand6: TQRBand;
+    QRPLabel22: TQRPLabel;
+    QRPLabel23: TQRPLabel;
+    QRPLabel24: TQRPLabel;
+    QRPLabel25: TQRPLabel;
+    QRPLabel26: TQRPLabel;
+    QRPLabel27: TQRPLabel;
+    QRPLabel28: TQRPLabel;
+    QRPLabel29: TQRPLabel;
+    QRPLabel30: TQRPLabel;
+    QRPLabel31: TQRPLabel;
+    QRPLabel32: TQRPLabel;
+    QRPShape36: TQRPShape;
+    QRPShape37: TQRPShape;
+    QRImage5: TQRImage;
+    QRImage6: TQRImage;
+    QRPBand3: TQRPBand;
+    QRPBand5: TQRPBand;
+    QRSysData9: TQRSysData;
+    QRSysData10: TQRSysData;
+    QRLabel31: TQRLabel;
+    QRLabel32: TQRLabel;
+    QRLabel13: TQRLabel;
+    QRLabel14: TQRLabel;
+    QRLabel15: TQRLabel;
+    QRLabel16: TQRLabel;
+    QRLabel17: TQRLabel;
+    QRLabel18: TQRLabel;
+    QRLabel23: TQRLabel;
+    QRLabel24: TQRLabel;
+    QRLabel25: TQRLabel;
+    QRLabel26: TQRLabel;
+    QRPShape40: TQRPShape;
+    QRPShape41: TQRPShape;
+    QRPShape42: TQRPShape;
+    QRPShape43: TQRPShape;
+    QRPShape44: TQRPShape;
+    QRPShape45: TQRPShape;
+    QRPShape46: TQRPShape;
+    QRPShape47: TQRPShape;
+    QRPShape48: TQRPShape;
+    QRPShape49: TQRPShape;
+    QRLabel27: TQRLabel;
+    QRLabel28: TQRLabel;
+    QRLabel29: TQRLabel;
+    QRLabel30: TQRLabel;
+    QRLabel33: TQRLabel;
+    QRLabel34: TQRLabel;
+    QRLabel35: TQRLabel;
+    QRLabel36: TQRLabel;
+    QRPShape50: TQRPShape;
+    QRPShape51: TQRPShape;
+    QRLabel37: TQRLabel;
+    QRPShape52: TQRPShape;
+    QRDBText12: TQRDBText;
+    QRDBText13: TQRDBText;
+    QRDBText14: TQRDBText;
+    QRDBText15: TQRDBText;
+    QRDBText16: TQRDBText;
+    QRDBText17: TQRDBText;
+    QRDBText18: TQRDBText;
+    QRDBText19: TQRDBText;
+    QRPShape53: TQRPShape;
+    QRLabel38: TQRLabel;
+    QRPShape54: TQRPShape;
+    qrySummary: TFDQuery;
+    qrySummarys001: TLargeintField;
+    qrySummarys002: TLargeintField;
+    qrySummarys003: TLargeintField;
+    qrySummarys004: TLargeintField;
+    qrySummarys005: TLargeintField;
+    qrySummarys006: TLargeintField;
+    qrySummarys007: TLargeintField;
+    qrySummarys008: TLargeintField;
+    qrySummarygMale: TLargeintField;
+    qrySummarygFemale: TLargeintField;
+    qrySummarygUnknown: TLargeintField;
+    QRLabel39: TQRLabel;
+    QRPShape55: TQRPShape;
+    QRExpr1: TQRExpr;
+    QRLabel40: TQRLabel;
+    QRPShape56: TQRPShape;
+    FDQuery1: TFDQuery;
+    FDAutoIncField1: TFDAutoIncField;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    StringField4: TStringField;
+    LongWordField1: TLongWordField;
+    StringField5: TStringField;
+    LongWordField2: TLongWordField;
+    StringField6: TStringField;
+    QRLabel41: TQRLabel;
+    QRPShape57: TQRPShape;
+    QRPShape58: TQRPShape;
+    QRPShape59: TQRPShape;
+    QRPShape60: TQRPShape;
+    QRPShape61: TQRPShape;
+    QRDBText20: TQRDBText;
+    procedure qryReportWinnersCalcFields(DataSet: TDataSet);
+    function GetOrdinalNumber(num: Integer):String;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  UReport: TUReport;
+
+implementation
+
+{$R *.dfm}
+
+Uses MainModuleU;
+
+function TUReport.GetOrdinalNumber(num: Integer): string;
+begin
+  if (num mod 100) in [11..13] then
+    Result := num.ToString + 'th'
+  else
+    case (num mod 10) of
+      1: Result := num.ToString + 'st';
+      2: Result := num.ToString + 'nd';
+      3: Result := num.ToString + 'rd';
+    else
+      Result := num.ToString + 'th';
+    end;
+end;
+
+procedure TUReport.qryReportWinnersCalcFields(DataSet: TDataSet);
+begin
+  qryReportWinnersOrderToWords.AsString := GetOrdinalNumber(qryReportWinnersOrderBy.AsInteger) + ' to Draw';
+end;
+
+end.

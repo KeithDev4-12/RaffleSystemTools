@@ -1,0 +1,335 @@
+unit MainModuleU;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  Data.DB, FireDAC.Comp.Client, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef,
+  FireDAC.Stan.ExprFuncs, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef,
+  IniFiles,Vcl.Forms,Vcl.StdCtrls;
+
+type
+  TUMainModule = class(TDataModule)
+    FDConnSQLite: TFDConnection;
+    qryMemberConsumers: TFDQuery;
+    qryMCQualified: TFDQuery;
+    qryMaster: TFDQuery;
+    qryMasterAccountNumber: TStringField;
+    qryMasterName: TStringField;
+    qryMasterArea: TStringField;
+    qryMasterAddress: TStringField;
+    qryUnPaidBills: TFDQuery;
+    qryMasterCode: TFDAutoIncField;
+    qryTestlang: TFDQuery;
+    qryTestlangCode: TFDAutoIncField;
+    qryTestlangPart: TIntegerField;
+    qryTestlangBarangay: TStringField;
+    qryTestlangArea: TStringField;
+    qryTestlangBook: TStringField;
+    qryTestlangSequence: TStringField;
+    qryTestlangAccountNumber: TStringField;
+    qryTestlangName: TStringField;
+    qryTestlangAddress: TStringField;
+    qryTestlangRateCode: TStringField;
+    qryTestlangWRSECRate: TStringField;
+    qryTestlangConsCode: TStringField;
+    qryTestlangConnCode: TStringField;
+    qryTestlangTransformer: TStringField;
+    qryTestlangMeterBrand: TStringField;
+    qryTestlangSerial: TStringField;
+    qryTestlangMultiplier: TFloatField;
+    qryTestlangNewConnectionDate: TDateField;
+    qryTestlangReconnectionDate: TDateField;
+    qryTestlangDisconnectionDate: TDateField;
+    qryTestlangPreviousReadingDate: TDateField;
+    qryTestlangPresentReadingDate: TDateField;
+    qryTestlangPreviousReadingKWH: TFloatField;
+    qryTestlangPresentReadingKWH: TFloatField;
+    qryTestlangDiff: TFloatField;
+    qryTestlangDemand: TFloatField;
+    qryTestlangFlatRateWattage: TFloatField;
+    qryTestlangFeedBackCode: TStringField;
+    qryTestlangCM: TStringField;
+    qryTestlangCMMultiplier: TFloatField;
+    qryTestlangCMPreviousReadingKWH: TFloatField;
+    qryTestlangCMPresentReadingKWH: TFloatField;
+    qryTestlangCMKilowattHour: TFloatField;
+    qryTestlangCMDemand: TFloatField;
+    qryTestlangKilowattHour: TFloatField;
+    qryTestlangKilowattUsed: TFloatField;
+    qryTestlangKilowattAve: TFloatField;
+    qryTestlangGenSysCharge: TFloatField;
+    qryTestlangHostCommCharge: TFloatField;
+    qryTestlangForexCharge: TFloatField;
+    qryTestlangTCDemandCharge: TFloatField;
+    qryTestlangTCTransSystemCharge: TFloatField;
+    qryTestlangSystemLossCharge: TFloatField;
+    qryTestlangDCDemandCharge: TFloatField;
+    qryTestlangDCDistributionCharge: TFloatField;
+    qryTestlangSCRetCustCharge: TFloatField;
+    qryTestlangSCSupplySysCharge: TFloatField;
+    qryTestlangMCRetailCustCharge: TFloatField;
+    qryTestlangMCSystemCharge: TFloatField;
+    qryTestlangUCNPCStrandedDebts: TFloatField;
+    qryTestlangUCNPCStrandedContCost: TFloatField;
+    qryTestlangUCDUStrandedContCost: TFloatField;
+    qryTestlangUCME: TFloatField;
+    qryTestlangUCEqTaxesAndRoyalties: TFloatField;
+    qryTestlangUCEC: TFloatField;
+    qryTestlangUCCrossSubRemoval: TFloatField;
+    qryTestlangICCrossSubsidyCharge: TFloatField;
+    qryTestlangPowerActRateRed: TFloatField;
+    qryTestlangLifelineDiscSubs: TFloatField;
+    qryTestlangLoanCondo: TFloatField;
+    qryTestlangTransformerRental: TFloatField;
+    qryTestlangOCCode1: TStringField;
+    qryTestlangOCAmount1: TFloatField;
+    qryTestlangOCMo1: TFloatField;
+    qryTestlangOCTotal1: TFloatField;
+    qryTestlangOCCode2: TStringField;
+    qryTestlangOCAmount2: TFloatField;
+    qryTestlangOCMo2: TFloatField;
+    qryTestlangOCTotal2: TFloatField;
+    qryTestlangOCCode3: TStringField;
+    qryTestlangOCAmount3: TFloatField;
+    qryTestlangOCMo3: TFloatField;
+    qryTestlangOCTotal3: TFloatField;
+    qryTestlangTotalBill: TFloatField;
+    qryTestlangBillNumber: TStringField;
+    qryTestlangOEBRNumber: TStringField;
+    qryTestlangBillMonth: TStringField;
+    qryTestlangPoleNumber: TStringField;
+    qryTestlangFeederNumber: TStringField;
+    qryTestlangAge30: TFloatField;
+    qryTestlangAge60: TFloatField;
+    qryTestlangAge90: TFloatField;
+    qryTestlangAge120: TFloatField;
+    qryTestlangAgeOver120: TFloatField;
+    qryTestlangAgeTotal: TFloatField;
+    qryTestlangTotalPayments: TFloatField;
+    qryTestlangARBalance: TFloatField;
+    qryTestlangMeterCode: TStringField;
+    qryTestlangPoleNumber2: TStringField;
+    qryTestlangDemandMultiplier: TFloatField;
+    qryTestlangCoreLossMultiplier: TFloatField;
+    qryTestlangCoreLossAmount: TFloatField;
+    qryTestlangEvat: TFloatField;
+    qryTestlangOCKWH1: TFloatField;
+    qryTestlangOCKWH2: TFloatField;
+    qryTestlangOCKWH3: TFloatField;
+    qryTestlangCorelossKWH: TBCDField;
+    qryTestlangOCAmount4: TFloatField;
+    qryTestlangOCCode4: TStringField;
+    qryTestlangOCMo4: TFloatField;
+    qryTestlangOCtotal4: TFloatField;
+    qryTestlangOCAmount5: TFloatField;
+    qryTestlangOCCode5: TStringField;
+    qryTestlangOCMo5: TFloatField;
+    qryTestlangOCTotal5: TFloatField;
+    qryTestlangOCAmount6: TFloatField;
+    qryTestlangOCCode6: TStringField;
+    qryTestlangOCMo6: TFloatField;
+    qryTestlangOCTotal6: TFloatField;
+    qryTestlangOCAmount7: TFloatField;
+    qryTestlangOCCode7: TStringField;
+    qryTestlangOCMo7: TFloatField;
+    qryTestlangOCTotal7: TFloatField;
+    qryTestlangPPA: TBCDField;
+    qryTestlangBillDeposit: TBCDField;
+    qryTestlangMeterDeposit: TBCDField;
+    qryTestlangOCKWH4: TFloatField;
+    qryTestlangOCKWH5: TFloatField;
+    qryTestlangOCKWH6: TFloatField;
+    qryTestlangOCKWH7: TFloatField;
+    qryTestlangOCVat1: TStringField;
+    qryTestlangOCVat2: TStringField;
+    qryTestlangOCVat3: TStringField;
+    qryTestlangOCVat4: TStringField;
+    qryTestlangOCVat5: TStringField;
+    qryTestlangOCVat6: TStringField;
+    qryTestlangOCVat7: TStringField;
+    qryTestlangStatementAccount: TFloatField;
+    qryTestlangSCitizenActive: TIntegerField;
+    qryTestlangSCitizenDate: TDateField;
+    qryTestlangSCitizenNumber: TStringField;
+    qryTestlangInsuranceNumber: TIntegerField;
+    qryTestlangInsuranceActive: TIntegerField;
+    qryTestlangBIRSOANumber: TStringField;
+    qryTestlangConnectionType: TStringField;
+    qryTestlangSubsidy: TFloatField;
+    qryTestlangDormantAccount: TStringField;
+    qryTestlangPSALMDAA: TStringField;
+    qryMasterConnCode: TStringField;
+    qryMasterConsCode: TStringField;
+    qryCastedMemberConsumers: TFDQuery;
+    qryWinnerMemberConsumers: TFDQuery;
+    qryWinnerMC: TFDQuery;
+    qryWinnerMCid: TFDAutoIncField;
+    qryWinnerMCAccountNumber: TStringField;
+    qryWinnerMCName: TStringField;
+    qryWinnerMCArea: TStringField;
+    qryWinnerMCAddress: TStringField;
+    qryWinnerMemberConsumersid: TFDAutoIncField;
+    qryWinnerMemberConsumersAccountNumber: TStringField;
+    qryWinnerMemberConsumersName: TStringField;
+    qryWinnerMemberConsumersArea: TStringField;
+    qryWinnerMemberConsumersAddress: TStringField;
+    qryWinnerMemberConsumersYear: TLongWordField;
+    qryWinnerMemberConsumersOrderBy: TLongWordField;
+    qryWinnerMCYear: TLongWordField;
+    qryWinnerMCOrderBy: TLongWordField;
+    qryGetLastRecord: TFDQuery;
+    qryGetLastRecordLastInteger: TLargeintField;
+    qryCastedMemberConsumersid: TFDAutoIncField;
+    qryCastedMemberConsumersAccountNumber: TStringField;
+    qryCastedMemberConsumersName: TStringField;
+    qryCastedMemberConsumersArea: TStringField;
+    qryCastedMemberConsumersAddress: TStringField;
+    qryCastedMemberConsumersStatus: TIntegerField;
+    qryCastedMemberConsumersShuffleOrder: TIntegerField;
+    qryCastedMemberConsumersConnectionStatus: TLongWordField;
+    qryCastedMemberConsumersYear: TLongWordField;
+    qryCastedMemberConsumersEntryMode: TStringField;
+    qryMCQualifiedid: TFDAutoIncField;
+    qryMCQualifiedAccountNumber: TStringField;
+    qryMCQualifiedName: TStringField;
+    qryMCQualifiedArea: TStringField;
+    qryMCQualifiedAddress: TStringField;
+    qryMCQualifiedStatus: TIntegerField;
+    qryMCQualifiedShuffleOrder: TIntegerField;
+    qryMCQualifiedConnectionStatus: TLongWordField;
+    qryMCQualifiedYear: TLongWordField;
+    qryMCQualifiedEntryMode: TStringField;
+    qryMemberConsumersid: TFDAutoIncField;
+    qryMemberConsumersAccountNumber: TStringField;
+    qryMemberConsumersName: TStringField;
+    qryMemberConsumersArea: TStringField;
+    qryMemberConsumersAddress: TStringField;
+    qryMemberConsumersStatus: TIntegerField;
+    qryMemberConsumersShuffleOrder: TIntegerField;
+    qryMemberConsumersConnectionStatus: TLongWordField;
+    qryMemberConsumersYear: TLongWordField;
+    qryCastedMemberConsumersGender: TStringField;
+    qryMemberConsumersGender: TStringField;
+    qryWinnerMemberConsumersGender: TStringField;
+    qryMCQualifiedGender: TStringField;
+    qryWinnerMCGender: TStringField;
+    qryGender: TFDQuery;
+    qryGenderGender: TStringField;
+    FDQuery1: TFDQuery;
+    FDQuery1AccountNumber: TStringField;
+    FDQuery1Gender: TStringField;
+    tblSearchMemberConsumer: TFDTable;
+    tblSearchMemberConsumerid: TFDAutoIncField;
+    tblSearchMemberConsumerAccountNumber: TStringField;
+    tblSearchMemberConsumerName: TStringField;
+    tblSearchMemberConsumerArea: TStringField;
+    tblSearchMemberConsumerAddress: TStringField;
+    tblSearchMemberConsumerStatus: TIntegerField;
+    tblSearchMemberConsumerShuffleOrder: TIntegerField;
+    tblSearchMemberConsumerConnectionStatus: TLongWordField;
+    tblSearchMemberConsumerEntryMode: TStringField;
+    tblSearchMemberConsumerYear: TLongWordField;
+    tblSearchMemberConsumerGender: TStringField;
+    tblNeedToBePosted: TFDTable;
+    tblNeedToBePostedid: TFDAutoIncField;
+    tblNeedToBePostedAccountNumber: TStringField;
+    tblNeedToBePostedName: TStringField;
+    tblNeedToBePostedArea: TStringField;
+    tblNeedToBePostedAddress: TStringField;
+    tblNeedToBePostedStatus: TIntegerField;
+    tblNeedToBePostedShuffleOrder: TIntegerField;
+    tblNeedToBePostedConnectionStatus: TLongWordField;
+    tblNeedToBePostedEntryMode: TStringField;
+    tblNeedToBePostedYear: TLongWordField;
+    tblNeedToBePostedGender: TStringField;
+    qryCheckerPosting: TFDQuery;
+    qryCheckerPostingcntDataNotPosted: TLargeintField;
+    qryUpdateRaffleEntry: TFDQuery;
+    qryUpdateRecord: TFDQuery;
+    qryMCQualifiedisPosted: TLongWordField;
+    qryMemberConsumersisPosted: TLongWordField;
+    qryCastedMemberConsumersisPosted: TLongWordField;
+    tblSearchMemberConsumerisPosted: TLongWordField;
+    tblNeedToBePostedisPosted: TLongWordField;
+    tblSearchMemberConsumerRateCode: TStringField;
+    qryCastedMemberConsumersRateCode: TStringField;
+    qryMemberConsumersRateCode: TStringField;
+    qryMCQualifiedRateCode: TStringField;
+    tblNeedToBePostedRateCode: TStringField;
+    qryMasterRateCode: TStringField;
+    qryMemberConsumersEntryMode: TStringField;
+    FDConnMYSQL: TFDConnection;
+    procedure CreateIniFile();
+    procedure CloseIniFile(AArea:String);
+    Function ReadIniFile():String;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  UMainModule: TUMainModule;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TUMainModule }
+
+procedure TUMainModule.CloseIniFile(AArea:String);
+var
+ appINI : TIniFile;
+begin
+ appINI := TIniFile.Create(ChangeFileExt(Application.ExeName,'.ini')) ;
+ try
+  appINI.WriteString('Area','Area',AArea) ;
+ finally
+  appIni.Free;
+ end;
+end;
+
+procedure TUMainModule.CreateIniFile;
+var
+ appINI : TIniFile;
+ AreaCode : string;
+ LastDate : TDateTime;
+begin
+ appINI := TIniFile.Create(ChangeFileExt(Application.ExeName,'.ini')) ;
+ try     //if no last user return an empty string
+  AreaCode := appINI.ReadString('Area','Area','ALL') ;     //if no last date return todays date
+  //LastDate := appINI.ReadDate('User', 'Date', Date) ;      //show the message
+  //ShowMessage('This program was previously used by ' + LastUser + ' on ' + DateToStr(LastDate));
+  //Top := appINI.ReadInteger('Placement','Top', Top) ;
+  //Left := appINI.ReadInteger('Placement','Left', Left);
+  //Width := appINI.ReadInteger('Placement','Width', Width);
+  //Height := appINI.ReadInteger('Placement','Height', Height);
+ finally
+  appINI.Free;
+ end;
+end;
+
+function TUMainModule.ReadIniFile(): String;
+var
+ appINI : TIniFile;
+ AreaCode : string;
+ LastDate : TDateTime;
+ i:Integer;
+begin
+ appINI := TIniFile.Create(ChangeFileExt(Application.ExeName,'.ini')) ;
+ try     //if no last user return an empty string
+  AreaCode := appINI.ReadString('Area','Area','ALL') ;     //if no last date return todays date
+  result := AreaCode;
+ finally
+  appINI.Free;
+
+ end;
+end;
+
+end.

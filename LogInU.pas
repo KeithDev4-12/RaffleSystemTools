@@ -1,0 +1,74 @@
+unit LogInU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
+  dxGDIPlusClasses;
+
+type
+  TULogin = class(TForm)
+    Image1: TImage;
+    Label1: TLabel;
+    Panel1: TPanel;
+    ComboBox1: TComboBox;
+    Label2: TLabel;
+    Shape1: TShape;
+    SpeedButton1: TSpeedButton;
+    Shape2: TShape;
+    SpeedButton2: TSpeedButton;
+    Panel2: TPanel;
+    Edit1: TEdit;
+    SpeedButton3: TSpeedButton;
+    Shape3: TShape;
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ULogin: TULogin;
+
+implementation
+
+{$R *.dfm}
+
+procedure TULogin.SpeedButton1Click(Sender: TObject);
+begin
+  if Combobox1.ItemIndex = 0 then begin
+    if Edit1.Text = '++AdminIan' then begin
+      Self.Hide
+    end;
+  end else if Combobox1.ItemIndex = 1 then begin
+
+  end else if Combobox1.ItemIndex = 2 then begin
+
+  end else if Combobox1.ItemIndex = 3 then begin
+
+  end else if Combobox1.ItemIndex = 4 then begin
+
+  end else if Combobox1.ItemIndex = 5 then begin
+
+  end else if Combobox1.ItemIndex = 6 then begin
+
+  end else if Combobox1.ItemIndex = 7 then begin
+
+  end else if Combobox1.ItemIndex = 8 then begin
+
+  end;
+end;
+
+procedure TULogin.SpeedButton3Click(Sender: TObject);
+begin
+  //if Edit1.PasswordChar = '*' then begin
+  //  Edit1.PasswordChar := '#0';
+  //end else begin
+  //  Edit1.PasswordChar := '*';
+  //end;
+end;
+
+end.

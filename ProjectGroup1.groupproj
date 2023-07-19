@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{A6C082E2-2458-4B7B-AE9F-42BD52577735}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="RaffleTools.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="D:\Documents\Embarcadero\Studio\Projects\SpeechLibrary.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="RaffleTools">
+        <MSBuild Projects="RaffleTools.dproj"/>
+    </Target>
+    <Target Name="RaffleTools:Clean">
+        <MSBuild Projects="RaffleTools.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RaffleTools:Make">
+        <MSBuild Projects="RaffleTools.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SpeechLibrary">
+        <MSBuild Projects="D:\Documents\Embarcadero\Studio\Projects\SpeechLibrary.dproj"/>
+    </Target>
+    <Target Name="SpeechLibrary:Clean">
+        <MSBuild Projects="D:\Documents\Embarcadero\Studio\Projects\SpeechLibrary.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SpeechLibrary:Make">
+        <MSBuild Projects="D:\Documents\Embarcadero\Studio\Projects\SpeechLibrary.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="RaffleTools;SpeechLibrary"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="RaffleTools:Clean;SpeechLibrary:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="RaffleTools:Make;SpeechLibrary:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -1,0 +1,48 @@
+unit LogInU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
+  dxGDIPlusClasses;
+
+type
+  TULogin = class(TForm)
+    Image1: TImage;
+    Label1: TLabel;
+    Panel1: TPanel;
+    ComboBox1: TComboBox;
+    Label2: TLabel;
+    Shape1: TShape;
+    SpeedButton1: TSpeedButton;
+    Shape2: TShape;
+    SpeedButton2: TSpeedButton;
+    Panel2: TPanel;
+    Edit1: TEdit;
+    SpeedButton3: TSpeedButton;
+    Shape3: TShape;
+    procedure SpeedButton3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ULogin: TULogin;
+
+implementation
+
+{$R *.dfm}
+
+procedure TULogin.SpeedButton3Click(Sender: TObject);
+begin
+  if Edit1.PasswordChar = '*' then begin
+    Edit1.PasswordChar := '#0';
+  end else begin
+    Edit1.PasswordChar := '*';
+  end;
+end;
+
+end.

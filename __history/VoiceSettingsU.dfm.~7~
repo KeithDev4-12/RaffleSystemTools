@@ -1,0 +1,34 @@
+object UVoiceSettings: TUVoiceSettings
+  Left = 0
+  Top = 0
+  Caption = 'UVoiceSettings'
+  ClientHeight = 195
+  ClientWidth = 441
+  Color = clBtnHighlight
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 97
+  TextHeight = 13
+  object RadioButton1: TRadioButton
+    Left = 8
+    Top = 8
+    Width = 113
+    Height = 17
+    Caption = 'English'
+    Checked = True
+    TabOrder = 0
+    TabStop = True
+  end
+  object RadioButton2: TRadioButton
+    Left = 8
+    Top = 31
+    Width = 113
+    Height = 17
+    Caption = 'Filipino'
+    TabOrder = 1
+  end
+end

@@ -1,0 +1,96 @@
+unit ServerToLocalU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons,
+  Data.DB, MemDS, VirtualTable;
+
+type
+  TUServerToLocal = class(TForm)
+    Label1: TLabel;
+    Panel1: TPanel;
+    ComboBox1: TComboBox;
+    SpeedButton1: TSpeedButton;
+    Shape1: TShape;
+    VTMemberConsumer: TVirtualTable;
+    VTMemberConsumerAccountNumber: TStringField;
+    VTMemberConsumerName: TStringField;
+    VTMemberConsumerArea: TStringField;
+    VTMemberConsumerAddress: TStringField;
+    procedure ComboBox1Change(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+    Var AArea:String;
+  public
+    { Public declarations }
+  end;
+
+var
+  UServerToLocal: TUServerToLocal;
+
+implementation
+
+{$R *.dfm}
+Uses MainModuleU;
+
+procedure TUServerToLocal.ComboBox1Change(Sender: TObject);
+begin
+  if Combobox1.ItemIndex = 0 then begin
+    AARea := '001';
+  end else if Combobox1.ItemIndex = 1 then begin
+    AARea := '002';
+  end else if Combobox1.ItemIndex = 2 then begin
+    AARea := '003';
+  end else if Combobox1.ItemIndex = 3 then begin
+    AARea := '004';
+  end else if Combobox1.ItemIndex = 4 then begin
+    AARea := '005';
+  end else if Combobox1.ItemIndex = 5 then begin
+    AARea := '006';
+  end else if Combobox1.ItemIndex = 6 then begin
+    AARea := '007';
+  end else if Combobox1.ItemIndex = 7 then begin
+    AARea := '008';
+  end;
+end;
+
+procedure TUServerToLocal.SpeedButton1Click(Sender: TObject);
+begin
+  with UMainModule do begin
+    qryMaster.Close;
+    qryMaster.ParamByName('AArea').AsString := AArea;
+    qryMaster.Open;
+    qryMaster.First;
+
+    qryMemberConsumers.Close;
+    qryMemberConsumers.Open;
+    qryMemberConsumers.First;
+
+    while Not qryMaster.EOF do begin
+      qryMemberConsumers.Append;
+      qryMemberConsumersAccountNumber.AsString := qryMasterAccountNumber.AsString;
+      qryMemberConsumersName.AsString := qryMasterName.AsString;
+      qryMemberConsumersArea.AsString := qryMasterArea.AsString;
+      qryMemberConsumersAddress.AsString := qryMasterAddress.AsString;
+      qryMemberConsumers.Post;
+      {if not qryMemberConsumers.Locate('AccountNumber',qryMasterAccountNumber.AsString, []) then begin
+        qryMemberConsumers.Append;
+        qryMemberConsumersAccountNumber.AsString := qryMasterAccountNumber.AsString;
+        qryMemberConsumersName.AsString := qryMasterName.AsString;
+        qryMemberConsumersArea.AsString := qryMasterArea.AsString;
+        qryMemberConsumersAddress.AsString := qryMasterAddress.AsString;
+        qryMemberConsumers.Post;
+      end;}
+      qryMaster.Next;
+    end;
+
+
+
+
+  end;
+end;
+
+end.
