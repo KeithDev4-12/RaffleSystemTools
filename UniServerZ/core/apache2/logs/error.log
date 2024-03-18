@@ -1,0 +1,3 @@
+[Fri Oct 15 10:21:53.637454 2021] [core:warn] [pid 19396:tid 596] AH00098: pid file D:/Documents/Downloads/UniServerZ/core/apache2/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+PHP Warning:  'C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll' 14.12 is not compatible with this PHP build linked with 14.28 in Unknown on line 0
+[Fri Oct 15 10:21:53.798553 2021] [:emerg] [pid 19396:tid 596] AH00020: Configuration Failed, exiting
