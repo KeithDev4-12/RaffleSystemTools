@@ -40,14 +40,10 @@ type
     ComboBox1: TComboBox;
     DBGridEh1: TDBGridEh;
     DSActiveMemberConsumer: TDataSource;
-    Timer1: TTimer;
-    SpeedButton5: TSpeedButton;
     VT: TVirtualTable;
     VTAccountNumber: TStringField;
     VTName: TStringField;
     DataSource1: TDataSource;
-    Image2: TImage;
-    Image1: TImage;
     SpeedButton6: TSpeedButton;
     Shape5: TShape;
     N2: TMenuItem;
@@ -69,12 +65,6 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
-    Label14: TLabel;
-    imgHoverArrowShowSelected: TImage;
-    Image3: TImage;
-    Label15: TLabel;
-    Image4: TImage;
-    Label16: TLabel;
     Image5: TImage;
     DSWinnerMemberConsumer: TDataSource;
     SpeedButton7: TSpeedButton;
@@ -82,27 +72,26 @@ type
     Winner1: TMenuItem;
     mpBackGround: TMediaPlayer;
     mpSpinningWheel: TMediaPlayer;
-    SpVoice1: TSpVoice;
+    //SpVoice1: TSpVoice;
     SpeechSettings1: TMenuItem;
     Reports1: TMenuItem;
     AllAttendie1: TMenuItem;
     AllWinners1: TMenuItem;
     N3: TMenuItem;
-    Image6: TImage;
     est1: TMenuItem;
     GenderTester1: TMenuItem;
     ReGenderize1: TMenuItem;
     Summary1: TMenuItem;
     Timer2: TTimer;
     AllWinnersPerClassification1: TMenuItem;
+    SpVoice1: TSpVoice;
+    pnlRaffleTemplate: TPanel;
+    emplate1: TMenuItem;
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
-    procedure SpeedButton5Click(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure GetFromCooptoLocalData1Click(Sender: TObject);
     procedure SpeedButton6Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
@@ -112,7 +101,6 @@ type
     procedure Hide1Click(Sender: TObject);
     procedure DataSource1DataChange(Sender: TObject; Field: TField);
     procedure Image2MouseEnter(Sender: TObject);
-    procedure Image2MouseLeave(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure Winner1Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
@@ -142,6 +130,9 @@ type
 
   private
     { Private declarations }
+
+  public
+    { Public declarations }
     var AArea : String;
     var AAreaName : String;
     var I : Integer;
@@ -152,9 +143,8 @@ type
     var ClickCounter:Integer;
     var secondCount :Integer;
     var DefaultSQL : TStrings;
+    var isRaffleTemplateCreated: Boolean;
 
-  public
-    { Public declarations }
   end;
 
 var
@@ -164,7 +154,7 @@ implementation
 
 {$R *.dfm}
 
-Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU, ReportU;
+Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU, ReportU,RaffleTemplate1;
 
 procedure TUMainForm.AllAttendie1Click(Sender: TObject);
 Var
@@ -318,9 +308,9 @@ end;
 
 procedure TUMainForm.DataSource1DataChange(Sender: TObject; Field: TField);
 begin
-  Label14.Caption := VTAccountNumber.AsString + ' | ' + VTName.AsString;
-  Label15.Caption := VTAccountNumber.AsString + ' | ' + VTName.AsString;
-  Label16.Caption := VTAccountNumber.AsString + ' | ' + VTName.AsString;
+  //Label14.Caption := VTAccountNumber.AsString + ' | ' + VTName.AsString;
+  //Label15.Caption := VTAccountNumber.AsString + ' | ' + VTName.AsString;
+  //Label16.Caption := VTAccountNumber.AsString + ' | ' + VTName.AsString;
 end;
 
 function TUMainForm.isSpeakerAvailable: Boolean;
@@ -350,6 +340,7 @@ procedure TUMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   //mpBackGround.Stop;
   UMainModule.CloseIniFile(AARea);
+  isRaffleTemplateCreated := False;
 end;
 
 procedure TUMainForm.FormCreate(Sender: TObject);
@@ -360,27 +351,12 @@ begin
   ALanguage:= 1;
   AGender:= 1;
    secondCount := 0;
+  isRaffleTemplateCreated := False;
+    // Create an instance of ChildForm
+  RaffleTemplate1U := TRaffleTemplate1U.Create(Application);
+  // Show ChildForm inside Panel1
+  RaffleTemplate1U.ShowInPanel(Panel5);
   UMainModule.CreateIniFile();
-end;
-
-procedure TUMainForm.FormResize(Sender: TObject);
-Var
-  LocationWheelX,LocationWheelY : Integer;
-begin
-  Application.ProcessMessages;
-  I := 0;
-  TickInterval := 0;
-  // LEFT
-  Image1.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (Image1.Width DIV 2);
-  SpeedButton5.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (SpeedButton5.Width DIV 2);
-  Image6.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (Image6.Width DIV 2);
-  Image2.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) + (Image1.Width DIV 2) - (Image2.Width DIV 2);
-  // TOP
-  Image1.Top := ((Self.Height - Image3.Height)  DIV 2) - (Image1.Height DIV 2) + 10;
-  SpeedButton5.Top := ((Self.Height - Image3.Height) DIV 2) - (SpeedButton5.Height DIV 2) + 10;
-  Image6.Top := ((Self.Height - Image3.Height) DIV 2) - (Image6.Height DIV 2) + 6;
-  Image2.Top := ((Self.Height - Image3.Height) DIV 2) - (Image2.Height DIV 2) + 10;
-  //ShowMessage(IntToStr(Self.Width) + '-' + IntToStr(Screen.Width) + '-' + IntToStr(Panel1.Width) + '-'  + IntToStr(LocationWheelX) + ' - ' + IntToStr(LocationWheelY) );
 end;
 
 procedure TUMainForm.FormShow(Sender: TObject);
@@ -600,62 +576,65 @@ end;
 procedure TUMainForm.Hide1Click(Sender: TObject);
 begin
   if Panel1.Visible then begin
-    Panel1.Visible := False;
+    with RaffleTemplate1U do begin
+      Panel1.Visible := False;
 
-    Image3.Width :=  Self.Width;
-    Image3.Left :=  0;
-    label15.Width := Self.Width;
-    label15.Left := 20;
+      Image3.Width :=  Self.Width;
+      Image3.Left :=  0;
+      label15.Width := Self.Width;
+      label15.Left := 20;
 
-    Image4.Width :=  Self.Width;
-    Image4.Left :=  0;
-    label16.Width := Self.Width;
-    label16.Left := 20;
+      Image4.Width :=  Self.Width;
+      Image4.Left :=  0;
+      label16.Width := Self.Width;
+      label16.Left := 20;
 
-    //DBGridEh3.Width := Self.Width;
-    //DBGridEh3.Left := 0;
-    //DBGridEh2.Width := Self.Width;
-    //DBGridEh2.Left := 0;
-    // make center the spinning wheel
-    // LEFT
-    Image1.Left := (Self.Width DIV 2) - (Image1.Width DIV 2);
-    SpeedButton5.Left := (Self.Width DIV 2) - (SpeedButton5.Width DIV 2);
-    Image6.Left := (Self.Width DIV 2) - (Image6.Width DIV 2);
-    Image2.Left := (Self.Width DIV 2) + (Image1.Width DIV 2) - (Image2.Width DIV 2);
-    // TOP
-    Image1.Top := ((Self.Height - Image3.Height)  DIV 2) - (Image1.Height DIV 2) + 10;
-    SpeedButton5.Top := ((Self.Height - Image3.Height) DIV 2) - (SpeedButton5.Height DIV 2) + 10;
-    Image6.Top := ((Self.Height - Image3.Height) DIV 2) - (Image6.Height DIV 2) + 6;
-    Image2.Top := ((Self.Height - Image3.Height) DIV 2) - (Image2.Height DIV 2) + 10;
+      //DBGridEh3.Width := Self.Width;
+      //DBGridEh3.Left := 0;
+      //DBGridEh2.Width := Self.Width;
+      //DBGridEh2.Left := 0;
+      // make center the spinning wheel
+      // LEFT
+      Image1.Left := (Self.Width DIV 2) - (Image1.Width DIV 2);
+      SpeedButton5.Left := (Self.Width DIV 2) - (SpeedButton5.Width DIV 2);
+      Image6.Left := (Self.Width DIV 2) - (Image6.Width DIV 2);
+      Image2.Left := (Self.Width DIV 2) + (Image1.Width DIV 2) - (Image2.Width DIV 2);
+      // TOP
+      Image1.Top := ((Self.Height - Image3.Height)  DIV 2) - (Image1.Height DIV 2) + 10;
+      SpeedButton5.Top := ((Self.Height - Image3.Height) DIV 2) - (SpeedButton5.Height DIV 2) + 10;
+      Image6.Top := ((Self.Height - Image3.Height) DIV 2) - (Image6.Height DIV 2) + 6;
+      Image2.Top := ((Self.Height - Image3.Height) DIV 2) - (Image2.Height DIV 2) + 10;
+    end;
   end else begin
-    Panel1.Visible := True;
+    with RaffleTemplate1U do begin
+      Panel1.Visible := True;
 
-    Image3.Width := Self.Width - Panel1.Width;
-    Image3.Left := Panel1.Width;
-    label15.Width := Self.Width - Panel1.Width;
-    label15.Left := Panel1.Width + 20;
+      Image3.Width := Self.Width - Panel1.Width;
+      Image3.Left := Panel1.Width;
+      label15.Width := Self.Width - Panel1.Width;
+      label15.Left := Panel1.Width + 20;
 
-    Image4.Width :=  Self.Width - Panel1.Width;
-    Image4.Left :=  Panel1.Width;
-    label16.Width := Self.Width - Panel1.Width;
-    label16.Left := Panel1.Width + 20;
+      Image4.Width :=  Self.Width - Panel1.Width;
+      Image4.Left :=  Panel1.Width;
+      label16.Width := Self.Width - Panel1.Width;
+      label16.Left := Panel1.Width + 20;
 
-    //DBGridEh3.Width := Self.Width - Panel1.Width;
-    //DBGridEh3.Left := Panel1.Width;
-    //DBGridEh2.Width := Self.Width - Panel1.Width;
-    //DBGridEh2.Left := Panel1.Width;
-    // make center the spinning wheel
-    // LEFT
-    Image1.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (Image1.Width DIV 2);
-    SpeedButton5.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (SpeedButton5.Width DIV 2);
-    Image6.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (Image6.Width DIV 2);
-    Image2.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) + (Image1.Width DIV 2) - (Image2.Width DIV 2);
-    // TOP
-    Image1.Top := ((Self.Height - Image3.Height)  DIV 2) - (Image1.Height DIV 2) + 10;
-    SpeedButton5.Top := ((Self.Height - Image3.Height) DIV 2) - (SpeedButton5.Height DIV 2) + 10;
-    Image6.Top := ((Self.Height - Image3.Height) DIV 2) - (Image6.Height DIV 2) + 6;
-    Image2.Top := ((Self.Height - Image3.Height) DIV 2) - (Image2.Height DIV 2) + 10;
-
+      //DBGridEh3.Width := Self.Width - Panel1.Width;
+      //DBGridEh3.Left := Panel1.Width;
+      //DBGridEh2.Width := Self.Width - Panel1.Width;
+      //DBGridEh2.Left := Panel1.Width;
+      // make center the spinning wheel
+      // LEFT
+      Image1.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (Image1.Width DIV 2);
+      SpeedButton5.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (SpeedButton5.Width DIV 2);
+      Image6.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) - (Image6.Width DIV 2);
+      Image2.Left := (Panel1.Width + (Self.Width - Panel1.Width) DIV 2) + (Image1.Width DIV 2) - (Image2.Width DIV 2);
+      // TOP
+      Image1.Top := ((Self.Height - Image3.Height)  DIV 2) - (Image1.Height DIV 2) + 10;
+      SpeedButton5.Top := ((Self.Height - Image3.Height) DIV 2) - (SpeedButton5.Height DIV 2) + 10;
+      Image6.Top := ((Self.Height - Image3.Height) DIV 2) - (Image6.Height DIV 2) + 6;
+      Image2.Top := ((Self.Height - Image3.Height) DIV 2) - (Image2.Height DIV 2) + 10;
+    end;
 
   end;
 end;
@@ -666,19 +645,13 @@ begin
   //mgHoverArrowShowSelected.Visible := True;
 end;
 
-procedure TUMainForm.Image2MouseLeave(Sender: TObject);
-begin
-  Label14.Visible := False;
-  imgHoverArrowShowSelected.Visible := False;
-end;
-
 procedure TUMainForm.Label4Click(Sender: TObject);
 begin
   if ClickCounter>=5 then begin
-    SpeedButton5.Enabled := True;
+    //SpeedButton5.Enabled := True;
 
   end else begin
-    SpeedButton5.Enabled := False;
+    //SpeedButton5.Enabled := False;
     ClickCounter := ClickCounter +1;
   end;
 end;
@@ -799,39 +772,6 @@ begin
    UMainModule.qryMCQualified.First;
 end;
 
-procedure TUMainForm.SpeedButton5Click(Sender: TObject);
-begin
-   if UMainModule.qryMCQualified.IsEmpty then begin
-     //MessageDlg('Cannot Spin the Wheel if Record is Empty!!!',mtWarning,);
-     Exit;
-   end;
-
-   Application.ProcessMessages;
-   //Timer1.Enabled := True;
-   SecLength := (RandomRange(6, 15));
-
-   Application.ProcessMessages;
-  (Image1.Picture.Graphic as TGIFImage).Animate := True;
-     (Image1.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
-  Application.ProcessMessages;
-  (Image3.Picture.Graphic as TGIFImage).Animate := True;
-     (Image3.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
-  (Image4.Picture.Graphic as TGIFImage).Animate := True;
-     (Image4.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
-   Application.ProcessMessages;
-   (imgHoverArrowShowSelected.Picture.Graphic as TGIFImage).Animate := True;
-  Application.ProcessMessages;
-     (imgHoverArrowShowSelected.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
-     Application.ProcessMessages;
-      DoubleBuffered := True;// stops flickering
-      Application.ProcessMessages;
-      Timer1.Enabled := True;
-      Application.ProcessMessages;
-
-
-  //ShowMessage(IntToStr(SecLength));
-end;
-
 procedure TUMainForm.SpeedButton6Click(Sender: TObject);
 begin
   With UMainModule do begin
@@ -840,11 +780,13 @@ begin
 
     FDQuery2.Close;
     FDQuery2.ParamByName('AARea').AsString := AArea;
+    //FDQuery2.ParamByName('AYear').AsString := CurrentYear;
     FDQuery2.Open;
     FDQuery2.First;
 
     qryMCQualified.Close;
     qryMCQualified.ParamByName('AARea').AsString := AArea;
+    //qryMCQualified.ParamByName('AYear').AsString := CurrentYear;
     qryMCQualified.Open;
     qryMCQualified.First;
 
@@ -908,91 +850,6 @@ begin
       qrSummary.Preview;
     end;
   end;
-end;
-
-procedure TUMainForm.Timer1Timer(Sender: TObject);
-var
-  IndicatorID:Integer;
-  UMemberConsumer : TUMemberConsumer;
-  AAccountNumber,AName:String;
-begin
-  Application.ProcessMessages;
-
-  I := I + 1;
-  TickInterval := TickInterval + Timer1.Interval;
-  {if I = 1 then begin
-    (Image1.Picture.Graphic as TGIFImage ).AnimationSpeed:= 500;
-  end else if I = 2 then begin
-    (Image1.Picture.Graphic as TGIFImage ).AnimationSpeed:= 400;
-
-  end else if I = 3 then begin
-    (Image1.Picture.Graphic as TGIFImage ).AnimationSpeed:= 300;
-
-  end else if I = 4 then begin
-    (Image1.Picture.Graphic as TGIFImage ).AnimationSpeed:= 200;
-
-  end else if I = 5 then begin
-    (Image1.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;
-
-  end else}
-
-  //mpSpinningWheel.Play;
-  if TickInterval = (SecLength*1000) then begin
-    (Image1.Picture.Graphic as TGIFImage).Animate := False;
-     (Image1.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
-    Application.ProcessMessages;
-    (Image3.Picture.Graphic as TGIFImage).Animate := False;
-    Application.ProcessMessages;
-     (Image3.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
-     (Image4.Picture.Graphic as TGIFImage).Animate := False;
-    Application.ProcessMessages;
-     (Image4.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
-   Application.ProcessMessages;
-     (imgHoverArrowShowSelected.Picture.Graphic as TGIFImage).Animate := False;
-     (imgHoverArrowShowSelected.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
-      DoubleBuffered := True;// stops flickering
-    IndicatorID := RandomRange(1, UMainModule.qryMCQualified.RecordCount+1);
-    UMainModule.qryMCQualified.RecNo := IndicatorID;
-    Timer1.Enabled := False;
-    I:=0;
-    TickInterval := 0;
-    Application.ProcessMessages;
-      try
-        mpSpinningWheel.Stop;
-        AAccountNumber := UMainModule.qryMCQualifiedAccountNumber.AsString;
-        AName := UMainModule.qryMCQualifiedName.AsString;
-        CreateABatchFile(AAccountNumber,AName);
-        Application.ProcessMessages;
-        screen.Cursor := crHourGlass;
-        UWinner := TUWinner.Create(nil);
-        UWinner.ShowModal();
-        Application.ProcessMessages;
-
-        Label16.Caption := UWinner.lblAccountNumber.Caption + ' | ' + UWinner.lblName.Caption;
-        Label15.Caption := UWinner.lblAccountNumber.Caption + ' | ' + UWinner.lblName.Caption;
-        Label14.Caption := UWinner.lblAccountNumber.Caption + ' | ' + UWinner.lblName.Caption;
-        Application.ProcessMessages;
-      finally
-        UWinner.Free();
-        screen.Cursor := crDefault;
-        Application.ProcessMessages;
-
-      end;
-      Exit;
-  end else begin
-    Application.ProcessMessages;
-    IndicatorID := RandomRange(1, UMainModule.qryMCQualified.RecordCount);
-    UMainModule.qryMCQualified.RecNo := IndicatorID;
-    Application.ProcessMessages;
-  end;
-  Application.ProcessMessages;
-  VT.Clear;
-  VT.Append;
-  VTAccountNumber.AsString := UMainModule.qryMCQualifiedAccountNumber.AsString;
-  VTName.AsString := UMainModule.qryMCQualifiedName.AsString;
-  VT.Post;
-
-  Application.ProcessMessages;
 end;
 
 procedure TUMainForm.Timer2Timer(Sender: TObject);

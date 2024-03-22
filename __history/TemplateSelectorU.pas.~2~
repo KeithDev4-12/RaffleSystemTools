@@ -1,0 +1,24 @@
+unit TemplateSelectorU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TUTemplateSelector = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  UTemplateSelector: TUTemplateSelector;
+
+implementation
+
+{$R *.dfm}
+
+end.

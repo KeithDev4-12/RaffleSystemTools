@@ -139,6 +139,18 @@
             <Form>ULogin</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="RaffleTemplate1.pas">
+            <Form>RaffleTemplate1U</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="TemplateSelectorU.pas">
+            <Form>UTemplateSelector</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="RaffleTemplate2.pas">
+            <Form>URaffleTemplate</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

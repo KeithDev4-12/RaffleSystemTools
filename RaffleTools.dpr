@@ -10,7 +10,10 @@ uses
   UploaderPreRegistrationU in 'UploaderPreRegistrationU.pas' {UUploaderPreRegistration},
   VoiceSettingsU in 'VoiceSettingsU.pas' {UVoiceSettings},
   ReportU in 'ReportU.pas' {UReport},
-  LogInU in 'LogInU.pas' {ULogin};
+  LogInU in 'LogInU.pas' {ULogin},
+  RaffleTemplate1 in 'RaffleTemplate1.pas' {RaffleTemplate1U},
+  TemplateSelectorU in 'TemplateSelectorU.pas' {UTemplateSelector},
+  RaffleTemplate2 in 'RaffleTemplate2.pas' {URaffleTemplate};
 
 {$R *.res}
 
@@ -23,5 +26,8 @@ begin
   Application.CreateForm(TUVoiceSettings, UVoiceSettings);
   Application.CreateForm(TUReport, UReport);
   Application.CreateForm(TULogin, ULogin);
+  Application.CreateForm(TRaffleTemplate1U, RaffleTemplate1U);
+  Application.CreateForm(TUTemplateSelector, UTemplateSelector);
+  Application.CreateForm(TURaffleTemplate, URaffleTemplate);
   Application.Run;
 end.
