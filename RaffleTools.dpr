@@ -13,21 +13,25 @@ uses
   LogInU in 'LogInU.pas' {ULogin},
   RaffleTemplate1 in 'RaffleTemplate1.pas' {RaffleTemplate1U},
   TemplateSelectorU in 'TemplateSelectorU.pas' {UTemplateSelector},
-  RaffleTemplate2 in 'RaffleTemplate2.pas' {URaffleTemplate};
+  RaffleTemplate2 in 'RaffleTemplate2.pas' {RaffleTemplate2U},
+  SettingsU in 'SettingsU.pas' {USettings},
+  SignatureU in 'SignatureU.pas' {UFormSignature};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TUMainForm, UMainForm);
   Application.CreateForm(TUMainModule, UMainModule);
+  Application.CreateForm(TUMainForm, UMainForm);
   Application.CreateForm(TUUploaderPreRegistration, UUploaderPreRegistration);
   Application.CreateForm(TUVoiceSettings, UVoiceSettings);
   Application.CreateForm(TUReport, UReport);
   Application.CreateForm(TULogin, ULogin);
   Application.CreateForm(TRaffleTemplate1U, RaffleTemplate1U);
   Application.CreateForm(TUTemplateSelector, UTemplateSelector);
-  Application.CreateForm(TURaffleTemplate, URaffleTemplate);
+  Application.CreateForm(TRaffleTemplate2U, RaffleTemplate2U);
+  Application.CreateForm(TUSettings, USettings);
+  Application.CreateForm(TUFormSignature, UFormSignature);
   Application.Run;
 end.

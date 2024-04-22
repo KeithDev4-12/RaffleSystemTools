@@ -82,6 +82,24 @@ object UMainForm: TUMainForm
         Pen.Width = 3
         Visible = False
       end
+      object Label7: TLabel
+        AlignWithMargins = True
+        Left = 387
+        Top = 4
+        Width = 14
+        Height = 24
+        Margins.Top = 4
+        Align = alRight
+        Alignment = taCenter
+        Caption = 'V'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clScrollBar
+        Font.Height = -20
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ExplicitLeft = 395
+      end
     end
     object Panel4: TPanel
       Left = 0
@@ -151,7 +169,6 @@ object UMainForm: TUMainForm
             0000000000000000000000000000000000000000000000000000000000000000
             0000000000000000000000000000000000000000000000000000}
           ParentFont = False
-          Visible = False
           OnClick = SpeedButton3Click
         end
         object SpeedButton4: TSpeedButton
@@ -431,6 +448,24 @@ object UMainForm: TUMainForm
             Font.Name = 'Segoe UI'
             Font.Style = [fsBold]
             ParentFont = False
+            ExplicitHeight = 13
+          end
+          object Label6: TLabel
+            Left = 107
+            Top = 0
+            Width = 27
+            Height = 15
+            Align = alLeft
+            Alignment = taRightJustify
+            Caption = '1,000'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Segoe UI'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Visible = False
+            ExplicitLeft = 134
             ExplicitHeight = 13
           end
         end
@@ -884,10 +919,6 @@ object UMainForm: TUMainForm
     Height = 694
     Align = alClient
     TabOrder = 3
-    ExplicitLeft = 414
-    ExplicitTop = 83
-    ExplicitWidth = 99
-    ExplicitHeight = 510
   end
   object MainMenu1: TMainMenu
     Left = 432
@@ -929,8 +960,8 @@ object UMainForm: TUMainForm
       OnClick = Winner1Click
     end
     object SpeechSettings1: TMenuItem
-      Caption = 'Speech Settings'
-      Visible = False
+      Caption = 'Settings'
+      OnClick = SpeechSettings1Click
     end
     object Reports1: TMenuItem
       Caption = 'Reports'
@@ -969,9 +1000,6 @@ object UMainForm: TUMainForm
       Visible = False
       OnClick = ReGenderize1Click
     end
-    object emplate1: TMenuItem
-      Caption = 'Template'
-    end
   end
   object DSActiveMemberConsumer: TDataSource
     DataSet = UMainModule.qryMCQualified
@@ -990,12 +1018,17 @@ object UMainForm: TUMainForm
         Name = 'Name'
         DataType = ftString
         Size = 45
+      end
+      item
+        Name = 'Address'
+        DataType = ftString
+        Size = 20
       end>
     Left = 632
     Top = 120
     Data = {
-      040002000D004163636F756E744E756D626572010096000000000004004E616D
-      6501002D0000000000000000000000}
+      040003000D004163636F756E744E756D626572010096000000000004004E616D
+      6501002D00000000000700416464726573730100140000000000000000000000}
     object VTAccountNumber: TStringField
       FieldName = 'AccountNumber'
       Size = 150
@@ -1003,6 +1036,9 @@ object UMainForm: TUMainForm
     object VTName: TStringField
       FieldName = 'Name'
       Size = 45
+    end
+    object VTAddress: TStringField
+      FieldName = 'Address'
     end
   end
   object DataSource1: TDataSource

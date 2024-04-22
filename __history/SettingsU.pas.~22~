@@ -1,0 +1,103 @@
+unit SettingsU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, scControls, scGPControls,
+  Vcl.ExtCtrls;
+
+type
+  TUSettings = class(TForm)
+    GroupBox1: TGroupBox;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    Panel1: TPanel;
+    scGPButton1: TscGPButton;
+    GroupBox2: TGroupBox;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Label1: TLabel;
+    Edit1: TEdit;
+    Panel4: TPanel;
+    Label2: TLabel;
+    Edit2: TEdit;
+    GroupBox3: TGroupBox;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    Label3: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure scGPButton1Click(Sender: TObject);
+    function IntToBool(const AnInt: Integer): Boolean;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  USettings: TUSettings;
+
+implementation
+
+{$R *.dfm}
+Uses MainModuleU;
+
+procedure TUSettings.FormCreate(Sender: TObject);
+
+begin
+  With UMainModule do begin
+    qrySettings.Close;
+    qrySettings.Open;
+    qrySettings.First;
+    if qrySettingsTheme.AsString.Contains('1') then begin
+      RadioButton1.Checked := True;
+    end else if qrySettingsTheme.AsString.Contains('2') then begin
+      RadioButton2.Checked := True;
+    end;
+
+    Edit1.Text := IntToStr(qrySettingsSecMin.AsInteger);
+    Edit2.Text := IntToStr(qrySettingsSecMax.AsInteger);
+
+
+    CheckBox1.Checked := IntToBool(qrySettingsIsVenueRegistration.AsInteger);
+    CheckBox2.Checked := IntToBool(qrySettingsIsOnlineRegistration.AsInteger);
+    CheckBox3.Checked := IntToBool(qrySettingsIsPreRegistration.AsInteger);
+
+  end;
+end;
+
+
+
+function TUSettings.IntToBool(const AnInt: Integer): Boolean;
+    begin
+       if AnInt = 0 then Result := False
+                    else Result := True;
+    end;
+
+procedure TUSettings.scGPButton1Click(Sender: TObject);
+begin
+  With UMainModule do begin
+    qrySettings.Edit;
+    if RadioButton1.Checked then begin
+      qrySettingsTheme.AsString := 'RadioButton1';
+    end else if RadioButton2.Checked then begin
+      qrySettingsTheme.AsString := 'RadioButton2';
+    end;
+
+    qrySettingsSecMin.AsInteger := StrToInt(Edit1.Text);
+    qrySettingsSecMax.AsInteger := StrToInt(Edit2.Text);
+
+    qrySettingsIsVenueRegistration.AsBoolean := CheckBox1.Checked;
+    qrySettingsIsOnlineRegistration.AsBoolean := CheckBox2.Checked;
+    qrySettingsIsPreRegistration.AsBoolean := CheckBox3.Checked;
+
+    MessageDlg('Settings is Upto date!',mtInformation,[mbOk],0);
+    qrySettings.Post;
+
+
+  end;
+end;
+
+end.

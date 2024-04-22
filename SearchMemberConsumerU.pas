@@ -69,7 +69,7 @@ type
     Panel11: TPanel;
     Label12: TLabel;
     Shape3: TShape;
-    vtMemberConsumerid: TAutoIncField;
+    vtMemberConsumerid: TVirtualAutoIncField;
     vtMemberConsumerAccountNumber: TStringField;
     vtMemberConsumerName: TStringField;
     vtMemberConsumerArea: TStringField;
@@ -82,6 +82,12 @@ type
     vtMemberConsumerGender: TStringField;
     vtMemberConsumerisPosted: TLongWordField;
     vtMemberConsumerRateCode: TStringField;
+    vtMemberConsumerIsQualifiedForRaffle: TShortintField;
+    vtMemberConsumerIsSignatureAvailable: TShortintField;
+    Panel12: TPanel;
+    Label13: TLabel;
+    Panel13: TPanel;
+    Label14: TLabel;
     procedure SearchBox1Change(Sender: TObject);
     procedure DBGridEh1KeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
@@ -106,6 +112,7 @@ type
     { Private declarations }
     var AArea : String;
     var AAreaName : String;
+    var SignatureDeviceIsAvailable : boolean;
   public
     { Public declarations }
   end;
@@ -118,7 +125,7 @@ implementation
 
 {$R *.dfm}
 
-Uses MainModuleU;
+Uses MainModuleU,SignatureU;
 
 procedure TUMemberConsumer.ComboBox1Change(Sender: TObject);
 begin
@@ -146,7 +153,7 @@ begin
     if AArea <> 'ALL' then begin
 
       tblSearchMemberConsumer.Filtered := False;
-      tblSearchMemberConsumer.Filter := 'Area = ' +QuotedStr(AARea) + ' AND Year = ' + QuotedStr('2023') + ' AND Status = 0';
+      tblSearchMemberConsumer.Filter := 'Area = ' +QuotedStr(AARea) + ' AND Year = ' + QuotedStr(IntToStr(CurrentYear)) + ' AND Status = 0';
       tblSearchMemberConsumer.Filtered := True;
       tblSearchMemberConsumer.First;
 
@@ -165,7 +172,7 @@ begin
       vtMemberConsumer.Open;
     end else begin
       tblSearchMemberConsumer.Filtered := False;
-      tblSearchMemberConsumer.Filter := 'Year = ' + QuotedStr('2023') + ' AND Status = 0';
+      tblSearchMemberConsumer.Filter := 'Year = ' + QuotedStr(IntToStr(CurrentYear)) + ' AND Status = 0';
       tblSearchMemberConsumer.Filtered := True;
 
       //qryCastedMemberConsumers.Filtered := False;
@@ -183,6 +190,8 @@ begin
 end;
 
 procedure TUMemberConsumer.DBGridEh1DblClick(Sender: TObject);
+Var
+  UFormSignature : TUFormSignature;
 begin
   with UMainModule do begin
     if qryMemberConsumers.Locate('AccountNumber',vtMemberConsumerAccountNumber.AsString,[]) then begin
@@ -192,18 +201,55 @@ begin
         'Account Name    : ' + vtMemberConsumerName.AsString + #10#13 +
         'With Address of : ' + vtMemberConsumerAddress.AsString,mtWarning,[mbYes,mbNo],0) = mrYes then begin
           if (vtMemberConsumerRateCode.AsString = 'R') OR (vtMemberConsumerRateCode.AsString = 'C') then begin
-            qryMemberConsumers.Edit;
-            qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
-            qryMemberConsumersStatus.AsInteger := 1;
-            qryMemberConsumers.Post;
-            PostingCounter := PostingCounter + 1;
-            // 1 = Active Consumers
+            if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0) AND (SignatureDeviceIsAvailable)) then begin
+              UFormSignature := TUFormSignature.Create(nil);
+              UFormSignature.ShowModal;
+            end else begin
+              if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
+                MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+              end;
+              if qryMemberConsumersIsQualifiedForRaffle.AsInteger=1 then begin
+                qryMemberConsumers.Edit;
+                qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                qryMemberConsumersStatus.AsInteger := 1;
+                qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumers.Post;
+                PostingCounter := PostingCounter + 1;
+                // 1 = Active Consumers
+              end else begin
+                qryMemberConsumers.Edit;
+                qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                qryMemberConsumersStatus.AsInteger := 4;
+                qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumers.Post;
+                PostingCounter := PostingCounter + 1;
+                // 1 = Active Consumers
+              end;
+            end;
           end else begin
-            qryMemberConsumers.Edit;
-            qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
-            qryMemberConsumersStatus.AsInteger := 3;
-            qryMemberConsumers.Post;
-            PostingCounter := PostingCounter + 1;
+            if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0) AND (SignatureDeviceIsAvailable)) then begin
+              UFormSignature := TUFormSignature.Create(nil);
+              UFormSignature.ShowModal;
+            end else begin
+              if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
+                MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+              end;
+              if qryMemberConsumersIsQualifiedForRaffle.AsInteger=1 then begin
+                qryMemberConsumers.Edit;
+                qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                qryMemberConsumersStatus.AsInteger := 3;
+                qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumers.Post;
+                PostingCounter := PostingCounter + 1;
+              end else begin
+                qryMemberConsumers.Edit;
+                qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                qryMemberConsumersStatus.AsInteger := 4;
+                qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumers.Post;
+                PostingCounter := PostingCounter + 1;
+              end;
+            end;
           end;
         end else begin
           Exit;
@@ -212,12 +258,29 @@ begin
         if MessageDlg('This Consumer is Disconnected or Disco-Vacant!!' + #10#13 +
         'He/She can Still be part of This Event but,'+ #10#13 +
         'Cannot be Part of the Raffle Draw!!' + #10#13,mtWarning,[mbYes,mbNo],0) = mrYes then begin
-          qryMemberConsumers.Edit;
-          qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
-          qryMemberConsumersStatus.AsInteger := 3;
-          // 3 = Disconnected but cannot be part of Raffle Draw
-          qryMemberConsumers.Post;
-          PostingCounter := PostingCounter + 1;
+          if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 1) AND (SignatureDeviceIsAvailable)) then begin
+              UFormSignature := TUFormSignature.Create(nil);
+              UFormSignature.ShowModal;
+          end else begin
+            if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 1)) then begin
+              MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+            end;
+            if qryMemberConsumersIsQualifiedForRaffle.AsInteger=1 then begin
+              qryMemberConsumers.Edit;
+              qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+              qryMemberConsumersStatus.AsInteger := 3;
+              // 3 = Disconnected but cannot be part of Raffle Draw
+              qryMemberConsumers.Post;
+              PostingCounter := PostingCounter + 1;
+            end else begin
+              qryMemberConsumers.Edit;
+              qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+              qryMemberConsumersStatus.AsInteger := 4;
+              // 3 = Disconnected but cannot be part of Raffle Draw
+              qryMemberConsumers.Post;
+              PostingCounter := PostingCounter + 1;
+            end;
+          end;
         end else begin
           Exit;
         end;
@@ -237,9 +300,17 @@ procedure TUMemberConsumer.DBGridEh1DrawColumnCell(Sender: TObject;
 begin
   With UMainModule do begin
      if vtMemberConsumerConnectionStatus.AsString = '2' then begin
-       DBGridEh1.Canvas.Brush.Color:=clRed;
+       DBGridEh1.Canvas.Brush.Color:=clMedGray;
      end else if vtMemberConsumerConnectionStatus.AsString = '3' then begin
        DBGridEh1.Canvas.Brush.Color:=clHighlight;
+     end;
+
+     if vtMemberConsumerIsQualifiedForRaffle.AsInteger <> 1 then begin
+        DBGridEh1.Canvas.Brush.Color:=clYellow;
+     end;
+
+     if vtMemberConsumerIsSignatureAvailable.AsInteger <> 1 then begin
+        DBGridEh1.Canvas.Brush.Color:=clRed;
      end;
 
      DBGridEh1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
@@ -258,30 +329,88 @@ begin
           'Account Name    : ' + vtMemberConsumerName.AsString + #10#13 +
           'With Address of : ' + vtMemberConsumerAddress.AsString,mtWarning,[mbYes,mbNo],0) = mrYes then begin
             if (vtMemberConsumerRateCode.AsString = 'R') OR (vtMemberConsumerRateCode.AsString = 'C') then begin
-              qryMemberConsumers.Edit;
-              qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
-              qryMemberConsumersStatus.AsInteger := 1;
-              qryMemberConsumers.Post;
-              PostingCounter := PostingCounter + 1;
-              // 1 = Active Consumers
+              if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0) AND (SignatureDeviceIsAvailable)) then begin
+                UFormSignature := TUFormSignature.Create(nil);
+                UFormSignature.ShowModal;
+              end else begin
+                if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
+                  MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+                end;
+                if qryMemberConsumersIsQualifiedForRaffle.AsInteger = 1 then begin
+
+                  qryMemberConsumers.Edit;
+                  qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                  qryMemberConsumersStatus.AsInteger := 1;
+                  qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                  qryMemberConsumers.Post;
+                  PostingCounter := PostingCounter + 1;
+                  // 1 = Active Consumers
+                end else begin
+                  qryMemberConsumers.Edit;
+                  qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                  qryMemberConsumersStatus.AsInteger := 4;
+                  qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                  qryMemberConsumers.Post;
+                  PostingCounter := PostingCounter + 1;
+                  // 1 = Active Consumers
+                end;
+              end;
             end else begin
-              qryMemberConsumers.Edit;
-              qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
-              qryMemberConsumersStatus.AsInteger := 3;
-              qryMemberConsumers.Post;
-              PostingCounter := PostingCounter + 1;
+              if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0) AND (SignatureDeviceIsAvailable)) then begin
+                UFormSignature := TUFormSignature.Create(nil);
+                UFormSignature.ShowModal;
+              end else begin
+                if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
+                  MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+                end;
+                if qryMemberConsumersIsQualifiedForRaffle.AsInteger = 1 then begin
+                  qryMemberConsumers.Edit;
+                  qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                  qryMemberConsumersStatus.AsInteger := 3;
+                  qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                  qryMemberConsumers.Post;
+                  PostingCounter := PostingCounter + 1;
+                end else begin
+                  qryMemberConsumers.Edit;
+                  qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                  qryMemberConsumersStatus.AsInteger := 4;
+                  qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                  qryMemberConsumers.Post;
+                  PostingCounter := PostingCounter + 1;
+                end;
+              end;
+
             end;
           end;
         end else begin
           if MessageDlg('This Consumer is Disconnected or Disco-Vacant!!' + #10#13 +
           'He/She can Still be part of This Event but,'+ #10#13 +
           'Cannot be Part of the Raffle Draw!!' + #10#13,mtWarning,[mbYes,mbNo],0) = mrYes then begin
-            qryMemberConsumers.Edit;
-            qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
-            qryMemberConsumersStatus.AsInteger := 3;
-            // 3 = Disconnected but cannot be part of Raffle Draw
-            qryMemberConsumers.Post;
-            PostingCounter := PostingCounter + 1;
+            if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 1) AND (SignatureDeviceIsAvailable)) then begin
+                UFormSignature := TUFormSignature.Create(nil);
+                UFormSignature.ShowModal;
+            end else begin
+              if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 1)) then begin
+                MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+              end;
+              if qryMemberConsumersIsQualifiedForRaffle.AsInteger = 1 then begin
+                qryMemberConsumers.Edit;
+                qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                qryMemberConsumersStatus.AsInteger := 3;
+                qryMemberConsumersEntryMode.AsString := '';
+                // 3 = Disconnected but cannot be part of Raffle Draw
+                qryMemberConsumers.Post;
+                PostingCounter := PostingCounter + 1;
+              end else begin
+                qryMemberConsumers.Edit;
+                qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
+                qryMemberConsumersStatus.AsInteger := 4;
+                qryMemberConsumersEntryMode.AsString := '';
+                // 3 = Disconnected but cannot be part of Raffle Draw
+                qryMemberConsumers.Post;
+                PostingCounter := PostingCounter + 1;
+              end;
+            end;
           end;
         end;
         vtMemberConsumer.Delete;
@@ -386,6 +515,7 @@ end;
 
 procedure TUMemberConsumer.FormShow(Sender: TObject);
 begin
+  SignatureDeviceIsAvailable := False;
   With UMainModule do begin
     AArea := UMainModule.ReadIniFile();
   Timer1.Enabled := True;
@@ -414,7 +544,7 @@ begin
     tblSearchMemberConsumer.Close;
     tblSearchMemberConsumer.Open;
     tblSearchMemberConsumer.Filtered := False;
-    tblSearchMemberConsumer.Filter := 'Area = ' +QuotedStr(AArea) + 'AND Year = ' + QuotedStr('2023') + ' AND Status = 0';
+    tblSearchMemberConsumer.Filter := 'Area = ' +QuotedStr(AArea) + 'AND Year = ' + QuotedStr(IntToStr(CurrentYear)) + ' AND Status = 0';
     tblSearchMemberConsumer.Filtered := True;
     tblSearchMemberConsumer.First;
 
@@ -569,7 +699,7 @@ begin
   //qryCountDisconnected.Open;
 
   //ShowMessage(qryCountDisconnectedCountDisco.AsString);
-  {with UMainModule do begin
+  with UMainModule do begin
     qryCheckerPosting.Close;
     qryCheckerPosting.ParamByName('AArea').AsString := AARea;
     qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
@@ -582,18 +712,30 @@ begin
       tblNeedToBePosted.Filter := 'Area = ' + QuotedStr(AARea) + ' AND Year = ' + QuotedStr(IntToStr(CurrentYear)) + ' AND isPosted = 0 AND Status IN (' + QuotedStr('1') + ',' + QuotedStr('3') + ',' + QuotedStr('4')+')';
       tblNeedToBePosted.Filtered:= True;
       tblNeedToBePosted.First;
-      while not tblNeedToBePosted.Eof do begin
 
+      qryUpdateRecord.Close;
+      qryUpdateRecord.ParamByName('AYear').AsInteger := CurrentYear;
+      qryUpdateRecord.ParamByName('AArea').AsString := AARea;
+      qryUpdateRecord.Execute();
 
+      qryCheckerPosting.Close;
+      qryCheckerPosting.ParamByName('AArea').AsString := AArea;
+      qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
+      qryCheckerPosting.Open;
+      if qryCheckerPostingcntDataNotPosted.AsInteger > 0 then begin
+        PostingCounter := qryCheckerPostingcntDataNotPosted.AsInteger;
+      end else begin
+        PostingCounter := 0;
       end;
+      Label9.Caption := IntToStr(PostingCounter);
 
       tblNeedToBePosted.Close;
     end else begin
       Exit;
     end;
 
-  end;    }
-  MessageDlg('Error!!' + #13#10 + 'Please Call For The Designated Support Person!!',mtError,[mbClose],0);
+  end;
+  //MessageDlg('Error!!' + #13#10 + 'Please Call For The Designated Support Person!!',mtError,[mbClose],0);
 end;
 
 procedure TUMemberConsumer.SpeedButton2Click(Sender: TObject);

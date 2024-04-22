@@ -51,6 +51,8 @@ type
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    function IsQualified(Const AAccountNumber:String):Integer;
+    function IsPictureAvailable(Const AAccountNumber:String):Integer;
 
   private
     { Private declarations }
@@ -71,6 +73,48 @@ uses MainModuleU;
 procedure TUUploaderPreRegistration.FormShow(Sender: TObject);
 begin
   FilteredOrNot := 0;
+end;
+
+function TUUploaderPreRegistration.IsPictureAvailable(
+  const AAccountNumber: String): Integer;
+begin
+  with UMainModule do begin
+    result := 0;
+    qryAccountSignature.First;
+    if not qryAccountSignature.IsEmpty then begin
+      if qryAccountSignature.Locate('AccountNumber',AAccountNumber,[]) then begin
+        if qryAccountSignatureStatus.AsString.Contains('Not') then begin
+          result := 0;
+        end else begin
+          result := 1;
+        end;
+      end else begin
+        //I Should look to the other table Signature temp table
+        // This Table will be the store table if Image From A2Hosting Database
+        // same Logic Applies for this table Locate
+
+      end;
+    end;
+  end;
+end;
+
+function TUUploaderPreRegistration.IsQualified(
+  const AAccountNumber: String): Integer;
+begin
+  with UMainModule do begin
+    qryAccountQualifier.Close;
+    qryAccountQualifier.ParamByName('AAccountNumber').AsString := AAccountNumber;
+    qryAccountQualifier.Open;
+    if qryAccountQualifier.IsEmpty then begin
+      Result := 1;
+    end else begin
+      if qryAccountQualifierStatus.AsString.Contains('OLD') then begin
+        Result := 0;
+      end else begin
+        Result := 0;
+      end;
+    end;
+  end;
 end;
 
 procedure TUUploaderPreRegistration.SpeedButton1Click(Sender: TObject);
@@ -106,20 +150,41 @@ begin
       VirTabDel.Append;
       if tblSearchMemberConsumer.Locate('AccountNumber','0'+VirTabAccountNumber.AsString,[]) then begin
         if tblSearchMemberConsumerConnectionStatus.AsString = '2' then begin
-          tblSearchMemberConsumer.Edit;
-          tblSearchMemberConsumerStatus.AsInteger := 3;
-          tblSearchMemberConsumerisPosted.AsInteger := 1;
-          tblSearchMemberConsumer.Post;
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 3;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumer.Post;
+          end;
         end else if tblSearchMemberConsumerConnectionStatus.AsString = '3' then begin
-          tblSearchMemberConsumer.Edit;
-          tblSearchMemberConsumerStatus.AsInteger := 3;
-          tblSearchMemberConsumerisPosted.AsInteger := 1;
-          tblSearchMemberConsumer.Post;
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 3;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumer.Post;
+          end;
         end else begin
-          tblSearchMemberConsumer.Edit;
-          tblSearchMemberConsumerStatus.AsInteger := 1;
-          tblSearchMemberConsumerisPosted.AsInteger := 1;
-          tblSearchMemberConsumer.Post;
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 1;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumer.Post;
+          end;
         end;
         VirTabDelAccountNumber.AsString := VirTabAccountNumber.AsString;
         VirTabDel.Post;

@@ -277,13 +277,43 @@ type
     FDQuery2Gender: TStringField;
     FDQuery2isPosted: TLongWordField;
     FDQuery2RateCode: TStringField;
+    qrySettings: TFDQuery;
+    qrySettingsID: TFDAutoIncField;
+    qrySettingsTheme: TStringField;
+    qrySettingsSecMin: TIntegerField;
+    qrySettingsSecMax: TIntegerField;
+    qrySettingsIsPreRegistration: TShortintField;
+    qrySettingsIsOnlineRegistration: TShortintField;
+    qrySettingsIsVenueRegistration: TShortintField;
+    qryCount: TFDQuery;
+    qryCountArea: TStringField;
+    qryCountConsumerRegister: TLargeintField;
+    qrySettingsCloseConfettiTimer: TIntegerField;
+    qryAccountQualifier: TFDQuery;
+    qryAccountQualifierAccountNumber: TStringField;
+    qryAccountQualifierStatus: TStringField;
+    qryMemberConsumersIsQualifiedForRaffle: TShortintField;
+    qryMemberConsumersIsSignatureAvailable: TShortintField;
+    qryAccountSignature: TFDQuery;
+    qryAccountSignatureAccountNumber: TStringField;
+    qryAccountSignatureStatus: TStringField;
+    tblSearchMemberConsumerIsQualifiedForRaffle: TShortintField;
+    tblSearchMemberConsumerIsSignatureAvailable: TShortintField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;
+    procedure DataModuleCreate(Sender: TObject);
+    function IntToBool(const AnInt: Integer): Boolean;
+    function BoolToInt(const AnBool: Boolean): Integer;
   private
     { Private declarations }
   public
     { Public declarations }
+    ASecMin,ASecMax,ACloseConfettiTimer : Integer;
+    AIsVenueReg,AIsOnlineReg,AIsPreReg : Boolean;
+
+    procedure CallSettings();
+
   end;
 
 var
@@ -296,6 +326,31 @@ implementation
 {$R *.dfm}
 
 { TUMainModule }
+
+procedure TUMainModule.CallSettings;
+begin
+  qrySettings.Close;
+  qrySettings.Open;
+  qrySettings.First;
+  ASecMin := qrySettingsSecMin.AsInteger;
+  ASecMax := qrySettingsSecMax.AsInteger;
+  AIsVenueReg := IntToBool(qrySettingsIsVenueRegistration.AsInteger);
+  AIsOnlineReg := IntToBool(qrySettingsIsOnlineRegistration.AsInteger);
+  AIsPreReg  := IntToBool(qrySettingsIsPreRegistration.AsInteger);
+  ACloseConfettiTimer := qrySettingsCloseConfettiTimer.AsInteger;
+end;
+
+function TUMainModule.BoolToInt(const AnBool: Boolean): Integer;
+begin
+   if AnBool = False then Result := 0
+                else Result := 1;
+end;
+
+function TUMainModule.IntToBool(const AnInt: Integer): Boolean;
+begin
+   if AnInt = 0 then Result := False
+                else Result := True;
+end;
 
 procedure TUMainModule.CloseIniFile(AArea:String);
 var
@@ -327,6 +382,11 @@ begin
  finally
   appINI.Free;
  end;
+end;
+
+procedure TUMainModule.DataModuleCreate(Sender: TObject);
+begin
+  CallSettings;
 end;
 
 function TUMainModule.ReadIniFile(): String;

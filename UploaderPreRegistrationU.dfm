@@ -563,7 +563,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     Left = 296
     Top = 176
     Data = {
-      030001000D004163636F756E744E756D62657201000C00000000000000000000
+      040001000D004163636F756E744E756D62657201000C00000000000000000000
       00}
     object VirTabAccountNumber: TStringField
       FieldName = 'AccountNumber'
@@ -622,7 +622,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     Left = 318
     Top = 240
     Data = {
-      030001000D004163636F756E744E756D62657201000C00000000000000000000
+      040001000D004163636F756E744E756D62657201000C00000000000000000000
       00}
     object VirTabDelAccountNumber: TStringField
       FieldName = 'AccountNumber'

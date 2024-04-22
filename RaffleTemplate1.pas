@@ -35,6 +35,7 @@ type
 var
   RaffleTemplate1U: TRaffleTemplate1U;
 
+
 implementation
 
 {$R *.dfm}
@@ -129,6 +130,7 @@ begin
   UMainForm.VT.Append;
   UMainForm.VTAccountNumber.AsString := UMainModule.qryMCQualifiedAccountNumber.AsString;
   UMainForm.VTName.AsString := UMainModule.qryMCQualifiedName.AsString;
+  UMainForm.VTAddress.AsString := UMainModule.qryMCQualifiedAddress.AsString;
   UMainForm.VT.Post;
   Label16.Caption := UMainForm.VTAccountNumber.AsString + ' | ' + UMainForm.VTName.AsString;
   Label15.Caption := UMainForm.VTAccountNumber.AsString + ' | ' + UMainForm.VTName.AsString;
@@ -180,7 +182,8 @@ begin
    UMainForm.isRaffleTemplateCreated := True;
    Application.ProcessMessages;
    //Timer1.Enabled := True;
-   UMainForm.SecLength := (RandomRange(6, 15));
+   UMainModule.CallSettings;
+   UMainForm.SecLength := (RandomRange(UMainModule.ASecMin, UMainModule.ASecMax));
 
    Application.ProcessMessages;
   (Image1.Picture.Graphic as TGIFImage).Animate := True;

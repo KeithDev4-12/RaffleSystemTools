@@ -148,7 +148,15 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="RaffleTemplate2.pas">
-            <Form>URaffleTemplate</Form>
+            <Form>RaffleTemplate2U</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="SettingsU.pas">
+            <Form>USettings</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="SignatureU.pas">
+            <Form>UFormSignature</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

@@ -190,21 +190,21 @@ object UMemberConsumer: TUMemberConsumer
         Caption = 'Color Legend'
         TabOrder = 0
         object Label4: TLabel
-          Left = 40
+          Left = 31
           Top = 17
           Width = 39
           Height = 26
           Caption = 'Normal '#13'Records'
         end
         object Label5: TLabel
-          Left = 114
+          Left = 106
           Top = 17
           Width = 67
           Height = 26
           Caption = 'Disconnected '#13'Accounts'
         end
         object Label6: TLabel
-          Left = 218
+          Left = 208
           Top = 17
           Width = 65
           Height = 26
@@ -335,21 +335,35 @@ object UMemberConsumer: TUMemberConsumer
           ExplicitTop = 3
         end
         object Label12: TLabel
-          Left = 346
+          Left = 482
           Top = 17
           Width = 56
           Height = 26
           Caption = 'Need to be '#13'Posted!'
         end
         object Shape3: TShape
-          Left = 301
+          Left = 449
           Top = 15
           Width = 1
           Height = 33
           Pen.Color = clMedGray
         end
+        object Label13: TLabel
+          Left = 309
+          Top = 17
+          Width = 41
+          Height = 26
+          Caption = 'Special '#13'Remarks'
+        end
+        object Label14: TLabel
+          Left = 382
+          Top = 23
+          Width = 62
+          Height = 13
+          Caption = 'No Signature'
+        end
         object Panel6: TPanel
-          Left = 16
+          Left = 8
           Top = 20
           Width = 20
           Height = 20
@@ -360,17 +374,17 @@ object UMemberConsumer: TUMemberConsumer
           TabOrder = 0
         end
         object Panel7: TPanel
-          Left = 90
+          Left = 82
           Top = 20
           Width = 20
           Height = 20
           BevelOuter = bvNone
-          Color = clRed
+          Color = clMedGray
           ParentBackground = False
           TabOrder = 1
         end
         object Panel8: TPanel
-          Left = 192
+          Left = 184
           Top = 20
           Width = 20
           Height = 20
@@ -380,7 +394,7 @@ object UMemberConsumer: TUMemberConsumer
           TabOrder = 2
         end
         object Panel11: TPanel
-          Left = 320
+          Left = 457
           Top = 20
           Width = 20
           Height = 20
@@ -388,6 +402,26 @@ object UMemberConsumer: TUMemberConsumer
           Color = clGray
           ParentBackground = False
           TabOrder = 3
+        end
+        object Panel12: TPanel
+          Left = 283
+          Top = 20
+          Width = 20
+          Height = 20
+          BevelOuter = bvNone
+          Color = clYellow
+          ParentBackground = False
+          TabOrder = 4
+        end
+        object Panel13: TPanel
+          Left = 358
+          Top = 20
+          Width = 20
+          Height = 20
+          BevelOuter = bvNone
+          Color = clRed
+          ParentBackground = False
+          TabOrder = 5
         end
       end
     end
@@ -772,19 +806,30 @@ object UMemberConsumer: TUMemberConsumer
         Attributes = [faRequired]
         DataType = ftString
         Size = 45
+      end
+      item
+        Name = 'IsQualifiedForRaffle'
+        DataType = ftShortint
+      end
+      item
+        Name = 'IsSignatureAvailable'
+        Attributes = [faRequired]
+        DataType = ftShortint
       end>
     Left = 192
     Top = 248
     Data = {
-      03000D00020069640E000000000000000D004163636F756E744E756D62657201
+      04000F00020069640E000000000000000D004163636F756E744E756D62657201
       000B000000000004004E616D6501006300000000000400417265610100030000
       0000000700416464726573730100630000000000060053746174757303000000
       000000000C0053687566666C654F7264657203000000000000001000436F6E6E
       656374696F6E5374617475732A000000000000000900456E7472794D6F646501
       002D00000000000400596561722A00000000000000060047656E64657201002D
       000000000008006973506F737465642A00000000000000080052617465436F64
-      6501002D0000000000000000000000}
-    object vtMemberConsumerid: TAutoIncField
+      6501002D0000000000140049735175616C6966696564466F72526166666C652B
+      00000000000000140049735369676E6174757265417661696C61626C652B0000
+      0000000000000000000000}
+    object vtMemberConsumerid: TVirtualAutoIncField
       FieldName = 'id'
     end
     object vtMemberConsumerAccountNumber: TStringField
@@ -834,6 +879,13 @@ object UMemberConsumer: TUMemberConsumer
       FieldName = 'RateCode'
       Required = True
       Size = 45
+    end
+    object vtMemberConsumerIsQualifiedForRaffle: TShortintField
+      FieldName = 'IsQualifiedForRaffle'
+    end
+    object vtMemberConsumerIsSignatureAvailable: TShortintField
+      FieldName = 'IsSignatureAvailable'
+      Required = True
     end
   end
   object FDBatchMove1: TFDBatchMove
@@ -891,6 +943,14 @@ object UMemberConsumer: TUMemberConsumer
       item
         SourceFieldName = 'RateCode'
         DestinationFieldName = 'RateCode'
+      end
+      item
+        SourceFieldName = 'IsQualifiedForRaffle'
+        DestinationFieldName = 'IsQualifiedForRaffle'
+      end
+      item
+        SourceFieldName = 'IsSignatureAvailable'
+        DestinationFieldName = 'IsSignatureAvailable'
       end>
     LogFileName = 'Data.log'
     Left = 440

@@ -41,8 +41,6 @@ type
     DBGridEh1: TDBGridEh;
     DSActiveMemberConsumer: TDataSource;
     VT: TVirtualTable;
-    VTAccountNumber: TStringField;
-    VTName: TStringField;
     DataSource1: TDataSource;
     SpeedButton6: TSpeedButton;
     Shape5: TShape;
@@ -86,7 +84,11 @@ type
     AllWinnersPerClassification1: TMenuItem;
     SpVoice1: TSpVoice;
     pnlRaffleTemplate: TPanel;
-    emplate1: TMenuItem;
+    VTAccountNumber: TStringField;
+    VTName: TStringField;
+    VTAddress: TStringField;
+    Label6: TLabel;
+    Label7: TLabel;
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -127,6 +129,9 @@ type
     procedure Summary1Click(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
     procedure AllWinnersPerClassification1Click(Sender: TObject);
+    procedure SpeechSettings1Click(Sender: TObject);
+    function IsQualified(Const AAccountNumber:String):Integer;
+    function IsPictureAvailable(Const AAccountNumber:String):Integer;
 
   private
     { Private declarations }
@@ -144,7 +149,7 @@ type
     var secondCount :Integer;
     var DefaultSQL : TStrings;
     var isRaffleTemplateCreated: Boolean;
-
+    var IsOnRaffle :Boolean;
   end;
 
 var
@@ -154,7 +159,8 @@ implementation
 
 {$R *.dfm}
 
-Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU, ReportU,RaffleTemplate1;
+Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU,
+     ReportU,RaffleTemplate1,RaffleTemplate2,SettingsU;
 
 procedure TUMainForm.AllAttendie1Click(Sender: TObject);
 Var
@@ -239,6 +245,18 @@ begin
   end else begin
     AARea := '008';
   end;
+
+   with UMainModule do begin
+     qrySettings.Close;
+     qrySettings.Open;
+     qrySettings.First;
+     if qrySettingsTheme.AsString.Contains('1')  then begin
+       //RaffleTemplate1U := TRaffleTemplate1U.Create(Application);
+       //RaffleTemplate1U.ShowInPanel(pnlRaffleTemplate);
+     end else if qrySettingsTheme.AsString.Contains('2')  then begin
+       RaffleTemplate2U.Label4.Caption := StringReplace(StringReplace(ComboBox1.Text,'<','',[rfReplaceAll, rfIgnoreCase]),'>','',[rfReplaceAll, rfIgnoreCase]);
+     end;
+   end;
 
   SpeedButton6Click(Sender);
 end;
@@ -350,13 +368,12 @@ begin
   AARea := 'ALL';
   ALanguage:= 1;
   AGender:= 1;
-   secondCount := 0;
+  secondCount := 0;
   isRaffleTemplateCreated := False;
-    // Create an instance of ChildForm
-  RaffleTemplate1U := TRaffleTemplate1U.Create(Application);
-  // Show ChildForm inside Panel1
-  RaffleTemplate1U.ShowInPanel(Panel5);
+  UMainModule.CallSettings;
   UMainModule.CreateIniFile();
+  IsOnRaffle := False;
+
 end;
 
 procedure TUMainForm.FormShow(Sender: TObject);
@@ -392,6 +409,19 @@ begin
 
   Combobox1.ItemIndex :=  ComboBox1.Items.IndexOf(AAreaName);
 
+   with UMainModule do begin
+     qrySettings.Close;
+     qrySettings.Open;
+     qrySettings.First;
+     if qrySettingsTheme.AsString.Contains('1')  then begin
+       RaffleTemplate1U := TRaffleTemplate1U.Create(Application);
+       RaffleTemplate1U.ShowInPanel(pnlRaffleTemplate);
+     end else if qrySettingsTheme.AsString.Contains('2')  then begin
+       RaffleTemplate2U := TRaffleTemplate2U.Create(Application);
+       RaffleTemplate2U.ShowInPanel(pnlRaffleTemplate);
+     end;
+   end;
+
   SpeedButton6Click(Sender);
 end;
 
@@ -418,7 +448,8 @@ begin
       ShowMessage('User cancelled the dialog');
     end else begin
       //BillMonthReverse := RightStr(value,2) + LeftStr(value,2);
-
+      qryAccountSignature.Close;
+      qryAccountSignature.Open;
       for I := 1 to 8 do begin
         // delete first if data is available!
         //qryDeleteMemberConsumer.Close;
@@ -460,6 +491,8 @@ begin
           //end else begin
           //  qryMemberConsumersGender.AsString := '';
           //end;
+          qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterAccountNumber.AsString);
+          qryMemberConsumersIsSignatureAvailable.AsInteger :=  IsPictureAvailable(qryMasterAccountNumber.AsString);
           qryMemberConsumersRateCode.AsString := qryMasterRateCode.AsString;
 
           qryMemberConsumers.Post;
@@ -645,6 +678,46 @@ begin
   //mgHoverArrowShowSelected.Visible := True;
 end;
 
+function TUMainForm.IsPictureAvailable(const AAccountNumber: String): Integer;
+begin
+  with UMainModule do begin
+    result := 0;
+    qryAccountSignature.First;
+    if not qryAccountSignature.IsEmpty then begin
+      if qryAccountSignature.Locate('AccountNumber',AAccountNumber,[]) then begin
+        if qryAccountSignatureStatus.AsString.Contains('Not') then begin
+          result := 0;
+        end else begin
+          result := 1;
+        end;
+      end else begin
+        //I Should look to the other table Signature temp table
+        // This Table will be the store table if Image From A2Hosting Database
+        // same Logic Applies for this table Locate
+
+      end;
+    end;
+  end;
+end;
+
+function TUMainForm.IsQualified(const AAccountNumber: String): Integer;
+begin
+  with UMainModule do begin
+    qryAccountQualifier.Close;
+    qryAccountQualifier.ParamByName('AAccountNumber').AsString := AAccountNumber;
+    qryAccountQualifier.Open;
+    if qryAccountQualifier.IsEmpty then begin
+      Result := 1;
+    end else begin
+      if qryAccountQualifierStatus.AsString.Contains('OLD') then begin
+        Result := 0;
+      end else begin
+        Result := 0;
+      end;
+    end;
+  end;
+end;
+
 procedure TUMainForm.Label4Click(Sender: TObject);
 begin
   if ClickCounter>=5 then begin
@@ -686,7 +759,7 @@ begin
     FDQuery1.Open();
     FDQuery1.First;
     qryMemberConsumers.Close;
-    qryMemberConsumers.ParamByName('AYear').AsString := '2023';
+    qryMemberConsumers.ParamByName('AYear').AsInteger := CurrentYear;
     qryMemberConsumers.Open();
     qryMemberConsumers.First;
     while Not FDQuery1.EOF do begin
@@ -695,7 +768,6 @@ begin
         qryMemberConsumersGender.AsString :=  FDQuery1Gender.AsString;
         qryMemberConsumers.Post;
       end;
-
       FDQuery1.Next;
     end;
 
@@ -715,6 +787,20 @@ begin
     screen.Cursor := crDefault;
   end;
 
+end;
+
+procedure TUMainForm.SpeechSettings1Click(Sender: TObject);
+var
+  USettings : TUSettings;
+begin
+  try
+    screen.Cursor := crHourGlass;
+    USettings := TUSettings.Create(nil);
+    USettings.ShowModal();
+  finally
+    USettings.Free();
+    screen.Cursor := crDefault;
+  end;
 end;
 
 procedure TUMainForm.SpeedButton1Click(Sender: TObject);
@@ -773,20 +859,65 @@ begin
 end;
 
 procedure TUMainForm.SpeedButton6Click(Sender: TObject);
+Var
+  AListRegistration : String;
 begin
   With UMainModule do begin
 
-
+    qryCount.Close;
+    qryCount.ParamByName('AArea').AsString := AArea;
+    qryCount.ParamByName('AYear').AsInteger := CurrentYear;
+    qryCount.Open();
+    qryCount.First;
+    Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
+    if qrySettingsTheme.AsString.Contains('2')  then begin
+      RaffleTemplate2U.Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
+    end;
 
     FDQuery2.Close;
+    qryMCQualified.Close;
+    with UMainModule do begin
+      if AIsVenueReg then
+
+    end;
+
+
+    if UMainModule.AIsVenueReg then begin
+      qryMCQualified.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
+      FDQuery2.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
+      Label7.Caption := 'V';
+    end else begin
+      qryMCQualified.ParamByName('EntryMode1').AsString := '';
+      FDQuery2.ParamByName('EntryMode1').AsString := '';
+      Label7.Caption := '';
+    end;
+    if UMainModule.AIsOnlineReg then begin
+      qryMCQualified.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
+      FDQuery2.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
+      Label7.Caption := Label7.Caption + 'O';
+    end else begin
+      qryMCQualified.ParamByName('EntryMode2').AsString := '';
+      FDQuery2.ParamByName('EntryMode2').AsString := '';
+      Label7.Caption := Label7.Caption + '';
+    end;
+    if UMainModule.AIsPreReg then begin
+      qryMCQualified.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
+      FDQuery2.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
+      Label7.Caption := Label7.Caption + 'P';
+    end else begin
+      qryMCQualified.ParamByName('EntryMode3').AsString := '';
+      FDQuery2.ParamByName('EntryMode3').AsString := '';
+      Label7.Caption := Label7.Caption + '';
+    end;
+
     FDQuery2.ParamByName('AARea').AsString := AArea;
-    //FDQuery2.ParamByName('AYear').AsString := CurrentYear;
+    qryMCQualified.ParamByName('AARea').AsString := AArea;
+    qryMCQualified.ParamByName('AYear').AsInteger := CurrentYear;
+    FDQuery2.ParamByName('AYear').AsInteger := CurrentYear;
+
     FDQuery2.Open;
     FDQuery2.First;
 
-    qryMCQualified.Close;
-    qryMCQualified.ParamByName('AARea').AsString := AArea;
-    //qryMCQualified.ParamByName('AYear').AsString := CurrentYear;
     qryMCQualified.Open;
     qryMCQualified.First;
 
@@ -797,8 +928,8 @@ begin
     qryWinnerMC.ParamByName('AYear').AsInteger := CurrentYear;
     qryWinnerMC.Open;
 
+    Label6.Caption := ' - '+ FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
 
-    Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
   end;
 end;
 
