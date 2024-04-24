@@ -11,7 +11,8 @@ uses
   MemDS, VirtualTable, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  FireDAC.Comp.BatchMove.Text,System.IOUtils, Vcl.Menus,System.StrUtils;
+  FireDAC.Comp.BatchMove.Text,System.IOUtils, Vcl.Menus,System.StrUtils,
+  CPort,U_UsbComponent,U_USBSerialPortMonitor;
 
 type
   TUMemberConsumer = class(TForm)
@@ -88,6 +89,10 @@ type
     Label13: TLabel;
     Panel13: TPanel;
     Label14: TLabel;
+    ComPort1: TComPort;
+    Label15: TLabel;
+    UsbRemovalTimer: TTimer;
+    UsbArrivalTimer: TTimer;
     procedure SearchBox1Change(Sender: TObject);
     procedure DBGridEh1KeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
@@ -108,8 +113,19 @@ type
     procedure DBGridEh2DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
     procedure SearchBox1DblClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure UsbArrivalTimerTimer(Sender: TObject);
+    procedure UsbRemovalTimerTimer(Sender: TObject);
+    procedure IntializeComPort();
+    procedure ComPort1RxChar(Sender: TObject; Count: Integer);
+    procedure QRCodeParse(AString:String;AParseBy:String;AReturnArray: TArray<string>);
+    procedure Label15Click(Sender: TObject);
   private
     { Private declarations }
+    FCompUSB: TComponentUSB;
+
+    procedure USBArrival(Sender: TObject);
+    procedure USBRemoval(Sender: TObject);
     var AArea : String;
     var AAreaName : String;
     var SignatureDeviceIsAvailable : boolean;
@@ -187,6 +203,26 @@ begin
     end;
     
   end;
+end;
+
+procedure TUMemberConsumer.ComPort1RxChar(Sender: TObject; Count: Integer);
+ var
+  Str: String;
+  ReturnArray: TArray<string>;
+begin
+  SetLength(ReturnArray, 1);
+  ComPort1.ReadStr(Str, Count);
+  QRCodeParse(Str, '|', ReturnArray);
+  SearchBox1.Text := ReturnArray[0];
+  DBGridEh1.SetFocus;
+
+  keybd_event(VK_RETURN, 0, 0, 0);
+  keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
+  Sleep(500);
+  keybd_event(VK_RETURN, 0, 0, 0);
+  keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
+  //ShowMessage(ReturnArray[0]);
+
 end;
 
 procedure TUMemberConsumer.DBGridEh1DblClick(Sender: TObject);
@@ -511,6 +547,16 @@ end;
 procedure TUMemberConsumer.FormCreate(Sender: TObject);
 begin
   AARea := 'ALL';
+  //IntializeComPort;
+end;
+
+procedure TUMemberConsumer.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then begin
+    ShowMEssage('Escape!!');
+
+  end;
 end;
 
 procedure TUMemberConsumer.FormShow(Sender: TObject);
@@ -578,6 +624,40 @@ begin
     end;
     Label9.Caption := IntToStr(PostingCounter);
   end;
+
+  FCompUSB := TComponentUSB.Create(Self);
+  FCompUSB.OnUSBArrival := USBArrival;
+  FCompUSB.OnUSBRemove := USBRemoval;
+  IntializeComPort;
+end;
+
+procedure TUMemberConsumer.IntializeComPort;
+begin
+  ComPort1.Port := UMainModule.qrySettingsCOMPort.AsString;
+  try
+    if ComPort1.Connected then begin
+      ComPort1.Connected := False;
+      ComPort1.Close;
+      Label15.Caption := 'CODE SCANNER DISCONNECTED';
+      Label15.Font.Color := clRed;
+    end else begin
+      ComPort1.Open;
+      Label15.Caption := 'CODE SCANNER CONNECTED';
+      Label15.Font.Color := clBlue;
+    end;
+  except
+    ComPort1.Connected := False;
+    Label15.Caption := 'CODE SCANNER DISCONNECTED';
+    Label15.Font.Color := clRed;
+    Exit;
+  end;
+end;
+
+procedure TUMemberConsumer.Label15Click(Sender: TObject);
+begin
+  ComPort1.Open;
+  Label15.Caption := 'CODE SCANNER CONNECTED';
+  Label15.Font.Color := clBlue;
 end;
 
 function TUMemberConsumer.Operations(AArea:String):String;
@@ -618,6 +698,22 @@ begin
   end;
 end;
 
+procedure TUMemberConsumer.QRCodeParse(AString, AParseBy: String;
+  AReturnArray: TArray<string>);
+var
+  Parts: TArray<string>;
+  i: Integer;
+begin
+  Parts := AString.Split([AParseBy]);
+  for i := Low(Parts) to High(Parts) do
+  begin
+    if i < Length(AReturnArray) then
+      AReturnArray[i] := Parts[i]
+    else
+      Break; // Stop if we run out of space in AReturnArray
+  end;
+end;
+
 procedure TUMemberConsumer.SearchBox1Change(Sender: TObject);
 begin
   //DBGridEh1.SearchPanel.SearchingText := SearchBox1.Text;
@@ -625,7 +721,7 @@ begin
   //if UMainModule.qryCastedMemberConsumers.IsEmpty then begin
   //  DBGridEh2.SearchPanel.SearchingText := SearchBox1.Text;
   //  if not UMainModule.qryMCQualified.IsEmpty then begin
-  //    MessageDlg('Member Consumer is Already Registered!', mtInformation, [mbClose],0);
+  //    MessageDlg('Member Consumer is Already Registered!', mtWarning, [mbClose],0);
   //  end else begin
   //    MessageDlg('Member Consumer is Not Valid!', mtError, [mbClose],0);
   //  end;
@@ -642,7 +738,7 @@ begin
     if vtMemberConsumer.IsEmpty then begin
       DBGridEh2.SearchPanel.SearchingText := SearchBox1.Text;
       if not UMainModule.qryMCQualified.IsEmpty then begin
-        MessageDlg('Member Consumer is Already Registered!', mtInformation, [mbClose],0);
+        MessageDlg('Member Consumer is Already Registered!', mtWarning, [mbClose],0);
       end else begin
         MessageDlg('Member Consumer is Not Valid!', mtError, [mbClose],0);
       end;
@@ -660,13 +756,13 @@ begin
     if vtMemberConsumer.IsEmpty then begin
       DBGridEh2.SearchPanel.SearchingText := SearchBox1.Text;
       if not UMainModule.qryMCQualified.IsEmpty then begin
-        if UMainModule.qryMCQualifiedEntryMode.AsString = 'PREREGISTERED' then begin
-          MessageDlg('PREREGISTERED NA YAA, TAGAN NALANG NIYO KWARTA!', mtWarning, [mbClose],0);
+        if UMainModule.qryMCQualifiedEntryMode.AsString = 'PRE-REGISTRATION' then begin
+          MessageDlg('PRE-REGISTERED NA YAA, TAGAN NALANG NIYO KWARTA!', mtWarning, [mbClose],0);
           UMainModule.qryMCQualified.Edit;
-          UMainModule.qryMCQualifiedEntryMode.AsString := 'PREREGISTERED WITH MONEY';
+          UMainModule.qryMCQualifiedEntryMode.AsString := 'PRE-REGISTRATION WITH MONEY';
           UMainModule.qryMCQualified.POST;
         end else begin
-          MessageDlg('Member Consumer is Already Registered!', mtInformation, [mbClose],0);
+          MessageDlg('Member Consumer is Already Registered!', mtWarning, [mbClose],0);
         end;
 
 
@@ -876,6 +972,35 @@ begin
   if PostingCounter>=1 then begin
     MessageDlg('This is A Reminder to Post Your Record' + #13#10 + 'Or You Can Call the Designated Support Person!!' + #13#10 + 'For Extracting the Data!',mtError,[mbClose],0);
   end;
+end;
+
+procedure TUMemberConsumer.UsbArrivalTimerTimer(Sender: TObject);
+var
+  DriveList: TStrings;
+  DriveName: string;
+  i: integer;
+begin
+  UsbArrivalTimer.Enabled := false;
+
+  IntializeComPort;
+
+end;
+
+procedure TUMemberConsumer.UsbRemovalTimerTimer(Sender: TObject);
+var DriveLetter:String;
+begin
+  UsbRemovalTimer.Enabled := False;
+  IntializeComPort;
+end;
+
+procedure TUMemberConsumer.USBRemoval(Sender: TObject);
+begin
+ UsbRemovalTimer.Enabled := true;
+end;
+
+procedure TUMemberConsumer.USBArrival(Sender: TObject);
+begin
+  UsbArrivalTimer.Enabled := true;
 end;
 
 end.

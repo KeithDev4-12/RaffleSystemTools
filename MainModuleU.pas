@@ -299,6 +299,7 @@ type
     qryAccountSignatureStatus: TStringField;
     tblSearchMemberConsumerIsQualifiedForRaffle: TShortintField;
     tblSearchMemberConsumerIsSignatureAvailable: TShortintField;
+    qrySettingsCOMPort: TStringField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

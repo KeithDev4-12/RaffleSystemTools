@@ -3,7 +3,7 @@ object USettings: TUSettings
   Top = 110
   BorderStyle = bsDialog
   Caption = 'Settings'
-  ClientHeight = 410
+  ClientHeight = 449
   ClientWidth = 352
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
@@ -50,12 +50,13 @@ object USettings: TUSettings
   end
   object Panel1: TPanel
     Left = 0
-    Top = 369
+    Top = 408
     Width = 352
     Height = 41
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 369
     object scGPButton1: TscGPButton
       AlignWithMargins = True
       Left = 200
@@ -295,7 +296,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Raffle Selection Options'
     TabOrder = 3
-    ExplicitTop = 223
+    ExplicitLeft = 15
     object Label3: TLabel
       AlignWithMargins = True
       Left = 7
@@ -407,6 +408,89 @@ object USettings: TUSettings
         BevelOuter = bvNone
         TabOrder = 1
       end
+    end
+  end
+  object GroupBox5: TGroupBox
+    AlignWithMargins = True
+    Left = 10
+    Top = 342
+    Width = 332
+    Height = 48
+    Margins.Left = 10
+    Margins.Top = 5
+    Margins.Right = 10
+    Margins.Bottom = 10
+    Align = alTop
+    Caption = 'BarCode && QRCode Scanner Settings'
+    TabOrder = 5
+    ExplicitLeft = 0
+    ExplicitTop = 337
+    ExplicitWidth = 352
+    object Label5: TLabel
+      Left = 9
+      Top = 23
+      Width = 140
+      Height = 13
+      Caption = 'Default Communication Port :'
+    end
+    object ComboBox1: TComboBox
+      Left = 155
+      Top = 19
+      Width = 168
+      Height = 21
+      Style = csDropDownList
+      TabOrder = 0
+      Items.Strings = (
+        'COM1'
+        'COM2'
+        'COM3'
+        'COM4'
+        'COM5'
+        'COM6'
+        'COM7'
+        'COM8'
+        'COM9'
+        'COM10'
+        'COM11'
+        'COM12'
+        'COM13'
+        'COM14'
+        'COM15'
+        'COM16'
+        'COM17'
+        'COM18'
+        'COM19'
+        'COM20'
+        'COM21'
+        'COM22'
+        'COM23'
+        'COM24'
+        'COM25'
+        'COM26'
+        'COM27'
+        'COM28'
+        'COM29'
+        'COM30'
+        'COM31'
+        'COM32'
+        'COM33'
+        'COM34'
+        'COM35'
+        'COM36'
+        'COM37'
+        'COM38'
+        'COM39'
+        'COM40'
+        'COM41'
+        'COM42'
+        'COM43'
+        'COM44'
+        'COM45'
+        'COM46'
+        'COM47'
+        'COM48'
+        'COM49'
+        'COM50')
     end
   end
 end

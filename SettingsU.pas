@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, scControls, scGPControls,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, CPort,Registry;
 
 type
   TUSettings = class(TForm)
@@ -33,6 +33,9 @@ type
     Label4: TLabel;
     Edit3: TEdit;
     Panel7: TPanel;
+    GroupBox5: TGroupBox;
+    Label5: TLabel;
+    ComboBox1: TComboBox;
     procedure FormCreate(Sender: TObject);
     procedure scGPButton1Click(Sender: TObject);
     function IntToBool(const AnInt: Integer): Boolean;
@@ -64,7 +67,11 @@ begin
 end;
 
 procedure TUSettings.FormCreate(Sender: TObject);
-
+var
+  PortNames: TStringList;
+  i: Integer;
+  PortCount: Integer;
+  PortName: string;
 begin
   With UMainModule do begin
     qrySettings.Close;
@@ -84,12 +91,12 @@ begin
     CheckBox1.Checked := IntToBool(qrySettingsIsVenueRegistration.AsInteger);
     CheckBox2.Checked := IntToBool(qrySettingsIsOnlineRegistration.AsInteger);
     CheckBox3.Checked := IntToBool(qrySettingsIsPreRegistration.AsInteger);
+    Combobox1.ItemIndex :=  ComboBox1.Items.IndexOf(qrySettingsCOMPort.AsString);
 
   end;
+
+
 end;
-
-
-
 
 
 procedure TUSettings.scGPButton1Click(Sender: TObject);
@@ -109,6 +116,7 @@ begin
     qrySettingsIsVenueRegistration.AsInteger := BoolToInt(CheckBox1.Checked);
     qrySettingsIsOnlineRegistration.AsInteger := BoolToInt(CheckBox2.Checked);
     qrySettingsIsPreRegistration.AsInteger := BoolToInt(CheckBox3.Checked);
+    qrySettingsCOMPort.AsString := ComboBox1.Text;
 
     MessageDlg('Settings is Upto date!',mtInformation,[mbOk],0);
     qrySettings.Post;
@@ -117,6 +125,8 @@ begin
     Self.Close;
 
   end;
+
+
 end;
 
 end.

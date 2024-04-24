@@ -13,10 +13,12 @@ object UMemberConsumer: TUMemberConsumer
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsStayOnTop
+  KeyPreview = True
   OldCreateOrder = False
   WindowState = wsMaximized
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 97
   TextHeight = 13
@@ -476,7 +478,7 @@ object UMemberConsumer: TUMemberConsumer
       ParentFont = False
     end
     object DBGridEh1: TDBGridEh
-      Left = 9
+      Left = 8
       Top = 96
       Width = 528
       Height = 360
@@ -677,6 +679,8 @@ object UMemberConsumer: TUMemberConsumer
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 3
+      ExplicitLeft = -1
+      ExplicitTop = 462
       object Label7: TLabel
         Left = 0
         Top = 0
@@ -696,6 +700,25 @@ object UMemberConsumer: TUMemberConsumer
         AutoSize = False
         Caption = '1,000'
         ExplicitLeft = 126
+      end
+      object Label15: TLabel
+        Left = 320
+        Top = 0
+        Width = 219
+        Height = 20
+        Align = alRight
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'CODE SCANNER DISCONNECTED'
+        Color = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clHotLight
+        Font.Height = -12
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        OnClick = Label15Click
       end
     end
     object RadioButton1: TRadioButton
@@ -1038,5 +1061,36 @@ object UMemberConsumer: TUMemberConsumer
     object ExportAsCSVFile1: TMenuItem
       Caption = 'Export As CSV File'
     end
+  end
+  object ComPort1: TComPort
+    BaudRate = br9600
+    Port = 'COM1'
+    Parity.Bits = prNone
+    StopBits = sbOneStopBit
+    DataBits = dbEight
+    Events = [evRxChar, evTxEmpty, evRxFlag, evRing, evBreak, evCTS, evDSR, evError, evRLSD, evRx80Full]
+    FlowControl.OutCTSFlow = False
+    FlowControl.OutDSRFlow = False
+    FlowControl.ControlDTR = dtrDisable
+    FlowControl.ControlRTS = rtsDisable
+    FlowControl.XonXoffOut = False
+    FlowControl.XonXoffIn = False
+    StoredProps = [spBasic]
+    TriggersOnRxChar = True
+    OnRxChar = ComPort1RxChar
+    Left = 312
+    Top = 256
+  end
+  object UsbRemovalTimer: TTimer
+    Enabled = False
+    OnTimer = UsbRemovalTimerTimer
+    Left = 112
+    Top = 176
+  end
+  object UsbArrivalTimer: TTimer
+    Enabled = False
+    OnTimer = UsbArrivalTimerTimer
+    Left = 56
+    Top = 176
   end
 end

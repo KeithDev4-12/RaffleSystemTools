@@ -86,7 +86,7 @@
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_UnitSearchPath>I:\Documents\Embarcadero\Studio\19.0\Imports;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>I:\Documents\Embarcadero\Studio\19.0\Imports;C:\Program Files (x86)\Embarcadero\Studio\19.0\source\D102T;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -159,6 +159,7 @@
             <Form>UFormSignature</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="U_UsbComponent.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

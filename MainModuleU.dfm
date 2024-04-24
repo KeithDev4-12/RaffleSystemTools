@@ -1908,6 +1908,12 @@ object UMainModule: TUMainModule
       FieldName = 'CloseConfettiTimer'
       Origin = 'CloseConfettiTimer'
     end
+    object qrySettingsCOMPort: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPort'
+      Origin = 'COMPort'
+      Size = 45
+    end
   end
   object qryCount: TFDQuery
     Connection = FDConnSQLite

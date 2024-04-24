@@ -465,7 +465,6 @@ object UMainForm: TUMainForm
             Font.Style = [fsBold]
             ParentFont = False
             Visible = False
-            ExplicitLeft = 134
             ExplicitHeight = 13
           end
         end

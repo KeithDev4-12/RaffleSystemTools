@@ -1,0 +1,79 @@
+unit U_USBSerialPortMonitor;
+
+interface
+
+uses
+  Winapi.Windows, System.SysUtils, System.Classes;
+
+type
+  TUSBSerialPortMonitor = class(TThread)
+  private
+    FMonitorHandle: THandle;
+    FComPort: string;
+    FOnPlugIn: TNotifyEvent;
+    FOnPlugOut: TNotifyEvent;
+    procedure DoPlugIn;
+    procedure DoPlugOut;
+  protected
+    procedure Execute; override;
+  public
+    constructor Create(const ComPort: string);
+    destructor Destroy; override;
+    property OnPlugIn: TNotifyEvent read FOnPlugIn write FOnPlugIn;
+    property OnPlugOut: TNotifyEvent read FOnPlugOut write FOnPlugOut;
+  end;
+
+implementation
+
+constructor TUSBSerialPortMonitor.Create(const ComPort: string);
+begin
+  inherited Create(False);
+  FreeOnTerminate := True;
+  FComPort := ComPort;
+end;
+
+destructor TUSBSerialPortMonitor.Destroy;
+begin
+  inherited Destroy;
+end;
+
+procedure TUSBSerialPortMonitor.DoPlugIn;
+begin
+  if Assigned(FOnPlugIn) then
+    FOnPlugIn(Self);
+end;
+
+procedure TUSBSerialPortMonitor.DoPlugOut;
+begin
+  if Assigned(FOnPlugOut) then
+    FOnPlugOut(Self);
+end;
+
+procedure TUSBSerialPortMonitor.Execute;
+var
+  dwFlags: DWORD;
+begin
+  FMonitorHandle := FindFirstChangeNotification('\\.\', False, FILE_NOTIFY_CHANGE_DEVICE_NAME);
+  if FMonitorHandle = INVALID_HANDLE_VALUE then
+    Exit;
+
+  try
+    while not Terminated do
+    begin
+      dwFlags := WaitForSingleObject(FMonitorHandle, INFINITE);
+      if dwFlags = WAIT_OBJECT_0 then
+      begin
+        if FileExists(FComPort) then
+          Synchronize(DoPlugIn)
+        else
+          Synchronize(DoPlugOut);
+      end;
+      FindNextChangeNotification(FMonitorHandle);
+    end;
+  finally
+    FindCloseChangeNotification(FMonitorHandle);
+  end;
+end;
+
+end.
+
