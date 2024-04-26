@@ -16,7 +16,9 @@ uses
   RaffleTemplate2 in 'RaffleTemplate2.pas' {RaffleTemplate2U},
   SettingsU in 'SettingsU.pas' {USettings},
   SignatureU in 'SignatureU.pas' {UFormSignature},
-  U_UsbComponent in 'U_UsbComponent.pas';
+  U_UsbComponent in 'U_UsbComponent.pas',
+  UpdateDatabase in 'UpdateDatabase.pas' {UpdateDatabaseU},
+  CommandPromtUnit in 'CommandPromtUnit.pas';
 
 {$R *.res}
 
@@ -34,5 +36,6 @@ begin
   Application.CreateForm(TRaffleTemplate2U, RaffleTemplate2U);
   Application.CreateForm(TUSettings, USettings);
   Application.CreateForm(TUFormSignature, UFormSignature);
+  Application.CreateForm(TUpdateDatabaseU, UpdateDatabaseU);
   Application.Run;
 end.

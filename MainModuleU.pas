@@ -300,6 +300,7 @@ type
     tblSearchMemberConsumerIsQualifiedForRaffle: TShortintField;
     tblSearchMemberConsumerIsSignatureAvailable: TShortintField;
     qrySettingsCOMPort: TStringField;
+    qrySettingsSignatureDevice: TStringField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

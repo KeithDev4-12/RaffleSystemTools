@@ -1914,6 +1914,12 @@ object UMainModule: TUMainModule
       Origin = 'COMPort'
       Size = 45
     end
+    object qrySettingsSignatureDevice: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SignatureDevice'
+      Origin = 'SignatureDevice'
+      Size = 45
+    end
   end
   object qryCount: TFDQuery
     Connection = FDConnSQLite

@@ -89,6 +89,7 @@ type
     VTAddress: TStringField;
     Label6: TLabel;
     Label7: TLabel;
+    UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem;
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -132,6 +133,7 @@ type
     procedure SpeechSettings1Click(Sender: TObject);
     function IsQualified(Const AAccountNumber:String):Integer;
     function IsPictureAvailable(Const AAccountNumber:String):Integer;
+    procedure UpdateLocalDatabaseFromOnlineDatabase1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -160,7 +162,7 @@ implementation
 {$R *.dfm}
 
 Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU,
-     ReportU,RaffleTemplate1,RaffleTemplate2,SettingsU;
+     ReportU,RaffleTemplate1,RaffleTemplate2,SettingsU,UpdateDatabase;
 
 procedure TUMainForm.AllAttendie1Click(Sender: TObject);
 Var
@@ -501,11 +503,7 @@ begin
         end;
 
       end;
-      qryMCQualified.Close;
-      qryMCQualified.ParamByName('AYear').AsInteger := CurrentYear;
-      qryMCQualified.ParamByName('AArea').AsString := AArea;
-      qryMCQualified.Open;
-      qryMCQualified.First;
+      SpeedButton6Click(Sender);
     end;
   end;
 end;
@@ -995,6 +993,19 @@ begin
 
   end;
 
+end;
+
+procedure TUMainForm.UpdateLocalDatabaseFromOnlineDatabase1Click(
+  Sender: TObject);
+begin
+  try
+    screen.Cursor := crHourGlass;
+    UpdateDatabaseU := TUpdateDatabaseU.Create(nil);
+    UpdateDatabaseU.ShowModal();
+  finally
+    UpdateDatabaseU.Free();
+    screen.Cursor := crDefault;
+  end;
 end;
 
 procedure TUMainForm.UploadMemberConsumers1Click(Sender: TObject);

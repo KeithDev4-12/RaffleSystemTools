@@ -1,0 +1,93 @@
+unit UpdateDatabase;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Data.DB,
+  MemDS, VirtualTable, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdHTTP,System.JSON, DBGridEhGrouping, ToolCtrlsEh,
+  DBGridEhToolCtrls, DynVarsEh, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh;
+
+type
+  TUpdateDatabaseU = class(TForm)
+    Label1: TLabel;
+    ComboBox1: TComboBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    BitBtn1: TBitBtn;
+    VirtualTable1: TVirtualTable;
+    DBGridEh1: TDBGridEh;
+    DataSource1: TDataSource;
+    VirtualTable1AccountNumber: TStringField;
+    VirtualTable1Name: TStringField;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure FetchAndPopulateVirtualTable(VirtualTable: TVirtualTable);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  UpdateDatabaseU: TUpdateDatabaseU;
+
+implementation
+
+{$R *.dfm}
+Uses MainModuleU;
+
+procedure TUpdateDatabaseU.FetchAndPopulateVirtualTable(VirtualTable: TVirtualTable);
+var
+  IdHTTP: TIdHTTP;
+  JSONResponse: string;
+  JSONObject: TJSONObject;
+  JSONArray: TJSONArray;
+  JSONValue: TJSONValue;
+  I: Integer;
+begin
+  IdHTTP := TIdHTTP.Create(nil);
+  try
+    try
+      // Fetch JSON data from the API
+      JSONResponse := IdHTTP.Get('https://soreco1.org/api/fetchUpdated');
+
+      // Parse JSON response
+      JSONObject := TJSONObject.ParseJSONValue(JSONResponse) as TJSONObject;
+      try
+        // Assuming the JSON structure is an array of objects
+        JSONArray := JSONObject.GetValue('data') as TJSONArray;
+
+        // Clear existing data in VirtualTable
+        VirtualTable.Clear;
+
+        // Iterate through JSON array and populate VirtualTable
+        for I := 0 to JSONArray.Count - 1 do
+        begin
+          JSONValue := JSONArray.Items[I];
+          // Populate your VirtualTable fields here based on JSON data
+          // For example:
+          VirtualTable.Append;
+          VirtualTable.FieldByName('Field1').AsString := JSONValue.GetValue('AccountNumber').Value;
+          VirtualTable.FieldByName('Field2').AsString := JSONValue.GetValue('Name').Value;
+          // Add more fields as needed
+          VirtualTable.Post;
+        end;
+      finally
+        JSONObject.Free;
+      end;
+    except
+      // Handle exceptions
+      // ShowMessage('Failed to fetch or parse JSON data.');
+    end;
+  finally
+    IdHTTP.Free;
+  end;
+end;
+
+procedure TUpdateDatabaseU.BitBtn1Click(Sender: TObject);
+begin
+  FetchAndPopulateVirtualTable(VirtualTable1);
+end;
+
+end.

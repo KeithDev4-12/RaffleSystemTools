@@ -679,8 +679,6 @@ object UMemberConsumer: TUMemberConsumer
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 3
-      ExplicitLeft = -1
-      ExplicitTop = 462
       object Label7: TLabel
         Left = 0
         Top = 0
@@ -750,6 +748,15 @@ object UMemberConsumer: TUMemberConsumer
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 5
+    end
+    object BitBtn1: TBitBtn
+      Left = 64
+      Top = 73
+      Width = 75
+      Height = 25
+      Caption = 'BitBtn1'
+      TabOrder = 6
+      OnClick = BitBtn1Click
     end
   end
   object DSMemberConsumer: TDataSource

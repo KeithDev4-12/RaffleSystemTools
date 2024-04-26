@@ -34,6 +34,12 @@ type
     Edit3: TEdit;
     Panel7: TPanel;
     GroupBox5: TGroupBox;
+    Panel8: TPanel;
+    Label6: TLabel;
+    RadioButton3: TRadioButton;
+    RadioButton4: TRadioButton;
+    RadioButton5: TRadioButton;
+    Panel9: TPanel;
     Label5: TLabel;
     ComboBox1: TComboBox;
     procedure FormCreate(Sender: TObject);

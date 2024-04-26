@@ -1,0 +1,133 @@
+unit UpdateDatabase;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Data.DB,
+  MemDS, VirtualTable, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdHTTP,System.JSON, DBGridEhGrouping, ToolCtrlsEh,
+  DBGridEhToolCtrls, DynVarsEh, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
+  IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL, IdSSLOpenSSL,System.JSON,
+  System.Net.HttpClient,  System.Generics.Collections;
+
+type
+  TUpdateDatabaseU = class(TForm)
+    Label1: TLabel;
+    ComboBox1: TComboBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    BitBtn1: TBitBtn;
+    VirtualTable1: TVirtualTable;
+    DBGridEh1: TDBGridEh;
+    DataSource1: TDataSource;
+    VirtualTable1AccountNumber: TStringField;
+    VirtualTable1Name: TStringField;
+    IdHTTP1: TIdHTTP;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure FetchAndPopulateVirtualTable(VirtualTable: TVirtualTable);
+    procedure InjectJSONToVirtualTable(const JSONData: string; VirtualTable: TVirtualTable);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  UpdateDatabaseU: TUpdateDatabaseU;
+
+implementation
+
+{$R *.dfm}
+Uses MainModuleU;
+
+procedure TUpdateDatabaseU.FetchAndPopulateVirtualTable(VirtualTable: TVirtualTable);
+var
+  IdHTTP: TIdHTTP;
+  JSONData: string;
+begin
+  IdHTTP := TIdHTTP.Create(nil);
+  try
+    try
+      // Fetch JSON data from the API
+      JSONData := IdHTTP.Get('https://soreco1.org/api/fetchUpdated');
+
+      // Inject JSON data into VirtualTable
+      InjectJSONToVirtualTable(JSONData, VirtualTable);
+    except
+      // Handle exceptions
+      // ShowMessage('Failed to fetch or parse JSON data.');
+    end;
+  finally
+    IdHTTP.Free;
+  end;
+end;
+
+procedure TUpdateDatabaseU.InjectJSONToVirtualTable(const JSONData: string; VirtualTable: TVirtualTable);
+var
+  JSONArray: TJSONArray;
+  JSONObject: TJSONObject;
+  I: Integer;
+begin
+  // Clear existing data in VirtualTable
+  VirtualTable.Clear;
+
+  // Parse JSON array
+  JSONArray := TJSONObject.ParseJSONValue(JSONData) as TJSONArray;
+  try
+    // Iterate through JSON array and populate VirtualTable
+    for I := 0 to JSONArray.Count - 1 do
+    begin
+      JSONObject := JSONArray.Items[I] as TJSONObject;
+
+      // Assuming the JSON structure contains 'AccountNumber' and 'Name' fields
+      VirtualTable.Append;
+      VirtualTable.FieldByName('AccountNumber').AsString := JSONObject.GetValue('AccountNumber').Value;
+      VirtualTable.FieldByName('Name').AsString := JSONObject.GetValue('Name').Value;
+      VirtualTable.Post;
+    end;
+  finally
+    JSONArray.Free;
+  end;
+end;
+
+procedure TUpdateDatabaseU.BitBtn1Click(Sender: TObject);
+var
+  httpClient: THttpClient;
+  url: string;
+  response: IHTTPResponse;
+  jsonObj: TJSONObject;
+  JSONArray: TJSONArray;
+  I:Integer;
+begin
+  httpClient := THttpClient.Create;
+  try
+    //url := 'https://api.genderize.io/?name=' + firstName ;
+    url := 'https://soreco1.org/api/fetchUpdated';
+    // + '&apikey=' + apiKey;
+    //Example: https://gender-api.com/get?name=elizabeth&key=zFCT2mhYdQKSBQuWj4gdW7awqvHpXeA6n5VU
+    response := httpClient.Get(url);
+  finally
+    httpClient.Free;
+  end;
+
+  JSONArray := TJSONObject.ParseJSONValue(response.ContentAsString) as TJSONArray;
+  try
+    // Iterate through JSON array and populate VirtualTable
+    for I := 0 to JSONArray.Count - 1 do
+    begin
+      jsonObj := JSONArray.Items[I] as TJSONObject;
+
+      // Assuming the JSON structure contains 'AccountNumber' and 'Name' fields
+      VirtualTable.Append;
+      VirtualTable.FieldByName('AccountNumber').AsString := jsonObj.GetValue('AccountNumber').Value;
+      VirtualTable.FieldByName('Name').AsString := jsonObj.GetValue('Name').Value;
+      VirtualTable.Post;
+    end;
+  finally
+    JSONArray.Free;
+  end;
+
+end;
+
+end.

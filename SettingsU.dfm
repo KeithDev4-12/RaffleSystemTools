@@ -3,8 +3,8 @@ object USettings: TUSettings
   Top = 110
   BorderStyle = bsDialog
   Caption = 'Settings'
-  ClientHeight = 449
-  ClientWidth = 352
+  ClientHeight = 482
+  ClientWidth = 372
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object USettings: TUSettings
     AlignWithMargins = True
     Left = 10
     Top = 10
-    Width = 332
+    Width = 352
     Height = 55
     Margins.Left = 10
     Margins.Top = 10
@@ -29,6 +29,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Raffle Template'
     TabOrder = 0
+    ExplicitWidth = 332
     object RadioButton1: TRadioButton
       Left = 16
       Top = 21
@@ -50,16 +51,17 @@ object USettings: TUSettings
   end
   object Panel1: TPanel
     Left = 0
-    Top = 408
-    Width = 352
+    Top = 441
+    Width = 372
     Height = 41
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 369
+    ExplicitTop = 408
+    ExplicitWidth = 352
     object scGPButton1: TscGPButton
       AlignWithMargins = True
-      Left = 200
+      Left = 220
       Top = 3
       Width = 149
       Height = 35
@@ -186,13 +188,14 @@ object USettings: TUSettings
       GroupIndex = 0
       AllowAllUp = False
       ToggleMode = False
+      ExplicitLeft = 200
     end
   end
   object GroupBox2: TGroupBox
     AlignWithMargins = True
     Left = 10
     Top = 75
-    Width = 332
+    Width = 352
     Height = 68
     Margins.Left = 10
     Margins.Top = 5
@@ -201,14 +204,16 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Seconds Range Random Draw'
     TabOrder = 2
+    ExplicitWidth = 332
     object Panel2: TPanel
       Left = 2
       Top = 15
-      Width = 328
+      Width = 348
       Height = 41
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitWidth = 328
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -246,13 +251,14 @@ object USettings: TUSettings
         end
       end
       object Panel4: TPanel
-        Left = 169
+        Left = 189
         Top = 0
         Width = 159
         Height = 41
         Align = alRight
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitLeft = 169
         object Label2: TLabel
           AlignWithMargins = True
           Left = 10
@@ -287,7 +293,7 @@ object USettings: TUSettings
     AlignWithMargins = True
     Left = 10
     Top = 226
-    Width = 332
+    Width = 352
     Height = 101
     Margins.Left = 10
     Margins.Top = 5
@@ -296,12 +302,12 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Raffle Selection Options'
     TabOrder = 3
-    ExplicitLeft = 15
+    ExplicitWidth = 332
     object Label3: TLabel
       AlignWithMargins = True
       Left = 7
       Top = 85
-      Width = 318
+      Width = 338
       Height = 11
       Margins.Left = 5
       Margins.Right = 5
@@ -346,7 +352,7 @@ object USettings: TUSettings
     AlignWithMargins = True
     Left = 10
     Top = 153
-    Width = 332
+    Width = 352
     Height = 63
     Margins.Left = 10
     Margins.Top = 5
@@ -355,14 +361,16 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Confetti Settings'
     TabOrder = 4
+    ExplicitWidth = 332
     object Panel5: TPanel
       Left = 2
       Top = 15
-      Width = 328
+      Width = 348
       Height = 39
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitWidth = 328
       object Panel6: TPanel
         Left = 0
         Top = 0
@@ -400,13 +408,14 @@ object USettings: TUSettings
         end
       end
       object Panel7: TPanel
-        Left = 169
+        Left = 189
         Top = 0
         Width = 159
         Height = 39
         Align = alRight
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitLeft = 169
       end
     end
   end
@@ -414,8 +423,8 @@ object USettings: TUSettings
     AlignWithMargins = True
     Left = 10
     Top = 342
-    Width = 332
-    Height = 48
+    Width = 352
+    Height = 89
     Margins.Left = 10
     Margins.Top = 5
     Margins.Right = 10
@@ -423,74 +432,156 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'BarCode && QRCode Scanner Settings'
     TabOrder = 5
-    ExplicitLeft = 0
-    ExplicitTop = 337
-    ExplicitWidth = 352
-    object Label5: TLabel
-      Left = 9
-      Top = 23
-      Width = 140
-      Height = 13
-      Caption = 'Default Communication Port :'
-    end
-    object ComboBox1: TComboBox
-      Left = 155
-      Top = 19
-      Width = 168
-      Height = 21
-      Style = csDropDownList
+    ExplicitWidth = 332
+    object Panel8: TPanel
+      Left = 111
+      Top = 15
+      Width = 239
+      Height = 72
+      Align = alClient
+      Alignment = taRightJustify
+      BevelOuter = bvNone
       TabOrder = 0
-      Items.Strings = (
-        'COM1'
-        'COM2'
-        'COM3'
-        'COM4'
-        'COM5'
-        'COM6'
-        'COM7'
-        'COM8'
-        'COM9'
-        'COM10'
-        'COM11'
-        'COM12'
-        'COM13'
-        'COM14'
-        'COM15'
-        'COM16'
-        'COM17'
-        'COM18'
-        'COM19'
-        'COM20'
-        'COM21'
-        'COM22'
-        'COM23'
-        'COM24'
-        'COM25'
-        'COM26'
-        'COM27'
-        'COM28'
-        'COM29'
-        'COM30'
-        'COM31'
-        'COM32'
-        'COM33'
-        'COM34'
-        'COM35'
-        'COM36'
-        'COM37'
-        'COM38'
-        'COM39'
-        'COM40'
-        'COM41'
-        'COM42'
-        'COM43'
-        'COM44'
-        'COM45'
-        'COM46'
-        'COM47'
-        'COM48'
-        'COM49'
-        'COM50')
+      ExplicitWidth = 219
+      ExplicitHeight = 58
+      object Label6: TLabel
+        AlignWithMargins = True
+        Left = 0
+        Top = 0
+        Width = 239
+        Height = 13
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alTop
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Signature Options :'
+        ExplicitLeft = 10
+        ExplicitTop = 5
+        ExplicitWidth = 118
+      end
+      object RadioButton3: TRadioButton
+        AlignWithMargins = True
+        Left = 4
+        Top = 16
+        Width = 105
+        Height = 17
+        Margins.Left = 20
+        Margins.Right = 20
+        Caption = 'Disable Signature'
+        Checked = True
+        TabOrder = 0
+        TabStop = True
+      end
+      object RadioButton4: TRadioButton
+        AlignWithMargins = True
+        Left = 113
+        Top = 16
+        Width = 118
+        Height = 17
+        Margins.Left = 20
+        Margins.Right = 20
+        Caption = 'Signature API (HTML)'
+        TabOrder = 1
+      end
+      object RadioButton5: TRadioButton
+        AlignWithMargins = True
+        Left = 4
+        Top = 36
+        Width = 118
+        Height = 17
+        Margins.Left = 20
+        Margins.Right = 20
+        Caption = 'Signature Pad'
+        TabOrder = 2
+      end
+    end
+    object Panel9: TPanel
+      Left = 2
+      Top = 15
+      Width = 109
+      Height = 72
+      Align = alLeft
+      BevelOuter = bvNone
+      TabOrder = 1
+      ExplicitHeight = 58
+      object Label5: TLabel
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 103
+        Height = 30
+        Align = alTop
+        Caption = 'Default Communication Port :'
+        WordWrap = True
+        ExplicitWidth = 89
+      end
+      object ComboBox1: TComboBox
+        AlignWithMargins = True
+        Left = 3
+        Top = 47
+        Width = 103
+        Height = 21
+        Margins.Top = 11
+        Align = alTop
+        Style = csDropDownList
+        TabOrder = 0
+        Items.Strings = (
+          'COM1'
+          'COM2'
+          'COM3'
+          'COM4'
+          'COM5'
+          'COM6'
+          'COM7'
+          'COM8'
+          'COM9'
+          'COM10'
+          'COM11'
+          'COM12'
+          'COM13'
+          'COM14'
+          'COM15'
+          'COM16'
+          'COM17'
+          'COM18'
+          'COM19'
+          'COM20'
+          'COM21'
+          'COM22'
+          'COM23'
+          'COM24'
+          'COM25'
+          'COM26'
+          'COM27'
+          'COM28'
+          'COM29'
+          'COM30'
+          'COM31'
+          'COM32'
+          'COM33'
+          'COM34'
+          'COM35'
+          'COM36'
+          'COM37'
+          'COM38'
+          'COM39'
+          'COM40'
+          'COM41'
+          'COM42'
+          'COM43'
+          'COM44'
+          'COM45'
+          'COM46'
+          'COM47'
+          'COM48'
+          'COM49'
+          'COM50')
+        ExplicitTop = 31
+        ExplicitWidth = 21
+      end
     end
   end
 end

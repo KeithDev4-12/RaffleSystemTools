@@ -12,7 +12,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Comp.BatchMove.Text,System.IOUtils, Vcl.Menus,System.StrUtils,
-  CPort,U_UsbComponent,U_USBSerialPortMonitor;
+  CPort,U_UsbComponent,U_USBSerialPortMonitor,ShellAPI,CommandPromtUnit;
 
 type
   TUMemberConsumer = class(TForm)
@@ -93,6 +93,7 @@ type
     Label15: TLabel;
     UsbRemovalTimer: TTimer;
     UsbArrivalTimer: TTimer;
+    BitBtn1: TBitBtn;
     procedure SearchBox1Change(Sender: TObject);
     procedure DBGridEh1KeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
@@ -120,15 +121,21 @@ type
     procedure ComPort1RxChar(Sender: TObject; Count: Integer);
     procedure QRCodeParse(AString:String;AParseBy:String;AReturnArray: TArray<string>);
     procedure Label15Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
     FCompUSB: TComponentUSB;
 
     procedure USBArrival(Sender: TObject);
     procedure USBRemoval(Sender: TObject);
+    procedure ShellExecuteScrcpy();
+    procedure RunADBCommand(Command:String);
+    procedure RunMultipleADBCommands(const ADBCommands: array of string);
+    procedure RunHTMLAPI();
     var AArea : String;
     var AAreaName : String;
     var SignatureDeviceIsAvailable : boolean;
+    ScrcpyRunning: Boolean;
   public
     { Public declarations }
   end;
@@ -142,6 +149,11 @@ implementation
 {$R *.dfm}
 
 Uses MainModuleU,SignatureU;
+
+procedure TUMemberConsumer.BitBtn1Click(Sender: TObject);
+begin
+  RunHTMLAPI();
+end;
 
 procedure TUMemberConsumer.ComboBox1Change(Sender: TObject);
 begin
@@ -242,7 +254,14 @@ begin
               UFormSignature.ShowModal;
             end else begin
               if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
-                MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+                if qrySettingsSignatureDevice.AsString.Contains('HTML') then begin
+                  ShellExecuteScrcpy();
+                  RunADBCommand('adb -s YLEQRGUKEQ49L7UC shell am start -a android.intent.action.VIEW -d "https://www.example.com" ');
+                end else if qrySettingsSignatureDevice.AsString.Contains('PAD') then begin
+
+                end else begin
+                  MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+                end;
               end;
               if qryMemberConsumersIsQualifiedForRaffle.AsInteger=1 then begin
                 qryMemberConsumers.Edit;
@@ -370,7 +389,16 @@ begin
                 UFormSignature.ShowModal;
               end else begin
                 if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
-                  MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+                  if qrySettingsSignatureDevice.AsString.Contains('HTML') then begin
+
+                    //ShellExecuteScrcpy();
+                    //RunMultipleADBCommands(['adb devices', 'adb -s YLEQRGUKEQ49L7UC shell am start -a android.intent.action.VIEW -d "https://www.example.com"']);
+                    //RunADBCommand('adb -s YLEQRGUKEQ49L7UC shell am start -a android.intent.action.VIEW -d "https://www.example.com" ');
+                  end else if qrySettingsSignatureDevice.AsString.Contains('PAD') then begin
+
+                  end else begin
+                    MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
+                  end;
                 end;
                 if qryMemberConsumersIsQualifiedForRaffle.AsInteger = 1 then begin
 
@@ -786,6 +814,55 @@ procedure TUMemberConsumer.SearchBox1DblClick(Sender: TObject);
 begin
   SearchBox1.SelectAll;
   SearchBox1.ClearSelection;
+end;
+
+procedure TUMemberConsumer.RunMultipleADBCommands(const ADBCommands: array of string);
+var
+  Command: string;
+begin
+  for Command in ADBCommands do
+    RunADBCommand(Command);
+end;
+
+procedure TUMemberConsumer.RunADBCommand(Command: String);
+const
+  ADBPath = 'C:\platform-tools\adb.exe';
+begin
+  ShellExecute(0, nil, PChar(ADBPath), PChar(Command), nil, SW_SHOW);
+end;
+
+procedure TUMemberConsumer.RunHTMLAPI;
+Var
+  OutPutString : String;
+  NameOutPut : String;
+begin
+  with TCMDPromtUtil do begin
+    if isDevicesConnected then begin
+      NameOutPut := GetDosOutput('adb devices');
+      ShowMessage(NameOutPut);
+      //OutPutString := GetDosOutput('adb -s '+  +' shell am start -a android.intent.action.VIEW -d "https://www.example.com"')
+    end else begin
+      ShowMessage('Failed to launch ADB');
+    end;
+  end;
+end;
+
+procedure TUMemberConsumer.ShellExecuteScrcpy;
+const
+  ScrcpyPath = 'C:\scrcpy-win64-v2.0\scrcpy.exe';
+  ScrcpyArgs = '-m 1024 --disable-screensaver --always-on-top ';
+  //--window-borderless --window-x=100 --window-y=100
+var
+  ProcessInfo: TProcessInformation;
+begin
+  if ShellExecute(0, nil, PChar(ScrcpyPath), PChar(ScrcpyArgs), nil, SW_HIDE) > 32 then
+  begin
+    ScrcpyRunning := True;
+  end
+  else
+  begin
+    ShowMessage('Failed to launch scrcpy');
+  end;
 end;
 
 procedure TUMemberConsumer.SpeedButton1Click(Sender: TObject);
