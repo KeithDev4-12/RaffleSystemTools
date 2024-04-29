@@ -152,7 +152,7 @@ Uses MainModuleU,SignatureU;
 
 procedure TUMemberConsumer.BitBtn1Click(Sender: TObject);
 begin
-  RunHTMLAPI();
+  //RunHTMLAPI();
 end;
 
 procedure TUMemberConsumer.ComboBox1Change(Sender: TObject);
@@ -255,8 +255,8 @@ begin
             end else begin
               if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
                 if qrySettingsSignatureDevice.AsString.Contains('HTML') then begin
-                  ShellExecuteScrcpy();
-                  RunADBCommand('adb -s YLEQRGUKEQ49L7UC shell am start -a android.intent.action.VIEW -d "https://www.example.com" ');
+                  //ShellExecuteScrcpy();
+                  //RunADBCommand('adb -s YLEQRGUKEQ49L7UC shell am start -a android.intent.action.VIEW -d "https://www.example.com" ');
                 end else if qrySettingsSignatureDevice.AsString.Contains('PAD') then begin
 
                 end else begin

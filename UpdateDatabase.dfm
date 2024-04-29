@@ -2,7 +2,7 @@ object UpdateDatabaseU: TUpdateDatabaseU
   Left = 0
   Top = 0
   Caption = 'Update'
-  ClientHeight = 279
+  ClientHeight = 514
   ClientWidth = 271
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -42,6 +42,18 @@ object UpdateDatabaseU: TUpdateDatabaseU
     Font.Style = []
     ParentFont = False
   end
+  object imgApplicant: TImage
+    Left = 8
+    Top = 200
+    Width = 105
+    Height = 105
+  end
+  object imgSignature: TImage
+    Left = 136
+    Top = 200
+    Width = 105
+    Height = 105
+  end
   object ComboBox1: TComboBox
     Left = 47
     Top = 8
@@ -73,7 +85,7 @@ object UpdateDatabaseU: TUpdateDatabaseU
   object DBGridEh1: TDBGridEh
     AlignWithMargins = True
     Left = 3
-    Top = 128
+    Top = 363
     Width = 265
     Height = 148
     Align = alBottom
@@ -99,6 +111,15 @@ object UpdateDatabaseU: TUpdateDatabaseU
       end>
     object RowDetailData: TRowDetailPanelControlEh
     end
+  end
+  object BitBtn2: TBitBtn
+    Left = 8
+    Top = 152
+    Width = 137
+    Height = 25
+    Caption = 'Try'
+    TabOrder = 3
+    OnClick = BitBtn2Click
   end
   object VirtualTable1: TVirtualTable
     Active = True

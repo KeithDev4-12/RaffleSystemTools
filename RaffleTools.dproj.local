@@ -60,7 +60,7 @@
     <Transaction>2024/04/25 14:27:22.000.423,=E:\RaffleSystemTools\Unit1.pas</Transaction>
     <Transaction>2024/04/25 14:27:40.000.315,E:\RaffleSystemTools\Unit1.dfm=E:\RaffleSystemTools\UpdateDatabase.dfm</Transaction>
     <Transaction>2024/04/25 14:27:40.000.315,E:\RaffleSystemTools\Unit1.pas=E:\RaffleSystemTools\UpdateDatabase.pas</Transaction>
-    <Transaction>2024/04/26 15:04:15.343,=E:\RaffleSystemTools\CommandPromtUnit.pas</Transaction>
+    <Transaction>2024/04/26 15:04:15.000.343,=E:\RaffleSystemTools\CommandPromtUnit.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5"/>

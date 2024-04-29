@@ -301,6 +301,12 @@ type
     tblSearchMemberConsumerIsSignatureAvailable: TShortintField;
     qrySettingsCOMPort: TStringField;
     qrySettingsSignatureDevice: TStringField;
+    tblMemberConsumerPicture: TFDTable;
+    tblMemberConsumerPictureID: TFDAutoIncField;
+    tblMemberConsumerPictureAccountNumber: TStringField;
+    tblMemberConsumerPictureApplicantSignature: TBlobField;
+    tblMemberConsumerPictureApplicantPicture: TBlobField;
+    tblMemberConsumerPictureApplicantSpouse: TBlobField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

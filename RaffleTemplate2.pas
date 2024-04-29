@@ -5,8 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, scControls, scGPControls,
-  Vcl.StdCtrls, dxGDIPlusClasses, System.Math, ConfettiEffect, System.Skia,
-  Vcl.Skia, Vcl.Imaging.GIFImg, Vcl.Imaging.pngimage, Vcl.MPlayer;
+  Vcl.StdCtrls, dxGDIPlusClasses, System.Math, ConfettiEffect, Vcl.Imaging.GIFImg, Vcl.Imaging.pngimage, Vcl.MPlayer;
 
 type
   TRaffleTemplate2U = class(TForm)

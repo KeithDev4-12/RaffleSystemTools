@@ -2046,4 +2046,38 @@ object UMainModule: TUMainModule
       Size = 13
     end
   end
+  object tblMemberConsumerPicture: TFDTable
+    Active = True
+    IndexFieldNames = 'ID'
+    Connection = FDConnSQLite
+    UpdateOptions.UpdateTableName = 'raffledatabase.memberconsumerpicture'
+    TableName = 'raffledatabase.memberconsumerpicture'
+    Left = 520
+    Top = 16
+    object tblMemberConsumerPictureID: TFDAutoIncField
+      FieldName = 'ID'
+      Origin = 'ID'
+    end
+    object tblMemberConsumerPictureAccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 11
+    end
+    object tblMemberConsumerPictureApplicantSignature: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantSignature'
+      Origin = 'ApplicantSignature'
+    end
+    object tblMemberConsumerPictureApplicantPicture: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantPicture'
+      Origin = 'ApplicantPicture'
+    end
+    object tblMemberConsumerPictureApplicantSpouse: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantSpouse'
+      Origin = 'ApplicantSpouse'
+    end
+  end
 end

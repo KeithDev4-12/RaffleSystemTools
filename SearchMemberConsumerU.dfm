@@ -753,9 +753,10 @@ object UMemberConsumer: TUMemberConsumer
       Left = 64
       Top = 73
       Width = 75
-      Height = 25
+      Height = 21
       Caption = 'BitBtn1'
       TabOrder = 6
+      Visible = False
       OnClick = BitBtn1Click
     end
   end
