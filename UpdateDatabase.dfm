@@ -75,7 +75,7 @@ object UpdateDatabaseU: TUpdateDatabaseU
   end
   object BitBtn1: TBitBtn
     Left = 8
-    Top = 73
+    Top = 65
     Width = 255
     Height = 49
     Caption = 'Update Database'
@@ -121,6 +121,24 @@ object UpdateDatabaseU: TUpdateDatabaseU
     TabOrder = 3
     OnClick = BitBtn2Click
   end
+  object BitBtn3: TBitBtn
+    Left = 32
+    Top = 320
+    Width = 75
+    Height = 25
+    Caption = 'BitBtn3'
+    TabOrder = 4
+    OnClick = BitBtn3Click
+  end
+  object BitBtn4: TBitBtn
+    Left = 136
+    Top = 320
+    Width = 75
+    Height = 25
+    Caption = 'BitBtn4'
+    TabOrder = 5
+    OnClick = BitBtn4Click
+  end
   object VirtualTable1: TVirtualTable
     Active = True
     FieldDefs = <
@@ -134,8 +152,8 @@ object UpdateDatabaseU: TUpdateDatabaseU
         DataType = ftString
         Size = 99
       end>
-    Left = 176
-    Top = 168
+    Left = 200
+    Top = 144
     Data = {
       040002000D004163636F756E744E756D62657201000C000000000004004E616D
       650100630000000000000000000000}
@@ -169,5 +187,66 @@ object UpdateDatabaseU: TUpdateDatabaseU
     HTTPOptions = [hoForceEncodeParams]
     Left = 152
     Top = 152
+  end
+  object FDBatchMove1: TFDBatchMove
+    Reader = FDBatchMoveDataSetReader1
+    Writer = FDBatchMoveDataSetWriter1
+    Mappings = <
+      item
+        SourceFieldName = 'AccountNumber'
+        DestinationFieldName = 'AccountNumber'
+      end
+      item
+        SourceFieldName = 'Name'
+        DestinationFieldName = 'Name'
+      end>
+    LogFileName = 'Data.log'
+    Left = 120
+    Top = 240
+  end
+  object FDBatchMoveDataSetReader1: TFDBatchMoveDataSetReader
+    DataSet = VirtualTable1
+    Left = 56
+    Top = 224
+  end
+  object FDBatchMoveDataSetWriter1: TFDBatchMoveDataSetWriter
+    DataSet = tblNewTable
+    Left = 208
+    Top = 224
+  end
+  object tblNewTable: TFDTable
+    IndexFieldNames = 'AccountNumber'
+    Connection = UMainModule.FDConnSQLite
+    FetchOptions.AssignedValues = [evMode, evItems]
+    FetchOptions.Mode = fmManual
+    FetchOptions.Items = [fiMeta]
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.UpdateChangedFields = False
+    UpdateOptions.LockWait = True
+    UpdateOptions.RefreshMode = rmManual
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.CheckReadOnly = False
+    UpdateOptions.CheckUpdatable = False
+    UpdateOptions.UpdateTableName = 'raffledatabase.new_table'
+    TableName = 'raffledatabase.new_table'
+    Left = 240
+    Top = 176
+    object tblNewTableid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+    end
+    object tblNewTableAccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 45
+    end
+    object tblNewTableName: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Name'
+      Origin = '`Name`'
+      Size = 99
+    end
   end
 end

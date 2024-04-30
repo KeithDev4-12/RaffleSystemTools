@@ -10,7 +10,10 @@ uses
   DBGridEhToolCtrls, DynVarsEh, EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh,
   IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL, IdSSLOpenSSL,
   System.Net.HttpClient,  System.Generics.Collections, StrUtils,EncdDecd,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  FireDAC.Comp.BatchMove.DataSet, FireDAC.Comp.BatchMove;
 
 type
   TUpdateDatabaseU = class(TForm)
@@ -28,12 +31,23 @@ type
     BitBtn2: TBitBtn;
     imgApplicant: TImage;
     imgSignature: TImage;
+    BitBtn3: TBitBtn;
+    BitBtn4: TBitBtn;
+    FDBatchMove1: TFDBatchMove;
+    FDBatchMoveDataSetReader1: TFDBatchMoveDataSetReader;
+    FDBatchMoveDataSetWriter1: TFDBatchMoveDataSetWriter;
+    tblNewTable: TFDTable;
+    tblNewTableid: TFDAutoIncField;
+    tblNewTableAccountNumber: TStringField;
+    tblNewTableName: TStringField;
     procedure BitBtn1Click(Sender: TObject);
     procedure FetchAndPopulateVirtualTable(VirtualTable: TVirtualTable);
     procedure FetchAndPopulateImage(Const AccountNumber:String);
     function GetFirstLetterOfLastWord(const S: string): Char;
     function GetAllWordsExceptLast(const S: string): string;
     procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn3Click(Sender: TObject);
+    procedure BitBtn4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -52,6 +66,16 @@ Uses MainModuleU;
 procedure TUpdateDatabaseU.BitBtn2Click(Sender: TObject);
 begin
   FetchAndPopulateImage('08380154');
+end;
+
+procedure TUpdateDatabaseU.BitBtn3Click(Sender: TObject);
+begin
+  FetchAndPopulateVirtualTable(VirtualTable1);
+end;
+
+procedure TUpdateDatabaseU.BitBtn4Click(Sender: TObject);
+begin
+  FDBatchMove1.Execute;
 end;
 
 procedure TUpdateDatabaseU.FetchAndPopulateImage(Const AccountNumber:String);
@@ -81,17 +105,16 @@ begin
     begin
       jsonObj := JSONArray.Items[0] as TJSONObject;
       with UMainModule do begin
-        if tblMemberConsumerPicture.Locate('AccountNumber',jsonObj.GetValue('AccountNumber').Value,[]) then begin
-          tblMemberConsumerPicture.Edit;
-        end else begin
+        if not tblMemberConsumerPicture.Locate('AccountNumber',jsonObj.GetValue('AccountNumber').Value,[]) then begin
           tblMemberConsumerPicture.Append;
+          //ShowMessage(jsonObj.GetValue('AccountNumber').Value);
+          tblMemberConsumerPictureAccountNumber.AsString := jsonObj.GetValue('AccountNumber').Value;
+          tblMemberConsumerPictureApplicantSignature.AsBytes := DecodeBase64(jsonObj.GetValue('ApplicantSignature').Value);
+          //tblMemberConsumerPictureApplicantPicture.AsString := DecodeBase64(jsonObj.GetValue('ApplicantPicture').Value);
+          //tblMemberConsumerPictureApplicantSpouse.AsString := DecodeBase64(jsonObj.GetValue('ApplicantSpouse').Value);
+          tblMemberConsumerPicture.Post;
         end;
-        //ShowMessage(jsonObj.GetValue('AccountNumber').Value);
-        tblMemberConsumerPictureAccountNumber.AsString := jsonObj.GetValue('AccountNumber').Value;
-        tblMemberConsumerPictureApplicantSignature.AsBytes := DecodeBase64(jsonObj.GetValue('ApplicantSignature').Value);
-        //tblMemberConsumerPictureApplicantPicture.AsString := DecodeBase64(jsonObj.GetValue('ApplicantPicture').Value);
-        //tblMemberConsumerPictureApplicantSpouse.AsString := DecodeBase64(jsonObj.GetValue('ApplicantSpouse').Value);
-        tblMemberConsumerPicture.Post;
+
       end;
     end else begin
 
