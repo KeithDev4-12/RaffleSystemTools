@@ -14,6 +14,10 @@ object RaffleTemplate2U: TRaffleTemplate2U
   OldCreateOrder = False
   OnCreate = FormCreate
   OnResize = FormResize
+  OnShow = FormShow
+  DesignSize = (
+    951
+    690)
   PixelsPerInch = 96
   TextHeight = 13
   object Image3: TImage
@@ -7812,9 +7816,10 @@ object RaffleTemplate2U: TRaffleTemplate2U
   end
   object Image5: TImage
     Left = 585
-    Top = -55
+    Top = -40
     Width = 583
     Height = 690
+    Anchors = [akTop, akRight]
     Picture.Data = {
       0954474946496D61676547494638396180028002F7000000FF003396FD3F9CFD
       419EFD4696F34AC34C529BD754C65656A8FD5AAAFD6657A766B0FD66B0FD6953
@@ -15604,6 +15609,25 @@ object RaffleTemplate2U: TRaffleTemplate2U
     Transparent = True
     Visible = False
   end
+  object Label5: TLabel
+    AlignWithMargins = True
+    Left = 0
+    Top = 654
+    Width = 951
+    Height = 35
+    Margins.Left = 0
+    Margins.Top = 5
+    Margins.Right = 0
+    Margins.Bottom = 5
+    AutoSize = False
+    Caption = 'ZONE 5, BULAN, SORSOGON'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = 15045699
+    Font.Height = -27
+    Font.Name = 'Mukta Mahee ExtraBold'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object scGPPickerName: TscGPPanel
     AlignWithMargins = True
     Left = 250
@@ -15765,12 +15789,12 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Options.NormalColor = 9787667
       Options.HotColor = 6179124
       Options.PressedColor = 9787667
-      Options.FocusedColor = clWhite
+      Options.FocusedColor = 6179124
       Options.DisabledColor = 6179124
       Options.NormalColor2 = 9787667
       Options.HotColor2 = 6179124
       Options.PressedColor2 = 9787667
-      Options.FocusedColor2 = clWhite
+      Options.FocusedColor2 = 6179124
       Options.DisabledColor2 = 6179124
       Options.NormalColorAlpha = 255
       Options.HotColorAlpha = 255
@@ -15786,7 +15810,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Options.FrameHotColor = clWhite
       Options.FramePressedColor = 9787667
       Options.FrameFocusedColor = 6179124
-      Options.FrameDisabledColor = 6179124
+      Options.FrameDisabledColor = clWhite
       Options.FrameWidth = 1
       Options.FrameNormalColorAlpha = 255
       Options.FrameHotColorAlpha = 255
@@ -15808,7 +15832,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Options.ArrowType = scgpatModern
       Options.ArrowThickness = 2
       Options.ArrowThicknessScaled = False
-      Options.ArrowNormalColor = clWhite
+      Options.ArrowNormalColor = 6179124
       Options.ArrowHotColor = 6179124
       Options.ArrowPressedColor = 6179124
       Options.ArrowFocusedColor = 6179124
@@ -16763,7 +16787,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
         Options.FrameNormalColor = 9787667
         Options.FrameHotColor = clWhite
         Options.FramePressedColor = clWhite
-        Options.FrameFocusedColor = clWhite
+        Options.FrameFocusedColor = 9787667
         Options.FrameDisabledColor = clWhite
         Options.FrameWidth = 3
         Options.FrameNormalColorAlpha = 255
@@ -16897,7 +16921,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
         Options.FrameNormalColor = 9787667
         Options.FrameHotColor = clWhite
         Options.FramePressedColor = clWhite
-        Options.FrameFocusedColor = clWhite
+        Options.FrameFocusedColor = 9787667
         Options.FrameDisabledColor = clWhite
         Options.FrameWidth = 3
         Options.FrameNormalColorAlpha = 255
@@ -17348,6 +17372,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
     Margins.Bottom = 60
     FluentUIOpaque = False
     TabOrder = 1
+    Visible = False
     OnResize = scGPPickerNameResize
     BlurBackground = False
     BlurBackgroundAmount = 5
@@ -17589,6 +17614,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
   end
   object Timer2: TTimer
     Enabled = False
+    OnTimer = Timer2Timer
     Left = 112
     Top = 344
   end

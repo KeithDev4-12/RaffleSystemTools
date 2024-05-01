@@ -9,7 +9,7 @@ uses
   EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh, Data.DB, Vcl.Imaging.GIFImg,
   dxGDIPlusClasses,System.Math, MemDS, VirtualTable,System.StrUtils, mmsystem,
   Vcl.MPlayer, SpeechLib_TLB, Vcl.OleServer,ShellAPI,IdHTTP, System.JSON,
-  System.Net.HttpClient,  System.Generics.Collections, CPort;
+  System.Net.HttpClient,  System.Generics.Collections, CPort,Soap.EncdDecd;
 
 type
   TUMainForm = class(TForm)
@@ -117,6 +117,7 @@ type
     procedure Label4Click(Sender: TObject);
     procedure est1Click(Sender: TObject);
     function isSpeakerAvailable():Boolean;
+    function FetchAndPopulateImage(Const AccountNumber:String):Integer;
     function GetGenderOfFirstName(const firstName: string; const apiKey: string): string;
     function GetGendersOfFirstNames(const firstNames: String
     // const apiKey: string
@@ -134,6 +135,8 @@ type
     function IsQualified(Const AAccountNumber:String):Integer;
     function IsPictureAvailable(Const AAccountNumber:String):Integer;
     procedure UpdateLocalDatabaseFromOnlineDatabase1Click(Sender: TObject);
+    function GetFirstLetterOfLastWord(const S: string): Char;
+    function GetAllWordsExceptLast(const S: string): string;
 
   private
     { Private declarations }
@@ -442,7 +445,7 @@ end;
 
 procedure TUMainForm.GetFromCooptoLocalData1Click(Sender: TObject);
 var
-  I:Integer;
+  I,Count:Integer;
   value:String;
   BillMonthReverse:String;
 begin
@@ -451,6 +454,10 @@ begin
       ShowMessage('User cancelled the dialog');
     end else begin
       //BillMonthReverse := RightStr(value,2) + LeftStr(value,2);
+      tblMemberConsumerPicture.Close;
+      tblMemberConsumerPicture.Open;
+      tblMemberConsumerPicture.First;
+
       qryAccountSignature.Close;
       qryAccountSignature.Open;
       for I := 1 to 8 do begin
@@ -470,35 +477,43 @@ begin
         qryMemberConsumers.First;
 
         while not qryMaster.EOF do begin
-          qryMemberConsumers.Append;
-          qryMemberConsumersAccountNumber.AsString := qryMasterAccountNumber.AsString;
-          qryMemberConsumersName.AsString := qryMasterName.AsString;
-          qryMemberConsumersArea.AsString := qryMasterArea.AsString;
-          qryMemberConsumersAddress.AsString := qryMasterAddress.AsString;
-          if qryMasterConsCode.AsString = 'X' then begin
-            if qryMasterConnCode.AsString = '3' then begin
-              //Disco Vacant
-              qryMemberConsumersConnectionStatus.AsInteger := 3;
+          if not qryMemberConsumers.Locate('AccountNumber',qryMasterAccountNumber.AsString,[]) then begin
+            Count := Count + 1;
+            qryMemberConsumers.Append;
+            qryMemberConsumersAccountNumber.AsString := qryMasterAccountNumber.AsString;
+            qryMemberConsumersName.AsString := qryMasterName.AsString;
+            qryMemberConsumersArea.AsString := qryMasterArea.AsString;
+            qryMemberConsumersAddress.AsString := qryMasterAddress.AsString;
+            if qryMasterConsCode.AsString = 'X' then begin
+              if qryMasterConnCode.AsString = '3' then begin
+                //Disco Vacant
+                qryMemberConsumersConnectionStatus.AsInteger := 3;
+                qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+              end else begin
+                //Disco
+                qryMemberConsumersConnectionStatus.AsInteger := 2;
+                qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+              end;
             end else begin
-              //Disco
-              qryMemberConsumersConnectionStatus.AsInteger := 2;
+              qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterAccountNumber.AsString);
+              qryMemberConsumersConnectionStatus.AsInteger := 1;
+              
             end;
-          end else begin
-            qryMemberConsumersConnectionStatus.AsInteger := 1;
-          end;
-          qryMemberConsumersStatus.AsInteger := 0;
-          qryMemberConsumersShuffleOrder.AsInteger := qryMemberConsumers.RecordCount + 1;
-          qryMemberConsumersYear.AsString := value;
-          //if Length(qryMasterGender.AsString) >= 3 then begin
-          //  qryMemberConsumersGender.AsString := qryMasterGender.AsString;
-          //end else begin
-          //  qryMemberConsumersGender.AsString := '';
-          //end;
-          qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterAccountNumber.AsString);
-          qryMemberConsumersIsSignatureAvailable.AsInteger :=  IsPictureAvailable(qryMasterAccountNumber.AsString);
-          qryMemberConsumersRateCode.AsString := qryMasterRateCode.AsString;
+            qryMemberConsumersStatus.AsInteger := 0;
+            qryMemberConsumersShuffleOrder.AsInteger := qryMemberConsumers.RecordCount + 1;
+            qryMemberConsumersYear.AsString := value;
+            //if Length(qryMasterGender.AsString) >= 3 then begin
+            //  qryMemberConsumersGender.AsString := qryMasterGender.AsString;
+            //end else begin
+            //  qryMemberConsumersGender.AsString := '';
+            //end;
 
-          qryMemberConsumers.Post;
+            //qryMemberConsumersIsSignatureAvailable.AsInteger :=  IsPictureAvailable(qryMasterAccountNumber.AsString);
+            qryMemberConsumersRateCode.AsString := qryMasterRateCode.AsString;
+
+            qryMemberConsumers.Post;
+
+          end;
           qryMaster.Next;
         end;
 
@@ -677,6 +692,96 @@ begin
   //mgHoverArrowShowSelected.Visible := True;
 end;
 
+function TUMainForm.FetchAndPopulateImage(Const AccountNumber:String) : Integer;
+var
+  httpClient: THttpClient;
+  url: string;
+  response: IHTTPResponse;
+  jsonObj: TJSONObject;
+  JSONArray: TJSONArray;
+  I:Integer;
+  SplitName:String;
+  SplitFirst:String;
+  SplitLastName:String;
+  SplitCount:Integer;
+begin
+  httpClient := THttpClient.Create;
+  try
+    //url := 'https://api.genderize.io/?name=' + firstName ;
+    url := 'https://soreco1.org/api/getPicture?AccountNumber='+AccountNumber;
+    // + '&apikey=' + apiKey;
+    //Example: https://gender-api.com/get?name=elizabeth&key=zFCT2mhYdQKSBQuWj4gdW7awqvHpXeA6n5VU
+    response := httpClient.Get(url);
+  finally
+    httpClient.Free;
+  end;
+  //VirtualTable.Clear;
+  if Pos('No matching data found', response.ContentAsString) > 0 then begin
+    Result := 0;
+    Exit;
+  end;
+
+  JSONArray := TJSONObject.ParseJSONValue(response.ContentAsString) as TJSONArray;
+  try
+    // Iterate through JSON array and populate VirtualTable
+    if JSONArray.Count = 1 then
+    begin
+      jsonObj := JSONArray.Items[0] as TJSONObject;
+      with UMainModule do begin
+        if not tblMemberConsumerPicture.Locate('AccountNumber',jsonObj.GetValue('AccountNumber').Value,[]) then begin
+          tblMemberConsumerPicture.Append;
+          //ShowMessage(jsonObj.GetValue('AccountNumber').Value);
+          tblMemberConsumerPictureAccountNumber.AsString := jsonObj.GetValue('AccountNumber').Value;
+          tblMemberConsumerPictureApplicantSignature.AsBytes := DecodeBase64(jsonObj.GetValue('ApplicantSignature').Value);
+          //tblMemberConsumerPictureApplicantPicture.AsString := DecodeBase64(jsonObj.GetValue('ApplicantPicture').Value);
+          //tblMemberConsumerPictureApplicantSpouse.AsString := DecodeBase64(jsonObj.GetValue('ApplicantSpouse').Value);
+          tblMemberConsumerPicture.Post;
+        end;
+
+      end;
+      result := 1;
+    end else begin
+      result := 0;
+
+    end;
+
+  finally
+    JSONArray.Free;
+  end;
+end;
+
+function TUMainForm.GetFirstLetterOfLastWord(const S: string): Char;
+var
+  LastSpacePos: Integer;
+begin
+  // Find the position of the last space
+  LastSpacePos := LastDelimiter(' ', S);
+
+  // If no space is found, consider the whole string as the last word
+  if LastSpacePos = 0 then
+    Result := S[1]
+  else
+  begin
+    // Extract the last word and return its first letter
+    Result := S[LastSpacePos + 1];
+  end;
+end;
+
+function TUMainForm.GetAllWordsExceptLast(const S: string): string;
+var
+  LastSpacePos: Integer;
+begin
+  // Find the position of the last space
+  LastSpacePos := LastDelimiter(' ', S);
+
+  // If no space is found or if the string has only one word, return an empty string
+  if (LastSpacePos = 0) or (LastSpacePos = Length(S)) then
+    Exit('');
+
+  // Extract all words except the last one
+  Result := Copy(S, 1, LastSpacePos - 1);
+end;
+
 function TUMainForm.IsPictureAvailable(const AAccountNumber: String): Integer;
 begin
   with UMainModule do begin
@@ -687,12 +792,22 @@ begin
         if qryAccountSignatureStatus.AsString.Contains('Not') then begin
           result := 0;
         end else begin
+          if tblMemberConsumerPicture.Locate('AccountNumber',AAccountNumber,[]) then begin
+            tblMemberConsumerPicture.Edit;
+          end else begin
+            tblMemberConsumerPicture.Append;
+          end;
+          tblMemberConsumerPictureAccountNumber.AsString := AAccountNumber;
+          tblMemberConsumerPictureApplicantSignature.AsBytes := qryAccountSignatureApplicantSignature.AsBytes;
+          tblMemberConsumerPicture.Post;
           result := 1;
         end;
       end else begin
         //I Should look to the other table Signature temp table
         // This Table will be the store table if Image From A2Hosting Database
         // same Logic Applies for this table Locate
+        //result := FetchAndPopulateImage(AAccountNumber);
+
 
       end;
     end;
@@ -706,12 +821,12 @@ begin
     qryAccountQualifier.ParamByName('AAccountNumber').AsString := AAccountNumber;
     qryAccountQualifier.Open;
     if qryAccountQualifier.IsEmpty then begin
-      Result := 1;
+      Result := 0;
     end else begin
       if qryAccountQualifierStatus.AsString.Contains('OLD') then begin
         Result := 0;
       end else begin
-        Result := 0;
+        Result := 1;
       end;
     end;
   end;
@@ -871,8 +986,8 @@ begin
     Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
     if qrySettingsTheme.AsString.Contains('2')  then begin
       RaffleTemplate2U.Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
-    end;
 
+    end;
     FDQuery2.Close;
     qryMCQualified.Close;
     with UMainModule do begin
@@ -885,28 +1000,34 @@ begin
       qryMCQualified.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
       FDQuery2.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
       Label7.Caption := 'V';
+      RaffleTemplate2U.Label5.Caption := 'VENUE REGISTRATION';
     end else begin
       qryMCQualified.ParamByName('EntryMode1').AsString := '';
       FDQuery2.ParamByName('EntryMode1').AsString := '';
       Label7.Caption := '';
+      RaffleTemplate2U.Label5.Caption := '';
     end;
     if UMainModule.AIsOnlineReg then begin
       qryMCQualified.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
       FDQuery2.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
       Label7.Caption := Label7.Caption + 'O';
+      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' ONLINE REGISTRATION ';
     end else begin
       qryMCQualified.ParamByName('EntryMode2').AsString := '';
       FDQuery2.ParamByName('EntryMode2').AsString := '';
       Label7.Caption := Label7.Caption + '';
+      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ''
     end;
     if UMainModule.AIsPreReg then begin
       qryMCQualified.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
       FDQuery2.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
       Label7.Caption := Label7.Caption + 'P';
+      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' PRE-REGISTRATION ';
     end else begin
       qryMCQualified.ParamByName('EntryMode3').AsString := '';
       FDQuery2.ParamByName('EntryMode3').AsString := '';
       Label7.Caption := Label7.Caption + '';
+      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + '';
     end;
 
     FDQuery2.ParamByName('AARea').AsString := AArea;
@@ -926,6 +1047,9 @@ begin
     qryWinnerMC.Close;
     qryWinnerMC.ParamByName('AYear').AsInteger := CurrentYear;
     qryWinnerMC.Open;
+
+    RaffleTemplate2U.Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+    Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
 
     Label6.Caption := ' - '+ FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
 

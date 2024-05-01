@@ -307,6 +307,7 @@ type
     tblMemberConsumerPictureApplicantSignature: TBlobField;
     tblMemberConsumerPictureApplicantPicture: TBlobField;
     tblMemberConsumerPictureApplicantSpouse: TBlobField;
+    qryAccountSignatureApplicantSignature: TBlobField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

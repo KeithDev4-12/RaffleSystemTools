@@ -43,6 +43,7 @@ type
     Image3: TImage;
     Image5: TImage;
     Timer2: TTimer;
+    Label5: TLabel;
     procedure ShowInPanel(Panel: TPanel);
     procedure FormResize(Sender: TObject);
     procedure scGPPickerNameResize(Sender: TObject);
@@ -117,8 +118,8 @@ begin
       qryCount.ParamByName('AYear').AsInteger := CurrentYear;
       qryCount.Open();
       qryCount.First;
-      UMainForm.Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
-      Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
+      UMainForm.Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+      Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
       
 
 
@@ -177,7 +178,7 @@ begin
     qryCount.Open();
     qryCount.First;
     //UMainForm.Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
-    Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
+    Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
   end;
 end;
 

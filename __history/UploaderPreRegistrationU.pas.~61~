@@ -154,13 +154,11 @@ begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 3;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
             tblSearchMemberConsumer.Post;
           end else begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 4;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
             tblSearchMemberConsumer.Post;
           end;
         end else if tblSearchMemberConsumerConnectionStatus.AsString = '3' then begin
@@ -168,13 +166,11 @@ begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 3;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
             tblSearchMemberConsumer.Post;
           end else begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 4;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
             tblSearchMemberConsumer.Post;
           end;
         end else begin
@@ -182,13 +178,11 @@ begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 1;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
             tblSearchMemberConsumer.Post;
           end else begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 4;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
             tblSearchMemberConsumer.Post;
           end;
         end;

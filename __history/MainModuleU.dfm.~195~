@@ -6,7 +6,6 @@ object UMainModule: TUMainModule
   object FDConnSQLite: TFDConnection
     Params.Strings = (
       'ConnectionDef=MYSQL_PORTABLE')
-    Connected = True
     Left = 408
     Top = 40
   end
@@ -170,25 +169,25 @@ object UMainModule: TUMainModule
         Name = 'ENTRYMODE1'
         DataType = ftWideString
         ParamType = ptInput
-        Value = 'VENUE-REGISTRATION'
+        Value = ''
       end
       item
         Name = 'ENTRYMODE2'
         DataType = ftWideString
         ParamType = ptInput
-        Value = 'VENUE-REGISTRATION'
+        Value = ''
       end
       item
         Name = 'ENTRYMODE3'
         DataType = ftWideString
         ParamType = ptInput
-        Value = 'VENUE-REGISTRATION'
+        Value = 'PRE-REGISTRATION'
       end
       item
         Name = 'AAREA'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '002'
+        Value = 'ALL'
       end
       item
         Name = 'AYEAR'
@@ -1908,6 +1907,18 @@ object UMainModule: TUMainModule
       FieldName = 'CloseConfettiTimer'
       Origin = 'CloseConfettiTimer'
     end
+    object qrySettingsCOMPort: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPort'
+      Origin = 'COMPort'
+      Size = 45
+    end
+    object qrySettingsSignatureDevice: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SignatureDevice'
+      Origin = 'SignatureDevice'
+      Size = 45
+    end
   end
   object qryCount: TFDQuery
     Connection = FDConnSQLite
@@ -1953,9 +1964,10 @@ object UMainModule: TUMainModule
     SQL.Strings = (
       'SELECT'
       '  AccountNumber,'
+      '  BillMonth,'
       
-        '  IF((Group_Concat(BillMonth) LIKE '#39'%0324%'#39' AND GROUP_Concat(Bil' +
-        'lMonth) LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
+        '  IF((Group_Concat(BillMonth) LIKE '#39'%0324%'#39' OR GROUP_Concat(Bill' +
+        'Month) LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
       'FROM'
       '('
       '  SELECT'
@@ -1971,7 +1983,7 @@ object UMainModule: TUMainModule
       '  GROUP BY'
       '    BillMonth'
       '  HAVING'
-      '    (SUM(DEBIT) - SUM(CREDIT)) > 0'
+      '    (SUM(DEBIT) - SUM(CREDIT)) = 0'
       '  Order By'
       '    Entry'
       '  Desc LIMIT 2'
@@ -1985,7 +1997,7 @@ object UMainModule: TUMainModule
         Name = 'AACCOUNTNUMBER'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '02220044'
+        Value = '02220001'
       end>
     object qryAccountQualifierAccountNumber: TStringField
       AutoGenerateValue = arDefault
@@ -2009,6 +2021,7 @@ object UMainModule: TUMainModule
     SQL.Strings = (
       'Select'
       '  MP.AccountNumber,'
+      '  AP.ApplicantSignature,'
       
         '  IF(AP.ApplicantSignature is not null, '#39'Available'#39', '#39'Not Availa' +
         'ble'#39') as Status'
@@ -2016,9 +2029,7 @@ object UMainModule: TUMainModule
       '  Msd_New.ApplicantPictures ap,'
       '  Msd_New.membership mp'
       'Where mp.Entry = ap.Entry'
-      
-        ' And Length(mp.AccountNumber) >= 8 -- :AAccountNumber -- '#39'041002' +
-        '61'#39)
+      ' And Length(AccountNumber) >= 8 -- '#39'04100261'#39)
     Left = 56
     Top = 352
     object qryAccountSignatureAccountNumber: TStringField
@@ -2032,6 +2043,44 @@ object UMainModule: TUMainModule
       Origin = 'Status'
       Required = True
       Size = 13
+    end
+    object qryAccountSignatureApplicantSignature: TBlobField
+      FieldName = 'ApplicantSignature'
+      Origin = 'ApplicantSignature'
+    end
+  end
+  object tblMemberConsumerPicture: TFDTable
+    IndexFieldNames = 'ID'
+    Connection = FDConnSQLite
+    UpdateOptions.UpdateTableName = 'raffledatabase.memberconsumerpicture'
+    TableName = 'raffledatabase.memberconsumerpicture'
+    Left = 520
+    Top = 16
+    object tblMemberConsumerPictureID: TFDAutoIncField
+      FieldName = 'ID'
+      Origin = 'ID'
+      ReadOnly = True
+    end
+    object tblMemberConsumerPictureAccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 11
+    end
+    object tblMemberConsumerPictureApplicantSignature: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantSignature'
+      Origin = 'ApplicantSignature'
+    end
+    object tblMemberConsumerPictureApplicantPicture: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantPicture'
+      Origin = 'ApplicantPicture'
+    end
+    object tblMemberConsumerPictureApplicantSpouse: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantSpouse'
+      Origin = 'ApplicantSpouse'
     end
   end
 end

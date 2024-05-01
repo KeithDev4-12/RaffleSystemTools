@@ -937,7 +937,6 @@ object UMainForm: TUMainForm
       end
       object GetFromCooptoLocalData1: TMenuItem
         Caption = 'Get From Coop to Local Data'
-        Enabled = False
         OnClick = GetFromCooptoLocalData1Click
       end
       object N2: TMenuItem
@@ -946,6 +945,7 @@ object UMainForm: TUMainForm
       end
       object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
         Caption = 'Update Local Database From Online Database'
+        Enabled = False
         OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
       end
     end

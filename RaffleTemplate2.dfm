@@ -15609,6 +15609,26 @@ object RaffleTemplate2U: TRaffleTemplate2U
     Transparent = True
     Visible = False
   end
+  object Label5: TLabel
+    AlignWithMargins = True
+    Left = 0
+    Top = 654
+    Width = 951
+    Height = 35
+    Margins.Left = 0
+    Margins.Top = 5
+    Margins.Right = 0
+    Margins.Bottom = 5
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'asdasdasdasd'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clScrollBar
+    Font.Height = -27
+    Font.Name = 'Mukta Mahee ExtraBold'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object scGPPickerName: TscGPPanel
     AlignWithMargins = True
     Left = 250

@@ -5,8 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, scControls, scGPControls,
-  Vcl.StdCtrls, dxGDIPlusClasses, System.Math, ConfettiEffect, System.Skia,
-  Vcl.Skia, Vcl.Imaging.GIFImg, Vcl.Imaging.pngimage, Vcl.MPlayer;
+  Vcl.StdCtrls, dxGDIPlusClasses, System.Math, ConfettiEffect, Vcl.Imaging.GIFImg, Vcl.Imaging.pngimage, Vcl.MPlayer;
 
 type
   TRaffleTemplate2U = class(TForm)
@@ -44,6 +43,7 @@ type
     Image3: TImage;
     Image5: TImage;
     Timer2: TTimer;
+    Label5: TLabel;
     procedure ShowInPanel(Panel: TPanel);
     procedure FormResize(Sender: TObject);
     procedure scGPPickerNameResize(Sender: TObject);
@@ -88,8 +88,8 @@ begin
   DoubleBuffered := True;// stops flickering
 
   Application.ProcessMessages;
-  Panel1.Left := Image1.Left + 20;
-  Panel1.Top  := Image1.Top + 70 ;
+  //Panel1.Left := Image1.Left + 20;
+  //Panel1.Top  := Image1.Top + 70 ;
   Application.ProcessMessages;
 
   Application.ProcessMessages;
@@ -115,18 +115,18 @@ begin
 
       qryCount.Close;
       qryCount.ParamByName('AArea').AsString := UMainForm.AArea;
-      //qryCount.ParamByName('AYear').AsInteger := CurrentYear;
+      qryCount.ParamByName('AYear').AsInteger := CurrentYear;
       qryCount.Open();
       qryCount.First;
-      UMainForm.Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
-      Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
-      //qryMCQualified.Refresh;
-      //qryWinnerMC.Refresh;
+      UMainForm.Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+      Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+      
 
 
     end else begin
 
     end;
+    UMainForm.IsOnRaffle := False;
   Application.ProcessMessages;
   end;
   //Timer2.Enabled := True;
@@ -174,6 +174,7 @@ begin
   with UMainModule do begin
     qryCount.Close;
     qryCount.ParamByName('AArea').AsString := UMainForm.AArea;
+    qryCount.ParamByName('AYear').AsInteger := CurrentYear;
     qryCount.Open();
     qryCount.First;
     //UMainForm.Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
@@ -183,34 +184,39 @@ end;
 
 procedure TRaffleTemplate2U.scGPButton1Click(Sender: TObject);
 begin
-   if UMainModule.qryMCQualified.IsEmpty then begin
-     //MessageDlg('Cannot Spin the Wheel if Record is Empty!!!',mtWarning,);
-     Exit;
+   if not UMainForm.IsOnRaffle then begin
+     UMainForm.IsOnRaffle := True;
+     if UMainModule.qryMCQualified.IsEmpty then begin
+       //MessageDlg('Cannot Spin the Wheel if Record is Empty!!!',mtWarning,);
+       Exit;
+     end;
+     UMainModule.qryMCQualified.Refresh;
+     UMainModule.qryWinnerMC.Refresh;
+     Image3.Visible := False;
+     Image5.Visible := False;
+     Timer2.Enabled := False;
+     CounterClose := 0;
+     UMainForm.isRaffleTemplateCreated := True;
+     Application.ProcessMessages;
+     //Timer1.Enabled := True;
+     UMainModule.CallSettings;
+     UMainForm.SecLength := (RandomRange(UMainModule.ASecMin, UMainModule.ASecMax));
+     Application.ProcessMessages;
+     Timer1.Enabled := True;
+     Application.ProcessMessages;
    end;
-   Image3.Visible := False;
-   Image5.Visible := False;
-   Timer2.Enabled := False;
-   CounterClose := 0;
-   UMainForm.isRaffleTemplateCreated := True;
-   Application.ProcessMessages;
-   //Timer1.Enabled := True;
-   UMainModule.CallSettings;
-   UMainForm.SecLength := (RandomRange(UMainModule.ASecMin, UMainModule.ASecMax));
-   Application.ProcessMessages;
-   Timer1.Enabled := True;
-   Application.ProcessMessages;
 end;
 
 procedure TRaffleTemplate2U.scGPButton2Click(Sender: TObject);
 begin
-  if True then
-
-  UMainForm.SpeedButton3Click(Sender);
+  if not UMainForm.IsOnRaffle then
+    UMainForm.SpeedButton3Click(Sender);
 end;
 
 procedure TRaffleTemplate2U.scGPButton3Click(Sender: TObject);
 begin
-  UMainForm.SpeedButton6Click(Sender);
+  if not UMainForm.IsOnRaffle then
+    UMainForm.SpeedButton6Click(Sender);
 end;
 
 procedure TRaffleTemplate2U.scGPButton4Click(Sender: TObject);

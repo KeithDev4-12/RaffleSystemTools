@@ -188,7 +188,7 @@ object UMainModule: TUMainModule
         Name = 'AAREA'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '002'
+        Value = 'ALL'
       end
       item
         Name = 'AYEAR'
@@ -1914,6 +1914,12 @@ object UMainModule: TUMainModule
       Origin = 'COMPort'
       Size = 45
     end
+    object qrySettingsSignatureDevice: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'SignatureDevice'
+      Origin = 'SignatureDevice'
+      Size = 45
+    end
   end
   object qryCount: TFDQuery
     Connection = FDConnSQLite
@@ -2038,6 +2044,41 @@ object UMainModule: TUMainModule
       Origin = 'Status'
       Required = True
       Size = 13
+    end
+  end
+  object tblMemberConsumerPicture: TFDTable
+    Active = True
+    IndexFieldNames = 'ID'
+    Connection = FDConnSQLite
+    UpdateOptions.UpdateTableName = 'raffledatabase.memberconsumerpicture'
+    TableName = 'raffledatabase.memberconsumerpicture'
+    Left = 520
+    Top = 16
+    object tblMemberConsumerPictureID: TFDAutoIncField
+      FieldName = 'ID'
+      Origin = 'ID'
+      ReadOnly = True
+    end
+    object tblMemberConsumerPictureAccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 11
+    end
+    object tblMemberConsumerPictureApplicantSignature: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantSignature'
+      Origin = 'ApplicantSignature'
+    end
+    object tblMemberConsumerPictureApplicantPicture: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantPicture'
+      Origin = 'ApplicantPicture'
+    end
+    object tblMemberConsumerPictureApplicantSpouse: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantSpouse'
+      Origin = 'ApplicantSpouse'
     end
   end
 end

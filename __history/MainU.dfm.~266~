@@ -82,6 +82,24 @@ object UMainForm: TUMainForm
         Pen.Width = 3
         Visible = False
       end
+      object Label7: TLabel
+        AlignWithMargins = True
+        Left = 387
+        Top = 4
+        Width = 14
+        Height = 24
+        Margins.Top = 4
+        Align = alRight
+        Alignment = taCenter
+        Caption = 'V'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clScrollBar
+        Font.Height = -20
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ExplicitLeft = 395
+      end
     end
     object Panel4: TPanel
       Left = 0
@@ -435,7 +453,7 @@ object UMainForm: TUMainForm
           object Label6: TLabel
             Left = 107
             Top = 0
-            Width = 54
+            Width = 27
             Height = 15
             Align = alLeft
             Alignment = taRightJustify
@@ -446,6 +464,8 @@ object UMainForm: TUMainForm
             Font.Name = 'Segoe UI'
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
+            ExplicitHeight = 13
           end
         end
       end
@@ -923,6 +943,10 @@ object UMainForm: TUMainForm
       object N2: TMenuItem
         Caption = '-'
         OnClick = N2Click
+      end
+      object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
+        Caption = 'Update Local Database From Online Database'
+        OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
       end
     end
     object Hide1: TMenuItem
