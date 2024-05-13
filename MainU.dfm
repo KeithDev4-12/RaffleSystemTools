@@ -948,6 +948,10 @@ object UMainForm: TUMainForm
         Enabled = False
         OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
       end
+      object DemoDummy1: TMenuItem
+        Caption = 'Demo Dummy'
+        OnClick = DemoDummy1Click
+      end
     end
     object Hide1: TMenuItem
       Caption = 'Hide'

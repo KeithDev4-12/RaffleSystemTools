@@ -308,6 +308,15 @@ type
     tblMemberConsumerPictureApplicantPicture: TBlobField;
     tblMemberConsumerPictureApplicantSpouse: TBlobField;
     qryAccountSignatureApplicantSignature: TBlobField;
+    qryMasterDummy: TFDQuery;
+    qryMasterDummyCode: TFDAutoIncField;
+    qryMasterDummyAccountNumber: TStringField;
+    qryMasterDummyName: TStringField;
+    qryMasterDummyArea: TStringField;
+    qryMasterDummyAddress: TStringField;
+    qryMasterDummyConnCode: TStringField;
+    qryMasterDummyConsCode: TStringField;
+    qryMasterDummyRateCode: TStringField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

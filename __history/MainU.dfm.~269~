@@ -453,7 +453,7 @@ object UMainForm: TUMainForm
           object Label6: TLabel
             Left = 107
             Top = 0
-            Width = 54
+            Width = 27
             Height = 15
             Align = alLeft
             Alignment = taRightJustify
@@ -465,6 +465,7 @@ object UMainForm: TUMainForm
             Font.Style = [fsBold]
             ParentFont = False
             Visible = False
+            ExplicitHeight = 13
           end
         end
       end
@@ -936,12 +937,16 @@ object UMainForm: TUMainForm
       end
       object GetFromCooptoLocalData1: TMenuItem
         Caption = 'Get From Coop to Local Data'
-        Enabled = False
         OnClick = GetFromCooptoLocalData1Click
       end
       object N2: TMenuItem
         Caption = '-'
         OnClick = N2Click
+      end
+      object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
+        Caption = 'Update Local Database From Online Database'
+        Enabled = False
+        OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
       end
     end
     object Hide1: TMenuItem

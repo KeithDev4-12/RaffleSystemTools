@@ -465,7 +465,6 @@ object UMainForm: TUMainForm
             Font.Style = [fsBold]
             ParentFont = False
             Visible = False
-            ExplicitLeft = 134
             ExplicitHeight = 13
           end
         end
@@ -938,12 +937,20 @@ object UMainForm: TUMainForm
       end
       object GetFromCooptoLocalData1: TMenuItem
         Caption = 'Get From Coop to Local Data'
-        Enabled = False
         OnClick = GetFromCooptoLocalData1Click
       end
       object N2: TMenuItem
         Caption = '-'
         OnClick = N2Click
+      end
+      object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
+        Caption = 'Update Local Database From Online Database'
+        Enabled = False
+        OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
+      end
+      object DemoDummy1: TMenuItem
+        Caption = 'Demo Dummy'
+        OnClick = DemoDummy1Click
       end
     end
     object Hide1: TMenuItem
@@ -1062,5 +1069,14 @@ object UMainForm: TUMainForm
     ConnectKind = ckRunningOrNew
     Left = 472
     Top = 392
+  end
+  object VTMasterDummy: TVirtualTable
+    Left = 528
+    Top = 160
+    Data = {04000000000000000000}
+    object VTMasterDummyAccountNumber: TStringField
+      FieldName = 'AccountNumber'
+      Size = 10
+    end
   end
 end

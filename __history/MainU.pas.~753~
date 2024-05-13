@@ -90,6 +90,7 @@ type
     Label6: TLabel;
     Label7: TLabel;
     UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem;
+    DemoDummy1: TMenuItem;
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -137,6 +138,7 @@ type
     procedure UpdateLocalDatabaseFromOnlineDatabase1Click(Sender: TObject);
     function GetFirstLetterOfLastWord(const S: string): Char;
     function GetAllWordsExceptLast(const S: string): string;
+    procedure DemoDummy1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -336,6 +338,87 @@ begin
   //Label16.Caption := VTAccountNumber.AsString + ' | ' + VTName.AsString;
 end;
 
+procedure TUMainForm.DemoDummy1Click(Sender: TObject);
+var
+  I,Count:Integer;
+  value:String;
+  BillMonthReverse:String;
+begin
+  With UMainModule do begin
+    if not InputQuery('Generator Member Consumer', 'Please Put the Year for uploading!', value) then begin
+      ShowMessage('User cancelled the dialog');
+    end else begin
+      //BillMonthReverse := RightStr(value,2) + LeftStr(value,2);
+      tblMemberConsumerPicture.Close;
+      tblMemberConsumerPicture.Open;
+      tblMemberConsumerPicture.First;
+
+      qryAccountSignature.Close;
+      qryAccountSignature.Open;
+      //for I := 1 to 8 do begin
+        // delete first if data is available!
+        //qryDeleteMemberConsumer.Close;
+        //qryDeleteMemberConsumer.ParamByName('AArea').AsString := '00'+IntToStr(I);
+        //qryDeleteMemberConsumer.Execute();
+        // query all available data to be inserted in memberconsumer table
+        qryMasterDummy.Close;
+        //qryMasterDummy.ParamByName('AArea').AsString := '00'+IntToStr(I);
+        qryMasterDummy.Open;
+        qryMasterDummy.First;
+
+
+        qryMemberConsumers.Close;
+        qryMemberConsumers.ParamByName('AYear').AsInteger := CurrentYear;
+        qryMemberConsumers.Open;
+        qryMemberConsumers.First;
+
+        while not qryMasterDummy.EOF do begin
+          if not qryMemberConsumers.Locate('AccountNumber',qryMasterDummyAccountNumber.AsString,[]) then begin
+            Count := Count + 1;
+            qryMemberConsumers.Append;
+            qryMemberConsumersAccountNumber.AsString := qryMasterDummyAccountNumber.AsString;
+            qryMemberConsumersName.AsString := qryMasterDummyName.AsString;
+            qryMemberConsumersArea.AsString := qryMasterDummyArea.AsString;
+            qryMemberConsumersAddress.AsString := qryMasterDummyAddress.AsString;
+            if qryMasterDummyConsCode.AsString = 'X' then begin
+              if qryMasterDummyConnCode.AsString = '3' then begin
+                //Disco Vacant
+                qryMemberConsumersConnectionStatus.AsInteger := 3;
+                qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+              end else begin
+                //Disco
+                qryMemberConsumersConnectionStatus.AsInteger := 2;
+                qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+              end;
+            end else begin
+              qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterDummyAccountNumber.AsString);
+              qryMemberConsumersConnectionStatus.AsInteger := 1;
+
+            end;
+            qryMemberConsumersStatus.AsInteger := 0;
+            qryMemberConsumersShuffleOrder.AsInteger := qryMemberConsumers.RecordCount + 1;
+            qryMemberConsumersYear.AsString := value;
+            //if Length(qryMasterGender.AsString) >= 3 then begin
+            //  qryMemberConsumersGender.AsString := qryMasterGender.AsString;
+            //end else begin
+            //  qryMemberConsumersGender.AsString := '';
+            //end;
+
+            qryMemberConsumersIsSignatureAvailable.AsInteger :=  IsPictureAvailable(qryMasterAccountNumber.AsString);
+            qryMemberConsumersRateCode.AsString :=qryMasterDummyRateCode.AsString;
+
+            qryMemberConsumers.Post;
+
+          end;
+          qryMasterDummy.Next;
+        end;
+
+      //end;
+      SpeedButton6Click(Sender);
+    end;
+  end;
+end;
+
 function TUMainForm.isSpeakerAvailable: Boolean;
 begin
   result := (waveOutGetNumDevs > 0);
@@ -445,7 +528,7 @@ end;
 
 procedure TUMainForm.GetFromCooptoLocalData1Click(Sender: TObject);
 var
-  I:Integer;
+  I,Count:Integer;
   value:String;
   BillMonthReverse:String;
 begin
@@ -460,14 +543,14 @@ begin
 
       qryAccountSignature.Close;
       qryAccountSignature.Open;
-      for I := 1 to 8 do begin
+      //for I := 1 to 8 do begin
         // delete first if data is available!
         //qryDeleteMemberConsumer.Close;
         //qryDeleteMemberConsumer.ParamByName('AArea').AsString := '00'+IntToStr(I);
         //qryDeleteMemberConsumer.Execute();
         // query all available data to be inserted in memberconsumer table
         qryMaster.Close;
-        qryMaster.ParamByName('AArea').AsString := '00'+IntToStr(I);
+        qryMaster.ParamByName('AArea').AsString := '00'+IntToStr(5);
         qryMaster.Open;
         qryMaster.First;
 
@@ -477,42 +560,47 @@ begin
         qryMemberConsumers.First;
 
         while not qryMaster.EOF do begin
-          qryMemberConsumers.Append;
-          qryMemberConsumersAccountNumber.AsString := qryMasterAccountNumber.AsString;
-          qryMemberConsumersName.AsString := qryMasterName.AsString;
-          qryMemberConsumersArea.AsString := qryMasterArea.AsString;
-          qryMemberConsumersAddress.AsString := qryMasterAddress.AsString;
-          if qryMasterConsCode.AsString = 'X' then begin
-            if qryMasterConnCode.AsString = '3' then begin
-              //Disco Vacant
-              qryMemberConsumersConnectionStatus.AsInteger := 3;
-              qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+          if not qryMemberConsumers.Locate('AccountNumber',qryMasterAccountNumber.AsString,[]) then begin
+            Count := Count + 1;
+            qryMemberConsumers.Append;
+            qryMemberConsumersAccountNumber.AsString := qryMasterAccountNumber.AsString;
+            qryMemberConsumersName.AsString := qryMasterName.AsString;
+            qryMemberConsumersArea.AsString := qryMasterArea.AsString;
+            qryMemberConsumersAddress.AsString := qryMasterAddress.AsString;
+            if qryMasterConsCode.AsString = 'X' then begin
+              if qryMasterConnCode.AsString = '3' then begin
+                //Disco Vacant
+                qryMemberConsumersConnectionStatus.AsInteger := 3;
+                qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+              end else begin
+                //Disco
+                qryMemberConsumersConnectionStatus.AsInteger := 2;
+                qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+              end;
             end else begin
-              //Disco
-              qryMemberConsumersConnectionStatus.AsInteger := 2;
-              qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+              qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterAccountNumber.AsString);
+              qryMemberConsumersConnectionStatus.AsInteger := 1;
+              
             end;
-          end else begin
-            qryMemberConsumersConnectionStatus.AsInteger := 1;
-            qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterAccountNumber.AsString);
+            qryMemberConsumersStatus.AsInteger := 0;
+            qryMemberConsumersShuffleOrder.AsInteger := qryMemberConsumers.RecordCount + 1;
+            qryMemberConsumersYear.AsString := value;
+            //if Length(qryMasterGender.AsString) >= 3 then begin
+            //  qryMemberConsumersGender.AsString := qryMasterGender.AsString;
+            //end else begin
+            //  qryMemberConsumersGender.AsString := '';
+            //end;
+
+            qryMemberConsumersIsSignatureAvailable.AsInteger :=  IsPictureAvailable(qryMasterAccountNumber.AsString);
+            qryMemberConsumersRateCode.AsString := qryMasterRateCode.AsString;
+
+            qryMemberConsumers.Post;
+
           end;
-          qryMemberConsumersStatus.AsInteger := 0;
-          qryMemberConsumersShuffleOrder.AsInteger := qryMemberConsumers.RecordCount + 1;
-          qryMemberConsumersYear.AsString := value;
-          //if Length(qryMasterGender.AsString) >= 3 then begin
-          //  qryMemberConsumersGender.AsString := qryMasterGender.AsString;
-          //end else begin
-          //  qryMemberConsumersGender.AsString := '';
-          //end;
-
-          qryMemberConsumersIsSignatureAvailable.AsInteger :=  IsPictureAvailable(qryMasterAccountNumber.AsString);
-          qryMemberConsumersRateCode.AsString := qryMasterRateCode.AsString;
-
-          qryMemberConsumers.Post;
           qryMaster.Next;
         end;
 
-      end;
+      //end;
       SpeedButton6Click(Sender);
     end;
   end;
@@ -792,6 +880,7 @@ begin
           end else begin
             tblMemberConsumerPicture.Append;
           end;
+          tblMemberConsumerPictureAccountNumber.AsString := AAccountNumber;
           tblMemberConsumerPictureApplicantSignature.AsBytes := qryAccountSignatureApplicantSignature.AsBytes;
           tblMemberConsumerPicture.Post;
           result := 1;
@@ -800,7 +889,7 @@ begin
         //I Should look to the other table Signature temp table
         // This Table will be the store table if Image From A2Hosting Database
         // same Logic Applies for this table Locate
-        result := FetchAndPopulateImage(AAccountNumber);
+        //result := FetchAndPopulateImage(AAccountNumber);
 
 
       end;

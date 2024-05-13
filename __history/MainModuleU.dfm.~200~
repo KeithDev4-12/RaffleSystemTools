@@ -6,7 +6,6 @@ object UMainModule: TUMainModule
   object FDConnSQLite: TFDConnection
     Params.Strings = (
       'ConnectionDef=MYSQL_PORTABLE')
-    Connected = True
     Left = 408
     Top = 40
   end
@@ -188,7 +187,7 @@ object UMainModule: TUMainModule
         Name = 'AAREA'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '002'
+        Value = 'ALL'
       end
       item
         Name = 'AYEAR'
@@ -265,6 +264,7 @@ object UMainModule: TUMainModule
     end
   end
   object qryMaster: TFDQuery
+    Connection = FDConnMYSQL
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
@@ -339,6 +339,7 @@ object UMainModule: TUMainModule
     end
   end
   object qryUnPaidBills: TFDQuery
+    Connection = FDConnMYSQL
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
@@ -1965,9 +1966,10 @@ object UMainModule: TUMainModule
     SQL.Strings = (
       'SELECT'
       '  AccountNumber,'
+      '  BillMonth,'
       
-        '  IF((Group_Concat(BillMonth) LIKE '#39'%0324%'#39' AND GROUP_Concat(Bil' +
-        'lMonth) LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
+        '  IF((Group_Concat(BillMonth) LIKE '#39'%0324%'#39' OR GROUP_Concat(Bill' +
+        'Month) LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
       'FROM'
       '('
       '  SELECT'
@@ -1983,7 +1985,7 @@ object UMainModule: TUMainModule
       '  GROUP BY'
       '    BillMonth'
       '  HAVING'
-      '    (SUM(DEBIT) - SUM(CREDIT)) > 0'
+      '    (SUM(DEBIT) - SUM(CREDIT)) = 0'
       '  Order By'
       '    Entry'
       '  Desc LIMIT 2'
@@ -1997,7 +1999,7 @@ object UMainModule: TUMainModule
         Name = 'AACCOUNTNUMBER'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '02220044'
+        Value = '02220001'
       end>
     object qryAccountQualifierAccountNumber: TStringField
       AutoGenerateValue = arDefault
@@ -2017,10 +2019,12 @@ object UMainModule: TUMainModule
     end
   end
   object qryAccountSignature: TFDQuery
+    Active = True
     Connection = FDConnMYSQL
     SQL.Strings = (
       'Select'
       '  MP.AccountNumber,'
+      '  AP.ApplicantSignature,'
       
         '  IF(AP.ApplicantSignature is not null, '#39'Available'#39', '#39'Not Availa' +
         'ble'#39') as Status'
@@ -2028,9 +2032,7 @@ object UMainModule: TUMainModule
       '  Msd_New.ApplicantPictures ap,'
       '  Msd_New.membership mp'
       'Where mp.Entry = ap.Entry'
-      
-        ' And Length(mp.AccountNumber) >= 8 -- :AAccountNumber -- '#39'041002' +
-        '61'#39)
+      ' And Length(AccountNumber) >= 8 -- '#39'04100261'#39)
     Left = 56
     Top = 352
     object qryAccountSignatureAccountNumber: TStringField
@@ -2045,14 +2047,118 @@ object UMainModule: TUMainModule
       Required = True
       Size = 13
     end
+    object qryAccountSignatureApplicantSignature: TBlobField
+      FieldName = 'ApplicantSignature'
+      Origin = 'ApplicantSignature'
+    end
   end
   object tblMemberConsumerPicture: TFDTable
-    Active = True
     IndexFieldNames = 'ID'
     Connection = FDConnSQLite
     UpdateOptions.UpdateTableName = 'raffledatabase.memberconsumerpicture'
     TableName = 'raffledatabase.memberconsumerpicture'
     Left = 520
     Top = 16
+    object tblMemberConsumerPictureID: TFDAutoIncField
+      FieldName = 'ID'
+      Origin = 'ID'
+      ReadOnly = True
+    end
+    object tblMemberConsumerPictureAccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 11
+    end
+    object tblMemberConsumerPictureApplicantSignature: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantSignature'
+      Origin = 'ApplicantSignature'
+    end
+    object tblMemberConsumerPictureApplicantPicture: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantPicture'
+      Origin = 'ApplicantPicture'
+    end
+    object tblMemberConsumerPictureApplicantSpouse: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'ApplicantSpouse'
+      Origin = 'ApplicantSpouse'
+    end
+  end
+  object qryMasterDummy: TFDQuery
+    Active = True
+    Connection = FDConnMYSQL
+    SQL.Strings = (
+      'Select Code,'
+      '  p.AccountNumber,'
+      '  Name,'
+      '  Area,'
+      '  Address,'
+      '  ConnCode,'
+      '  ConsCode,'
+      
+        '  RateCode From coop.master p,((Select m.AccountNumber From msd_' +
+        'New.membership m, msd_New.applicantPictures a Where'
+      
+        'm.entry = a.Entry and a.ApplicantSignature IS NOT NULL AND Lengt' +
+        'h(AccountNumber) >= 8'
+      'limit 200)'
+      'UNION'
+      
+        '(Select m.AccountNumber From msd_New.membership m, msd_New.appli' +
+        'cantPictures a Where'
+      
+        'm.entry = a.Entry and a.ApplicantSignature IS NULL AND Length(Ac' +
+        'countNumber) >= 8'
+      'limit 200)) x Where x.AccountNumber = p.AccountNumber')
+    Left = 56
+    Top = 216
+    object qryMasterDummyCode: TFDAutoIncField
+      FieldName = 'Code'
+      Origin = 'Code'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object qryMasterDummyAccountNumber: TStringField
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Required = True
+      Size = 10
+    end
+    object qryMasterDummyName: TStringField
+      FieldName = 'Name'
+      Origin = 'Name'
+      Size = 50
+    end
+    object qryMasterDummyArea: TStringField
+      FieldName = 'Area'
+      Origin = 'Area'
+      Required = True
+      FixedChar = True
+      Size = 3
+    end
+    object qryMasterDummyAddress: TStringField
+      FieldName = 'Address'
+      Origin = 'Address'
+      Size = 50
+    end
+    object qryMasterDummyConnCode: TStringField
+      FieldName = 'ConnCode'
+      Origin = 'ConnCode'
+      FixedChar = True
+      Size = 1
+    end
+    object qryMasterDummyConsCode: TStringField
+      FieldName = 'ConsCode'
+      Origin = 'ConsCode'
+      FixedChar = True
+      Size = 1
+    end
+    object qryMasterDummyRateCode: TStringField
+      FieldName = 'RateCode'
+      Origin = 'RateCode'
+      FixedChar = True
+      Size = 1
+    end
   end
 end

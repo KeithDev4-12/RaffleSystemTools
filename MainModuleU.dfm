@@ -280,7 +280,9 @@ object UMainModule: TUMainModule
       'FROM '
       '  MASTER m'
       'WHERE '
-      '  Area = :AArea')
+      '  Area = :AArea'
+      'AND'
+      '  Book = '#39'506'#39)
     Left = 48
     Top = 80
     ParamData = <
@@ -2019,7 +2021,6 @@ object UMainModule: TUMainModule
     end
   end
   object qryAccountSignature: TFDQuery
-    Active = True
     Connection = FDConnMYSQL
     SQL.Strings = (
       'Select'
@@ -2084,6 +2085,81 @@ object UMainModule: TUMainModule
       AutoGenerateValue = arDefault
       FieldName = 'ApplicantSpouse'
       Origin = 'ApplicantSpouse'
+    end
+  end
+  object qryMasterDummy: TFDQuery
+    Active = True
+    Connection = FDConnMYSQL
+    SQL.Strings = (
+      'Select Code,'
+      '  p.AccountNumber,'
+      '  Name,'
+      '  Area,'
+      '  Address,'
+      '  ConnCode,'
+      '  ConsCode,'
+      
+        '  RateCode From coop.master p,((Select m.AccountNumber From msd_' +
+        'New.membership m, msd_New.applicantPictures a Where'
+      
+        'm.entry = a.Entry and a.ApplicantSignature IS NOT NULL AND Lengt' +
+        'h(AccountNumber) >= 8'
+      'limit 200)'
+      'UNION'
+      
+        '(Select m.AccountNumber From msd_New.membership m, msd_New.appli' +
+        'cantPictures a Where'
+      
+        'm.entry = a.Entry and a.ApplicantSignature IS NULL AND Length(Ac' +
+        'countNumber) >= 8'
+      'limit 200)) x Where x.AccountNumber = p.AccountNumber')
+    Left = 56
+    Top = 216
+    object qryMasterDummyCode: TFDAutoIncField
+      FieldName = 'Code'
+      Origin = 'Code'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object qryMasterDummyAccountNumber: TStringField
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Required = True
+      Size = 10
+    end
+    object qryMasterDummyName: TStringField
+      FieldName = 'Name'
+      Origin = 'Name'
+      Size = 50
+    end
+    object qryMasterDummyArea: TStringField
+      FieldName = 'Area'
+      Origin = 'Area'
+      Required = True
+      FixedChar = True
+      Size = 3
+    end
+    object qryMasterDummyAddress: TStringField
+      FieldName = 'Address'
+      Origin = 'Address'
+      Size = 50
+    end
+    object qryMasterDummyConnCode: TStringField
+      FieldName = 'ConnCode'
+      Origin = 'ConnCode'
+      FixedChar = True
+      Size = 1
+    end
+    object qryMasterDummyConsCode: TStringField
+      FieldName = 'ConsCode'
+      Origin = 'ConsCode'
+      FixedChar = True
+      Size = 1
+    end
+    object qryMasterDummyRateCode: TStringField
+      FieldName = 'RateCode'
+      Origin = 'RateCode'
+      FixedChar = True
+      Size = 1
     end
   end
 end

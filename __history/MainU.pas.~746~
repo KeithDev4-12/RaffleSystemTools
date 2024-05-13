@@ -445,7 +445,7 @@ end;
 
 procedure TUMainForm.GetFromCooptoLocalData1Click(Sender: TObject);
 var
-  I:Integer;
+  I,Count:Integer;
   value:String;
   BillMonthReverse:String;
 begin
@@ -478,7 +478,7 @@ begin
 
         while not qryMaster.EOF do begin
           if not qryMemberConsumers.Locate('AccountNumber',qryMasterAccountNumber.AsString,[]) then begin
-
+            Count := Count + 1;
             qryMemberConsumers.Append;
             qryMemberConsumersAccountNumber.AsString := qryMasterAccountNumber.AsString;
             qryMemberConsumersName.AsString := qryMasterName.AsString;
@@ -495,8 +495,9 @@ begin
                 qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
               end;
             end else begin
-              qryMemberConsumersConnectionStatus.AsInteger := 1;
               qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterAccountNumber.AsString);
+              qryMemberConsumersConnectionStatus.AsInteger := 1;
+              
             end;
             qryMemberConsumersStatus.AsInteger := 0;
             qryMemberConsumersShuffleOrder.AsInteger := qryMemberConsumers.RecordCount + 1;
@@ -507,10 +508,11 @@ begin
             //  qryMemberConsumersGender.AsString := '';
             //end;
 
-            qryMemberConsumersIsSignatureAvailable.AsInteger :=  IsPictureAvailable(qryMasterAccountNumber.AsString);
+            //qryMemberConsumersIsSignatureAvailable.AsInteger :=  IsPictureAvailable(qryMasterAccountNumber.AsString);
             qryMemberConsumersRateCode.AsString := qryMasterRateCode.AsString;
 
             qryMemberConsumers.Post;
+
           end;
           qryMaster.Next;
         end;

@@ -937,12 +937,20 @@ object UMainForm: TUMainForm
       end
       object GetFromCooptoLocalData1: TMenuItem
         Caption = 'Get From Coop to Local Data'
-        Enabled = False
         OnClick = GetFromCooptoLocalData1Click
       end
       object N2: TMenuItem
         Caption = '-'
         OnClick = N2Click
+      end
+      object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
+        Caption = 'Update Local Database From Online Database'
+        Enabled = False
+        OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
+      end
+      object DemoDummy1: TMenuItem
+        Caption = 'Demo Dummy'
+        OnClick = DemoDummy1Click
       end
     end
     object Hide1: TMenuItem
@@ -1061,23 +1069,5 @@ object UMainForm: TUMainForm
     ConnectKind = ckRunningOrNew
     Left = 472
     Top = 392
-  end
-  object ComPort1: TComPort
-    BaudRate = br9600
-    Port = 'COM1'
-    Parity.Bits = prNone
-    StopBits = sbOneStopBit
-    DataBits = dbEight
-    Events = [evRxChar, evTxEmpty, evRxFlag, evRing, evBreak, evCTS, evDSR, evError, evRLSD, evRx80Full]
-    FlowControl.OutCTSFlow = False
-    FlowControl.OutDSRFlow = False
-    FlowControl.ControlDTR = dtrDisable
-    FlowControl.ControlRTS = rtsDisable
-    FlowControl.XonXoffOut = False
-    FlowControl.XonXoffIn = False
-    StoredProps = [spBasic]
-    TriggersOnRxChar = True
-    Left = 528
-    Top = 144
   end
 end
