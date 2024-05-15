@@ -42,6 +42,7 @@ type
     Panel9: TPanel;
     Label5: TLabel;
     ComboBox1: TComboBox;
+    CheckBox4: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure scGPButton1Click(Sender: TObject);
     function IntToBool(const AnInt: Integer): Boolean;

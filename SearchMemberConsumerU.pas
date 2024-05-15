@@ -67,8 +67,6 @@ type
     DeleteSelectedRecord1: TMenuItem;
     N1: TMenuItem;
     ExportAsCSVFile1: TMenuItem;
-    Panel11: TPanel;
-    Label12: TLabel;
     Shape3: TShape;
     vtMemberConsumerid: TVirtualAutoIncField;
     vtMemberConsumerAccountNumber: TStringField;
@@ -94,6 +92,19 @@ type
     UsbRemovalTimer: TTimer;
     UsbArrivalTimer: TTimer;
     BitBtn1: TBitBtn;
+    RefreshDBGrid1: TMenuItem;
+    N2: TMenuItem;
+    N3: TMenuItem;
+    ShowQualified1: TMenuItem;
+    ShowNotQualified1: TMenuItem;
+    GroupBox3: TGroupBox;
+    Label12: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Shape4: TShape;
+    Panel11: TPanel;
+    Panel14: TPanel;
+    Panel15: TPanel;
     procedure SearchBox1Change(Sender: TObject);
     procedure DBGridEh1KeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);
@@ -122,6 +133,9 @@ type
     procedure QRCodeParse(AString:String;AParseBy:String;AReturnArray: TArray<string>);
     procedure Label15Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure RefreshDBGrid1Click(Sender: TObject);
+    procedure ShowQualified1Click(Sender: TObject);
+    procedure ShowNotQualified1Click(Sender: TObject);
   private
     { Private declarations }
     FCompUSB: TComponentUSB;
@@ -148,11 +162,12 @@ implementation
 
 {$R *.dfm}
 
-Uses MainModuleU,SignatureU;
+Uses MainModuleU,SignatureU, MainU;
 
 procedure TUMemberConsumer.BitBtn1Click(Sender: TObject);
 begin
   //RunHTMLAPI();
+  //ShowMessage();
 end;
 
 procedure TUMemberConsumer.ComboBox1Change(Sender: TObject);
@@ -190,10 +205,15 @@ begin
       //qryCastedMemberConsumers.Filtered := True;
       //qryCastedMemberConsumers.First;
 
-      qryMCQualified.Filtered := False;
-      qryMCQualified.Filter := 'Area = ' +QuotedStr(AARea);
-      qryMCQualified.Filtered := True;
-      qryMCQualified.First;
+      //qryMCQualified.Filtered := False;
+      //qryMCQualified.Filter := 'Area = ' +QuotedStr(AARea);
+      //qryMCQualified.Filtered := True;
+      //qryMCQualified.First;
+
+      //qryMCQualifiedAll.Filtered := False;
+      //qryMCQualifiedAll.Filter := 'Area = ' +QuotedStr(AARea);
+      //qryMCQualifiedAll.Filtered := True;
+      //qryMCQualifiedAll.First;
 
       vtMemberConsumer.Clear;
       FDBatchMove1.Execute;
@@ -206,8 +226,18 @@ begin
       //qryCastedMemberConsumers.Filtered := False;
       //qryCastedMemberConsumers.First;
 
-      qryMCQualified.Filtered := False;
-      qryMCQualified.First;
+      //qryMCQualified.Filtered := False;
+      //qryMCQualified.First;
+
+      //qryMCQualified.Filtered := False;
+      //qryMCQualified.Filter := 'Area = ' +QuotedStr(AARea);
+      //qryMCQualified.Filtered := True;
+      //qryMCQualified.First;
+
+      //qryMCQualifiedAll.Filtered := False;
+      //qryMCQualifiedAll.Filter := 'Area = ' +QuotedStr(AARea);
+      //qryMCQualifiedAll.Filtered := True;
+      //qryMCQualifiedAll.First;
 
       vtMemberConsumer.Clear;
       FDBatchMove1.Execute;
@@ -268,6 +298,7 @@ begin
                 qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                 qryMemberConsumersStatus.AsInteger := 1;
                 qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumersDateRegistered.AsDateTime := Now();
                 qryMemberConsumers.Post;
                 PostingCounter := PostingCounter + 1;
                 // 1 = Active Consumers
@@ -276,6 +307,7 @@ begin
                 qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                 qryMemberConsumersStatus.AsInteger := 4;
                 qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumersDateRegistered.AsDateTime := Now();
                 qryMemberConsumers.Post;
                 PostingCounter := PostingCounter + 1;
                 // 1 = Active Consumers
@@ -294,6 +326,7 @@ begin
                 qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                 qryMemberConsumersStatus.AsInteger := 3;
                 qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumersDateRegistered.AsDateTime := Now();
                 qryMemberConsumers.Post;
                 PostingCounter := PostingCounter + 1;
               end else begin
@@ -301,6 +334,7 @@ begin
                 qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                 qryMemberConsumersStatus.AsInteger := 4;
                 qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumersDateRegistered.AsDateTime := Now();
                 qryMemberConsumers.Post;
                 PostingCounter := PostingCounter + 1;
               end;
@@ -317,13 +351,15 @@ begin
               UFormSignature := TUFormSignature.Create(nil);
               UFormSignature.ShowModal;
           end else begin
-            if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 1)) then begin
+            if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
               MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
             end;
             if qryMemberConsumersIsQualifiedForRaffle.AsInteger=1 then begin
               qryMemberConsumers.Edit;
               qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
               qryMemberConsumersStatus.AsInteger := 3;
+              qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+              qryMemberConsumersDateRegistered.AsDateTime := Now();
               // 3 = Disconnected but cannot be part of Raffle Draw
               qryMemberConsumers.Post;
               PostingCounter := PostingCounter + 1;
@@ -331,6 +367,8 @@ begin
               qryMemberConsumers.Edit;
               qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
               qryMemberConsumersStatus.AsInteger := 4;
+              qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+              qryMemberConsumersDateRegistered.AsDateTime := Now();
               // 3 = Disconnected but cannot be part of Raffle Draw
               qryMemberConsumers.Post;
               PostingCounter := PostingCounter + 1;
@@ -341,11 +379,13 @@ begin
         end;
       end;
       vtMemberConsumer.Delete;
-      Label9.Caption := IntToStr(PostingCounter);
-      qryMemberConsumers.Refresh;
-      //qryCastedMemberConsumers.Refresh;
-      qryMCQualified.Refresh;
+
     end;
+    Label9.Caption := IntToStr(PostingCounter);
+    qryMemberConsumers.Refresh;
+    //qryCastedMemberConsumers.Refresh;
+    qryMCQualified.Refresh;
+    qryMCQualifiedAll.Refresh;
   end;
 end;
 
@@ -387,6 +427,7 @@ begin
               if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0) AND (SignatureDeviceIsAvailable)) then begin
                 UFormSignature := TUFormSignature.Create(nil);
                 UFormSignature.ShowModal;
+
               end else begin
                 if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
                   if qrySettingsSignatureDevice.AsString.Contains('HTML') then begin
@@ -406,6 +447,7 @@ begin
                   qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                   qryMemberConsumersStatus.AsInteger := 1;
                   qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                  qryMemberConsumersDateRegistered.AsDateTime := Now();
                   qryMemberConsumers.Post;
                   PostingCounter := PostingCounter + 1;
                   // 1 = Active Consumers
@@ -414,6 +456,7 @@ begin
                   qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                   qryMemberConsumersStatus.AsInteger := 4;
                   qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                  qryMemberConsumersDateRegistered.AsDateTime := Now();
                   qryMemberConsumers.Post;
                   PostingCounter := PostingCounter + 1;
                   // 1 = Active Consumers
@@ -432,6 +475,7 @@ begin
                   qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                   qryMemberConsumersStatus.AsInteger := 3;
                   qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                  qryMemberConsumersDateRegistered.AsDateTime := Now();
                   qryMemberConsumers.Post;
                   PostingCounter := PostingCounter + 1;
                 end else begin
@@ -439,6 +483,7 @@ begin
                   qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                   qryMemberConsumersStatus.AsInteger := 4;
                   qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                  qryMemberConsumersDateRegistered.AsDateTime := Now();
                   qryMemberConsumers.Post;
                   PostingCounter := PostingCounter + 1;
                 end;
@@ -454,14 +499,15 @@ begin
                 UFormSignature := TUFormSignature.Create(nil);
                 UFormSignature.ShowModal;
             end else begin
-              if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 1)) then begin
+              if ((qryMemberConsumersIsSignatureAvailable.AsInteger = 0)) then begin
                 MessageDlg('Need Signature!' + #10#13 + 'Account Number : ' + vtMemberConsumerAccountNumber.AsString ,mtError,[mbOk],0);
               end;
               if qryMemberConsumersIsQualifiedForRaffle.AsInteger = 1 then begin
                 qryMemberConsumers.Edit;
                 qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                 qryMemberConsumersStatus.AsInteger := 3;
-                qryMemberConsumersEntryMode.AsString := '';
+                qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumersDateRegistered.AsDateTime := Now();
                 // 3 = Disconnected but cannot be part of Raffle Draw
                 qryMemberConsumers.Post;
                 PostingCounter := PostingCounter + 1;
@@ -469,7 +515,8 @@ begin
                 qryMemberConsumers.Edit;
                 qryMemberConsumersShuffleOrder.AsInteger := (RandomRange(1, 99999));
                 qryMemberConsumersStatus.AsInteger := 4;
-                qryMemberConsumersEntryMode.AsString := '';
+                qryMemberConsumersEntryMode.AsString := 'VENUE-REGISTRATION';
+                qryMemberConsumersDateRegistered.AsDateTime := Now();
                 // 3 = Disconnected but cannot be part of Raffle Draw
                 qryMemberConsumers.Post;
                 PostingCounter := PostingCounter + 1;
@@ -479,10 +526,13 @@ begin
         end;
         vtMemberConsumer.Delete;
 
-        qryMemberConsumers.Refresh;
-        //qryCastedMemberConsumers.Refresh;
-        qryMCQualified.Refresh;
+
       end;
+      Label9.Caption := IntToStr(PostingCounter);
+      qryMemberConsumers.Refresh;
+      //qryCastedMemberConsumers.Refresh;
+      qryMCQualified.Refresh;
+      qryMCQualifiedAll.Refresh;
     end;
   end;
 end;
@@ -492,9 +542,13 @@ procedure TUMemberConsumer.DBGridEh2DrawColumnCell(Sender: TObject;
   State: TGridDrawState);
 begin
   With UMainModule do begin
-     if qryMCQualifiedisPosted.AsString = '0' then begin
+     if qryMCQualifiedAllIsPosted.AsString = '0' then begin
        DBGridEh2.Canvas.Brush.Color:=clGray;
+     end else if qryMCQualifiedAllStatus.AsString = '1' then begin
+       DBGridEh2.Canvas.Brush.Color:=clHighlight;
      end;
+
+
      DBGridEh2.DefaultDrawColumnCell(Rect, DataCol, Column, State);
   end;
 end;
@@ -518,6 +572,7 @@ begin
            qryMCQualifiedStatus.AsInteger := 0;
            qryMCQualified.Post;
            qryMCQualified.Refresh;
+           qryMCQualifiedAll.Refresh;
 
            vtMemberConsumer.Append;
            vtMemberConsumerAccountNumber.AsString := tblSearchMemberConsumerAccountNumber.AsString;
@@ -567,7 +622,9 @@ begin
        MessageDlg('Please Call For The Designated Support Person!!',mtError,[mbClose],0);
      end else begin
        CanClose := True;
-
+       UMainModule.qryMCQualified.Filtered := False;
+       UMainModule.qryMCQualifiedAll.Filtered := False;
+       UMainForm.SpeedButton6Click(Sender);
      end;
    end;
 end;
@@ -637,12 +694,19 @@ begin
     qryMCQualified.ParamByName('AYear').AsInteger := CurrentYear;
     qryMCQualified.Open;
     qryMCQualified.First;
+
+    qryMCQualifiedAll.Close;
+    //qryMCQualifiedAll.ParamByName('AArea').AsString := AArea;
+    qryMCQualifiedAll.ParamByName('AYear').AsInteger := CurrentYear;
+    qryMCQualifiedAll.Open;
+    qryMCQualifiedAll.First;
+
     vtMemberConsumer.Clear;
     FDBatchMove1.Execute;
     vtMemberConsumer.Open;
 
     qryCheckerPosting.Close;
-    qryCheckerPosting.ParamByName('AArea').AsString := AArea;
+    //qryCheckerPosting.ParamByName('AArea').AsString := AArea;
     qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
     qryCheckerPosting.Open;
     if qryCheckerPostingcntDataNotPosted.AsInteger > 0 then begin
@@ -765,10 +829,19 @@ begin
 
     if vtMemberConsumer.IsEmpty then begin
       DBGridEh2.SearchPanel.SearchingText := SearchBox1.Text;
-      if not UMainModule.qryMCQualified.IsEmpty then begin
-        MessageDlg('Member Consumer is Already Registered!', mtWarning, [mbClose],0);
-      end else begin
-        MessageDlg('Member Consumer is Not Valid!', mtError, [mbClose],0);
+      with UMainModule do begin
+        if qryMCQualified.Locate('AccountNumber',vtMemberConsumerAccountNumber.AsString,[]) then begin
+          if qryMCQualifiedEntryMode.AsString = 'PRE-REGISTRATION' then begin
+            MessageDlg('PRE-REGISTERED NA YAA, TAGAN NALANG NIYO KWARTA!', mtWarning, [mbClose],0);
+            qryMCQualified.Edit;
+            qryMCQualifiedEntryMode.AsString := 'VENUE-REGISTRATION';
+            qryMCQualified.POST;
+          end else begin
+            MessageDlg('Member Consumer is Already Registered!', mtWarning, [mbClose],0);
+          end;
+        end else begin
+          MessageDlg('Member Consumer is Not Valid!', mtError, [mbClose],0);
+        end;
       end;
     end;
 
@@ -783,19 +856,19 @@ begin
 
     if vtMemberConsumer.IsEmpty then begin
       DBGridEh2.SearchPanel.SearchingText := SearchBox1.Text;
-      if not UMainModule.qryMCQualified.IsEmpty then begin
-        if UMainModule.qryMCQualifiedEntryMode.AsString = 'PRE-REGISTRATION' then begin
-          MessageDlg('PRE-REGISTERED NA YAA, TAGAN NALANG NIYO KWARTA!', mtWarning, [mbClose],0);
-          UMainModule.qryMCQualified.Edit;
-          UMainModule.qryMCQualifiedEntryMode.AsString := 'PRE-REGISTRATION WITH MONEY';
-          UMainModule.qryMCQualified.POST;
+      with UMainModule do begin
+        if qryMCQualified.Locate('Name',vtMemberConsumerName.AsString,[]) then begin
+          if qryMCQualifiedEntryMode.AsString = 'PRE-REGISTRATION' then begin
+            MessageDlg('PRE-REGISTERED NA YAA, TAGAN NALANG NIYO KWARTA!', mtWarning, [mbClose],0);
+            qryMCQualified.Edit;
+            qryMCQualifiedEntryMode.AsString := 'VENUE-REGISTRATION';
+            qryMCQualified.POST;
+          end else begin
+            MessageDlg('Member Consumer is Already Registered!', mtWarning, [mbClose],0);
+          end;
         end else begin
-          MessageDlg('Member Consumer is Already Registered!', mtWarning, [mbClose],0);
+          MessageDlg('Member Consumer is Not Valid!', mtError, [mbClose],0);
         end;
-
-
-      end else begin
-        MessageDlg('Member Consumer is Not Valid!', mtError, [mbClose],0);
       end;
     end;
 
@@ -822,6 +895,15 @@ var
 begin
   for Command in ADBCommands do
     RunADBCommand(Command);
+end;
+
+procedure TUMemberConsumer.RefreshDBGrid1Click(Sender: TObject);
+begin
+  with UmainModule do begin
+    qryMCQualified.Refresh;
+    qryMCQualifiedAll.Refresh;
+    qryMemberConsumers.Refresh;
+  end;
 end;
 
 procedure TUMemberConsumer.RunADBCommand(Command: String);
@@ -865,6 +947,65 @@ begin
   end;
 end;
 
+procedure TUMemberConsumer.ShowNotQualified1Click(Sender: TObject);
+begin
+  ShowNotQualified1.Checked := not ShowNotQualified1.Checked;
+
+  if ShowNotQualified1.Checked then begin
+    ShowNotQualified1.Caption := 'Hide Not Qualified';
+  end else begin
+
+    ShowNotQualified1.Caption := 'Show Not Qualified';
+  end;
+
+  with UMainModule do begin
+    qryMCQualifiedAll.Filtered := False;
+    if (ShowQualified1.Checked) AND (ShowNotQualified1.Checked) then begin
+      //qryMCQualifiedAll.Filter := 'Status = 1 AND Status = 2 AND Status = 3 AND Status = 4' ;
+      qryMCQualifiedAll.Filtered := False;
+    end else if (ShowQualified1.Checked) and (not ShowNotQualified1.Checked) then  begin
+      qryMCQualifiedAll.Filter := 'Status = ' + QuotedStr('1') ;
+      qryMCQualifiedAll.Filtered := True;
+    end else if (not ShowQualified1.Checked) and (ShowNotQualified1.Checked) then begin
+      qryMCQualifiedAll.Filter := 'Status <> '+ QuotedStr('1');
+      qryMCQualifiedAll.Filtered := True;
+    end else begin
+      qryMCQualifiedAll.Filter := 'Status = ' + QuotedStr('2') ;
+      qryMCQualifiedAll.Filtered := True;
+    end;
+
+  end;
+end;
+
+procedure TUMemberConsumer.ShowQualified1Click(Sender: TObject);
+begin
+  ShowQualified1.Checked := not ShowQualified1.Checked;
+  if ShowQualified1.Checked then begin
+    ShowQualified1.Caption := 'Hide Qualified';
+  end else begin
+
+    ShowQualified1.Caption := 'Show Qualified';
+  end;
+
+  with UMainModule do begin
+    qryMCQualifiedAll.Filtered := False;
+    if (ShowQualified1.Checked) AND (ShowNotQualified1.Checked) then begin
+      //qryMCQualifiedAll.Filter := 'Status = 1 AND Status = 2 AND Status = 3 AND Status = 4' ;
+      qryMCQualifiedAll.Filtered := False;
+    end else if (ShowQualified1.Checked) and (not ShowNotQualified1.Checked) then  begin
+      qryMCQualifiedAll.Filter := 'Status = ' + QuotedStr('1') ;
+      qryMCQualifiedAll.Filtered := True;
+    end else if (not ShowQualified1.Checked) and (ShowNotQualified1.Checked) then begin
+      qryMCQualifiedAll.Filter := 'Status <> '+ QuotedStr('1');
+      qryMCQualifiedAll.Filtered := True;
+    end else begin
+      qryMCQualifiedAll.Filter := 'Status = ' + QuotedStr('5') ;
+      qryMCQualifiedAll.Filtered := True;
+    end;
+
+  end;
+end;
+
 procedure TUMemberConsumer.SpeedButton1Click(Sender: TObject);
 begin
   //qryCountDisconnected.Close;
@@ -874,7 +1015,7 @@ begin
   //ShowMessage(qryCountDisconnectedCountDisco.AsString);
   with UMainModule do begin
     qryCheckerPosting.Close;
-    qryCheckerPosting.ParamByName('AArea').AsString := AARea;
+    //qryCheckerPosting.ParamByName('AArea').AsString := AARea;
     qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
     qryCheckerPosting.Open;
     if MessageDlg('You Are About to Post this Record' + #10#13 +
@@ -882,17 +1023,17 @@ begin
       tblNeedToBePosted.Close;
       tblNeedToBePosted.Open;
       tblNeedToBePosted.Filtered:= False;
-      tblNeedToBePosted.Filter := 'Area = ' + QuotedStr(AARea) + ' AND Year = ' + QuotedStr(IntToStr(CurrentYear)) + ' AND isPosted = 0 AND Status IN (' + QuotedStr('1') + ',' + QuotedStr('3') + ',' + QuotedStr('4')+')';
+      tblNeedToBePosted.Filter := 'Area = ' + QuotedStr(AARea) + ' AND Year = ' + QuotedStr(IntToStr(CurrentYear)) + ' AND isPosted = 0 AND Status IN (' + QuotedStr('1') + ',' + QuotedStr('2') + ',' + QuotedStr('3') + ',' + QuotedStr('4')+')';
       tblNeedToBePosted.Filtered:= True;
       tblNeedToBePosted.First;
 
       qryUpdateRecord.Close;
       qryUpdateRecord.ParamByName('AYear').AsInteger := CurrentYear;
-      qryUpdateRecord.ParamByName('AArea').AsString := AARea;
+      //qryUpdateRecord.ParamByName('AArea').AsString := AARea;
       qryUpdateRecord.Execute();
 
       qryCheckerPosting.Close;
-      qryCheckerPosting.ParamByName('AArea').AsString := AArea;
+      //qryCheckerPosting.ParamByName('AArea').AsString := AArea;
       qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
       qryCheckerPosting.Open;
       if qryCheckerPostingcntDataNotPosted.AsInteger > 0 then begin
@@ -958,7 +1099,7 @@ begin
 
 
       qryCheckerPosting.Close;
-      qryCheckerPosting.ParamByName('AArea').AsString := 'ALL';
+      //qryCheckerPosting.ParamByName('AArea').AsString := 'ALL';
       qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
       qryCheckerPosting.Open;
       if qryCheckerPostingcntDataNotPosted.AsInteger > 0 then begin
@@ -984,7 +1125,7 @@ begin
       vtMemberConsumer.Open;
 
       qryCheckerPosting.Close;
-      qryCheckerPosting.ParamByName('AArea').AsString := 'ALL';
+      //qryCheckerPosting.ParamByName('AArea').AsString := 'ALL';
       qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
       qryCheckerPosting.Open;
       if qryCheckerPostingcntDataNotPosted.AsInteger > 0 then begin
@@ -1000,12 +1141,13 @@ end;
 procedure TUMemberConsumer.SpeedButton3Click(Sender: TObject);
 Var
   FileNameLocation : String;
+  FilePath:String;
 begin
   FileNameLocation := Operations(AArea);
   FDBatchMoveTextWriter1.FileName := FileNameLocation;
   with UMainModule do begin
     qryCheckerPosting.Close;
-    qryCheckerPosting.ParamByName('AArea').AsString := AARea;
+    //qryCheckerPosting.ParamByName('AArea').AsString := AARea;
     qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
     qryCheckerPosting.Open;
     qryCheckerPosting.First;
@@ -1014,22 +1156,28 @@ begin
       tblNeedToBePosted.Close;
       tblNeedToBePosted.Open;
       tblNeedToBePosted.Filtered:= False;
-      tblNeedToBePosted.Filter := 'Area = ' + QuotedStr(AARea) + ' AND Year = ' + QuotedStr(IntToStr(CurrentYear)) + 'AND Status IN (' + QuotedStr('1') + ',' + QuotedStr('3') + ',' + QuotedStr('4')+')';
+      tblNeedToBePosted.Filter := 'Area = ' + QuotedStr(AARea) + ' AND Year = ' + QuotedStr(IntToStr(CurrentYear)) + 'AND Status IN (' + QuotedStr('1') + ',' +  QuotedStr('2') + ',' + QuotedStr('3') + ',' + QuotedStr('4')+')';
       tblNeedToBePosted.Filtered:= True;
       tblNeedToBePosted.First;
     end else begin
       Exit;
+    end;
+    FilePath := ExtractFileDir((ParamStr(0))) + '\' + IntToStr(CurrentYear) + '\' + AArea + '.csv';
+    FDBatchMoveTextWriter1.FileName := FilePath;
+
+    if TFile.Exists(FilePath) then begin
+      TFile.Delete(FilePath);
     end;
 
     FDBatchMove2.Execute;
 
     qryUpdateRecord.Close;
     qryUpdateRecord.ParamByName('AYear').AsInteger := CurrentYear;
-    qryUpdateRecord.ParamByName('AArea').AsString := AARea;
+    //qryUpdateRecord.ParamByName('AArea').AsString := AARea;
     qryUpdateRecord.Execute();
 
     qryCheckerPosting.Close;
-    qryCheckerPosting.ParamByName('AArea').AsString := AArea;
+    //qryCheckerPosting.ParamByName('AArea').AsString := AArea;
     qryCheckerPosting.ParamByName('AYear').AsInteger := CurrentYear;
     qryCheckerPosting.Open;
     if qryCheckerPostingcntDataNotPosted.AsInteger > 0 then begin

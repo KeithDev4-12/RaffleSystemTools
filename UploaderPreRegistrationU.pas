@@ -53,6 +53,7 @@ type
     procedure FormShow(Sender: TObject);
     function IsQualified(Const AAccountNumber:String):Integer;
     function IsPictureAvailable(Const AAccountNumber:String):Integer;
+    procedure SpeedButton5Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -128,7 +129,18 @@ begin
 end;
 
 procedure TUUploaderPreRegistration.SpeedButton2Click(Sender: TObject);
+var
+  wYear, wMonth, wDay: Word;
+  AEntryModeValue: String;
 begin
+
+  DecodeDate(Now(), wYear, wMonth, wDay);
+  if (wMonth = 05) AND (wDay >= 18) then begin
+    AEntryModeValue := 'VENUE-REGISTRATION';
+  end else begin
+    AEntryModeValue :=  'PRE-REGISTRATION';
+  end;
+
   with UmainModule do begin
     VirTab.Close;
     VirTab.Open;
@@ -154,13 +166,13 @@ begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 3;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
             tblSearchMemberConsumer.Post;
           end else begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 4;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
             tblSearchMemberConsumer.Post;
           end;
         end else if tblSearchMemberConsumerConnectionStatus.AsString = '3' then begin
@@ -168,13 +180,13 @@ begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 3;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
             tblSearchMemberConsumer.Post;
           end else begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 4;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
             tblSearchMemberConsumer.Post;
           end;
         end else begin
@@ -182,13 +194,13 @@ begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 1;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
             tblSearchMemberConsumer.Post;
           end else begin
             tblSearchMemberConsumer.Edit;
             tblSearchMemberConsumerStatus.AsInteger := 4;
             tblSearchMemberConsumerisPosted.AsInteger := 1;
-            tblSearchMemberConsumerEntryMode.AsString := 'PRE-REGISTRATION';
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
             tblSearchMemberConsumer.Post;
           end;
         end;
@@ -223,6 +235,21 @@ begin
     MessageDlg('Cannot Process Because Data is Not posted!',mtInformation,[mbOK],0);
     FilteredOrNot := 0;
   end;
+end;
+
+procedure TUUploaderPreRegistration.SpeedButton5Click(Sender: TObject);
+var
+  wYear, wMonth, wDay: Word;
+begin
+  DecodeDate(Now(), wYear, wMonth, wDay);
+  if (wMonth = 05) AND (wDay >= 18) then begin
+    ShowMessage('VENUE-REGISTRATION');
+  end else begin
+    ShowMessage('PRE-REGISTRATION');
+  end;
+
+
+
 end;
 
 end.

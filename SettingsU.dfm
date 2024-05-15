@@ -29,7 +29,6 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Raffle Template'
     TabOrder = 0
-    ExplicitWidth = 332
     object RadioButton1: TRadioButton
       Left = 16
       Top = 21
@@ -57,8 +56,6 @@ object USettings: TUSettings
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 408
-    ExplicitWidth = 352
     object scGPButton1: TscGPButton
       AlignWithMargins = True
       Left = 220
@@ -188,7 +185,15 @@ object USettings: TUSettings
       GroupIndex = 0
       AllowAllUp = False
       ToggleMode = False
-      ExplicitLeft = 200
+    end
+    object CheckBox4: TCheckBox
+      Left = 0
+      Top = 0
+      Width = 162
+      Height = 41
+      Align = alLeft
+      Caption = 'Disable Raffle 2 Start Button'
+      TabOrder = 1
     end
   end
   object GroupBox2: TGroupBox
@@ -204,7 +209,6 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Seconds Range Random Draw'
     TabOrder = 2
-    ExplicitWidth = 332
     object Panel2: TPanel
       Left = 2
       Top = 15
@@ -213,7 +217,6 @@ object USettings: TUSettings
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 328
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -258,7 +261,6 @@ object USettings: TUSettings
         Align = alRight
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = 169
         object Label2: TLabel
           AlignWithMargins = True
           Left = 10
@@ -302,7 +304,6 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Raffle Selection Options'
     TabOrder = 3
-    ExplicitWidth = 332
     object Label3: TLabel
       AlignWithMargins = True
       Left = 7
@@ -361,7 +362,6 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Confetti Settings'
     TabOrder = 4
-    ExplicitWidth = 332
     object Panel5: TPanel
       Left = 2
       Top = 15
@@ -370,7 +370,6 @@ object USettings: TUSettings
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 328
       object Panel6: TPanel
         Left = 0
         Top = 0
@@ -415,7 +414,6 @@ object USettings: TUSettings
         Align = alRight
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = 169
       end
     end
   end
@@ -432,7 +430,6 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'BarCode && QRCode Scanner Settings'
     TabOrder = 5
-    ExplicitWidth = 332
     object Panel8: TPanel
       Left = 111
       Top = 15
@@ -442,8 +439,6 @@ object USettings: TUSettings
       Alignment = taRightJustify
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 219
-      ExplicitHeight = 58
       object Label6: TLabel
         AlignWithMargins = True
         Left = 0
@@ -506,22 +501,21 @@ object USettings: TUSettings
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitHeight = 58
       object Label5: TLabel
         AlignWithMargins = True
         Left = 3
         Top = 3
         Width = 103
-        Height = 30
+        Height = 26
         Align = alTop
         Caption = 'Default Communication Port :'
         WordWrap = True
-        ExplicitWidth = 89
+        ExplicitWidth = 102
       end
       object ComboBox1: TComboBox
         AlignWithMargins = True
         Left = 3
-        Top = 47
+        Top = 43
         Width = 103
         Height = 21
         Margins.Top = 11
@@ -579,8 +573,6 @@ object USettings: TUSettings
           'COM48'
           'COM49'
           'COM50')
-        ExplicitTop = 31
-        ExplicitWidth = 21
       end
     end
   end

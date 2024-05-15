@@ -9,7 +9,8 @@ uses
   Data.DB, FireDAC.Comp.Client, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef,
   FireDAC.Stan.ExprFuncs, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef,
-  IniFiles,Vcl.Forms,Vcl.StdCtrls;
+  IniFiles,Vcl.Forms,Vcl.StdCtrls, FireDAC.Comp.BatchMove,
+  FireDAC.Comp.BatchMove.DataSet;
 
 type
   TUMainModule = class(TDataModule)
@@ -203,17 +204,7 @@ type
     qryMCQualifiedConnectionStatus: TLongWordField;
     qryMCQualifiedYear: TLongWordField;
     qryMCQualifiedEntryMode: TStringField;
-    qryMemberConsumersid: TFDAutoIncField;
-    qryMemberConsumersAccountNumber: TStringField;
-    qryMemberConsumersName: TStringField;
-    qryMemberConsumersArea: TStringField;
-    qryMemberConsumersAddress: TStringField;
-    qryMemberConsumersStatus: TIntegerField;
-    qryMemberConsumersShuffleOrder: TIntegerField;
-    qryMemberConsumersConnectionStatus: TLongWordField;
-    qryMemberConsumersYear: TLongWordField;
     qryCastedMemberConsumersGender: TStringField;
-    qryMemberConsumersGender: TStringField;
     qryWinnerMemberConsumersGender: TStringField;
     qryMCQualifiedGender: TStringField;
     qryWinnerMCGender: TStringField;
@@ -251,17 +242,14 @@ type
     qryUpdateRaffleEntry: TFDQuery;
     qryUpdateRecord: TFDQuery;
     qryMCQualifiedisPosted: TLongWordField;
-    qryMemberConsumersisPosted: TLongWordField;
     qryCastedMemberConsumersisPosted: TLongWordField;
     tblSearchMemberConsumerisPosted: TLongWordField;
     tblNeedToBePostedisPosted: TLongWordField;
     tblSearchMemberConsumerRateCode: TStringField;
     qryCastedMemberConsumersRateCode: TStringField;
-    qryMemberConsumersRateCode: TStringField;
     qryMCQualifiedRateCode: TStringField;
     tblNeedToBePostedRateCode: TStringField;
     qryMasterRateCode: TStringField;
-    qryMemberConsumersEntryMode: TStringField;
     FDConnMYSQL: TFDConnection;
     FDQuery2: TFDQuery;
     FDQuery2id: TFDAutoIncField;
@@ -292,8 +280,6 @@ type
     qryAccountQualifier: TFDQuery;
     qryAccountQualifierAccountNumber: TStringField;
     qryAccountQualifierStatus: TStringField;
-    qryMemberConsumersIsQualifiedForRaffle: TShortintField;
-    qryMemberConsumersIsSignatureAvailable: TShortintField;
     qryAccountSignature: TFDQuery;
     qryAccountSignatureAccountNumber: TStringField;
     qryAccountSignatureStatus: TStringField;
@@ -317,6 +303,57 @@ type
     qryMasterDummyConnCode: TStringField;
     qryMasterDummyConsCode: TStringField;
     qryMasterDummyRateCode: TStringField;
+    qryAccountSignature1: TFDQuery;
+    qryAccountSignature1ID: TFDAutoIncField;
+    qryAccountSignature1AccountNumber: TStringField;
+    qryAccountSignature1ApplicantSignature: TBlobField;
+    qryAccountSignature1ApplicantPicture: TBlobField;
+    qryAccountSignature1ApplicantSpouse: TBlobField;
+    qryMCQualifiedAll: TFDQuery;
+    qryMCQualifiedAllid: TFDAutoIncField;
+    qryMCQualifiedAllAccountNumber: TStringField;
+    qryMCQualifiedAllName: TStringField;
+    qryMCQualifiedAllArea: TStringField;
+    qryMCQualifiedAllAddress: TStringField;
+    qryMCQualifiedAllStatus: TIntegerField;
+    qryMCQualifiedAllShuffleOrder: TIntegerField;
+    qryMCQualifiedAllConnectionStatus: TLongWordField;
+    qryMCQualifiedAllYear: TLongWordField;
+    qryMCQualifiedAllEntryMode: TStringField;
+    qryMCQualifiedAllGender: TStringField;
+    qryMCQualifiedAllisPosted: TLongWordField;
+    qryMCQualifiedAllRateCode: TStringField;
+    qryAccountQualifier1: TFDQuery;
+    qryAccountQualifier1AccountNumber: TStringField;
+    qryAccountQualifier1BillMonth: TStringField;
+    qryAccountQualifier1Status: TStringField;
+    qryVicinity: TFDQuery;
+    qryVicinityEntry: TFDAutoIncField;
+    qryVicinityArea: TStringField;
+    qryVicinityBook: TStringField;
+    qryVicinityAddress: TStringField;
+    qryVicinityCategory: TStringField;
+    FDBatchMoveDataSetReader1: TFDBatchMoveDataSetReader;
+    FDBatchMoveDataSetWriter1: TFDBatchMoveDataSetWriter;
+    FDBatchMove1111: TFDBatchMove;
+    qryVicinityServer: TFDQuery;
+    FDQuery3: TFDQuery;
+    qryMemberConsumersid: TFDAutoIncField;
+    qryMemberConsumersAccountNumber: TStringField;
+    qryMemberConsumersName: TStringField;
+    qryMemberConsumersArea: TStringField;
+    qryMemberConsumersAddress: TStringField;
+    qryMemberConsumersStatus: TIntegerField;
+    qryMemberConsumersShuffleOrder: TIntegerField;
+    qryMemberConsumersConnectionStatus: TLongWordField;
+    qryMemberConsumersYear: TLongWordField;
+    qryMemberConsumersEntryMode: TStringField;
+    qryMemberConsumersGender: TStringField;
+    qryMemberConsumersisPosted: TLongWordField;
+    qryMemberConsumersRateCode: TStringField;
+    qryMemberConsumersIsQualifiedForRaffle: TShortintField;
+    qryMemberConsumersIsSignatureAvailable: TShortintField;
+    qryMemberConsumersDateRegistered: TDateTimeField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

@@ -1,11 +1,12 @@
 object UMainModule: TUMainModule
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 410
+  Height = 532
   Width = 664
   object FDConnSQLite: TFDConnection
     Params.Strings = (
       'ConnectionDef=MYSQL_PORTABLE')
+    Connected = True
     Left = 408
     Top = 40
   end
@@ -29,7 +30,8 @@ object UMainModule: TUMainModule
       'isPosted,'
       'RateCode,'
       'IsQualifiedForRaffle,'
-      'IsSignatureAvailable'
+      'IsSignatureAvailable,'
+      'DateRegistered'
       'from '
       'memberconsumers'
       'where Year = :AYear')
@@ -46,63 +48,73 @@ object UMainModule: TUMainModule
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
     end
     object qryMemberConsumersAccountNumber: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'AccountNumber'
       Origin = 'AccountNumber'
       Size = 11
     end
     object qryMemberConsumersName: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Name'
-      Origin = 'Name'
+      Origin = '`Name`'
       Size = 99
     end
     object qryMemberConsumersArea: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Area'
       Origin = 'Area'
       FixedChar = True
       Size = 3
     end
     object qryMemberConsumersAddress: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Address'
       Origin = 'Address'
       Size = 99
     end
     object qryMemberConsumersStatus: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'Status'
-      Origin = 'Status'
+      Origin = '`Status`'
     end
     object qryMemberConsumersShuffleOrder: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'ShuffleOrder'
       Origin = 'ShuffleOrder'
     end
     object qryMemberConsumersConnectionStatus: TLongWordField
+      AutoGenerateValue = arDefault
       FieldName = 'ConnectionStatus'
       Origin = 'ConnectionStatus'
     end
     object qryMemberConsumersYear: TLongWordField
+      AutoGenerateValue = arDefault
       FieldName = 'Year'
-      Origin = 'Year'
-      Required = True
+      Origin = '`Year`'
+    end
+    object qryMemberConsumersEntryMode: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EntryMode'
+      Origin = 'EntryMode'
+      Size = 45
     end
     object qryMemberConsumersGender: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Gender'
       Origin = 'Gender'
       Size = 45
     end
     object qryMemberConsumersisPosted: TLongWordField
+      AutoGenerateValue = arDefault
       FieldName = 'isPosted'
       Origin = 'isPosted'
     end
     object qryMemberConsumersRateCode: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'RateCode'
       Origin = 'RateCode'
-      Size = 45
-    end
-    object qryMemberConsumersEntryMode: TStringField
-      FieldName = 'EntryMode'
-      Origin = 'EntryMode'
       Size = 45
     end
     object qryMemberConsumersIsQualifiedForRaffle: TShortintField
@@ -111,9 +123,14 @@ object UMainModule: TUMainModule
       Origin = 'IsQualifiedForRaffle'
     end
     object qryMemberConsumersIsSignatureAvailable: TShortintField
+      AutoGenerateValue = arDefault
       FieldName = 'IsSignatureAvailable'
       Origin = 'IsSignatureAvailable'
-      Required = True
+    end
+    object qryMemberConsumersDateRegistered: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'DateRegistered'
+      Origin = 'DateRegistered'
     end
   end
   object qryMCQualified: TFDQuery
@@ -280,17 +297,16 @@ object UMainModule: TUMainModule
       'FROM '
       '  MASTER m'
       'WHERE '
-      '  Area = :AArea'
-      'AND'
-      '  Book = '#39'506'#39)
+      '  Book = :ABook'
+      '  -- Area = :AArea'
+      ' -- AND'
+      '-- Book = '#39'116'#39)
     Left = 48
     Top = 80
     ParamData = <
       item
-        Name = 'AAREA'
-        DataType = ftWideString
+        Name = 'ABOOK'
         ParamType = ptInput
-        Value = '001'
       end>
     object qryMasterCode: TFDAutoIncField
       FieldName = 'Code'
@@ -1620,30 +1636,18 @@ object UMainModule: TUMainModule
       
         'Select Count(AccountNumber) as cntDataNotPosted from memberconsu' +
         'mers where '
-      '(CASE '
-      '  WHEN :AArea = '#39'ALL'#39
-      '  THEN Status = 1'
-      '  ELSE Area = :AArea '
-      ' END)'
-      'AND'
       'Year = :AYear AND'
       'isPosted = 0'
       'AND'
-      'STATUS IN (1,3,4)')
+      'STATUS IN (1,2,3,4)')
     Left = 568
     Top = 160
     ParamData = <
       item
-        Name = 'AAREA'
-        DataType = ftWideString
-        ParamType = ptInput
-        Value = '001'
-      end
-      item
         Name = 'AYEAR'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '2023'
+        Value = '2024'
       end>
     object qryCheckerPostingcntDataNotPosted: TLargeintField
       AutoGenerateValue = arDefault
@@ -1687,30 +1691,25 @@ object UMainModule: TUMainModule
   object qryUpdateRecord: TFDQuery
     Connection = FDConnSQLite
     SQL.Strings = (
-      'Update memberconsumers set isposted = 1 where '
+      'Update memberconsumers set isposted = 1'
+      '-- , EntryMode = '#39'VENUE REGISTRATION'#39
+      ' where '
       'Year = :AYear '
-      'And'
-      'Area = :AArea'
       'And'
       'isposted = 0'
       'And'
-      'status in (1,3,4);')
+      'status in (1,2,3,4);')
     Left = 560
     Top = 336
     ParamData = <
       item
         Name = 'AYEAR'
         ParamType = ptInput
-      end
-      item
-        Name = 'AAREA'
-        ParamType = ptInput
       end>
   end
   object FDConnMYSQL: TFDConnection
     Params.Strings = (
       'ConnectionDef=MYSQL_COOP')
-    Connected = True
     Left = 48
     Top = 24
   end
@@ -1969,9 +1968,9 @@ object UMainModule: TUMainModule
       'SELECT'
       '  AccountNumber,'
       '  BillMonth,'
-      
-        '  IF((Group_Concat(BillMonth) LIKE '#39'%0324%'#39' OR GROUP_Concat(Bill' +
-        'Month) LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
+      '  IF(('
+      '-- Group_Concat(BillMonth) LIKE '#39'%0324%'#39' OR '
+      'GROUP_Concat(BillMonth) LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
       'FROM'
       '('
       '  SELECT'
@@ -2001,7 +2000,7 @@ object UMainModule: TUMainModule
         Name = 'AACCOUNTNUMBER'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '02220001'
+        Value = '01160013'
       end>
     object qryAccountQualifierAccountNumber: TStringField
       AutoGenerateValue = arDefault
@@ -2088,7 +2087,6 @@ object UMainModule: TUMainModule
     end
   end
   object qryMasterDummy: TFDQuery
-    Active = True
     Connection = FDConnMYSQL
     SQL.Strings = (
       'Select Code,'
@@ -2119,6 +2117,7 @@ object UMainModule: TUMainModule
       FieldName = 'Code'
       Origin = 'Code'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object qryMasterDummyAccountNumber: TStringField
       FieldName = 'AccountNumber'
@@ -2161,5 +2160,354 @@ object UMainModule: TUMainModule
       FixedChar = True
       Size = 1
     end
+  end
+  object qryAccountSignature1: TFDQuery
+    Connection = FDConnSQLite
+    SQL.Strings = (
+      'SELECT * FROM raffledatabase.memberconsumerpicture;')
+    Left = 152
+    Top = 272
+    object qryAccountSignature1ID: TFDAutoIncField
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object qryAccountSignature1AccountNumber: TStringField
+      FieldName = 'AccountNumber'
+      Size = 11
+    end
+    object qryAccountSignature1ApplicantSignature: TBlobField
+      FieldName = 'ApplicantSignature'
+    end
+    object qryAccountSignature1ApplicantPicture: TBlobField
+      FieldName = 'ApplicantPicture'
+    end
+    object qryAccountSignature1ApplicantSpouse: TBlobField
+      FieldName = 'ApplicantSpouse'
+    end
+  end
+  object qryMCQualifiedAll: TFDQuery
+    Connection = FDConnSQLite
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    SQL.Strings = (
+      'select '
+      'id,'
+      'AccountNumber,'
+      'Name,'
+      'Area,'
+      'Address,'
+      'Status,'
+      'ShuffleOrder,'
+      'ConnectionStatus,'
+      'Year,'
+      'EntryMode,'
+      'Gender,'
+      'isPosted,'
+      'RateCode'
+      'from '
+      'memberconsumers'
+      'where '
+      '(EntryMode = :EntryMode1 '
+      'OR'
+      'EntryMode = :EntryMode2 '
+      'OR'
+      'EntryMode = :EntryMode3 )'
+      'and Year = :AYear'
+      ''
+      '-- Status number '
+      '-- 0 = Not Registered'
+      '-- 1 = Registered'
+      '-- 2 = Drawn'
+      '-- 4 = Registered But Cannot be Included (Not Paid LatestBill)'
+      '-- ConnectionStatus'
+      '-- 1 = Active'
+      '-- 2 = Disconnected'
+      '-- 3 = Disco-Vacant')
+    Left = 568
+    Top = 216
+    ParamData = <
+      item
+        Name = 'ENTRYMODE1'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        Name = 'ENTRYMODE2'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        Name = 'ENTRYMODE3'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = 'PRE-REGISTRATION'
+      end
+      item
+        Name = 'AYEAR'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = '2024'
+      end>
+    object qryMCQualifiedAllid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object qryMCQualifiedAllAccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 11
+    end
+    object qryMCQualifiedAllName: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Name'
+      Origin = '`Name`'
+      Size = 99
+    end
+    object qryMCQualifiedAllArea: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Area'
+      Origin = 'Area'
+      FixedChar = True
+      Size = 3
+    end
+    object qryMCQualifiedAllAddress: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Address'
+      Origin = 'Address'
+      Size = 99
+    end
+    object qryMCQualifiedAllStatus: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'Status'
+      Origin = '`Status`'
+    end
+    object qryMCQualifiedAllShuffleOrder: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ShuffleOrder'
+      Origin = 'ShuffleOrder'
+    end
+    object qryMCQualifiedAllConnectionStatus: TLongWordField
+      AutoGenerateValue = arDefault
+      FieldName = 'ConnectionStatus'
+      Origin = 'ConnectionStatus'
+    end
+    object qryMCQualifiedAllYear: TLongWordField
+      AutoGenerateValue = arDefault
+      FieldName = 'Year'
+      Origin = '`Year`'
+    end
+    object qryMCQualifiedAllEntryMode: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EntryMode'
+      Origin = 'EntryMode'
+      Size = 45
+    end
+    object qryMCQualifiedAllGender: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Gender'
+      Origin = 'Gender'
+      Size = 45
+    end
+    object qryMCQualifiedAllisPosted: TLongWordField
+      AutoGenerateValue = arDefault
+      FieldName = 'isPosted'
+      Origin = 'isPosted'
+    end
+    object qryMCQualifiedAllRateCode: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'RateCode'
+      Origin = 'RateCode'
+      Size = 45
+    end
+  end
+  object qryAccountQualifier1: TFDQuery
+    Connection = FDConnMYSQL
+    SQL.Strings = (
+      'SELECT AccountNumber,'
+      '  BillMonth,'
+      '  IF((BillMonth LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
+      '  FROM ((Select'
+      '  Entry,'
+      '  AccountNumber,'
+      '  BillMonth'
+      'From'
+      '  Collection'
+      'Where'
+      ' AccountNumber = :AAccountNumber'
+      'AND'
+      ' BillMonth = '#39'0424'#39' )'
+      'UNION'
+      '(Select'
+      '  Entry,'
+      '  AccountNumber,'
+      '  BillMonth'
+      'From'
+      '  Collection'
+      'Where'
+      ' AccountNumber = :AAccountNumber )'
+      'ORDER By Entry DESC'
+      '-- 04130235 0424'
+      '-- 01160013 0324'
+      'LIMIT 1) TABLE1')
+    Left = 232
+    Top = 136
+    ParamData = <
+      item
+        Name = 'AACCOUNTNUMBER'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = '01160013'
+      end>
+    object qryAccountQualifier1AccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 10
+    end
+    object qryAccountQualifier1BillMonth: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BillMonth'
+      Origin = 'BillMonth'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 4
+    end
+    object qryAccountQualifier1Status: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Status'
+      Origin = 'Status'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 6
+    end
+  end
+  object qryVicinity: TFDQuery
+    Connection = FDConnSQLite
+    SQL.Strings = (
+      'Select * From Vicinity where '
+      
+        'IF('#39'BULAN'#39' = :ACategory,CATEGORY IN ('#39'BULAN A'#39', '#39'BULAN B'#39', '#39'BULA' +
+        'N C'#39'),'
+      'IF('#39'MATNOG'#39' = :ACategory,CATEGORY IN ('#39'MATNOG A'#39','#39'MATNOG B'#39'),'
+      'IF('#39'IROSIN'#39' = :ACategory,CATEGORY IN ('#39'IROSIN A'#39','#39'IROSIN B'#39'),'
+      'CATEGORY = :ACategory)))'
+      'ORDER BY BOOK')
+    Left = 480
+    Top = 304
+    ParamData = <
+      item
+        Name = 'ACATEGORY'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = 'STA. MAGDALENA'
+      end>
+    object qryVicinityEntry: TFDAutoIncField
+      FieldName = 'Entry'
+      Origin = 'Entry'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object qryVicinityArea: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Area'
+      Origin = 'Area'
+      FixedChar = True
+      Size = 3
+    end
+    object qryVicinityBook: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Book'
+      Origin = 'Book'
+      FixedChar = True
+      Size = 3
+    end
+    object qryVicinityAddress: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Address'
+      Origin = 'Address'
+      Size = 50
+    end
+    object qryVicinityCategory: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Category'
+      Origin = 'Category'
+      Size = 15
+    end
+  end
+  object FDBatchMoveDataSetReader1: TFDBatchMoveDataSetReader
+    DataSet = qryVicinityServer
+    Left = 184
+    Top = 440
+  end
+  object FDBatchMoveDataSetWriter1: TFDBatchMoveDataSetWriter
+    DataSet = FDQuery3
+    Left = 424
+    Top = 432
+  end
+  object FDBatchMove1111: TFDBatchMove
+    Reader = FDBatchMoveDataSetReader1
+    Writer = FDBatchMoveDataSetWriter1
+    Mappings = <
+      item
+        SourceFieldName = 'Entry'
+        DestinationFieldName = 'Entry'
+      end
+      item
+        SourceFieldName = 'Area'
+        DestinationFieldName = 'Area'
+      end
+      item
+        SourceFieldName = 'Book'
+        DestinationFieldName = 'Book'
+      end
+      item
+        SourceFieldName = 'Address'
+        DestinationFieldName = 'Address'
+      end
+      item
+        SourceFieldName = 'Category'
+        DestinationFieldName = 'Category'
+      end>
+    LogFileName = 'Data.log'
+    Left = 304
+    Top = 448
+  end
+  object qryVicinityServer: TFDQuery
+    Connection = FDConnMYSQL
+    FetchOptions.AssignedValues = [evMode, evItems, evRowsetSize, evCache, evUnidirectional]
+    FetchOptions.Unidirectional = True
+    FetchOptions.RowsetSize = 100
+    FetchOptions.Items = [fiBlobs, fiDetails]
+    FetchOptions.Cache = []
+    SQL.Strings = (
+      'Select * from vicinity')
+    Left = 40
+    Top = 448
+  end
+  object FDQuery3: TFDQuery
+    Connection = FDConnSQLite
+    FetchOptions.AssignedValues = [evMode, evItems]
+    FetchOptions.Mode = fmManual
+    FetchOptions.Items = [fiMeta]
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.UpdateChangedFields = False
+    UpdateOptions.LockWait = True
+    UpdateOptions.RefreshMode = rmManual
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.CheckReadOnly = False
+    UpdateOptions.CheckUpdatable = False
+    SQL.Strings = (
+      'Select * from vicinity')
+    Left = 560
+    Top = 440
   end
 end

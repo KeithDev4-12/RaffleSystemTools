@@ -33,19 +33,17 @@ object UMemberConsumer: TUMemberConsumer
       Left = 1
       Top = 61
       Width = 891
-      Height = 402
+      Height = 395
       Align = alClient
       Caption = 'List of Available Member Consumers  for Selected Municipalities'
       TabOrder = 0
-      DesignSize = (
-        891
-        402)
       object DBGridEh2: TDBGridEh
-        Left = 7
-        Top = 21
-        Width = 878
-        Height = 374
-        Anchors = [akLeft, akTop, akRight, akBottom]
+        AlignWithMargins = True
+        Left = 5
+        Top = 18
+        Width = 881
+        Height = 372
+        Align = alClient
         DataSource = DSDataEntries
         DynProps = <>
         Font.Charset = DEFAULT_CHARSET
@@ -115,9 +113,9 @@ object UMemberConsumer: TUMemberConsumer
     end
     object Panel4: TPanel
       Left = 1
-      Top = 463
+      Top = 456
       Width = 891
-      Height = 24
+      Height = 31
       Align = alBottom
       BevelKind = bkTile
       BevelOuter = bvNone
@@ -132,7 +130,7 @@ object UMemberConsumer: TUMemberConsumer
         Left = 0
         Top = 0
         Width = 124
-        Height = 20
+        Height = 27
         Align = alLeft
         Caption = 'Number of Entries :'
         ExplicitHeight = 16
@@ -141,34 +139,127 @@ object UMemberConsumer: TUMemberConsumer
         Left = 124
         Top = 0
         Width = 100
-        Height = 20
+        Height = 27
         Align = alLeft
         Alignment = taCenter
         AutoSize = False
         Caption = '1,000'
-        ExplicitLeft = 126
+        ExplicitLeft = 130
+        ExplicitTop = -1
+        ExplicitHeight = 32
       end
       object Label9: TLabel
         Left = 763
         Top = 0
         Width = 124
-        Height = 20
+        Height = 27
         Align = alRight
         Alignment = taCenter
         AutoSize = False
         Caption = '1,000'
         ExplicitLeft = 336
         ExplicitTop = -3
+        ExplicitHeight = 20
       end
       object Label10: TLabel
         Left = 593
         Top = 0
         Width = 170
-        Height = 20
+        Height = 27
         Align = alRight
         AutoSize = False
         Caption = 'Data Need To Be Posted:'
         ExplicitLeft = 289
+        ExplicitHeight = 20
+      end
+      object GroupBox3: TGroupBox
+        AlignWithMargins = True
+        Left = 244
+        Top = 0
+        Width = 329
+        Height = 27
+        Margins.Left = 20
+        Margins.Top = 0
+        Margins.Right = 20
+        Margins.Bottom = 0
+        Align = alClient
+        TabOrder = 0
+        object Label12: TLabel
+          Left = 30
+          Top = 1
+          Width = 45
+          Height = 22
+          Caption = 'Raffle Not '#13'Qualified'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label16: TLabel
+          Left = 120
+          Top = 1
+          Width = 37
+          Height = 22
+          Caption = 'Raffle '#13'Qualified'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label17: TLabel
+          Left = 219
+          Top = 1
+          Width = 49
+          Height = 22
+          Caption = 'Need to be '#13'Posted!'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Shape4: TShape
+          Left = 177
+          Top = -1
+          Width = 1
+          Height = 33
+          Pen.Color = clMedGray
+        end
+        object Panel11: TPanel
+          Left = 6
+          Top = 4
+          Width = 20
+          Height = 20
+          BevelOuter = bvNone
+          Color = clMedGray
+          ParentBackground = False
+          TabOrder = 0
+        end
+        object Panel14: TPanel
+          Left = 96
+          Top = 4
+          Width = 20
+          Height = 20
+          BevelOuter = bvNone
+          Color = clHighlight
+          ParentBackground = False
+          TabOrder = 1
+        end
+        object Panel15: TPanel
+          Left = 193
+          Top = 4
+          Width = 20
+          Height = 20
+          BevelOuter = bvNone
+          Color = clGray
+          ParentBackground = False
+          TabOrder = 2
+        end
       end
     end
     object Panel5: TPanel
@@ -192,25 +283,43 @@ object UMemberConsumer: TUMemberConsumer
         Caption = 'Color Legend'
         TabOrder = 0
         object Label4: TLabel
-          Left = 31
+          Left = 30
           Top = 17
-          Width = 39
-          Height = 26
+          Width = 33
+          Height = 22
           Caption = 'Normal '#13'Records'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object Label5: TLabel
-          Left = 106
+          Left = 96
           Top = 17
-          Width = 67
-          Height = 26
+          Width = 57
+          Height = 22
           Caption = 'Disconnected '#13'Accounts'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object Label6: TLabel
-          Left = 208
+          Left = 184
           Top = 17
-          Width = 65
-          Height = 26
+          Width = 57
+          Height = 22
           Caption = 'Disco-Vacant '#13'Accounts'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object SpeedButton1: TSpeedButton
           Left = 768
@@ -262,6 +371,8 @@ object UMemberConsumer: TUMemberConsumer
             0000000000000000000000000000000000000000000000000000}
           ParentFont = False
           OnClick = SpeedButton1Click
+          ExplicitLeft = 773
+          ExplicitTop = 17
         end
         object Shape2: TShape
           Left = 767
@@ -336,36 +447,41 @@ object UMemberConsumer: TUMemberConsumer
           ExplicitLeft = 462
           ExplicitTop = 3
         end
-        object Label12: TLabel
-          Left = 482
-          Top = 17
-          Width = 56
-          Height = 26
-          Caption = 'Need to be '#13'Posted!'
-        end
         object Shape3: TShape
-          Left = 449
+          Left = 401
           Top = 15
           Width = 1
           Height = 33
           Pen.Color = clMedGray
         end
         object Label13: TLabel
-          Left = 309
+          Left = 273
           Top = 17
-          Width = 41
-          Height = 26
+          Width = 36
+          Height = 22
           Caption = 'Special '#13'Remarks'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object Label14: TLabel
-          Left = 382
+          Left = 341
           Top = 23
-          Width = 62
-          Height = 13
+          Width = 54
+          Height = 11
           Caption = 'No Signature'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object Panel6: TPanel
-          Left = 8
+          Left = 7
           Top = 20
           Width = 20
           Height = 20
@@ -376,7 +492,7 @@ object UMemberConsumer: TUMemberConsumer
           TabOrder = 0
         end
         object Panel7: TPanel
-          Left = 82
+          Left = 72
           Top = 20
           Width = 20
           Height = 20
@@ -386,7 +502,7 @@ object UMemberConsumer: TUMemberConsumer
           TabOrder = 1
         end
         object Panel8: TPanel
-          Left = 184
+          Left = 160
           Top = 20
           Width = 20
           Height = 20
@@ -395,35 +511,25 @@ object UMemberConsumer: TUMemberConsumer
           ParentBackground = False
           TabOrder = 2
         end
-        object Panel11: TPanel
-          Left = 457
-          Top = 20
-          Width = 20
-          Height = 20
-          BevelOuter = bvNone
-          Color = clGray
-          ParentBackground = False
-          TabOrder = 3
-        end
         object Panel12: TPanel
-          Left = 283
+          Left = 246
           Top = 20
           Width = 20
           Height = 20
           BevelOuter = bvNone
           Color = clYellow
           ParentBackground = False
-          TabOrder = 4
+          TabOrder = 3
         end
         object Panel13: TPanel
-          Left = 358
+          Left = 318
           Top = 20
           Width = 20
           Height = 20
           BevelOuter = bvNone
           Color = clRed
           ParentBackground = False
-          TabOrder = 5
+          TabOrder = 4
         end
       end
     end
@@ -767,7 +873,7 @@ object UMemberConsumer: TUMemberConsumer
     Top = 144
   end
   object DSDataEntries: TDataSource
-    DataSet = UMainModule.qryMCQualified
+    DataSet = UMainModule.qryMCQualifiedAll
     OnDataChange = DSDataEntriesDataChange
     Left = 658
     Top = 233
@@ -1068,6 +1174,26 @@ object UMemberConsumer: TUMemberConsumer
     end
     object ExportAsCSVFile1: TMenuItem
       Caption = 'Export As CSV File'
+    end
+    object N2: TMenuItem
+      Caption = '-'
+    end
+    object RefreshDBGrid1: TMenuItem
+      Caption = 'Refresh DBGrid'
+      OnClick = RefreshDBGrid1Click
+    end
+    object N3: TMenuItem
+      Caption = '-'
+    end
+    object ShowQualified1: TMenuItem
+      Caption = 'Hide Qualified'
+      Checked = True
+      OnClick = ShowQualified1Click
+    end
+    object ShowNotQualified1: TMenuItem
+      Caption = 'Hide Not Qualified'
+      Checked = True
+      OnClick = ShowNotQualified1Click
     end
   end
   object ComPort1: TComPort

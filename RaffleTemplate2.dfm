@@ -15628,6 +15628,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
     Font.Name = 'Mukta Mahee ExtraBold'
     Font.Style = [fsBold]
     ParentFont = False
+    Visible = False
   end
   object scGPPickerName: TscGPPanel
     AlignWithMargins = True
@@ -17373,7 +17374,6 @@ object RaffleTemplate2U: TRaffleTemplate2U
     Margins.Bottom = 60
     FluentUIOpaque = False
     TabOrder = 1
-    Visible = False
     OnResize = scGPPickerNameResize
     BlurBackground = False
     BlurBackgroundAmount = 5

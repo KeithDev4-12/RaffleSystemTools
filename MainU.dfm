@@ -933,10 +933,12 @@ object UMainForm: TUMainForm
       end
       object UploadMemberConsumers1: TMenuItem
         Caption = 'Upload Member Consumer'#39's'
+        Enabled = False
         OnClick = UploadMemberConsumers1Click
       end
       object GetFromCooptoLocalData1: TMenuItem
         Caption = 'Get From Coop to Local Data'
+        Enabled = False
         OnClick = GetFromCooptoLocalData1Click
       end
       object N2: TMenuItem
@@ -945,11 +947,12 @@ object UMainForm: TUMainForm
       end
       object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
         Caption = 'Update Local Database From Online Database'
-        Enabled = False
+        Visible = False
         OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
       end
       object DemoDummy1: TMenuItem
         Caption = 'Demo Dummy'
+        Visible = False
         OnClick = DemoDummy1Click
       end
     end
@@ -1069,5 +1072,9 @@ object UMainForm: TUMainForm
     ConnectKind = ckRunningOrNew
     Left = 472
     Top = 392
+  end
+  object RzVersionInfo1: TRzVersionInfo
+    Left = 480
+    Top = 104
   end
 end

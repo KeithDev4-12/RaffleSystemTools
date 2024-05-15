@@ -9,7 +9,8 @@ uses
   EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh, Data.DB, Vcl.Imaging.GIFImg,
   dxGDIPlusClasses,System.Math, MemDS, VirtualTable,System.StrUtils, mmsystem,
   Vcl.MPlayer, SpeechLib_TLB, Vcl.OleServer,ShellAPI,IdHTTP, System.JSON,
-  System.Net.HttpClient,  System.Generics.Collections, CPort,Soap.EncdDecd;
+  System.Net.HttpClient,  System.Generics.Collections, CPort,Soap.EncdDecd,
+  RzStatus;
 
 type
   TUMainForm = class(TForm)
@@ -91,6 +92,7 @@ type
     Label7: TLabel;
     UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem;
     DemoDummy1: TMenuItem;
+    RzVersionInfo1: TRzVersionInfo;
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -177,12 +179,20 @@ begin
     ShowMessage('User cancelled the dialog');
   end else begin
     with Ureport do begin
-      qryReportAttendance.Close;
+      {qryReportAttendance.Close;
       qryReportAttendance.ParamByName('AYear').AsString := value;
       qryReportAttendance.Open;
       qryReportAttendance.First;
       qrlblDateRange.Caption := 'Y.R. ' + value;
-      qrAttendance.Preview;
+      qrAttendance.Preview;}
+
+      qryAGMAAttendance.Close;
+      qryAGMAAttendance.ParamByName('AYear').AsString := value;
+      qryAGMAAttendance.Open;
+      qryAGMAAttendance.First;
+      QRPLabel46.Caption := 'Y.R. ' + value;
+      AGMAAttendance.Preview;
+
     end;
   end;
 end;
@@ -461,7 +471,7 @@ begin
   UMainModule.CallSettings;
   UMainModule.CreateIniFile();
   IsOnRaffle := False;
-  
+  Self.Caption := 'RaffleSystem V2 ' + RzVersionInfo1.FileVersion;
 
 end;
 
@@ -529,7 +539,7 @@ end;
 procedure TUMainForm.GetFromCooptoLocalData1Click(Sender: TObject);
 var
   I,Count:Integer;
-  value:String;
+  value,CategoryValue:String;
   BillMonthReverse:String;
 begin
   With UMainModule do begin
@@ -543,14 +553,22 @@ begin
 
       qryAccountSignature.Close;
       qryAccountSignature.Open;
-      for I := 1 to 8 do begin
+      //for I := 1 to 8 do begin
+      qryVicinity.Close;
+      qryVicinity.ParamByName('ACategory').AsString := CategoryValue;
+      qryVicinity.Open;
+      qryVicinity.First;
+
+      while not qryVicinity.EOF do begin
+
         // delete first if data is available!
         //qryDeleteMemberConsumer.Close;
         //qryDeleteMemberConsumer.ParamByName('AArea').AsString := '00'+IntToStr(I);
         //qryDeleteMemberConsumer.Execute();
         // query all available data to be inserted in memberconsumer table
         qryMaster.Close;
-        qryMaster.ParamByName('AArea').AsString := '00'+IntToStr(i);
+        qryMaster.ParamByName('ABook').AsString := qryVicinityBook.AsString;
+        //qryMaster.ParamByName('AArea').AsString := '00'+IntToStr(i);
         qryMaster.Open;
         qryMaster.First;
 
@@ -599,9 +617,10 @@ begin
           end;
           qryMaster.Next;
         end;
-
+        qryVicinity.Next;
       end;
       SpeedButton6Click(Sender);
+      MessageDlg('Generating Done, You Can Now Extract the Data For : ' + CategoryValue,mtInformation,[mbClose],0);
     end;
   end;
 end;
@@ -870,6 +889,7 @@ begin
   with UMainModule do begin
     result := 0;
     qryAccountSignature.First;
+    qryAccountSignature1.First;
     if not qryAccountSignature.IsEmpty then begin
       if qryAccountSignature.Locate('AccountNumber',AAccountNumber,[]) then begin
         if qryAccountSignatureStatus.AsString.Contains('Not') then begin
@@ -886,6 +906,12 @@ begin
           result := 1;
         end;
       end else begin
+        if qryAccountSignature1.Locate('AccountNumber',AAccountNumber,[]) then begin
+          result := 1;
+        end else begin
+          result := 0 ;
+        end;
+
         //I Should look to the other table Signature temp table
         // This Table will be the store table if Image From A2Hosting Database
         // same Logic Applies for this table Locate
@@ -899,8 +925,13 @@ end;
 
 function TUMainForm.IsQualified(const AAccountNumber: String): Integer;
 begin
+  // THIS IS FOR ARLEDGER CHECKING
+  // SINCE THERE IS A PROBLEM ON BILLING SIDE POSTING
+  // OF THERE RECORD ON ARLEDGER
+  // WE WILL BE COMMENTING OUT THIS PART
+
   with UMainModule do begin
-    qryAccountQualifier.Close;
+    {qryAccountQualifier.Close;
     qryAccountQualifier.ParamByName('AAccountNumber').AsString := AAccountNumber;
     qryAccountQualifier.Open;
     if qryAccountQualifier.IsEmpty then begin
@@ -911,8 +942,24 @@ begin
       end else begin
         Result := 1;
       end;
+    end;}
+
+    // THIS IS THE CODE FOR COLLECTION CHECKING
+    qryAccountQualifier1.Close;
+    qryAccountQualifier1.ParamByName('AAccountNumber').AsString := AAccountNumber;
+    qryAccountQualifier1.Open;
+    if qryAccountQualifier1.IsEmpty then begin
+      Result := 0;
+    end else begin
+      if qryAccountQualifier1Status.AsString.Contains('OLD') then begin
+        Result := 0;
+      end else begin
+        Result := 1;
+      end;
     end;
   end;
+
+
 end;
 
 procedure TUMainForm.Label4Click(Sender: TObject);
@@ -1073,42 +1120,49 @@ begin
     end;
     FDQuery2.Close;
     qryMCQualified.Close;
-    with UMainModule do begin
-      if AIsVenueReg then
+    qryMCQualifiedAll.Close;
+    //with UMainModule do begin
+    //  if AIsVenueReg then
 
-    end;
+    //end;
 
 
     if UMainModule.AIsVenueReg then begin
       qryMCQualified.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
       FDQuery2.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
+      qryMCQualifiedAll.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
       Label7.Caption := 'V';
       RaffleTemplate2U.Label5.Caption := 'VENUE REGISTRATION';
     end else begin
       qryMCQualified.ParamByName('EntryMode1').AsString := '';
       FDQuery2.ParamByName('EntryMode1').AsString := '';
+      qryMCQualifiedAll.ParamByName('EntryMode1').AsString := '';
       Label7.Caption := '';
       RaffleTemplate2U.Label5.Caption := '';
     end;
     if UMainModule.AIsOnlineReg then begin
       qryMCQualified.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
+      qryMCQualifiedAll.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
       FDQuery2.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
       Label7.Caption := Label7.Caption + 'O';
       RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' ONLINE REGISTRATION ';
     end else begin
       qryMCQualified.ParamByName('EntryMode2').AsString := '';
+      qryMCQualifiedAll.ParamByName('EntryMode2').AsString := '';
       FDQuery2.ParamByName('EntryMode2').AsString := '';
       Label7.Caption := Label7.Caption + '';
       RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ''
     end;
     if UMainModule.AIsPreReg then begin
       qryMCQualified.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
+      qryMCQualifiedAll.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
       FDQuery2.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
       Label7.Caption := Label7.Caption + 'P';
       RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' PRE-REGISTRATION ';
     end else begin
       qryMCQualified.ParamByName('EntryMode3').AsString := '';
       FDQuery2.ParamByName('EntryMode3').AsString := '';
+      qryMCQualifiedAll.ParamByName('EntryMode3').AsString := '';
       Label7.Caption := Label7.Caption + '';
       RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + '';
     end;
@@ -1117,12 +1171,17 @@ begin
     qryMCQualified.ParamByName('AARea').AsString := AArea;
     qryMCQualified.ParamByName('AYear').AsInteger := CurrentYear;
     FDQuery2.ParamByName('AYear').AsInteger := CurrentYear;
+    //qryMCQualifiedAll.ParamByName('AARea').AsString := AArea;
+    qryMCQualifiedAll.ParamByName('AYear').AsInteger := CurrentYear;
 
     FDQuery2.Open;
     FDQuery2.First;
 
     qryMCQualified.Open;
     qryMCQualified.First;
+
+    qryMCQualifiedAll.Open;
+    qryMCQualifiedAll.First;
 
     qryMCQualified.IndexFieldNames := 'ShuffleOrder';
     qryMCQualified.First;
