@@ -354,6 +354,17 @@ type
     qryMemberConsumersIsQualifiedForRaffle: TShortintField;
     qryMemberConsumersIsSignatureAvailable: TShortintField;
     qryMemberConsumersDateRegistered: TDateTimeField;
+    qryWinnerPerDistrict: TFDQuery;
+    qryWinnerPerDistrictid: TFDAutoIncField;
+    qryWinnerPerDistrictYear: TLongWordField;
+    qryWinnerPerDistrictAccountNumber: TStringField;
+    qryWinnerPerDistrictName: TStringField;
+    qryWinnerPerDistrictAddress: TStringField;
+    qryWinnerPerDistrictOrderBy: TLongWordField;
+    qryWinnerPerDistrictArea: TStringField;
+    qryWinnerPerDistrictGender: TStringField;
+    qryWinnerPerDistrictPrizeCategory: TStringField;
+    qryWinnerMCPrizeCategory: TStringField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

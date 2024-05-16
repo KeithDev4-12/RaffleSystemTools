@@ -15718,7 +15718,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Align = alTop
       Alignment = taCenter
       AutoSize = False
-      Caption = '01280125'
+      Caption = '00000000'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 15045699
       Font.Height = -27
@@ -15741,7 +15741,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Align = alTop
       Alignment = taCenter
       AutoSize = False
-      Caption = 'ZONE 5, BULAN, SORSOGON'
+      Caption = 'BARANGAY, DISTRICT, CITY'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 15045699
       Font.Height = -27
@@ -17374,6 +17374,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
     Margins.Bottom = 60
     FluentUIOpaque = False
     TabOrder = 1
+    Visible = False
     OnResize = scGPPickerNameResize
     BlurBackground = False
     BlurBackgroundAmount = 5

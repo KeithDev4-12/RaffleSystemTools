@@ -18,7 +18,8 @@ uses
   SignatureU in 'SignatureU.pas' {UFormSignature},
   U_UsbComponent in 'U_UsbComponent.pas',
   UpdateDatabase in 'UpdateDatabase.pas' {UpdateDatabaseU},
-  CommandPromtUnit in 'CommandPromtUnit.pas';
+  CommandPromtUnit in 'CommandPromtUnit.pas',
+  WinnerForm in 'WinnerForm.pas' {UWinnerForm};
 
 {$R *.res}
 
@@ -37,5 +38,6 @@ begin
   Application.CreateForm(TUSettings, USettings);
   Application.CreateForm(TUFormSignature, UFormSignature);
   Application.CreateForm(TUpdateDatabaseU, UpdateDatabaseU);
+  Application.CreateForm(TUWinnerForm, UWinnerForm);
   Application.Run;
 end.

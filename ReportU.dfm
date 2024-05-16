@@ -15,8 +15,8 @@ object UReport: TUReport
   PixelsPerInch = 96
   TextHeight = 13
   object qrAttendance: TQuickRep
-    Left = 627
-    Top = 54
+    Left = 43
+    Top = 398
     Width = 1248
     Height = 816
     ShowingPreview = False
@@ -8159,8 +8159,8 @@ object UReport: TUReport
     end
   end
   object qrWinner: TQuickRep
-    Left = 627
-    Top = 92
+    Left = 539
+    Top = 60
     Width = 816
     Height = 1056
     ShowingPreview = False
@@ -16147,8 +16147,8 @@ object UReport: TUReport
     end
   end
   object qrSummary: TQuickRep
-    Left = 465
-    Top = 31
+    Left = 539
+    Top = 242
     Width = 816
     Height = 1056
     ShowingPreview = False
@@ -24577,8 +24577,8 @@ object UReport: TUReport
     end
   end
   object qrWinnersByClassification: TQuickRep
-    Left = 531
-    Top = 8
+    Left = 305
+    Top = 170
     Width = 816
     Height = 1056
     ShowingPreview = False
@@ -32565,8 +32565,8 @@ object UReport: TUReport
     end
   end
   object AGMAAttendance: TQuickRep
-    Left = 383
-    Top = 92
+    Left = -81
+    Top = 447
     Width = 1248
     Height = 816
     ShowingPreview = False
@@ -40875,6 +40875,7 @@ object UReport: TUReport
       'where year = :AYear'
       'and'
       'Status in (1,2,3,4)'
+      ''
       'order by Left(AccountNumber,4)')
     Left = 240
     Top = 8
@@ -40958,15 +40959,22 @@ object UReport: TUReport
       'OrderBy'
       'FROM winners m'
       'where year = :AYear'
+      'and PrizeCategory = :APrizeCategory'
       'order by OrderBy')
-    Left = 88
-    Top = 24
+    Left = 176
+    Top = 168
     ParamData = <
       item
         Name = 'AYEAR'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '2023'
+        Value = '2024'
+      end
+      item
+        Name = 'APRIZECATEGORY'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = 'Consolation'
       end>
     object qryReportWinnersid: TFDAutoIncField
       FieldName = 'id'
@@ -41069,7 +41077,7 @@ object UReport: TUReport
         Name = 'AYEAR'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '2023'
+        Value = '2024'
       end>
     object qrySummarys001: TLargeintField
       AutoGenerateValue = arDefault
@@ -41264,6 +41272,8 @@ object UReport: TUReport
       'FROM winners m'
       'where year = :AYear'
       'AND'
+      '  PrizeCategory = :APrizeCategory'
+      'AND'
       'Right(Left(AccountNumber,4),3) IN ('
       'select '
       'Book from Vicinity where'
@@ -41276,7 +41286,13 @@ object UReport: TUReport
         Name = 'AYEAR'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '2023'
+        Value = '2024'
+      end
+      item
+        Name = 'APRIZECATEGORY'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = 'Grand'
       end
       item
         Name = 'ACLASSIFICATION'
@@ -41374,8 +41390,8 @@ object UReport: TUReport
       'and'
       'Status in (1,2,3,4)'
       'order by Left(AccountNumber,4)')
-    Left = 32
-    Top = 96
+    Left = 64
+    Top = 152
     ParamData = <
       item
         Name = 'AYEAR'

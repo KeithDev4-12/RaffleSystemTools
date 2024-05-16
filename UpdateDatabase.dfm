@@ -139,6 +139,14 @@ object UpdateDatabaseU: TUpdateDatabaseU
     TabOrder = 5
     OnClick = BitBtn4Click
   end
+  object Edit1: TEdit
+    Left = 32
+    Top = 120
+    Width = 121
+    Height = 21
+    TabOrder = 6
+    Text = '08380154'
+  end
   object VirtualTable1: TVirtualTable
     Active = True
     FieldDefs = <
@@ -235,6 +243,7 @@ object UpdateDatabaseU: TUpdateDatabaseU
     object tblNewTableid: TFDAutoIncField
       FieldName = 'id'
       Origin = 'id'
+      ReadOnly = True
     end
     object tblNewTableAccountNumber: TStringField
       AutoGenerateValue = arDefault

@@ -1,7 +1,7 @@
 object UMainModule: TUMainModule
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 532
+  Height = 606
   Width = 664
   object FDConnSQLite: TFDConnection
     Params.Strings = (
@@ -48,6 +48,7 @@ object UMainModule: TUMainModule
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object qryMemberConsumersAccountNumber: TStringField
       AutoGenerateValue = arDefault
@@ -1339,7 +1340,8 @@ object UMainModule: TUMainModule
       'Address,'
       'Year,'
       'OrderBy,'
-      'Gender'
+      'Gender,'
+      'PrizeCategory'
       'from '
       'winners'
       'WHERE'
@@ -1400,6 +1402,12 @@ object UMainModule: TUMainModule
       Required = True
       Size = 45
     end
+    object qryWinnerMCPrizeCategory: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PrizeCategory'
+      Origin = 'PrizeCategory'
+      Size = 45
+    end
   end
   object qryGetLastRecord: TFDQuery
     Connection = FDConnSQLite
@@ -1407,13 +1415,30 @@ object UMainModule: TUMainModule
     FetchOptions.Mode = fmAll
     SQL.Strings = (
       'SELECT COUNT(AccountNumber)+1 as LastInteger '
-      'from winners where year = :AYear')
+      
+        'from winners where year = :AYear and PrizeCategory = :APrizeCate' +
+        'gory'
+      'AND if(:ADistrict='#39'ALL'#39',year = :AYear,AREA=:ADistrict)')
     Left = 304
     Top = 192
     ParamData = <
       item
         Name = 'AYEAR'
+        DataType = ftWideString
         ParamType = ptInput
+        Value = '2024'
+      end
+      item
+        Name = 'APRIZECATEGORY'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = 'Grand'
+      end
+      item
+        Name = 'ADISTRICT'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = 'ALL'
       end>
     object qryGetLastRecordLastInteger: TLargeintField
       AutoGenerateValue = arDefault
@@ -2397,7 +2422,9 @@ object UMainModule: TUMainModule
       
         'IF('#39'BULAN'#39' = :ACategory,CATEGORY IN ('#39'BULAN A'#39', '#39'BULAN B'#39', '#39'BULA' +
         'N C'#39'),'
-      'IF('#39'MATNOG'#39' = :ACategory,CATEGORY IN ('#39'MATNOG A'#39','#39'MATNOG B'#39'),'
+      
+        'IF('#39'MATNOG'#39' = :ACategory,CATEGORY IN ('#39'MATNOG A'#39','#39'MATNOG B'#39', '#39'MA' +
+        'TNOG'#39'),'
       'IF('#39'IROSIN'#39' = :ACategory,CATEGORY IN ('#39'IROSIN A'#39','#39'IROSIN B'#39'),'
       'CATEGORY = :ACategory)))'
       'ORDER BY BOOK')
@@ -2408,12 +2435,13 @@ object UMainModule: TUMainModule
         Name = 'ACATEGORY'
         DataType = ftWideString
         ParamType = ptInput
-        Value = 'STA. MAGDALENA'
+        Value = 'MATNOG'
       end>
     object qryVicinityEntry: TFDAutoIncField
       FieldName = 'Entry'
       Origin = 'Entry'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object qryVicinityArea: TStringField
       AutoGenerateValue = arDefault
@@ -2509,5 +2537,80 @@ object UMainModule: TUMainModule
       'Select * from vicinity')
     Left = 560
     Top = 440
+  end
+  object qryWinnerPerDistrict: TFDQuery
+    Connection = FDConnSQLite
+    SQL.Strings = (
+      'Select * From Winners Where Year = :AYear'
+      'AND PrizeCategory = :APrizeCategory'
+      'Order By OrderBy')
+    Left = 56
+    Top = 528
+    ParamData = <
+      item
+        Name = 'AYEAR'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = '2024'
+      end
+      item
+        Name = 'APRIZECATEGORY'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = 'Consolation'
+      end>
+    object qryWinnerPerDistrictid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object qryWinnerPerDistrictYear: TLongWordField
+      AutoGenerateValue = arDefault
+      FieldName = 'Year'
+      Origin = '`Year`'
+    end
+    object qryWinnerPerDistrictAccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 11
+    end
+    object qryWinnerPerDistrictName: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Name'
+      Origin = '`Name`'
+      Size = 99
+    end
+    object qryWinnerPerDistrictAddress: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Address'
+      Origin = 'Address'
+      Size = 99
+    end
+    object qryWinnerPerDistrictOrderBy: TLongWordField
+      AutoGenerateValue = arDefault
+      FieldName = 'OrderBy'
+      Origin = 'OrderBy'
+    end
+    object qryWinnerPerDistrictArea: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Area'
+      Origin = 'Area'
+      FixedChar = True
+      Size = 3
+    end
+    object qryWinnerPerDistrictGender: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Gender'
+      Origin = 'Gender'
+      Size = 45
+    end
+    object qryWinnerPerDistrictPrizeCategory: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PrizeCategory'
+      Origin = 'PrizeCategory'
+      Size = 45
+    end
   end
 end

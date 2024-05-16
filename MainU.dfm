@@ -38,10 +38,11 @@ object UMainForm: TUMainForm
       BevelOuter = bvNone
       TabOrder = 0
       object SpeedButton1: TSpeedButton
-        Left = -1
+        Left = 0
         Top = 0
-        Width = 160
-        Height = 28
+        Width = 140
+        Height = 31
+        Align = alLeft
         Caption = 'Entries'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
@@ -51,12 +52,20 @@ object UMainForm: TUMainForm
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = SpeedButton1Click
+        ExplicitLeft = -1
+        ExplicitHeight = 28
       end
       object SpeedButton2: TSpeedButton
-        Left = 159
+        AlignWithMargins = True
+        Left = 145
         Top = 0
-        Width = 160
-        Height = 28
+        Width = 140
+        Height = 31
+        Margins.Left = 5
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alLeft
         Caption = 'Results'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
@@ -66,18 +75,20 @@ object UMainForm: TUMainForm
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = SpeedButton2Click
+        ExplicitLeft = 159
+        ExplicitHeight = 28
       end
       object Shape1: TShape
         Left = -24
         Top = 28
-        Width = 185
+        Width = 163
         Height = 3
         Pen.Width = 3
       end
       object Shape2: TShape
-        Left = 159
+        Left = 145
         Top = 28
-        Width = 160
+        Width = 140
         Height = 3
         Pen.Width = 3
         Visible = False
@@ -99,6 +110,26 @@ object UMainForm: TUMainForm
         Font.Style = [fsBold]
         ParentFont = False
         ExplicitLeft = 395
+      end
+      object CheckBox1: TCheckBox
+        Left = 285
+        Top = 0
+        Width = 99
+        Height = 31
+        Align = alClient
+        Caption = 'Consolation '
+        Checked = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 0
+        OnClick = CheckBox1Click
+        ExplicitLeft = 291
+        ExplicitWidth = 93
       end
     end
     object Panel4: TPanel
@@ -839,7 +870,7 @@ object UMainForm: TUMainForm
       TabOrder = 3
       object Label1: TLabel
         Left = 7
-        Top = 11
+        Top = 10
         Width = 145
         Height = 15
         Caption = 'MUNICIPALITY ADDRESS :'
@@ -938,7 +969,6 @@ object UMainForm: TUMainForm
       end
       object GetFromCooptoLocalData1: TMenuItem
         Caption = 'Get From Coop to Local Data'
-        Enabled = False
         OnClick = GetFromCooptoLocalData1Click
       end
       object N2: TMenuItem
@@ -947,7 +977,6 @@ object UMainForm: TUMainForm
       end
       object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
         Caption = 'Update Local Database From Online Database'
-        Visible = False
         OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
       end
       object DemoDummy1: TMenuItem
@@ -991,8 +1020,14 @@ object UMainForm: TUMainForm
         OnClick = Summary1Click
       end
       object AllWinnersPerClassification1: TMenuItem
-        Caption = 'All Winners Per Classification'
+        Caption = 'All Winners Per Classification (Consolation Prize)'
+        Visible = False
         OnClick = AllWinnersPerClassification1Click
+      end
+      object AllWinnersPerClassificationGrandPrize1: TMenuItem
+        Caption = 'All Winners Per Classification (Grand Prize)'
+        Visible = False
+        OnClick = AllWinnersPerClassificationGrandPrize1Click
       end
     end
     object est1: TMenuItem

@@ -40,6 +40,7 @@ type
     tblNewTableid: TFDAutoIncField;
     tblNewTableAccountNumber: TStringField;
     tblNewTableName: TStringField;
+    Edit1: TEdit;
     procedure BitBtn1Click(Sender: TObject);
     procedure FetchAndPopulateVirtualTable(VirtualTable: TVirtualTable);
     procedure FetchAndPopulateImage(Const AccountNumber:String);
@@ -101,7 +102,7 @@ begin
   JSONArray := TJSONObject.ParseJSONValue(response.ContentAsString) as TJSONArray;
   try
     // Iterate through JSON array and populate VirtualTable
-    if JSONArray.Count = 1 then
+    if JSONArray.Count >= 1 then
     begin
       jsonObj := JSONArray.Items[0] as TJSONObject;
       with UMainModule do begin
@@ -162,6 +163,9 @@ begin
     JSONArray.Free;
   end;
 end;
+
+
+
 
 function TUpdateDatabaseU.GetFirstLetterOfLastWord(const S: string): Char;
 var

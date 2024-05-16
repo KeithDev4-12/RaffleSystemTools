@@ -93,6 +93,8 @@ type
     UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem;
     DemoDummy1: TMenuItem;
     RzVersionInfo1: TRzVersionInfo;
+    AllWinnersPerClassificationGrandPrize1: TMenuItem;
+    CheckBox1: TCheckBox;
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -141,6 +143,9 @@ type
     function GetFirstLetterOfLastWord(const S: string): Char;
     function GetAllWordsExceptLast(const S: string): string;
     procedure DemoDummy1Click(Sender: TObject);
+    procedure AllWinnersPerClassificationGrandPrize1Click(Sender: TObject);
+    procedure CheckBox1Click(Sender: TObject);
+    procedure PrizeCategory(Sender: TObject);
 
   private
     { Private declarations }
@@ -159,6 +164,7 @@ type
     var DefaultSQL : TStrings;
     var isRaffleTemplateCreated: Boolean;
     var IsOnRaffle :Boolean;
+    var APrizeCategoryValue : String;
   end;
 
 var
@@ -230,6 +236,7 @@ begin
       qryReportWinnersClassification.Close;
       qryReportWinnersClassification.ParamByName('AYear').AsInteger := StrToInt(SplitString(value,'|')[1]);
       qryReportWinnersClassification.ParamByName('AClassification').AsString := '%' + UPPERCASE(SplitString(value,'|')[0]) + '%';
+      qryReportWinnersClassification.ParamByName('APrizeCategory').AsString := 'Consolation';
       qryReportWinnersClassification.Open;
       qryReportWinnersClassification.First;
       qryReportWinnersClassification.First;
@@ -238,6 +245,39 @@ begin
       qrWinnersByClassification.Preview;
     end;
   end;
+end;
+
+procedure TUMainForm.AllWinnersPerClassificationGrandPrize1Click(
+  Sender: TObject);
+Var
+  value : String;
+begin
+  if not InputQuery('Reports', 'Please Put the Year of AGMA!', value) then begin
+    ShowMessage('User cancelled the dialog');
+  end else begin
+    with Ureport do begin
+      qryVicinity.Close;
+      qryVicinity.ParamByName('AClassification').AsString :=  '%' + UPPERCASE(SplitString(value,'|')[0]) + '%';
+      qryVicinity.Open;
+      qryVicinity.First;
+      qryReportWinnersClassification.Close;
+      qryReportWinnersClassification.ParamByName('AYear').AsInteger := StrToInt(SplitString(value,'|')[1]);
+      qryReportWinnersClassification.ParamByName('AClassification').AsString := '%' + UPPERCASE(SplitString(value,'|')[0]) + '%';
+      qryReportWinnersClassification.ParamByName('APrizeCategory').AsString := 'Grand';
+      qryReportWinnersClassification.Open;
+      qryReportWinnersClassification.First;
+      qryReportWinnersClassification.First;
+      QRPLabel34.Caption := 'AGMA WINNERS ' +UpperCase(SplitString(value,'|')[0]);
+      QRPLabel35.Caption := 'Y.R. ' + SplitString(value,'|')[1];
+      qrWinnersByClassification.Preview;
+    end;
+  end;
+end;
+
+procedure TUMainForm.CheckBox1Click(Sender: TObject);
+begin
+  PrizeCategory(Sender);
+  //ShowMessage(APrizeCategoryValue);
 end;
 
 procedure TUMainForm.ComboBox1Change(Sender: TObject);
@@ -461,7 +501,7 @@ end;
 
 procedure TUMainForm.FormCreate(Sender: TObject);
 begin
-
+  APrizeCategoryValue := 'Consolation';
   Panel4.Align := alClient;
   AARea := 'ALL';
   ALanguage:= 1;
@@ -553,9 +593,12 @@ begin
 
       qryAccountSignature.Close;
       qryAccountSignature.Open;
+      qryAccountSignature1.Close;
+      qryAccountSignature1.Open;
       //for I := 1 to 8 do begin
+      //InputQuery('CATEGORY', 'Please Enter CATEGORY ONLY!', CategoryValue);
       qryVicinity.Close;
-      qryVicinity.ParamByName('ACategory').AsString := CategoryValue;
+      qryVicinity.ParamByName('ACategory').AsString := TRIM(ComboBox1.Text);
       qryVicinity.Open;
       qryVicinity.First;
 
@@ -598,7 +641,6 @@ begin
             end else begin
               qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterAccountNumber.AsString);
               qryMemberConsumersConnectionStatus.AsInteger := 1;
-              
             end;
             qryMemberConsumersStatus.AsInteger := 0;
             qryMemberConsumersShuffleOrder.AsInteger := qryMemberConsumers.RecordCount + 1;
@@ -945,16 +987,27 @@ begin
     end;}
 
     // THIS IS THE CODE FOR COLLECTION CHECKING
-    qryAccountQualifier1.Close;
-    qryAccountQualifier1.ParamByName('AAccountNumber').AsString := AAccountNumber;
-    qryAccountQualifier1.Open;
-    if qryAccountQualifier1.IsEmpty then begin
+    {'C'
+  'G'
+  'I'
+  'P'
+  'R'
+  'S'}
+    if (qryMasterRateCode.AsString = 'S') OR (qryMasterRateCode.AsString = 'G')
+    OR (qryMasterRateCode.AsString = 'I') OR (qryMasterRateCode.AsString = 'P') then begin
       Result := 0;
     end else begin
-      if qryAccountQualifier1Status.AsString.Contains('OLD') then begin
+      qryAccountQualifier1.Close;
+      qryAccountQualifier1.ParamByName('AAccountNumber').AsString := AAccountNumber;
+      qryAccountQualifier1.Open;
+      if qryAccountQualifier1.IsEmpty then begin
         Result := 0;
       end else begin
-        Result := 1;
+        if qryAccountQualifier1Status.AsString.Contains('OLD') then begin
+          Result := 0;
+        end else begin
+          Result := 1;
+        end;
       end;
     end;
   end;
@@ -987,6 +1040,30 @@ procedure TUMainForm.N2Click(Sender: TObject);
 begin
   With UmainModule do begin
 
+  end;
+end;
+
+procedure TUMainForm.PrizeCategory(Sender: TObject);
+begin
+  if CheckBox1.Checked  then begin
+    APrizeCategoryValue := 'Consolation';
+    UMainModule.qrySettings.Edit;
+    UMainModule.qrySettingsIsVenueRegistration.AsInteger := USettings.BoolToInt(True);
+    UMainModule.qrySettingsIsOnlineRegistration.AsInteger := USettings.BoolToInt(True);
+    UMainModule.qrySettingsIsPreRegistration.AsInteger := USettings.BoolToInt(True);
+    UMainModule.qrySettings.Post;
+    UMainModule.CallSettings;
+    UMainForm.SpeedButton6Click(Sender);
+    //USettings.scGPButton1Click(Sender);
+  end else begin
+    APrizeCategoryValue := 'Grand';
+    UMainModule.qrySettings.Edit;
+    UMainModule.qrySettingsIsVenueRegistration.AsInteger := USettings.BoolToInt(True);
+    UMainModule.qrySettingsIsOnlineRegistration.AsInteger := USettings.BoolToInt(false);
+    UMainModule.qrySettingsIsPreRegistration.AsInteger := USettings.BoolToInt(false);
+    UMainModule.qrySettings.Post;
+    UMainModule.CallSettings;
+    UMainForm.SpeedButton6Click(Sender);
   end;
 end;
 

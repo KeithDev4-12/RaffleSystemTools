@@ -55,7 +55,8 @@ type
     procedure scGPButton2Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure EmulateWinnerShow();
-    function getOrderByLastWinner: Integer;
+    function getOrderByLastWinner(APrizeCategory,ADistrict:String): Integer;
+    function DistrictToArea(ADistrict:String):String;
     procedure Timer2Timer(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -71,6 +72,29 @@ implementation
 
 {$R *.dfm}
 Uses MainU,MainModuleU,SearchMemberConsumerU,WinnerU;
+
+function TRaffleTemplate2U.DistrictToArea(ADistrict: String): String;
+begin
+  if ADistrict.Contains('BULAN') then begin
+    Result := '001';
+  end else if ADistrict.Contains('MATNOG') then begin
+    Result := '002';
+  end else if ADistrict.Contains('STA. MAGDALENA') then begin
+    Result := '003';
+  end else if ADistrict.Contains('IROSIN') then begin
+    Result := '004';
+  end else if ADistrict.Contains('BULUSAN') then begin
+    Result := '005';
+  end else if ADistrict.Contains('JUBAN') then begin
+    Result := '006';
+  end else if ADistrict.Contains('CASIGURAN') then begin
+    Result := '007';
+  end else if ADistrict.Contains('MAGALLANES') then begin
+    Result := '008';
+  end else begin
+    Result := 'ALL';
+  end;
+end;
 
 procedure TRaffleTemplate2U.EmulateWinnerShow;
 Var
@@ -104,8 +128,9 @@ begin
       qryWinnerMCArea.AsString := qryMCQualifiedArea.AsString;
       qryWinnerMCAddress.AsString := qryMCQualifiedAddress.AsString;
       qryWinnerMCYear.AsInteger := CurrentYear;
-      qryWinnerMCOrderBy.AsInteger := getOrderByLastWinner();
+      qryWinnerMCOrderBy.AsInteger := getOrderByLastWinner(UMainForm.APrizeCategoryValue,UMainForm.ComboBox1.Text);
       qryWinnerMCGender.AsString := qryMCQualifiedGender.AsString;
+      qryWinnerMCPrizeCategory.AsString := UMainForm.APrizeCategoryValue;
       qryWinnerMC.Post;
       Application.ProcessMessages;
       qryMCQualified.Edit;
@@ -132,11 +157,14 @@ begin
   //Timer2.Enabled := True;
 end;
 
-function TRaffleTemplate2U.getOrderByLastWinner: Integer;
+
+function TRaffleTemplate2U.getOrderByLastWinner(APrizeCategory,ADistrict:String): Integer;
 begin
   with UMainModule do begin
     qryGetLastRecord.Close;
     qryGetLastRecord.ParamByName('AYear').AsInteger := CurrentYear;
+    qryGetLastRecord.ParamByName('APrizeCategory').AsString := APrizeCategory;
+    qryGetLastRecord.ParamByName('ADistrict').AsString := DistrictToArea(ADistrict);
     qryGetLastRecord.Open;
     result := qryGetLastRecordLastInteger.AsInteger;
   end;
@@ -183,7 +211,18 @@ begin
 end;
 
 procedure TRaffleTemplate2U.scGPButton1Click(Sender: TObject);
+Var
+  Combobox1VAlue:String;
 begin
+  Combobox1VAlue := UMainForm.ComboBox1.Text;
+   if UMainForm.CheckBox1.Checked AND Combobox1VAlue.Contains('ALL MUNICIPALITIES') then begin
+     MessageDlg('Cannot Raffle for All Municipalities In Consolation Mode!'+
+     #13#10 + 'In order to raffle for All Municipalities you must UnCheck Consolation Mode'+
+     #13#10 + 'If you want to Raffle for Consolation Mode, Please Select District Categories',mtInformation,[mbClose],0);
+     Exit;
+   end;
+
+
    if not UMainForm.IsOnRaffle then begin
      UMainForm.IsOnRaffle := True;
      if UMainModule.qryMCQualified.IsEmpty then begin
@@ -274,7 +313,7 @@ begin
         AAccountNumber := UMainModule.qryMCQualifiedAccountNumber.AsString;
         AName := UMainModule.qryMCQualifiedName.AsString;
         AAddress := UMainModule.qryMCQualifiedAddress.AsString;
-        UMainForm.CreateABatchFile(AAccountNumber,AName);
+        //UMainForm.CreateABatchFile(AAccountNumber,AName);
         Application.ProcessMessages;
         screen.Cursor := crHourGlass;
         lblAccountNumber.Caption := AAccountNumber;

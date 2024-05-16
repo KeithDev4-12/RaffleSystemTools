@@ -1,0 +1,39 @@
+object UWinnerForm: TUWinnerForm
+  Left = 0
+  Top = 0
+  Caption = 'UWinnerForm'
+  ClientHeight = 303
+  ClientWidth = 290
+  Color = clBtnHighlight
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object RadioGroup1: TRadioGroup
+    AlignWithMargins = True
+    Left = 10
+    Top = 10
+    Width = 270
+    Height = 71
+    Margins.Left = 10
+    Margins.Top = 10
+    Margins.Right = 10
+    Margins.Bottom = 10
+    Align = alTop
+    Caption = 'Winner Category'
+    Color = clWhite
+    Columns = 2
+    ItemIndex = 0
+    Items.Strings = (
+      'Consolation Prize'
+      'Grand Prize')
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 0
+    ExplicitWidth = 216
+  end
+end
