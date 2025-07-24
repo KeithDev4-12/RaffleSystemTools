@@ -1141,7 +1141,7 @@ object UMemberConsumer: TUMemberConsumer
     Top = 165
   end
   object FDBatchMoveDataSetReader2: TFDBatchMoveDataSetReader
-    DataSet = UMainModule.tblNeedToBePosted
+    DataSet = UMainModule.FDQuery4
     Left = 1122
     Top = 293
   end

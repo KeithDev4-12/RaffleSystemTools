@@ -1,8 +1,8 @@
 object UUploaderPreRegistration: TUUploaderPreRegistration
   Left = 0
   Top = 0
-  Caption = 'Pre-Registration Entry'
-  ClientHeight = 330
+  Caption = 'Uploading Data'
+  ClientHeight = 369
   ClientWidth = 657
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
@@ -18,14 +18,14 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     Left = 0
     Top = 0
     Width = 249
-    Height = 330
+    Height = 369
     Align = alLeft
     BevelKind = bkTile
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
       245
-      326)
+      365)
     object SpeedButton1: TSpeedButton
       Left = 0
       Top = 73
@@ -111,9 +111,9 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     end
     object GroupBox2: TGroupBox
       Left = 6
-      Top = 214
+      Top = 217
       Width = 232
-      Height = 106
+      Height = 142
       Anchors = [akLeft, akRight, akBottom]
       Caption = 'Buttons'
       TabOrder = 1
@@ -121,7 +121,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
         Left = 2
         Top = 15
         Width = 228
-        Height = 89
+        Height = 125
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
@@ -129,16 +129,17 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
           Left = 136
           Top = 0
           Width = 1
-          Height = 89
+          Height = 125
           Align = alRight
           Pen.Color = clMedGray
           ExplicitLeft = 191
+          ExplicitHeight = 89
         end
         object Panel6: TPanel
           Left = 137
           Top = 0
           Width = 91
-          Height = 89
+          Height = 125
           Align = alRight
           BevelOuter = bvNone
           TabOrder = 0
@@ -208,7 +209,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
             Width = 91
             Height = 39
             Align = alTop
-            Caption = '                '
+            Caption = 'Post Online'
             Flat = True
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
@@ -262,7 +263,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
           Left = -2
           Top = 0
           Width = 138
-          Height = 89
+          Height = 125
           Align = alRight
           BevelOuter = bvNone
           TabOrder = 1
@@ -382,6 +383,59 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
             OnClick = SpeedButton4Click
             ExplicitTop = 8
           end
+          object SpeedButton6: TSpeedButton
+            Left = 0
+            Top = 86
+            Width = 138
+            Height = 39
+            Align = alBottom
+            Caption = 'Get MemberShip No'
+            Flat = True
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Segoe UI'
+            Font.Style = [fsBold]
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000000000000000000000000000000000000000000000000
+              0000000000000000000000000000000000000000000000000000000000000000
+              0000000000000000000000000000000000000000000000000000000000008484
+              84FF848484FF848484FF0000000000000000848484FF848484FF848484FF8484
+              84FF0000000000000000848484FF848484FF848484FF00000000000000008484
+              84FF000000000000000000000000000000000000000000000000000000000000
+              000000000000000000000000000000000000848484FF00000000000000008484
+              84FF000000000000000000000000000000000000000000000000000000000000
+              000000000000000000000000000000000000848484FF00000000000000000000
+              00000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+              4DFFB8824DFFB8824DFF00000000000000000000000000000000000000000000
+              00000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+              4DFFB8824DFFB8824DFF00000000000000000000000000000000000000008484
+              84FF0000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+              4DFFB8824DFFB8824DFF0000000000000000848484FF00000000000000008484
+              84FF0000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+              4DFFB8824DFFB8824DFF0000000000000000848484FF00000000000000008484
+              84FF0000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+              4DFFB8824DFFB8824DFF0000000000000000848484FF00000000000000008484
+              84FF0000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+              4DFFB8824DFFB8824DFF0000000000000000848484FF00000000000000000000
+              00000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+              4DFFB8824DFFB8824DFF00000000000000000000000000000000000000000000
+              00000000000000000000B8824DFFB8824DFFB8824DFFB8824DFFB8824DFFB882
+              4DFFB8824DFFB8824DFF00000000000000000000000000000000000000008484
+              84FF000000000000000000000000000000000000000000000000000000000000
+              000000000000000000000000000000000000848484FF00000000000000008484
+              84FF000000000000000000000000000000000000000000000000000000000000
+              000000000000000000000000000000000000848484FF00000000000000008484
+              84FF848484FF848484FF0000000000000000848484FF848484FF848484FF8484
+              84FF0000000000000000848484FF848484FF848484FF00000000000000000000
+              0000000000000000000000000000000000000000000000000000000000000000
+              0000000000000000000000000000000000000000000000000000}
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = False
+            ExplicitTop = 58
+          end
         end
       end
     end
@@ -398,7 +452,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     Left = 249
     Top = 0
     Width = 5
-    Height = 330
+    Height = 369
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 1
@@ -407,7 +461,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     Left = 254
     Top = 0
     Width = 397
-    Height = 330
+    Height = 369
     Align = alClient
     Caption = 'Data Preview'
     TabOrder = 2
@@ -415,16 +469,17 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
       Left = 158
       Top = 15
       Width = 1
-      Height = 313
+      Height = 352
       Align = alLeft
       Pen.Color = clMedGray
       ExplicitLeft = 153
+      ExplicitHeight = 313
     end
     object DBGridEh1: TDBGridEh
       Left = 2
       Top = 15
       Width = 151
-      Height = 313
+      Height = 352
       Align = alLeft
       DataSource = DSVirTab
       DynProps = <>
@@ -446,7 +501,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
       Left = 159
       Top = 15
       Width = 5
-      Height = 313
+      Height = 352
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 1
@@ -455,7 +510,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
       Left = 153
       Top = 15
       Width = 5
-      Height = 313
+      Height = 352
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 2
@@ -464,7 +519,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
       Left = 164
       Top = 15
       Width = 231
-      Height = 313
+      Height = 352
       Align = alClient
       DataSource = DSCastedMemberConsumer
       DynProps = <>
@@ -549,7 +604,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     Left = 651
     Top = 0
     Width = 6
-    Height = 330
+    Height = 369
     Align = alRight
     BevelOuter = bvNone
     TabOrder = 3

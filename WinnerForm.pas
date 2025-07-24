@@ -47,7 +47,7 @@ begin
           qryReportWinners.Filter := 'AREA = ' + DistrictToArea(ComboBox1.Text);
           qryReportWinners.Filtered := True;
           qryReportWinners.First;
-          QRPLabel13.Caption := 'Y.R. ' + IntToStr(CurrentYear);
+          QRPLabel13.Caption := 'Y.R. ' + IntToStr(CurrentYear) + 'District of : ' + ComboBox1.Text ;
           qrWinner.Preview;
         end;
 
@@ -55,9 +55,10 @@ begin
 
       end else begin
         with UReport do begin
+          qryReportWinners.Filtered := False;
           qryReportWinners.Close;
           qryReportWinners.ParamByName('AYear').AsString := IntToStr(CurrentYear);
-          qryReportWinners.ParamByName('APrizeCategory').AsString := 'Consolation';
+          qryReportWinners.ParamByName('APrizeCategory').AsString := 'ConsolationALL';
           qryReportWinners.Open;
           qryReportWinners.First;
 
@@ -78,7 +79,7 @@ begin
           qryReportWinners.Filter := 'AREA = ' + DistrictToArea(ComboBox1.Text);
           qryReportWinners.Filtered := True;
           qryReportWinners.First;
-          QRPLabel13.Caption := 'Y.R. ' + IntToStr(CurrentYear);
+          QRPLabel13.Caption := 'Y.R. ' + IntToStr(CurrentYear)  + 'District of : ' + ComboBox1.Text ;
           qrWinner.Preview;
         end;
 
@@ -86,9 +87,10 @@ begin
 
       end else begin
         with UReport do begin
+          qryReportWinners.Filtered := False;
           qryReportWinners.Close;
           qryReportWinners.ParamByName('AYear').AsString := IntToStr(CurrentYear);
-          qryReportWinners.ParamByName('APrizeCategory').AsString := 'Grand';
+          qryReportWinners.ParamByName('APrizeCategory').AsString := 'GrandALL';
           qryReportWinners.Open;
           qryReportWinners.First;
           

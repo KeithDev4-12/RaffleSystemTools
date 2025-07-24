@@ -1,0 +1,351 @@
+unit UploaderPreRegistrationU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls, DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh,
+  EhLibVCL, GridsEh, DBAxisGridsEh, DBGridEh, Data.DB, MemDS, VirtualTable,
+  FireDAC.Comp.BatchMove.DataSet, FireDAC.Comp.BatchMove,
+  FireDAC.Comp.BatchMove.Text, FireDAC.Stan.Intf, Vcl.ExtDlgs;
+
+type
+  TUUploaderPreRegistration = class(TForm)
+    Panel1: TPanel;
+    SpeedButton1: TSpeedButton;
+    Panel2: TPanel;
+    RichEdit1: TRichEdit;
+    Panel3: TPanel;
+    GroupBox1: TGroupBox;
+    Panel4: TPanel;
+    Shape1: TShape;
+    GroupBox2: TGroupBox;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    SpeedButton2: TSpeedButton;
+    Shape2: TShape;
+    SpeedButton3: TSpeedButton;
+    Shape3: TShape;
+    Shape4: TShape;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    VirTab: TVirtualTable;
+    DBGridEh1: TDBGridEh;
+    DSVirTab: TDataSource;
+    GroupBox3: TGroupBox;
+    FDBatchMove1: TFDBatchMove;
+    FDBatchMoveTextReader1: TFDBatchMoveTextReader;
+    FDBatchMoveDataSetWriter1: TFDBatchMoveDataSetWriter;
+    VirTabAccountNumber: TStringField;
+    Shape5: TShape;
+    Panel9: TPanel;
+    Panel10: TPanel;
+    DBGridEh2: TDBGridEh;
+    DSCastedMemberConsumer: TDataSource;
+    VirTabDel: TVirtualTable;
+    VirTabDelAccountNumber: TStringField;
+    OpenTextFileDialog1: TOpenTextFileDialog;
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    function IsQualified(Const AAccountNumber:String):Integer;
+    function IsPictureAvailable(Const AAccountNumber:String):Integer;
+    procedure SpeedButton5Click(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  UUploaderPreRegistration: TUUploaderPreRegistration;
+  FilteredOrNot:Integer;
+
+implementation
+
+{$R *.dfm}
+
+uses MainModuleU;
+
+procedure TUUploaderPreRegistration.FormShow(Sender: TObject);
+begin
+  FilteredOrNot := 0;
+end;
+
+function TUUploaderPreRegistration.IsPictureAvailable(
+  const AAccountNumber: String): Integer;
+begin
+  with UMainModule do begin
+    result := 0;
+    qryAccountSignature.First;
+    if not qryAccountSignature.IsEmpty then begin
+      if qryAccountSignature.Locate('AccountNumber',AAccountNumber,[]) then begin
+        if qryAccountSignatureStatus.AsString.Contains('Not') then begin
+          result := 0;
+        end else begin
+          result := 1;
+        end;
+      end else begin
+        //I Should look to the other table Signature temp table
+        // This Table will be the store table if Image From A2Hosting Database
+        // same Logic Applies for this table Locate
+
+      end;
+    end;
+  end;
+end;
+
+function TUUploaderPreRegistration.IsQualified(
+  const AAccountNumber: String): Integer;
+begin
+  with UMainModule do begin
+    qryAccountQualifier.Close;
+    qryAccountQualifier.ParamByName('AAccountNumber').AsString := AAccountNumber;
+    qryAccountQualifier.Open;
+    if qryAccountQualifier.IsEmpty then begin
+      Result := 1;
+    end else begin
+      if qryAccountQualifierStatus.AsString.Contains('OLD') then begin
+        Result := 0;
+      end else begin
+        Result := 0;
+      end;
+    end;
+  end;
+end;
+
+procedure TUUploaderPreRegistration.SpeedButton1Click(Sender: TObject);
+begin
+  if OpenTextFileDialog1.Execute then begin
+    FDBatchMoveTextReader1.FileName := OpenTextFileDialog1.FileName;
+    if Length(FDBatchMoveTextReader1.FileName)<>0 then begin
+      FDBatchMove1.Execute;
+    end;
+  end;
+end;
+
+procedure TUUploaderPreRegistration.SpeedButton2Click(Sender: TObject);
+var
+  wYear, wMonth, wDay: Word;
+  AEntryModeValue: String;
+begin
+
+  {DecodeDate(Now(), wYear, wMonth, wDay);
+  if (wMonth = 05) AND (wDay >= 18) then begin
+    AEntryModeValue := 'VENUE-REGISTRATION';
+  end else begin
+    AEntryModeValue :=  'PRE-REGISTRATION';
+  end; }
+  AEntryModeValue :=  'PRE-REGISTRATION';
+
+  with UmainModule do begin
+    VirTab.Close;
+    VirTab.Open;
+    VirTab.First;
+
+    VirTabDel.Close;
+    VirTabDel.Open;
+    VirTabDel.First;
+
+    tblSearchMemberConsumer.Close;
+    //tblSearchMemberConsumer.ParamByName('AYear').AsInteger := CurrentYear;
+    tblSearchMemberConsumer.Open();
+    tblSearchMemberConsumer.Filtered := False;
+    tblSearchMemberConsumer.Filter := 'Year = ' + QuotedStr(IntToStr(CurrentYear));
+    tblSearchMemberConsumer.Filtered := True;
+    tblSearchMemberConsumer.First;
+
+    while not VirTab.EOF do begin
+      VirTabDel.Append;
+      if tblSearchMemberConsumer.Locate('AccountNumber','0'+VirTabAccountNumber.AsString,[]) then begin
+        if tblSearchMemberConsumerConnectionStatus.AsString = '2' then begin
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 3;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end;
+        end else if tblSearchMemberConsumerConnectionStatus.AsString = '3' then begin
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 3;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end;
+        end else begin
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 1;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end;
+        end;
+        VirTabDelAccountNumber.AsString := VirTabAccountNumber.AsString;
+        VirTabDel.Post;
+      end else begin
+        VirTabDel.Cancel;
+      end;
+      VirTab.Next;
+    end;
+
+    VirTabDel.First;
+    while not VirTabDel.EOF do begin
+      if VirTab.Locate('AccountNumber',VirTabDelAccountNumber.AsString,[]) then begin
+        VirTab.Delete;
+      end;
+      VirTabDel.Next;
+    end;
+
+    VirTabDel.Clear;
+  end;
+
+  FilteredOrNot := 1;
+end;
+
+procedure TUUploaderPreRegistration.SpeedButton4Click(Sender: TObject);
+begin
+  if FilteredOrNot=1 then begin
+    VirTab.Clear;
+    FilteredOrNot := 0;
+  end else begin
+    MessageDlg('Cannot Process Because Data is Not posted!',mtInformation,[mbOK],0);
+    FilteredOrNot := 0;
+  end;
+end;
+
+procedure TUUploaderPreRegistration.SpeedButton5Click(Sender: TObject);
+var
+  wYear, wMonth, wDay: Word;
+  AEntryModeValue: String;
+begin
+
+  DecodeDate(Now(), wYear, wMonth, wDay);
+  if (wMonth = 05) AND (wDay >= 18) then begin
+    AEntryModeValue := 'ONLINE-REGISTRATION';
+  end else begin
+    AEntryModeValue :=  'ONLINE-REGISTRATION';
+  end;
+
+  with UmainModule do begin
+    VirTab.Close;
+    VirTab.Open;
+    VirTab.First;
+
+    VirTabDel.Close;
+    VirTabDel.Open;
+    VirTabDel.First;
+
+    tblSearchMemberConsumer.Close;
+    //tblSearchMemberConsumer.ParamByName('AYear').AsInteger := CurrentYear;
+    tblSearchMemberConsumer.Open();
+    tblSearchMemberConsumer.Filtered := False;
+    tblSearchMemberConsumer.Filter := 'Year = ' + QuotedStr(IntToStr(CurrentYear));
+    tblSearchMemberConsumer.Filtered := True;
+    tblSearchMemberConsumer.First;
+
+    while not VirTab.EOF do begin
+      VirTabDel.Append;
+      if tblSearchMemberConsumer.Locate('AccountNumber','0'+VirTabAccountNumber.AsString,[]) then begin
+        if tblSearchMemberConsumerConnectionStatus.AsString = '2' then begin
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 3;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end;
+        end else if tblSearchMemberConsumerConnectionStatus.AsString = '3' then begin
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 3;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end;
+        end else begin
+          if tblSearchMemberConsumerIsQualifiedForRaffle.AsInteger = 1 then begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 1;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end else begin
+            tblSearchMemberConsumer.Edit;
+            tblSearchMemberConsumerStatus.AsInteger := 4;
+            tblSearchMemberConsumerisPosted.AsInteger := 1;
+            tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
+            tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
+            tblSearchMemberConsumer.Post;
+          end;
+        end;
+        VirTabDelAccountNumber.AsString := VirTabAccountNumber.AsString;
+        VirTabDel.Post;
+      end else begin
+        VirTabDel.Cancel;
+      end;
+      VirTab.Next;
+    end;
+
+    VirTabDel.First;
+    while not VirTabDel.EOF do begin
+      if VirTab.Locate('AccountNumber',VirTabDelAccountNumber.AsString,[]) then begin
+        VirTab.Delete;
+      end;
+      VirTabDel.Next;
+    end;
+
+    VirTabDel.Clear;
+  end;
+
+  FilteredOrNot := 1;
+end;
+
+end.

@@ -127,9 +127,8 @@ object UMainForm: TUMainForm
         ParentFont = False
         State = cbChecked
         TabOrder = 0
+        Visible = False
         OnClick = CheckBox1Click
-        ExplicitLeft = 291
-        ExplicitWidth = 93
       end
     end
     object Panel4: TPanel
@@ -964,7 +963,6 @@ object UMainForm: TUMainForm
       end
       object UploadMemberConsumers1: TMenuItem
         Caption = 'Upload Member Consumer'#39's'
-        Enabled = False
         OnClick = UploadMemberConsumers1Click
       end
       object GetFromCooptoLocalData1: TMenuItem
@@ -1028,6 +1026,10 @@ object UMainForm: TUMainForm
         Caption = 'All Winners Per Classification (Grand Prize)'
         Visible = False
         OnClick = AllWinnersPerClassificationGrandPrize1Click
+      end
+      object Winner2: TMenuItem
+        Caption = 'Winner'
+        OnClick = Winner2Click
       end
     end
     object est1: TMenuItem

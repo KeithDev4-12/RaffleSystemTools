@@ -34,7 +34,6 @@ object UWinnerForm: TUWinnerForm
     ParentBackground = False
     ParentColor = False
     TabOrder = 0
-    ExplicitWidth = 216
   end
   object GroupBox1: TGroupBox
     AlignWithMargins = True

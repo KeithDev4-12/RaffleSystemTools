@@ -1153,12 +1153,9 @@ begin
     qryCheckerPosting.First;
     if MessageDlg('You Are About to Extract this Record As CSV File' + #10#13 +
     'Are you Sure About It?',mtWarning,[mbYes,mbNo],0) = mrYes then begin
-      tblNeedToBePosted.Close;
-      tblNeedToBePosted.Open;
-      tblNeedToBePosted.Filtered:= False;
-      tblNeedToBePosted.Filter := 'Area = ' + QuotedStr(AARea) + ' AND Year = ' + QuotedStr(IntToStr(CurrentYear)) + 'AND Status IN (' + QuotedStr('1') + ',' +  QuotedStr('2') + ',' + QuotedStr('3') + ',' + QuotedStr('4')+')';
-      tblNeedToBePosted.Filtered:= True;
-      tblNeedToBePosted.First;
+      FDQuery4.Close;
+      FDQuery4.Open;
+      FDQuery4.First;
     end else begin
       Exit;
     end;

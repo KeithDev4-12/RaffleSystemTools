@@ -59,6 +59,7 @@ type
     function DistrictToArea(ADistrict:String):String;
     procedure Timer2Timer(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    function TruncateString(const Input: string; MaxLength: Integer): string;
   private
     { Private declarations }
   public
@@ -73,6 +74,13 @@ implementation
 {$R *.dfm}
 Uses MainU,MainModuleU,SearchMemberConsumerU,WinnerU;
 
+function TRaffleTemplate2U.TruncateString(const Input: string; MaxLength: Integer): string;
+begin
+  if Length(Input) > MaxLength then
+    Result := Copy(Input, 1, MaxLength) + '...'
+  else
+    Result := Input;
+end;
 function TRaffleTemplate2U.DistrictToArea(ADistrict: String): String;
 begin
   if ADistrict.Contains('BULAN') then begin
@@ -130,7 +138,12 @@ begin
       qryWinnerMCYear.AsInteger := CurrentYear;
       qryWinnerMCOrderBy.AsInteger := getOrderByLastWinner(UMainForm.APrizeCategoryValue,UMainForm.ComboBox1.Text);
       qryWinnerMCGender.AsString := qryMCQualifiedGender.AsString;
-      qryWinnerMCPrizeCategory.AsString := UMainForm.APrizeCategoryValue;
+      if UMainForm.Combobox1.ItemIndex = 0 then begin
+         qryWinnerMCPrizeCategory.AsString := UMainForm.APrizeCategoryValue + 'ALL' ;
+      end else begin
+         qryWinnerMCPrizeCategory.AsString := UMainForm.APrizeCategoryValue ;
+      end;
+
       qryWinnerMC.Post;
       Application.ProcessMessages;
       qryMCQualified.Edit;
@@ -214,13 +227,13 @@ procedure TRaffleTemplate2U.scGPButton1Click(Sender: TObject);
 Var
   Combobox1VAlue:String;
 begin
-  Combobox1VAlue := UMainForm.ComboBox1.Text;
-   if UMainForm.CheckBox1.Checked AND Combobox1VAlue.Contains('ALL MUNICIPALITIES') then begin
+   Combobox1VAlue := UMainForm.ComboBox1.Text;
+   {if UMainForm.CheckBox1.Checked AND Combobox1VAlue.Contains('ALL MUNICIPALITIES') then begin
      MessageDlg('Cannot Raffle for All Municipalities In Consolation Mode!'+
      #13#10 + 'In order to raffle for All Municipalities you must UnCheck Consolation Mode'+
      #13#10 + 'If you want to Raffle for Consolation Mode, Please Select District Categories',mtInformation,[mbClose],0);
      Exit;
-   end;
+   end; }
 
 
    if not UMainForm.IsOnRaffle then begin
@@ -300,9 +313,14 @@ begin
   UMainForm.I := UMainForm.I + 1;
   UMainForm.TickInterval := UMainForm.TickInterval + Timer1.Interval;
 
+  //UMainModule.qryMCQualifiedAccountNumber.AsString := ;
   if UMainForm.TickInterval = (UMainForm.SecLength*1000) then begin
 
+    //UMainModule.qryMCQualified.Locate('AccountNumber','helloworld',[]);
+    //IndicatorID := UMainModule.qryMCQualified.RecNo;
+    {nice indicator}
     IndicatorID := RandomRange(1, UMainModule.qryMCQualified.RecordCount+1);
+
     UMainModule.qryMCQualified.RecNo := IndicatorID;
     Timer1.Enabled := False;
     UMainForm.I:=0;
@@ -317,7 +335,7 @@ begin
         Application.ProcessMessages;
         screen.Cursor := crHourGlass;
         lblAccountNumber.Caption := AAccountNumber;
-        lblName.Caption := AName;
+        lblName.Caption := TruncateString(AName,20);
         lblAddress.Caption := AAddress;
         Image3.Visible := True;
         (Image3.Picture.Graphic as TGIFImage).Animate := True;

@@ -86,13 +86,14 @@
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_UnitSearchPath>I:\Documents\Embarcadero\Studio\19.0\Imports;C:\Program Files (x86)\Embarcadero\Studio\19.0\source\D102T;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-        <VerInfo_Build>8</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.8;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <DCC_UnitSearchPath>I:\Documents\Embarcadero\Studio\19.0\Imports;C:\Program Files (x86)\Embarcadero\Studio\19.0\source\D102T;E:\Deffective Disk\Drive I\Documents\Embarcadero\Studio\19.0\Imports;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <VerInfo_Build>15</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.15;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Icon_MainIcon>RaffleTools_Icon.ico</Icon_MainIcon>
         <UWP_DelphiLogo44>Win32\Debug\wheel.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>Win32\Debug\wheel.png</UWP_DelphiLogo150>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
+        <VerInfo_Release>2</VerInfo_Release>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -196,6 +197,10 @@
                     <Source Name="MainSource">RaffleTools.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\DCPdelphi2009.bpl">DCPcrypt cryptographic component library v2 BETA 3</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\QRCoder\Documents\tmssoftware\TMS Aurelius\packages\dtokyo\..\bpl\Win32\dclaurelius250.bpl">File C:\Users\QRCoder\Documents\tmssoftware\TMS Aurelius\packages\dtokyo\..\bpl\Win32\dclaurelius250.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\dcltmsbcl250.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\dcltmsbcl250.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\DPDev.bpl">(untitled)</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclDataSnapNativeServer250.bpl">Embarcadero DBExpress DataSnap Native Server Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k250.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcbofficexp250.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>

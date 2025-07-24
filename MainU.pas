@@ -95,6 +95,7 @@ type
     RzVersionInfo1: TRzVersionInfo;
     AllWinnersPerClassificationGrandPrize1: TMenuItem;
     CheckBox1: TCheckBox;
+    Winner2: TMenuItem;
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -146,6 +147,7 @@ type
     procedure AllWinnersPerClassificationGrandPrize1Click(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure PrizeCategory(Sender: TObject);
+    procedure Winner2Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -175,7 +177,8 @@ implementation
 {$R *.dfm}
 
 Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU,
-     ReportU,RaffleTemplate1,RaffleTemplate2,SettingsU,UpdateDatabase;
+     ReportU,RaffleTemplate1,RaffleTemplate2,SettingsU,UpdateDatabase,
+  WinnerForm;
 
 procedure TUMainForm.AllAttendie1Click(Sender: TObject);
 Var
@@ -1319,6 +1322,22 @@ begin
       qrySummary.ParamByName('AYear').AsString := value;
       qrySummary.Open;
       qrySummary.First;
+
+      qrySummaryDetails.Close;
+      qrySummaryDetails.ParamByName('AYear').AsString := value;
+      qrySummaryDetails.Open;
+      qrySummaryDetails.First;
+
+      QRLabel96.Caption := CurrToStr(qrySummaryDetailsP001.AsCurrency + qrySummaryDetailsO001.AsCurrency + qrySummaryDetailsV001.AsCurrency );
+      QRLabel97.Caption := CurrToStr(qrySummaryDetailsP002.AsCurrency + qrySummaryDetailsO002.AsCurrency + qrySummaryDetailsV002.AsCurrency );
+      QRLabel98.Caption := CurrToStr(qrySummaryDetailsP003.AsCurrency + qrySummaryDetailsO003.AsCurrency + qrySummaryDetailsV003.AsCurrency );
+      QRLabel99.Caption := CurrToStr(qrySummaryDetailsP004.AsCurrency + qrySummaryDetailsO004.AsCurrency + qrySummaryDetailsV004.AsCurrency );
+      QRLabel100.Caption := CurrToStr(qrySummaryDetailsP005.AsCurrency + qrySummaryDetailsO005.AsCurrency + qrySummaryDetailsV005.AsCurrency );
+      QRLabel101.Caption := CurrToStr(qrySummaryDetailsP006.AsCurrency + qrySummaryDetailsO006.AsCurrency + qrySummaryDetailsV006.AsCurrency );
+      QRLabel102.Caption := CurrToStr(qrySummaryDetailsP007.AsCurrency + qrySummaryDetailsO007.AsCurrency + qrySummaryDetailsV007.AsCurrency );
+      QRLabel103.Caption := CurrToStr(qrySummaryDetailsP008.AsCurrency + qrySummaryDetailsO008.AsCurrency + qrySummaryDetailsV008.AsCurrency );
+      //QRLabel104.Caption := CurrToStr(QRExpr3.Value + QRExpr4.Value + QRExpr3.Value );
+
       QRPLabel24.Caption := 'Y.R. ' + value;
       qrSummary.Preview;
     end;
@@ -1371,6 +1390,18 @@ begin
     UWinner.ShowModal();
   finally
     UWinner.Free();
+    screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TUMainForm.Winner2Click(Sender: TObject);
+begin
+  try
+    screen.Cursor := crHourGlass;
+    UWinnerForm := TUWinnerForm.Create(nil);
+    UWinnerForm.ShowModal();
+  finally
+    UWinnerForm.Free();
     screen.Cursor := crDefault;
   end;
 end;
