@@ -319,3 +319,7 @@ mysqld_z: Can't sync file '.\binlog.index' to disk (OS errno 22 - Invalid argume
 2025-07-24T06:33:44.461610Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
 2025-07-24T06:33:44.462545Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
 2025-07-24T06:33:45.388839Z 0 [System] [MY-010931] [Server] E:\RaffleSystemTools\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.23'  socket: ''  port: 3312  MySQL Community Server - GPL.
+2025-07-24T08:51:10.584279Z 64 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.23).
+2025-07-24T08:51:10.597870Z 0 [System] [MY-013105] [Server] E:\RaffleSystemTools\UniServerZ\core\mysql\bin\mysqld_z.exe: Normal shutdown.
+2025-07-24T08:51:12.617406Z 0 [Warning] [MY-010909] [Server] E:\RaffleSystemTools\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 8  user: 'root'.
+2025-07-24T08:51:13.638646Z 0 [System] [MY-010910] [Server] E:\RaffleSystemTools\UniServerZ\core\mysql\bin\mysqld_z.exe: Shutdown complete (mysqld 8.0.23)  MySQL Community Server - GPL.
