@@ -1,0 +1,432 @@
+﻿unit MainU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, scGPControls, scControls,
+  Vcl.StdCtrls, Vcl.Mask, scGPExtControls, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
+  FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef, FireDAC.VCLUI.Wait,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.Threading, dxGDIPlusClasses;
+
+type
+  TRecData = record
+    AccountNumber: String;
+    Name: String;
+    Area: String;
+    Address: String;
+    procedure Clear;
+  end;
+
+  TForm2 = class(TForm)
+    FlowPanel1: TFlowPanel;
+    Image1: TImage;
+    scGPPanel1: TscGPPanel;
+    Panel1: TPanel;
+    scGPLabel1: TscGPLabel;
+    scGPLabel2: TscGPLabel;
+    scGPButton1: TscGPButton;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    scGPLabel3: TLabel;
+    Shape1: TShape;
+    Panel4: TPanel;
+    scGPPanel2: TscGPPanel;
+    Panel5: TPanel;
+    Shape2: TShape;
+    Shape3: TShape;
+    scGPLabel4: TscGPLabel;
+    scGPLabel5: TscGPLabel;
+    scGPLabel6: TscGPLabel;
+    Title: TImage;
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure scGPPanel6Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure ButtonClickClose(Sender: TObject);
+    procedure RemoveINI(const AccountNumber, Title: String);
+    procedure AppendINI(const AccountNumber, Title: String);
+    procedure scGPLabel3DblClick(Sender: TObject);
+  private
+    { Private declarations }
+    FRecordData: TRecData;
+    FInputBuffer: string;
+    procedure AddAccountPanel(const AccNum, AccName: string);
+    function GetArea(const AcctNum: String) : String;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+uses IniFiles, UMath;
+
+procedure TForm2.AddAccountPanel(const AccNum, AccName: string);
+var
+  NewPanel: TscGPPanel;
+  NewInner: TPanel;
+  NewAccountNumber, NewName: TscGPLabel;
+  NewButton: TscGPButton;
+  NewLine: TShape;
+begin
+  // Create the main outer styled panel
+  NewPanel := TscGPPanel.Create(Self);
+  NewPanel.Visible := false;
+  NewPanel.Parent := FlowPanel1;
+  NewPanel.Width := scGPPanel1.Width;
+  NewPanel.Height := scGPPanel1.Height;
+  NewPanel.Color := scGPPanel1.Color;
+  NewPanel.FillColor := scGPPanel1.FillColor;
+  NewPanel.FillColor2 := scGPPanel1.FillColor2;
+  NewPanel.CaptionGlowEffect := scGPPanel1.CaptionGlowEffect;
+  NewPanel.FrameColor := scGPPanel1.FrameColor;
+  NewPanel.FrameColorAlpha := scGPPanel1.FrameColorAlpha;
+  NewPanel.FrameRadius := scGPPanel1.FrameRadius;
+  NewPanel.FrameSides := scGPPanel1.FrameSides;
+  NewPanel.FrameWidth := scGPPanel1.FrameWidth;
+  NewPanel.BackgroundStyle := scGPPanel1.BackgroundStyle;
+  NewPanel.BlurBackground := scGPPanel1.BlurBackground;
+  NewPanel.Color := scGPPanel1.Color;
+  NewPanel.ContentMarginLeft := scGPPanel1.ContentMarginLeft;
+  NewPanel.ContentMarginRight := scGPPanel1.ContentMarginRight;
+  NewPanel.ContentMarginTop := scGPPanel1.ContentMarginTop;
+  NewPanel.ContentMarginBottom := scGPPanel1.ContentMarginBottom;
+  NewPanel.Name := 'Account_' + AccNum;
+  NewPanel.FillColorAlpha := scGPPanel1.FillColorAlpha;
+  NewPanel.FillGradientAngle := scGPPanel1.FillGradientAngle;
+  NewPanel.FillGradientBeginAlpha := scGPPanel1.FillGradientBeginAlpha;
+  NewPanel.FillGradientBeginColorOffset := scGPPanel1.FillGradientBeginColorOffset;
+  NewPanel.FillGradientEndAlpha := scGPPanel1.FillGradientEndAlpha;
+  NewPanel.FillGradientEndColorOffset := scGPPanel1.FillGradientEndColorOffset;
+
+  NewPanel.Padding.Assign(scGPPanel1.Padding);
+  NewPanel.Margins.Assign(scGPPanel1.Margins);
+  NewPanel.AlignWithMargins := scGPPanel1.AlignWithMargins;
+  NewPanel.ShowCaption := False;
+
+
+  NewInner := TPanel.Create(Self);
+  NewInner.Parent := NewPanel;
+  NewInner.Align := Panel1.Align;
+  NewInner.AlignWithMargins := Panel1.AlignWithMargins;
+  NewInner.Margins.Assign(Panel1.Margins);
+  NewInner.Font.Assign(Panel1.Font);
+  NewInner.Color := Panel1.Color;
+  NewInner.BevelOuter := Panel1.BevelOuter;
+  NewInner.BevelInner := Panel1.BevelInner;
+  NewInner.BevelKind := Panel1.BevelKind;
+  NewInner.BorderStyle := Panel1.BorderStyle;
+  NewInner.BorderWidth := Panel1.BorderWidth;
+  NewInner.ParentBackground := Panel1.ParentBackground;
+  NewInner.Top := Panel1.Top;
+
+  // Account Number Label
+  NewAccountNumber := TscGPLabel.Create(Self);
+  NewAccountNumber.Parent := NewInner;
+  NewAccountNumber.Caption := AccNum;
+  NewAccountNumber.Alignment := scGPLabel1.Alignment;
+  NewAccountNumber.AutoSize := scGPLabel1.AutoSize;
+  NewAccountNumber.ContentMarginBottom := scGPLabel1.ContentMarginBottom;
+  NewAccountNumber.ContentMarginLeft := scGPLabel1.ContentMarginLeft;
+  NewAccountNumber.ContentMarginRight := scGPLabel1.ContentMarginRight;
+  NewAccountNumber.ContentMarginTop := scGPLabel1.ContentMarginTop;
+  NewAccountNumber.FrameColor := scGPLabel1.FrameColor;
+  NewAccountNumber.GlowEffect := scGPLabel1.GlowEffect;
+  NewAccountNumber.VertAlignment := scGPLabel1.VertAlignment;
+  NewAccountNumber.FillColorAlpha := scGPLabel1.FillColorAlpha;
+  NewAccountNumber.FillColor2Alpha := scGPLabel1.FillColor2Alpha;
+  NewAccountNumber.FillColor2 := scGPLabel1.FillColor2;
+  NewAccountNumber.FillColor := scGPLabel1.FillColor;
+  NewAccountNumber.FrameColorAlpha := scGPLabel1.FrameColorAlpha;
+  NewAccountNumber.Align := scGPLabel1.Align;
+  NewAccountNumber.Font.Assign(scGPLabel1.Font);
+  NewAccountNumber.Margins.Assign(scGPLabel1.Margins);
+  NewAccountNumber.FillGradientAngle := scGPLabel1.FillGradientAngle;
+  NewAccountNumber.GlowEffect.AlphaValue := scGPLabel1.GlowEffect.AlphaValue;
+  NewAccountNumber.DisabledFontColor := scGPLabel1.DisabledFontColor;
+  NewAccountNumber.DragForm := scGPLabel1.DragForm;
+  NewAccountNumber.DrawTextMode := scGPLabel1.DrawTextMode;
+  NewAccountNumber.FrameRadius := scGPLabel1.FrameRadius;
+  NewAccountNumber.FrameWidth := scGPLabel1.FrameWidth;
+
+
+  // Name Label
+  NewName := TscGPLabel.Create(Self);
+  NewName.Parent := NewInner;
+  NewName.Caption := AccName;
+  NewName.Align := scGPLabel2.Align;
+  NewName.Alignment := scGPLabel2.Alignment;
+  NewName.AutoSize := scGPLabel2.AutoSize;
+  NewName.ContentMarginBottom := scGPLabel2.ContentMarginBottom;
+  NewName.ContentMarginLeft := scGPLabel2.ContentMarginLeft;
+  NewName.ContentMarginRight := scGPLabel2.ContentMarginRight;
+  NewName.ContentMarginTop := scGPLabel2.ContentMarginTop;
+  NewName.FrameColor := scGPLabel2.FrameColor;
+  NewName.GlowEffect := scGPLabel2.GlowEffect;
+  NewName.VertAlignment := scGPLabel2.VertAlignment;
+  NewName.Font.Assign(scGPLabel2.Font);
+  NewName.Top := NewInner.Height;
+  NewName.FillColorAlpha := scGPLabel2.FillColorAlpha;
+  NewName.FillColor2Alpha := scGPLabel2.FillColor2Alpha;
+  NewName.FillColor := scGPLabel2.FillColor;
+  NewName.FillColor2 := scGPLabel2.FillColor2;
+  NewName.Margins.Assign(scGPLabel2.Margins);
+  NewName.FrameColorAlpha := scGPLabel2.FrameColorAlpha;
+  NewName.FillGradientAngle := scGPLabel2.FillGradientAngle;
+  NEwName.GlowEffect.AlphaValue := scGPLabel2.GlowEffect.AlphaValue;
+  NEwName.FrameRadius := scGPLabel2.FrameRadius;
+  NEwName.FrameWidth := scGPLabel2.FrameWidth;
+  NewName.Height := scGPLabel2.Height;
+
+  NewLine := TShape.Create(Self);
+  NewLine.Parent := NewInner;
+  NewLine.Align := Shape1.Align;
+  NewLine.Top := Shape1.Top - NewName.Height;
+  NewLine.Height := Shape1.Height;
+  NewLine.Width := Shape1.Width;
+
+
+  // Close Button
+  NewButton := TscGPButton.Create(Self);
+  NewButton.Parent := NewInner;
+  NewButton.Caption := scGPButton1.Caption;
+  NewButton.Align := scGPButton1.Align;
+  NewButton.Width := scGPButton1.Width;
+  NewButton.Height := scGPButton1.Height;
+  NewButton.Font.Assign(scGPButton1.Font);
+  NewButton.Margins.Assign(scGPButton1.Margins);
+  NewButton.Left := scGPButton1.Left;
+  NewButton.Top := scGPButton1.Top;
+  NewButton.Down := scGPButton1.Down;
+  NewButton.FluentLightEffect := scGPButton1.FluentLightEffect;
+  NewButton.FluentUIOpaque := scGPButton1.FluentUIOpaque;
+  NewButton.GlowEffect.Assign(scGPButton1.GlowEffect);
+  NewBUtton.Options.Assign(scGPButton1.Options);
+  NEwButton.RepeatClick := scGPButton1.RepeatClick;
+  NewButton.RepeatClickInterval := scGPButton1.RepeatClickInterval;
+  NewButton.Hint := AccNum; // Save the account number here
+  NewButton.ShowHint := True; // Required to keep Hint property usable
+  NewButton.Tag := NativeInt(NewPanel);
+  NewButton.OnClick := ButtonClickClose;
+  NewPanel.Visible := True;
+
+end;
+
+procedure TForm2.AppendINI(const AccountNumber, Title: String);
+var
+  Ini: TIniFile;
+  IniFilePath: string;
+  Section: string;
+begin
+  IniFilePath := ExtractFilePath(ParamStr(0)) + Title+'.ini';
+
+  Ini := TIniFile.Create(IniFilePath);
+  try
+    Section := Title;
+    Ini.WriteString(Section, 'AccountNumber_'+AccountNumber, AccountNumber);
+  finally
+    Ini.Free;
+  end;
+end;
+
+procedure TForm2.ButtonClickClose(Sender: TObject);
+var
+  Panel: TscGPPanel;
+begin
+  if not (Sender is TscGPButton) then Exit;
+
+  Panel := TscGPPanel(Pointer(TscGPButton(Sender).Tag));
+
+  if Assigned(Panel) then
+  begin
+    RemoveINI(TscGPButton(Sender).Hint, scGPLabel3.Caption);
+    Panel.Visible := False;  // instant hide
+  end;
+end;
+
+
+
+
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+//  CreateINI;
+end;
+
+procedure TForm2.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then
+    Close;
+end;
+
+procedure TForm2.FormKeyPress(Sender: TObject; var Key: Char);
+var
+  Ini: TIniFile;
+  FileName, Section: string;
+  List: TStringList;
+  i: Integer;
+begin
+  if Key = #27 then
+    Close
+  else if Key = #13 then
+  begin
+    AppendINI(FInputBuffer, scGPLabel3.Caption);
+    AddAccountPanel(FInputBuffer, GetArea(FInputBuffer));
+    FInputBuffer := '';
+  end
+  else if Key = #8 then // Backspace
+  begin
+    if Length(FInputBuffer) > 0 then
+      Delete(FInputBuffer, Length(FInputBuffer), 1);
+  end else if UpCate(Key) = 'S' then
+  begin
+
+  end else if UpCate(Key) = 'W' then
+  begin
+    //SIMULATE
+    for i := 0 to 100 do
+    begin
+      Randomize;
+      AddAccountPanel(Random, GetArea(i));
+    end;
+  end else if UpCase(Key) = 'L' then
+  begin
+    FileName := ExtractFilePath(ParamStr(0)) + scGPLabel3.Caption + '.ini';
+    Section := scGPLabel3.Caption; // Example: Label1.Caption = 'Tablet1'
+
+    if FileExists(FileName) then
+    begin
+      Ini := TIniFile.Create(FileName);
+      List := TStringList.Create;
+      try
+        Ini.ReadSectionValues(Section, List);
+
+        if List.Count > 0 then
+        begin
+          for i := 0 to List.Count - 1 do
+            AddAccountPanel(List.ValueFromIndex[i], GetArea(List.ValueFromIndex[i]));
+        end
+        else
+          ShowMessage('No data found in section: ' + Section);
+      finally
+        Ini.Free;
+        List.Free;
+      end;
+    end
+    else
+      ShowMessage('INI file not found: ' + FileName);
+  end
+  else
+  begin
+    if Length(FInputBuffer) >= 5 then
+      Exit
+    else if (Length(FInputBuffer) = 0) and (Key = '0') then
+      Exit;
+    FInputBuffer := FInputBuffer + Key;
+  end;
+
+  if Length(FInputBuffer) > 0  then
+  begin
+    panel4.Visible := True;
+    scGPLabel4.Caption := fInputBuffer;
+  end
+  else
+  begin
+    scGPLabel4.Caption := fInputBuffer;
+    panel4.Visible := False;
+  end;
+end;
+
+
+procedure TForm2.FormResize(Sender: TObject);
+begin
+  Panel4.Left := (Self.Width DIV 2) + ((Self.Width DIV 2) DIV 2);
+  Panel4.Top := (Self.Height DIV 2) - (Panel4.Height DIV 2);
+  Title.Left := (Self.Width Div 2) - (Title.Width DIV 2);
+  Title.Top := 0;
+end;
+
+function TForm2.GetArea(const AcctNum: String): String;
+begin
+  if AcctNum = '' then
+    Exit('');
+
+  case AcctNum[1] of
+    '1': Result := 'BULAN';
+    '2': Result := 'MATNOG';
+    '3': Result := 'STA. MAGDALENA';
+    '4': Result := 'IROSIN'; // Replace with actual name
+    '5': Result := 'BULUSAN';
+    '6': Result := 'JUBAN';
+    '7': Result := 'CASIGURAN';
+    '8': Result := 'MAGALLANES';
+  else
+    Result := 'Unknown';
+  end;
+end;
+
+procedure TForm2.RemoveINI(const AccountNumber, Title: String);
+var
+  Ini: TIniFile;
+  IniFilePath: string;
+  Keys: TStringList;
+  i: Integer;
+  Section: String;
+begin
+  IniFilePath := ExtractFilePath(ParamStr(0)) + Title + '.ini';
+  Ini := TIniFile.Create(IniFilePath);
+  Keys := TStringList.Create;
+  Section := Title;
+  try
+    // Get all keys in the section
+    Ini.ReadSection(Section, Keys);
+
+    for i := Keys.Count - 1 downto 0 do
+    begin
+      if Trim(Ini.ReadString(Section, Keys[i], '')).Contains(AccountNumber) then
+        Ini.DeleteKey(Section, Keys[i]);
+    end;
+
+  finally
+    Keys.Free;
+    Ini.Free;
+  end;
+end;
+
+
+procedure TForm2.scGPLabel3DblClick(Sender: TObject);
+var
+  NewTitle: string;
+begin
+  NewTitle := InputBox('Change Raffle Title', 'Enter new title:', scGPLabel3.Caption);
+
+  if NewTitle <> '' then
+    scGPLabel3.Caption := NewTitle;
+end;
+
+procedure TForm2.scGPPanel6Click(Sender: TObject);
+begin
+
+end;
+
+{ TRecData }
+
+procedure TRecData.Clear;
+begin
+  AccountNumber := 'Account not found';
+  Name := 'Account not found';
+  Area := 'Account not found';
+  Address := 'Account not found';
+end;
+
+end.

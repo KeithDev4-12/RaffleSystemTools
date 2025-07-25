@@ -41,6 +41,7 @@ type
     scGPLabel4: TscGPLabel;
     scGPLabel5: TscGPLabel;
     scGPLabel6: TscGPLabel;
+    Title: TImage;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure scGPPanel6Click(Sender: TObject);
@@ -118,7 +119,6 @@ begin
   NewInner.Align := Panel1.Align;
   NewInner.AlignWithMargins := Panel1.AlignWithMargins;
   NewInner.Margins.Assign(Panel1.Margins);
-  NewInner.Padding.Assign(Panel1.Padding);
   NewInner.Font.Assign(Panel1.Font);
   NewInner.Color := Panel1.Color;
   NewInner.BevelOuter := Panel1.BevelOuter;
@@ -159,18 +159,11 @@ begin
   NewAccountNumber.FrameWidth := scGPLabel1.FrameWidth;
 
 
-  NewLine := TShape.Create(Self);
-  NewLine.Parent := NewInner;
-  NewLine.Align := Shape1.Align;
-  NewLine.Top := Shape1.Top;
-  NewLine.Height := Shape1.Height;
-  NewLine.Width := Shape1.Width;
-
-
   // Name Label
   NewName := TscGPLabel.Create(Self);
   NewName.Parent := NewInner;
   NewName.Caption := AccName;
+  NewName.Align := scGPLabel2.Align;
   NewName.Alignment := scGPLabel2.Alignment;
   NewName.AutoSize := scGPLabel2.AutoSize;
   NewName.ContentMarginBottom := scGPLabel2.ContentMarginBottom;
@@ -180,7 +173,6 @@ begin
   NewName.FrameColor := scGPLabel2.FrameColor;
   NewName.GlowEffect := scGPLabel2.GlowEffect;
   NewName.VertAlignment := scGPLabel2.VertAlignment;
-  NewName.Align := scGPLabel2.Align;
   NewName.Font.Assign(scGPLabel2.Font);
   NewName.Top := NewInner.Height;
   NewName.FillColorAlpha := scGPLabel2.FillColorAlpha;
@@ -193,6 +185,15 @@ begin
   NEwName.GlowEffect.AlphaValue := scGPLabel2.GlowEffect.AlphaValue;
   NEwName.FrameRadius := scGPLabel2.FrameRadius;
   NEwName.FrameWidth := scGPLabel2.FrameWidth;
+  NewName.Height := scGPLabel2.Height;
+
+  NewLine := TShape.Create(Self);
+  NewLine.Parent := NewInner;
+  NewLine.Align := Shape1.Align;
+  NewLine.Top := Shape1.Top - NewName.Height;
+  NewLine.Height := Shape1.Height;
+  NewLine.Width := Shape1.Width;
+
 
   // Close Button
   NewButton := TscGPButton.Create(Self);
@@ -287,6 +288,17 @@ begin
   begin
     if Length(FInputBuffer) > 0 then
       Delete(FInputBuffer, Length(FInputBuffer), 1);
+  end else if UpCate(Key) = 'S' then
+  begin
+
+  end else if UpCate(Key) = 'W' then
+  begin
+    //SIMULATE
+    for i := 0 to 100 do
+    begin
+      Randomize;
+      AddAccountPanel(Random, GetArea(i));
+    end;
   end else if UpCase(Key) = 'L' then
   begin
     FileName := ExtractFilePath(ParamStr(0)) + scGPLabel3.Caption + '.ini';
@@ -303,7 +315,6 @@ begin
         begin
           for i := 0 to List.Count - 1 do
             AddAccountPanel(List.ValueFromIndex[i], GetArea(List.ValueFromIndex[i]));
-//            ShowMessage(List.Names[i] + ' = ' + List.ValueFromIndex[i]);
         end
         else
           ShowMessage('No data found in section: ' + Section);
@@ -316,7 +327,13 @@ begin
       ShowMessage('INI file not found: ' + FileName);
   end
   else
+  begin
+    if Length(FInputBuffer) >= 5 then
+      Exit
+    else if (Length(FInputBuffer) = 0) and (Key = '0') then
+      Exit;
     FInputBuffer := FInputBuffer + Key;
+  end;
 
   if Length(FInputBuffer) > 0  then
   begin
@@ -335,6 +352,8 @@ procedure TForm2.FormResize(Sender: TObject);
 begin
   Panel4.Left := (Self.Width DIV 2) + ((Self.Width DIV 2) DIV 2);
   Panel4.Top := (Self.Height DIV 2) - (Panel4.Height DIV 2);
+  Title.Left := (Self.Width Div 2) - (Title.Width DIV 2);
+  Title.Top := 0;
 end;
 
 function TForm2.GetArea(const AcctNum: String): String;
