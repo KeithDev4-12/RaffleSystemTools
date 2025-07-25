@@ -1,26 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2023/07/26 13:35:42.000.895,=C:\Users\QRCoder\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/07/26 13:41:01.000.554,=C:\Users\QRCoder\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/07/31 09:45:18.000.844,=C:\Users\QRCoder\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/07/31 10:04:27.000.090,=C:\Users\QRCoder\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/07/31 10:21:33.000.703,=C:\Users\QRCoder\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/07/31 14:06:13.000.474,=C:\Users\QRCoder\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/07/31 15:17:11.000.287,=C:\Users\QRCoder\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/10/11 13:23:07.000.983,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/11/23 09:06:08.000.695,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2023/12/20 08:30:43.000.522,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/05/03 14:12:53.000.832,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/05/16 16:26:01.000.948,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/10/16 14:36:28.000.736,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/11/22 14:18:37.000.037,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/11/25 09:29:36.000.977,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2025/02/04 15:36:37.000.807,=D:\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2025/04/16 12:50:33.000.830,=D:\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2025/07/24 15:22:45.283,=D:\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2025/07/24 15:23:28.796,E:\RaffleSystemTools\RaffleShower\MainU.dfm=D:\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
-    <Transaction>2025/07/24 15:23:28.796,E:\RaffleSystemTools\RaffleShower\MainU.pas=D:\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2025/07/24 15:23:37.734,E:\RaffleSystemTools\RaffleShower\RaffleShower.dproj=D:\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-  </Transactions>
-</BorlandProject>
+<BorlandProject/>

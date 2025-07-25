@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef, FireDAC.VCLUI.Wait,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.Threading;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.Threading, dxGDIPlusClasses;
 
 type
   TRecData = record
@@ -31,18 +31,29 @@ type
     scGPButton1: TscGPButton;
     Panel2: TPanel;
     Panel3: TPanel;
-    scGPLabel3: TscGPLabel;
-    FDConnection1: TFDConnection;
-    qryDataRecord: TFDQuery;
+    scGPLabel3: TLabel;
+    Shape1: TShape;
+    Panel4: TPanel;
+    scGPPanel2: TscGPPanel;
+    Panel5: TPanel;
+    Shape2: TShape;
+    Shape3: TShape;
+    scGPLabel4: TscGPLabel;
+    scGPLabel5: TscGPLabel;
+    scGPLabel6: TscGPLabel;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure scGPPanel6Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure ButtonClickClose(Sender: TObject);
+    procedure RemoveINI(const AccountNumber, Title: String);
   private
     { Private declarations }
     FRecordData: TRecData;
     FInputBuffer: string;
-    procedure HandleAccountInput(const AccNum: string);
     procedure AddAccountPanel(const AccNum, AccName: string);
+    function GetArea(const AcctNum: String) : String;
   public
     { Public declarations }
   end;
@@ -60,9 +71,11 @@ var
   NewInner: TPanel;
   NewAccountNumber, NewName: TscGPLabel;
   NewButton: TscGPButton;
+  NewLine: TShape;
 begin
   // Create the main outer styled panel
   NewPanel := TscGPPanel.Create(Self);
+  NewPanel.Visible := false;
   NewPanel.Parent := FlowPanel1;
   NewPanel.Width := scGPPanel1.Width;
   NewPanel.Height := scGPPanel1.Height;
@@ -82,7 +95,7 @@ begin
   NewPanel.ContentMarginRight := scGPPanel1.ContentMarginRight;
   NewPanel.ContentMarginTop := scGPPanel1.ContentMarginTop;
   NewPanel.ContentMarginBottom := scGPPanel1.ContentMarginBottom;
-
+  NewPanel.Name := 'Account_' + AccNum;
   NewPanel.FillColorAlpha := scGPPanel1.FillColorAlpha;
   NewPanel.FillGradientAngle := scGPPanel1.FillGradientAngle;
   NewPanel.FillGradientBeginAlpha := scGPPanel1.FillGradientBeginAlpha;
@@ -103,6 +116,7 @@ begin
   NewInner.Margins.Assign(Panel1.Margins);
   NewInner.Padding.Assign(Panel1.Padding);
   NewInner.Font.Assign(Panel1.Font);
+  NewInner.Color := Panel1.Color;
   NewInner.BevelOuter := Panel1.BevelOuter;
 
   // Account Number Label
@@ -118,9 +132,17 @@ begin
   NewAccountNumber.FrameColor := scGPLabel1.FrameColor;
   NewAccountNumber.GlowEffect := scGPLabel1.GlowEffect;
   NewAccountNumber.VertAlignment := scGPLabel1.VertAlignment;
+  NewAccountNumber.FillColorAlpha := scGPLabel1.FillColorAlpha;
   NewAccountNumber.Align := scGPLabel1.Align;
   NewAccountNumber.Font.Assign(scGPLabel1.Font);
   NewAccountNumber.Margins.Assign(scGPLabel1.Margins);
+
+  NewLine := TShape.Create(Self);
+  NewLine.Parent := NewInner;
+  NewLine.Align := Shape1.Align;
+  NewLine.Top := Shape1.Top;
+  NewLine.Height := Shape1.Height;
+  NewLine.Width := Shape1.Width;
 
 
   // Name Label
@@ -138,6 +160,8 @@ begin
   NewName.VertAlignment := scGPLabel2.VertAlignment;
   NewName.Align := scGPLabel2.Align;
   NewName.Font.Assign(scGPLabel2.Font);
+  NewName.Top := NewInner.Height;
+  NewName.FillColorAlpha := scGPLabel2.FillColorAlpha;
   NewName.Margins.Assign(scGPLabel2.Margins);
 
 
@@ -150,14 +174,43 @@ begin
   NewButton.Height := scGPButton1.Height;
   NewButton.Font.Assign(scGPButton1.Font);
   NewButton.Margins.Assign(scGPButton1.Margins);
-//  NewButton.OnClick := procedure(Sender: TObject)
-//  begin
-//    NewPanel.Free;
-//  end;
+  NewButton.Left := scGPButton1.Left;
+  NewButton.Top := scGPButton1.Top;
+  NewButton.Down := scGPButton1.Down;
+  NewButton.FluentLightEffect := scGPButton1.FluentLightEffect;
+  NewButton.FluentUIOpaque := scGPButton1.FluentUIOpaque;
+  NewButton.GlowEffect.Assign(scGPButton1.GlowEffect);
+  NewBUtton.Options.Assign(scGPButton1.Options);
+  NEwButton.RepeatClick := scGPButton1.RepeatClick;
+  NewButton.RepeatClickInterval := scGPButton1.RepeatClickInterval;
+  NewButton.Hint := AccNum; // Save the account number here
+  NewButton.ShowHint := True; // Required to keep Hint property usable
+  NewButton.Tag := NativeInt(NewPanel);
+  NewButton.OnClick := ButtonClickClose;
+  NewPanel.Visible := True;
+
+end;
+
+procedure TForm2.ButtonClickClose(Sender: TObject);
+var
+  Panel: TscGPPanel;
+begin
+  if not (Sender is TscGPButton) then Exit;
+
+  Panel := TscGPPanel(Pointer(TscGPButton(Sender).Tag));
+
+  if Assigned(Panel) then
+    Panel.Visible := False;  // instant hide
 end;
 
 
 
+
+
+procedure TForm2.FormCreate(Sender: TObject);
+begin
+  CreateINI;
+end;
 
 procedure TForm2.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -169,46 +222,86 @@ end;
 procedure TForm2.FormKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key = #27 then
-    Close;
-
-  if Key = #13 then
+    Close
+  else if Key = #13 then
   begin
-    HandleAccountInput(FInputBuffer);
+    AddAccountPanel(FInputBuffer, GetArea(FInputBuffer));
     FInputBuffer := '';
+  end
+  else if Key = #8 then // Backspace
+  begin
+    if Length(FInputBuffer) > 0 then
+      Delete(FInputBuffer, Length(FInputBuffer), 1);
   end
   else
     FInputBuffer := FInputBuffer + Key;
-end;
 
-procedure TForm2.HandleAccountInput(const AccNum: string);
-begin
-  TTask.Run(procedure
-  var
-    LRecordData: TRecData;
+  if Length(FInputBuffer) > 0  then
   begin
-    qryDataRecord.Close;
-    qryDataRecord.ParamByName('AAccountNumber').AsString := AccNum;
-    qryDataRecord.Open;
-    qryDataRecord.First;
-
-    if not qryDataRecord.IsEmpty then
-    begin
-      LRecordData.AccountNumber := qryDataRecord.FieldByName('AccountNumber').AsString;
-      LRecordData.Name := qryDataRecord.FieldByName('Name').AsString;
-      LRecordData.Area := qryDataRecord.FieldByName('Area').AsString;
-      LRecordData.Address := qryDataRecord.FieldByName('Address').AsString;
-    end
-    else
-      LRecordData.Clear;
-
-    TThread.Synchronize(nil, procedure
-    begin
-      // Show in a label or dynamic panel
-//      scGPLabel2.Caption := LRecordData.Name;
-      AddAccountPanel(LRecordData.AccountNumber, LRecordData.Name);
-    end);
-  end);
+    panel4.Visible := True;
+    scGPLabel4.Caption := fInputBuffer;
+  end
+  else
+  begin
+    scGPLabel4.Caption := fInputBuffer;
+    panel4.Visible := False;
+  end;
 end;
+
+
+procedure TForm2.FormResize(Sender: TObject);
+begin
+  Panel4.Left := (Self.Width DIV 2) + ((Self.Width DIV 2) DIV 2);
+  Panel4.Top := (Self.Height DIV 2) - (Panel4.Height DIV 2);
+end;
+
+function TForm2.GetArea(const AcctNum: String): String;
+begin
+  if AcctNum = '' then
+    Exit('');
+
+  case AcctNum[1] of
+    '1': Result := 'BULAN';
+    '2': Result := 'MATNOG';
+    '3': Result := 'STA. MAGDALENA';
+    '4': Result := 'IROSIN'; // Replace with actual name
+    '5': Result := 'BULUSAN';
+    '6': Result := 'JUBAN';
+    '7': Result := 'CASIGURAN';
+    '8': Result := 'MAGALLANES';
+  else
+    Result := 'Unknown';
+  end;
+end;
+
+procedure TForm2.RemoveINI(const AccountNumber, Title: String);
+var
+  Ini: TIniFile;
+  IniFilePath: string;
+  Keys: TStringList;
+  i: Integer;
+  Section: String;
+begin
+  IniFilePath := ExtractFilePath(ParamStr(0)) + Title + '.ini';
+  Ini := TIniFile.Create(IniFilePath);
+  Keys := TStringList.Create;
+  Section := Title;
+  try
+    // Get all keys in the section
+    Ini.ReadSection(Section, Keys);
+
+    for i := Keys.Count - 1 downto 0 do
+    begin
+      if Trim(Ini.ReadString(Section, Keys[i], '')).Contains(AccountNumber) then
+        Ini.DeleteKey(Section, Keys[i]);
+    end;
+
+  finally
+    Keys.Free;
+    Ini.Free;
+  end;
+end;
+
 
 procedure TForm2.scGPPanel6Click(Sender: TObject);
 begin
