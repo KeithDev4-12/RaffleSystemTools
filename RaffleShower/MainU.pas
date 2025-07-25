@@ -49,6 +49,7 @@ type
     procedure ButtonClickClose(Sender: TObject);
     procedure RemoveINI(const AccountNumber, Title: String);
     procedure AppendINI(const AccountNumber, Title: String);
+    procedure scGPLabel3DblClick(Sender: TObject);
   private
     { Private declarations }
     FRecordData: TRecData;
@@ -136,9 +137,16 @@ begin
   NewAccountNumber.GlowEffect := scGPLabel1.GlowEffect;
   NewAccountNumber.VertAlignment := scGPLabel1.VertAlignment;
   NewAccountNumber.FillColorAlpha := scGPLabel1.FillColorAlpha;
+  NewAccountNumber.FillColor2Alpha := scGPLabel1.FillColor2Alpha;
+  NewAccountNumber.FillColor2 := scGPLabel1.FillColor2;
+  NewAccountNumber.FillColor := scGPLabel1.FillColor;
+  NewAccountNumber.FrameColor := scGPLabel1.FrameColor;
   NewAccountNumber.Align := scGPLabel1.Align;
   NewAccountNumber.Font.Assign(scGPLabel1.Font);
   NewAccountNumber.Margins.Assign(scGPLabel1.Margins);
+  NewAccountNumber.FillGradientAngle := scGPLabel1.FillGradientAngle;
+  NewAccountNumber.GlowEffect.AlphaValue := scGPLabel1.GlowEffect.AlphaValue;
+
 
   NewLine := TShape.Create(Self);
   NewLine.Parent := NewInner;
@@ -165,8 +173,13 @@ begin
   NewName.Font.Assign(scGPLabel2.Font);
   NewName.Top := NewInner.Height;
   NewName.FillColorAlpha := scGPLabel2.FillColorAlpha;
+  NewName.FillColor2Alpha := scGPLabel2.FillColor2Alpha;
+  NewName.FillColor := scGPLabel2.FillColor;
+  NewName.FillColor2 := scGPLabel2.FillColor2;
   NewName.Margins.Assign(scGPLabel2.Margins);
-
+  NewName.FrameColor := scGPLabel2.FrameColor;
+  NewName.FillGradientAngle := scGPLabel2.FillGradientAngle;
+  NEwName.GlowEffect.AlphaValue := scGPLabel2.GlowEffect.AlphaValue;
 
   // Close Button
   NewButton := TscGPButton.Create(Self);
@@ -358,6 +371,16 @@ begin
   end;
 end;
 
+
+procedure TForm2.scGPLabel3DblClick(Sender: TObject);
+var
+  NewTitle: string;
+begin
+  NewTitle := InputBox('Change Raffle Title', 'Enter new title:', scGPLabel3.Caption);
+
+  if NewTitle <> '' then
+    scGPLabel3.Caption := NewTitle;
+end;
 
 procedure TForm2.scGPPanel6Click(Sender: TObject);
 begin
