@@ -88,8 +88,6 @@ begin
   NewPanel.FillColor2 := scGPPanel1.FillColor2;
   NewPanel.CaptionGlowEffect := scGPPanel1.CaptionGlowEffect;
   NewPanel.FrameColor := scGPPanel1.FrameColor;
-  NewPanel.FrameColor2 := scGPPanel1.FrameColor2;
-  NewPanel.FrameColorAlpha2 := scGPPanel1.FrameColorAlpha2;
   NewPanel.FrameColorAlpha := scGPPanel1.FrameColorAlpha;
   NewPanel.FrameRadius := scGPPanel1.FrameRadius;
   NewPanel.FrameSides := scGPPanel1.FrameSides;
@@ -124,6 +122,12 @@ begin
   NewInner.Font.Assign(Panel1.Font);
   NewInner.Color := Panel1.Color;
   NewInner.BevelOuter := Panel1.BevelOuter;
+  NewInner.BevelInner := Panel1.BevelInner;
+  NewInner.BevelKind := Panel1.BevelKind;
+  NewInner.BorderStyle := Panel1.BorderStyle;
+  NewInner.BorderWidth := Panel1.BorderWidth;
+  NewInner.ParentBackground := Panel1.ParentBackground;
+  NewInner.Top := Panel1.Top;
 
   // Account Number Label
   NewAccountNumber := TscGPLabel.Create(Self);
@@ -141,9 +145,19 @@ begin
   NewAccountNumber.FillColorAlpha := scGPLabel1.FillColorAlpha;
   NewAccountNumber.FillColor2Alpha := scGPLabel1.FillColor2Alpha;
   NewAccountNumber.FillColor2 := scGPLabel1.FillColor2;
+  NewAccountNumber.FillColor := scGPLabel1.FillColor;
+  NewAccountNumber.FrameColorAlpha := scGPLabel1.FrameColorAlpha;
   NewAccountNumber.Align := scGPLabel1.Align;
   NewAccountNumber.Font.Assign(scGPLabel1.Font);
   NewAccountNumber.Margins.Assign(scGPLabel1.Margins);
+  NewAccountNumber.FillGradientAngle := scGPLabel1.FillGradientAngle;
+  NewAccountNumber.GlowEffect.AlphaValue := scGPLabel1.GlowEffect.AlphaValue;
+  NewAccountNumber.DisabledFontColor := scGPLabel1.DisabledFontColor;
+  NewAccountNumber.DragForm := scGPLabel1.DragForm;
+  NewAccountNumber.DrawTextMode := scGPLabel1.DrawTextMode;
+  NewAccountNumber.FrameRadius := scGPLabel1.FrameRadius;
+  NewAccountNumber.FrameWidth := scGPLabel1.FrameWidth;
+
 
   NewLine := TShape.Create(Self);
   NewLine.Parent := NewInner;
@@ -171,9 +185,14 @@ begin
   NewName.Top := NewInner.Height;
   NewName.FillColorAlpha := scGPLabel2.FillColorAlpha;
   NewName.FillColor2Alpha := scGPLabel2.FillColor2Alpha;
+  NewName.FillColor := scGPLabel2.FillColor;
   NewName.FillColor2 := scGPLabel2.FillColor2;
   NewName.Margins.Assign(scGPLabel2.Margins);
-
+  NewName.FrameColorAlpha := scGPLabel2.FrameColorAlpha;
+  NewName.FillGradientAngle := scGPLabel2.FillGradientAngle;
+  NEwName.GlowEffect.AlphaValue := scGPLabel2.GlowEffect.AlphaValue;
+  NewAccountNumber.FrameRadius := scGPLabel2.FrameRadius;
+  NewAccountNumber.FrameWidth := scGPLabel2.FrameWidth;
 
   // Close Button
   NewButton := TscGPButton.Create(Self);

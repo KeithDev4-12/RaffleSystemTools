@@ -32983,7 +32983,7 @@ object Form2: TForm2
         Left = 5
         Top = 3
         Width = 155
-        Height = 83
+        Height = 86
         Margins.Left = 5
         Margins.Bottom = 0
         FluentUIOpaque = False
@@ -33030,15 +33030,16 @@ object Form2: TForm2
           Left = 8
           Top = 8
           Width = 139
-          Height = 67
+          Height = 70
           Align = alClient
           BevelOuter = bvNone
           Color = clBtnHighlight
           ParentBackground = False
           TabOrder = 0
+          ExplicitHeight = 67
           object Shape1: TShape
             Left = 0
-            Top = 55
+            Top = 58
             Width = 139
             Height = 1
             Align = alBottom
@@ -33050,7 +33051,11 @@ object Form2: TForm2
             Left = 0
             Top = 0
             Width = 139
-            Height = 55
+            Height = 58
+            Margins.Left = 0
+            Margins.Top = 0
+            Margins.Right = 0
+            Margins.Bottom = 0
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBtnText
@@ -33063,10 +33068,10 @@ object Form2: TForm2
             DragForm = False
             DragTopForm = True
             DrawTextMode = scdtmGDI
-            ContentMarginLeft = 5
-            ContentMarginRight = 5
-            ContentMarginTop = 5
-            ContentMarginBottom = 5
+            ContentMarginLeft = 0
+            ContentMarginRight = 0
+            ContentMarginTop = 0
+            ContentMarginBottom = 0
             DisabledFontColor = clNone
             FrameWidth = 0
             FillColor = clYellow
@@ -33088,12 +33093,11 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '30000'
-            ExplicitTop = 8
-            ExplicitHeight = 52
+            ExplicitHeight = 55
           end
           object scGPLabel2: TscGPLabel
             Left = 0
-            Top = 56
+            Top = 59
             Width = 139
             Height = 11
             Align = alBottom
@@ -33133,8 +33137,7 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = 'STA. MAGDALENA'
-            ExplicitTop = 51
-            ExplicitWidth = 133
+            ExplicitTop = 56
           end
           object scGPButton1: TscGPButton
             Left = 118

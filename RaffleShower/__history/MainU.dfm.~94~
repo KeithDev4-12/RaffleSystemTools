@@ -32988,7 +32988,6 @@ object Form2: TForm2
         Margins.Bottom = 0
         FluentUIOpaque = False
         TabOrder = 0
-        Visible = False
         BlurBackground = False
         BlurBackgroundAmount = 5
         BackgroundStyle = gppbsColor
@@ -33008,7 +33007,7 @@ object Form2: TForm2
         FrameWidth = 3
         FillColor = clYellow
         FillColorAlpha = 255
-        FillColor2 = clNone
+        FillColor2 = clYellow
         FrameColor = 354298
         FrameColorAlpha = 255
         FrameRadius = 10
@@ -33020,7 +33019,7 @@ object Form2: TForm2
         CaptionGlowEffect.Offset = 50
         CaptionGlowEffect.Intensive = True
         CaptionGlowEffect.StyleColors = True
-        Color = clLime
+        Color = clWhite
         Caption = 'scGPPChart1'
         TransparentBackground = True
         StorePaintBuffer = True
@@ -33055,7 +33054,7 @@ object Form2: TForm2
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBtnText
-            Font.Height = -47
+            Font.Height = -40
             Font.Name = 'Times New Roman'
             Font.Style = [fsBold]
             ParentFont = False
@@ -33072,25 +33071,23 @@ object Form2: TForm2
             FrameWidth = 0
             FillColor = clYellow
             FillColorAlpha = 255
-            FillColor2 = clNone
+            FillColor2 = clYellow
             FillColor2Alpha = 255
             FillGradientAngle = 0
             FrameColor = clYellow
             FrameColorAlpha = 0
             FrameRadius = 0
-            GlowEffect.Enabled = False
+            GlowEffect.Enabled = True
             GlowEffect.Color = clBtnHighlight
-            GlowEffect.AlphaValue = 255
+            GlowEffect.AlphaValue = 0
             GlowEffect.GlowSize = 7
-            GlowEffect.Offset = 0
-            GlowEffect.Intensive = False
-            GlowEffect.StyleColors = False
+            GlowEffect.Offset = 1
+            GlowEffect.Intensive = True
+            GlowEffect.StyleColors = True
             AutoSize = True
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '30000'
-            ExplicitTop = 8
-            ExplicitHeight = 52
           end
           object scGPLabel2: TscGPLabel
             Left = 0
@@ -33117,7 +33114,7 @@ object Form2: TForm2
             FrameWidth = 0
             FillColor = clYellow
             FillColorAlpha = 255
-            FillColor2 = clNone
+            FillColor2 = clYellow
             FillColor2Alpha = 255
             FillGradientAngle = 0
             FrameColor = clBtnHighlight
@@ -33134,8 +33131,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = 'STA. MAGDALENA'
-            ExplicitTop = 51
-            ExplicitWidth = 133
           end
           object scGPButton1: TscGPButton
             Left = 118
