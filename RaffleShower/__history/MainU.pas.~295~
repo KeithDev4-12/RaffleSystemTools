@@ -47,6 +47,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure ButtonClickClose(Sender: TObject);
+    procedure RemoveINI(const AccountNumber, Title: String);
+    procedure AppendINI(const AccountNumber, Title: String);
   private
     { Private declarations }
     FRecordData: TRecData;
@@ -184,11 +186,27 @@ begin
   NewButton.RepeatClickInterval := scGPButton1.RepeatClickInterval;
   NewButton.Hint := AccNum; // Save the account number here
   NewButton.ShowHint := True; // Required to keep Hint property usable
+  NewButton.Tag := NativeInt(NewPanel);
   NewButton.OnClick := ButtonClickClose;
   NewPanel.Visible := True;
-//  begin
-//    NewPanel.Free;
-//  end;
+
+end;
+
+procedure TForm2.AppendINI(const AccountNumber, Title: String);
+var
+  Ini: TIniFile;
+  IniFilePath: string;
+  Section: string;
+begin
+  IniFilePath := ExtractFilePath(ParamStr(0)) + Title+'.ini';
+
+  Ini := TIniFile.Create(IniFilePath);
+  try
+    Section := Title;
+    Ini.WriteString(Section, 'AccountNumber_AccountNumber', AccountNumber);
+  finally
+    Ini.Free;
+  end;
 end;
 
 procedure TForm2.ButtonClickClose(Sender: TObject);
@@ -209,7 +227,7 @@ end;
 
 procedure TForm2.FormCreate(Sender: TObject);
 begin
-  //
+//  CreateINI;
 end;
 
 procedure TForm2.FormKeyDown(Sender: TObject; var Key: Word;
@@ -232,6 +250,33 @@ begin
   begin
     if Length(FInputBuffer) > 0 then
       Delete(FInputBuffer, Length(FInputBuffer), 1);
+  end if UpCase(Key) = 'L' then
+  begin
+    FileName := ExtractFilePath(ParamStr(0)) + Label1.Caption + '.ini';
+    Section := Label1.Caption; // Example: Label1.Caption = 'Tablet1'
+
+    if FileExists(FileName) then
+    begin
+      Ini := TIniFile.Create(FileName);
+      List := TStringList.Create;
+      try
+        Ini.ReadSectionValues(Section, List);
+
+        if List.Count > 0 then
+        begin
+          for i := 0 to List.Count - 1 do
+            addAccountPanel(List.ValueFromIndex[i], GetArea(List.ValueFromIndex[i]);
+//            ShowMessage(List.Names[i] + ' = ' + List.ValueFromIndex[i]);
+        end
+        else
+          ShowMessage('No data found in section: ' + Section);
+      finally
+        Ini.Free;
+        List.Free;
+      end;
+    end
+    else
+      ShowMessage('INI file not found: ' + FileName);
   end
   else
     FInputBuffer := FInputBuffer + Key;
@@ -251,7 +296,8 @@ end;
 
 procedure TForm2.FormResize(Sender: TObject);
 begin
-  //
+  Panel4.Left := (Self.Width DIV 2) + ((Self.Width DIV 2) DIV 2);
+  Panel4.Top := (Self.Height DIV 2) - (Panel4.Height DIV 2);
 end;
 
 function TForm2.GetArea(const AcctNum: String): String;
@@ -272,6 +318,35 @@ begin
     Result := 'Unknown';
   end;
 end;
+
+procedure TForm2.RemoveINI(const AccountNumber, Title: String);
+var
+  Ini: TIniFile;
+  IniFilePath: string;
+  Keys: TStringList;
+  i: Integer;
+  Section: String;
+begin
+  IniFilePath := ExtractFilePath(ParamStr(0)) + Title + '.ini';
+  Ini := TIniFile.Create(IniFilePath);
+  Keys := TStringList.Create;
+  Section := Title;
+  try
+    // Get all keys in the section
+    Ini.ReadSection(Section, Keys);
+
+    for i := Keys.Count - 1 downto 0 do
+    begin
+      if Trim(Ini.ReadString(Section, Keys[i], '')).Contains(AccountNumber) then
+        Ini.DeleteKey(Section, Keys[i]);
+    end;
+
+  finally
+    Keys.Free;
+    Ini.Free;
+  end;
+end;
+
 
 procedure TForm2.scGPPanel6Click(Sender: TObject);
 begin

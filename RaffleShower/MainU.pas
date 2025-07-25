@@ -48,6 +48,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure ButtonClickClose(Sender: TObject);
     procedure RemoveINI(const AccountNumber, Title: String);
+    procedure AppendINI(const AccountNumber, Title: String);
   private
     { Private declarations }
     FRecordData: TRecData;
@@ -64,6 +65,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses IniFiles;
 
 procedure TForm2.AddAccountPanel(const AccNum, AccName: string);
 var
@@ -191,6 +194,23 @@ begin
 
 end;
 
+procedure TForm2.AppendINI(const AccountNumber, Title: String);
+var
+  Ini: TIniFile;
+  IniFilePath: string;
+  Section: string;
+begin
+  IniFilePath := ExtractFilePath(ParamStr(0)) + Title+'.ini';
+
+  Ini := TIniFile.Create(IniFilePath);
+  try
+    Section := Title;
+    Ini.WriteString(Section, 'AccountNumber_'+AccountNumber, AccountNumber);
+  finally
+    Ini.Free;
+  end;
+end;
+
 procedure TForm2.ButtonClickClose(Sender: TObject);
 var
   Panel: TscGPPanel;
@@ -200,7 +220,10 @@ begin
   Panel := TscGPPanel(Pointer(TscGPButton(Sender).Tag));
 
   if Assigned(Panel) then
+  begin
+    RemoveINI(TscGPButton(Sender).Hint, scGPLabel3.Caption);
     Panel.Visible := False;  // instant hide
+  end;
 end;
 
 
@@ -209,7 +232,7 @@ end;
 
 procedure TForm2.FormCreate(Sender: TObject);
 begin
-  CreateINI;
+//  CreateINI;
 end;
 
 procedure TForm2.FormKeyDown(Sender: TObject; var Key: Word;
@@ -220,11 +243,17 @@ begin
 end;
 
 procedure TForm2.FormKeyPress(Sender: TObject; var Key: Char);
+var
+  Ini: TIniFile;
+  FileName, Section: string;
+  List: TStringList;
+  i: Integer;
 begin
   if Key = #27 then
     Close
   else if Key = #13 then
   begin
+    AppendINI(FInputBuffer, scGPLabel3.Caption);
     AddAccountPanel(FInputBuffer, GetArea(FInputBuffer));
     FInputBuffer := '';
   end
@@ -232,6 +261,33 @@ begin
   begin
     if Length(FInputBuffer) > 0 then
       Delete(FInputBuffer, Length(FInputBuffer), 1);
+  end else if UpCase(Key) = 'L' then
+  begin
+    FileName := ExtractFilePath(ParamStr(0)) + scGPLabel3.Caption + '.ini';
+    Section := scGPLabel3.Caption; // Example: Label1.Caption = 'Tablet1'
+
+    if FileExists(FileName) then
+    begin
+      Ini := TIniFile.Create(FileName);
+      List := TStringList.Create;
+      try
+        Ini.ReadSectionValues(Section, List);
+
+        if List.Count > 0 then
+        begin
+          for i := 0 to List.Count - 1 do
+            AddAccountPanel(List.ValueFromIndex[i], GetArea(List.ValueFromIndex[i]));
+//            ShowMessage(List.Names[i] + ' = ' + List.ValueFromIndex[i]);
+        end
+        else
+          ShowMessage('No data found in section: ' + Section);
+      finally
+        Ini.Free;
+        List.Free;
+      end;
+    end
+    else
+      ShowMessage('INI file not found: ' + FileName);
   end
   else
     FInputBuffer := FInputBuffer + Key;
