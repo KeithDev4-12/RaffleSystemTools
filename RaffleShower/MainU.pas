@@ -10,7 +10,8 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.MySQL, FireDAC.Phys.MySQLDef, FireDAC.VCLUI.Wait,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.Threading, dxGDIPlusClasses;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.Threading, dxGDIPlusClasses,
+  System.Generics.Collections;
 
 type
   TRecData = record
@@ -51,12 +52,15 @@ type
     procedure RemoveINI(const AccountNumber, Title: String);
     procedure AppendINI(const AccountNumber, Title: String);
     procedure scGPLabel3DblClick(Sender: TObject);
+
   private
     { Private declarations }
     FRecordData: TRecData;
     FInputBuffer: string;
+      GeneratedNumbers: TList<Integer>;
     procedure AddAccountPanel(const AccNum, AccName: string);
     function GetArea(const AcctNum: String) : String;
+    function GenerateUniqueRandom(MinValue, MaxValue: Integer): Integer;
   public
     { Public declarations }
   end;
@@ -269,12 +273,30 @@ begin
     Close;
 end;
 
+function TForm2.GenerateUniqueRandom(MinValue, MaxValue: Integer): Integer;
+var
+  R, Attempts: Integer;
+begin
+  Attempts := 0;
+  repeat
+    R := MinValue + Random(MaxValue - MinValue + 1);
+    Inc(Attempts);
+    if Attempts > (MaxValue - MinValue + 1) then
+      raise Exception.Create('All possible unique numbers have been used.');
+  until not GeneratedNumbers.Contains(R);
+
+  GeneratedNumbers.Add(R);
+  Result := R;
+end;
+
 procedure TForm2.FormKeyPress(Sender: TObject; var Key: Char);
 var
   Ini: TIniFile;
   FileName, Section: string;
   List: TStringList;
   i: Integer;
+  Rand: Integer;
+
 begin
   if Key = #27 then
     Close
@@ -288,16 +310,18 @@ begin
   begin
     if Length(FInputBuffer) > 0 then
       Delete(FInputBuffer, Length(FInputBuffer), 1);
-  end else if UpCate(Key) = 'S' then
+  end else if UpCase(Key) = 'S' then
   begin
 
-  end else if UpCate(Key) = 'W' then
+  end else if UpCase(Key) = 'W' then
   begin
     //SIMULATE
+    GeneratedNumbers := TList<Integer>.Create;
+    Randomize;
     for i := 0 to 100 do
     begin
-      Randomize;
-      AddAccountPanel(Random, GetArea(i));
+      Rand := GenerateUniqueRandom(10000, 89999);
+      AddAccountPanel(IntToStr(Rand), GetArea(IntToStr(Rand)));
     end;
   end else if UpCase(Key) = 'L' then
   begin

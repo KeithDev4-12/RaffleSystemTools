@@ -288,6 +288,17 @@ begin
   begin
     if Length(FInputBuffer) > 0 then
       Delete(FInputBuffer, Length(FInputBuffer), 1);
+  end else if UpCate(Key) = 'S' then
+  begin
+
+  end else if UpCate(Key) = 'W' then
+  begin
+    //SIMULATE
+    for i := 0 to 100 do
+    begin
+      Randomize;
+      AddAccountPanel(Random, GetArea(i));
+    end;
   end else if UpCase(Key) = 'L' then
   begin
     FileName := ExtractFilePath(ParamStr(0)) + scGPLabel3.Caption + '.ini';
@@ -319,7 +330,7 @@ begin
   begin
     if Length(FInputBuffer) >= 5 then
       Exit
-    else if FInputBuffer[1] = '0' then
+    else if (Length(FInputBuffer) = 0) and (Key = '0') then
       Exit;
     FInputBuffer := FInputBuffer + Key;
   end;

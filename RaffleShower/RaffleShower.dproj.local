@@ -1,2 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject/>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/07/25 16:42:37.000.011,E:\RaffleSystemTools\RaffleShower\RaffleShower.dproj=C:\New folder (4)\RaffleShower.dproj</Transaction>
+    <Transaction>2025/07/25 16:43:23.000.418,C:\New folder (4)\RaffleShower.dproj=C:\New folder (4)\RaffleShower.dproj</Transaction>
+    <Transaction>2025/07/25 16:43:45.000.820,E:\RaffleSystemTools\RaffleShower\MainU.pas=C:\New folder (4)\MainU.pas</Transaction>
+    <Transaction>2025/07/25 16:43:45.000.820,E:\RaffleSystemTools\RaffleShower\MainU.dfm=C:\New folder (4)\MainU.dfm</Transaction>
+    <Transaction>2025/07/25 16:58:42.698,E:\RaffleSystemTools\RaffleShower\RaffleShower.dproj=C:\New folder (4)\RaffleShower.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

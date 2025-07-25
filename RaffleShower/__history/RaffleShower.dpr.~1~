@@ -2,7 +2,7 @@ program RaffleShower;
 
 uses
   Vcl.Forms,
-  MainU in 'C:\New folder (4)\MainU.pas' {Form2};
+  MainU in 'MainU.pas' {Form2};
 
 {$R *.res}
 

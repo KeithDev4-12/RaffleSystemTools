@@ -36553,8 +36553,6 @@ object Form2: TForm2
       BevelOuter = bvNone
       FlowStyle = fsTopBottomLeftRight
       TabOrder = 0
-      ExplicitTop = 27
-      ExplicitHeight = 458
       object scGPPanel1: TscGPPanel
         AlignWithMargins = True
         Left = 5
@@ -36614,10 +36612,6 @@ object Form2: TForm2
           Color = clBtnHighlight
           ParentBackground = False
           TabOrder = 0
-          ExplicitLeft = 8
-          ExplicitTop = 8
-          ExplicitWidth = 139
-          ExplicitHeight = 67
           object Shape1: TShape
             Left = 0
             Top = 62
@@ -36674,8 +36668,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '30000'
-            ExplicitWidth = 139
-            ExplicitHeight = 55
           end
           object scGPLabel2: TscGPLabel
             Left = 0
@@ -36719,8 +36711,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = 'STA. MAGDALENA'
-            ExplicitTop = 56
-            ExplicitWidth = 139
           end
           object scGPButton1: TscGPButton
             Left = 121
@@ -36938,8 +36928,6 @@ object Form2: TForm2
         Sizeable = False
         WallpaperIndex = -1
         WordWrap = False
-        ExplicitLeft = -5
-        ExplicitWidth = 248
         object Panel5: TPanel
           Left = 6
           Top = 6
@@ -36950,10 +36938,6 @@ object Form2: TForm2
           Color = clWhite
           ParentBackground = False
           TabOrder = 0
-          ExplicitLeft = 8
-          ExplicitTop = 8
-          ExplicitWidth = 218
-          ExplicitHeight = 201
           object Shape2: TShape
             Left = 0
             Top = 174
@@ -37016,9 +37000,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '30000'
-            ExplicitTop = 28
-            ExplicitWidth = 218
-            ExplicitHeight = 145
           end
           object scGPLabel5: TscGPLabel
             AlignWithMargins = True
@@ -37063,7 +37044,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '46th AGMA'
-            ExplicitWidth = 220
           end
           object scGPLabel6: TscGPLabel
             AlignWithMargins = True
@@ -37108,8 +37088,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '46th AGMA'
-            ExplicitTop = 175
-            ExplicitWidth = 226
           end
         end
       end
