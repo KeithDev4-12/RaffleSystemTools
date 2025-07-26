@@ -956,7 +956,7 @@ object UMemberConsumer: TUMemberConsumer
     Left = 192
     Top = 248
     Data = {
-      04000F00020069640E000000000000000D004163636F756E744E756D62657201
+      03000F00020069640E000000000000000D004163636F756E744E756D62657201
       000B000000000004004E616D6501006300000000000400417265610100030000
       0000000700416464726573730100630000000000060053746174757303000000
       000000000C0053687566666C654F7264657203000000000000001000436F6E6E
@@ -966,9 +966,6 @@ object UMemberConsumer: TUMemberConsumer
       6501002D0000000000140049735175616C6966696564466F72526166666C652B
       00000000000000140049735369676E6174757265417661696C61626C652B0000
       0000000000000000000000}
-    object vtMemberConsumerid: TVirtualAutoIncField
-      FieldName = 'id'
-    end
     object vtMemberConsumerAccountNumber: TStringField
       FieldName = 'AccountNumber'
       Size = 11
@@ -1023,6 +1020,9 @@ object UMemberConsumer: TUMemberConsumer
     object vtMemberConsumerIsSignatureAvailable: TShortintField
       FieldName = 'IsSignatureAvailable'
       Required = True
+    end
+    object vtMemberConsumerid: TAutoIncField
+      FieldName = 'id'
     end
   end
   object FDBatchMove1: TFDBatchMove

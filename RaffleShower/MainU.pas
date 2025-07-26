@@ -23,17 +23,18 @@ type
   end;
 
   TForm2 = class(TForm)
-    FlowPanel1: TFlowPanel;
     Image1: TImage;
+    Title: TImage;
+    Panel3: TPanel;
+    FlowPanel1: TFlowPanel;
     scGPPanel1: TscGPPanel;
     Panel1: TPanel;
+    Shape1: TShape;
     scGPLabel1: TscGPLabel;
     scGPLabel2: TscGPLabel;
     scGPButton1: TscGPButton;
     Panel2: TPanel;
-    Panel3: TPanel;
     scGPLabel3: TLabel;
-    Shape1: TShape;
     Panel4: TPanel;
     scGPPanel2: TscGPPanel;
     Panel5: TPanel;
@@ -42,20 +43,33 @@ type
     scGPLabel4: TscGPLabel;
     scGPLabel5: TscGPLabel;
     scGPLabel6: TscGPLabel;
-    Title: TImage;
+    Timer1: TTimer;
+    Panel6: TPanel;
+    scGPPanel3: TscGPPanel;
+    Panel7: TPanel;
+    Shape4: TShape;
+    Shape5: TShape;
+    scGPLabel7: TscGPLabel;
+    scGPLabel8: TscGPLabel;
+    scGPLabel9: TscGPLabel;
+    scGPLabel10: TscGPLabel;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure scGPPanel6Click(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure ButtonClickClose(Sender: TObject);
     procedure RemoveINI(const AccountNumber, Title: String);
     procedure AppendINI(const AccountNumber, Title: String);
     procedure scGPLabel3DblClick(Sender: TObject);
-
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure SaveIntegerListToCSV(AList: TList<Integer>; const FileName: string);
+    procedure CaptureFormScreenshot(Form: TForm; AFileName: String);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
+    LoadedImageFilename: String;
     FRecordData: TRecData;
+    NumPanelCount: Integer;
     FInputBuffer: string;
       GeneratedNumbers: TList<Integer>;
     procedure AddAccountPanel(const AccNum, AccName: string);
@@ -63,6 +77,7 @@ type
     function GenerateUniqueRandom(MinValue, MaxValue: Integer): Integer;
   public
     { Public declarations }
+    const TimerLimit: Integer = 10;
   end;
 
 var
@@ -72,7 +87,7 @@ implementation
 
 {$R *.dfm}
 
-uses IniFiles;
+uses IniFiles, Math, Vcl.Imaging.pngimage;
 
 procedure TForm2.AddAccountPanel(const AccNum, AccName: string);
 var
@@ -81,6 +96,7 @@ var
   NewAccountNumber, NewName: TscGPLabel;
   NewButton: TscGPButton;
   NewLine: TShape;
+  I : Integer;
 begin
   // Create the main outer styled panel
   NewPanel := TscGPPanel.Create(Self);
@@ -194,7 +210,7 @@ begin
   NewLine := TShape.Create(Self);
   NewLine.Parent := NewInner;
   NewLine.Align := Shape1.Align;
-  NewLine.Top := Shape1.Top - NewName.Height;
+  NewLine.Top := NewAccountNumber.Height;
   NewLine.Height := Shape1.Height;
   NewLine.Width := Shape1.Width;
 
@@ -223,6 +239,12 @@ begin
   NewButton.OnClick := ButtonClickClose;
   NewPanel.Visible := True;
 
+  GeneratedNumbers.Add(StrToInt(AccNum));
+//  if FlowPanel1.ControlCount>=NumPanelCount then
+//  begin
+//    for I := 0 to ControlCount -1 do
+//      FlowPanel1.Controls[i].Visible := False;
+//  end;
 end;
 
 procedure TForm2.AppendINI(const AccountNumber, Title: String);
@@ -263,7 +285,13 @@ end;
 
 procedure TForm2.FormCreate(Sender: TObject);
 begin
-//  CreateINI;
+  GeneratedNumbers := TList<Integer>.Create;
+  scGPLabel7.Caption := INtToStr(TimerLimit);
+end;
+
+procedure TForm2.FormDestroy(Sender: TObject);
+begin
+  GeneratedNumbers.Free;
 end;
 
 procedure TForm2.FormKeyDown(Sender: TObject; var Key: Word;
@@ -284,9 +312,55 @@ begin
     if Attempts > (MaxValue - MinValue + 1) then
       raise Exception.Create('All possible unique numbers have been used.');
   until not GeneratedNumbers.Contains(R);
-
-  GeneratedNumbers.Add(R);
   Result := R;
+end;
+
+procedure TForm2.SaveIntegerListToCSV(AList: TList<Integer>; const FileName: string);
+var
+  SL: TStringList;
+  I: Integer;
+begin
+  SL := TStringList.Create;
+  try
+    for I := 0 to AList.Count - 1 do
+      SL.Add(IntToStr(AList[I]));
+
+    SL.SaveToFile(ExtractFilePath(ParamStr(0)) + FileName + '.csv');
+  finally
+    SL.Free;
+  end;
+end;
+
+procedure TForm2.CaptureFormScreenshot(Form: TForm;AFileName: String);
+var
+  DC: HDC;
+  Bmp: TBitmap;
+  Png: TPngImage;
+  R: TRect;
+begin
+  R := Form.BoundsRect;
+
+  Bmp := TBitmap.Create;
+  Png := TPngImage.Create;
+  try
+    Bmp.PixelFormat := pf24bit;
+    Bmp.Width := R.Width;
+    Bmp.Height := R.Height;
+
+    // Get the screen DC and copy the form's area
+    DC := GetDC(0);
+    BitBlt(Bmp.Canvas.Handle, 0, 0, R.Width, R.Height, DC, R.Left, R.Top, SRCCOPY);
+    ReleaseDC(0, DC);
+
+    // Save to PNG
+    Png.Assign(Bmp);
+    Png.SaveToFile(AFileName);
+
+    ShowMessage('Screenshot saved: ' + AFileName);
+  finally
+    Png.Free;
+    Bmp.Free;
+  end;
 end;
 
 procedure TForm2.FormKeyPress(Sender: TObject; var Key: Char);
@@ -302,9 +376,17 @@ begin
     Close
   else if Key = #13 then
   begin
-    AppendINI(FInputBuffer, scGPLabel3.Caption);
-    AddAccountPanel(FInputBuffer, GetArea(FInputBuffer));
-    FInputBuffer := '';
+    if GeneratedNumbers.Contains(StrToInt(FInputBuffer)) then
+    begin
+      ShowMessage('Please Double Check Input!!!');
+      Exit;
+    end;
+
+//    AppendINI(FInputBuffer, scGPLabel3.Caption);
+//    AddAccountPanel(FInputBuffer, GetArea(FInputBuffer));
+    Timer1.Enabled := True;
+    Panel6.Visible := True;
+//     FInputBuffer := '';
   end
   else if Key = #8 then // Backspace
   begin
@@ -312,17 +394,43 @@ begin
       Delete(FInputBuffer, Length(FInputBuffer), 1);
   end else if UpCase(Key) = 'S' then
   begin
-
+    SaveIntegerListToCSV(GeneratedNumbers,scGPLabel3.Caption);
+    CaptureFormScreenshot(Self, scGPLabel3.Caption + '_' + FormatDateTime('yyyymmdd_hhnnss', Now) + '.png');
   end else if UpCase(Key) = 'W' then
   begin
-    //SIMULATE
-    GeneratedNumbers := TList<Integer>.Create;
-    Randomize;
-    for i := 0 to 100 do
+//    //SIMULATE
+//
+//    Randomize;
+//    for i := 0 to 100 do
+//    begin
+//      Rand := GenerateUniqueRandom(10000, 89999);
+//      AddAccountPanel(IntToStr(Rand), GetArea(IntToStr(Rand)));
+//    end;
+  end else if Upcase(Key) = 'R' then
+  begin
+    if Timer1.Enabled then
     begin
-      Rand := GenerateUniqueRandom(10000, 89999);
-      AddAccountPanel(IntToStr(Rand), GetArea(IntToStr(Rand)));
+      Timer1.Enabled := False;
+      scGPLabel10.Caption := 'PAUSED';
+    end else
+    begin
+      scGPLabel10.Caption := '';
+      Timer1.Enabled := True;
     end;
+  end else if UpCase(Key) = 'P' then
+  begin
+    if Timer1.Enabled then
+    begin
+      scGPLabel7.Caption := IntToStr(TimerLimit);
+      Timer1.Enabled := false;
+      AppendINI(FInputBuffer, scGPLabel3.Caption);
+      AddAccountPanel(FInputBuffer, GetArea(FInputBuffer));
+      FInputBuffer := '';
+      Panel6.Visible := False;
+      scGPLabel4.Caption := fInputBuffer;
+      panel4.Visible := False;
+    end;
+
   end else if UpCase(Key) = 'L' then
   begin
     FileName := ExtractFilePath(ParamStr(0)) + scGPLabel3.Caption + '.ini';
@@ -338,7 +446,9 @@ begin
         if List.Count > 0 then
         begin
           for i := 0 to List.Count - 1 do
+          begin
             AddAccountPanel(List.ValueFromIndex[i], GetArea(List.ValueFromIndex[i]));
+          end;
         end
         else
           ShowMessage('No data found in section: ' + Section);
@@ -363,21 +473,42 @@ begin
   begin
     panel4.Visible := True;
     scGPLabel4.Caption := fInputBuffer;
-  end
-  else
-  begin
-    scGPLabel4.Caption := fInputBuffer;
-    panel4.Visible := False;
   end;
+//  else
+//  begin
+//    scGPLabel4.Caption := fInputBuffer;
+//    panel4.Visible := False;
+//  end;
 end;
 
 
 procedure TForm2.FormResize(Sender: TObject);
+var
+  FlowPanelSizeWidth,
+  FlowPanelSizeHeight,
+  FlowPanelMarginHor,
+  FlowPanelMarginVer: Integer;
+  HorCount: Integer;
+  VerCount: Integer;
 begin
-  Panel4.Left := (Self.Width DIV 2) + ((Self.Width DIV 2) DIV 2);
+  HorCount := (Self.ClientWidth DIV (scGPPanel1.Width + scGPPanel1.Margins.Left + scGPPanel1.Margins.Right));
+  VerCount := (Panel3.ClientHeight DIV (scGPPanel1.Height + scGPPanel1.Margins.Bottom + scGPPanel1.Margins.Top));
+  NumPanelCount := HorCount * VerCount;
+  FlowPanelSizeHeight := ((scGPPanel1.Height + scGPPanel1.Margins.Bottom + scGPPanel1.Margins.Top) * VerCount);
+  FlowPanelSizeWidth := ((scGPPanel1.Width + scGPPanel1.Margins.Left + scGPPanel1.Margins.Right) * HorCount);
+  FlowPanelMarginHor := (ROUND(Self.ClientWidth - FlowPanelSizeWidth) DIV 2);
+  FlowPanelMarginVer := (ROUND(Self.ClientHeight - FlowPanelSizeHeight) DIV 2);
+  FlowPanel1.Margins.Right := FlowPanelMarginHor;
+  FlowPanel1.Margins.Left := FlowPanelMarginHor;
+  FlowPanel1.Margins.Top := FlowPanelMarginVer;
+  FlowPanel1.Margins.Bottom := FlowPanelMarginVer;
+  Panel6.Left := ((Self.Width DIV 2) DIV 2) - Panel6.Width;
+  Panel6.Top := (Self.Height DIV 2) - (Panel6.Height DIV 2);
+  Panel4.Left := (Self.Width DIV 2) + ((Self.Width DIV 2) DIV 2) - (Panel4.Width DIV 2);
   Panel4.Top := (Self.Height DIV 2) - (Panel4.Height DIV 2);
   Title.Left := (Self.Width Div 2) - (Title.Width DIV 2);
   Title.Top := 0;
+  scGPLabel3.Left := (Self.Width DIV 2) - ( scGPLabel3.Width DIV 2);
 end;
 
 function TForm2.GetArea(const AcctNum: String): String;
@@ -435,12 +566,33 @@ begin
   NewTitle := InputBox('Change Raffle Title', 'Enter new title:', scGPLabel3.Caption);
 
   if NewTitle <> '' then
-    scGPLabel3.Caption := NewTitle;
+    scGPLabel3.Caption := UpperCase(NewTitle);
 end;
 
-procedure TForm2.scGPPanel6Click(Sender: TObject);
-begin
 
+procedure TForm2.Timer1Timer(Sender: TObject);
+var
+  CountDig: Integer;
+begin
+  CountDig := StrToInt(scGPLabel7.Caption) - 1;
+  scGPLabel7.Caption := IntToStr(CountDig);
+  if CountDig = 0 then
+  begin
+    Timer1.Enabled := False;
+    Panel6.Visible := False;
+    scGPLabel7.Caption := IntToStr(TimerLimit);
+    FInputBuffer := '';
+    if Length(FInputBuffer) > 0 then
+    begin
+      Panel4.Visible := True;
+      scGPLabel4.Caption := FInputBuffer;
+    end
+    else
+    begin
+      scGPLabel4.Caption := FInputBuffer;
+      Panel4.Visible := False;
+    end;
+  end;
 end;
 
 { TRecData }

@@ -68,7 +68,6 @@ type
     N1: TMenuItem;
     ExportAsCSVFile1: TMenuItem;
     Shape3: TShape;
-    vtMemberConsumerid: TVirtualAutoIncField;
     vtMemberConsumerAccountNumber: TStringField;
     vtMemberConsumerName: TStringField;
     vtMemberConsumerArea: TStringField;
@@ -105,6 +104,7 @@ type
     Panel11: TPanel;
     Panel14: TPanel;
     Panel15: TPanel;
+    vtMemberConsumerid: TAutoIncField;
     procedure SearchBox1Change(Sender: TObject);
     procedure DBGridEh1KeyPress(Sender: TObject; var Key: Char);
     procedure FormShow(Sender: TObject);

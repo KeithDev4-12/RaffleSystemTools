@@ -4,7 +4,7 @@ object Form2: TForm2
   BorderStyle = bsNone
   Caption = 'Form2'
   ClientHeight = 535
-  ClientWidth = 711
+  ClientWidth = 902
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,6 +15,7 @@ object Form2: TForm2
   OldCreateOrder = False
   WindowState = wsMaximized
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnResize = FormResize
@@ -23,7 +24,7 @@ object Form2: TForm2
   object Image1: TImage
     Left = 0
     Top = 0
-    Width = 711
+    Width = 902
     Height = 535
     Align = alClient
     Picture.Data = {
@@ -36535,7 +36536,7 @@ object Form2: TForm2
     AlignWithMargins = True
     Left = 0
     Top = 50
-    Width = 711
+    Width = 902
     Height = 485
     Margins.Left = 0
     Margins.Top = 50
@@ -36544,23 +36545,32 @@ object Form2: TForm2
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 711
     object FlowPanel1: TFlowPanel
+      AlignWithMargins = True
       Left = 0
       Top = 37
-      Width = 711
+      Width = 902
       Height = 448
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 0
+      Margins.Bottom = 0
       Align = alClient
       BevelOuter = bvNone
       FlowStyle = fsTopBottomLeftRight
       TabOrder = 0
+      ExplicitWidth = 711
       object scGPPanel1: TscGPPanel
         AlignWithMargins = True
         Left = 5
-        Top = 3
-        Width = 155
-        Height = 88
+        Top = 5
+        Width = 192
+        Height = 95
         Margins.Left = 5
-        Margins.Bottom = 0
+        Margins.Top = 5
+        Margins.Right = 5
+        Margins.Bottom = 5
         FluentUIOpaque = False
         TabOrder = 0
         Visible = False
@@ -36605,8 +36615,8 @@ object Form2: TForm2
         object Panel1: TPanel
           Left = 7
           Top = 7
-          Width = 141
-          Height = 74
+          Width = 178
+          Height = 81
           Align = alClient
           BevelOuter = bvNone
           Color = clBtnHighlight
@@ -36614,8 +36624,8 @@ object Form2: TForm2
           TabOrder = 0
           object Shape1: TShape
             Left = 0
-            Top = 62
-            Width = 141
+            Top = 69
+            Width = 178
             Height = 1
             Align = alBottom
             ExplicitLeft = 8
@@ -36625,8 +36635,8 @@ object Form2: TForm2
           object scGPLabel1: TscGPLabel
             Left = 0
             Top = 0
-            Width = 141
-            Height = 62
+            Width = 178
+            Height = 69
             Margins.Left = 0
             Margins.Top = 0
             Margins.Right = 0
@@ -36634,7 +36644,7 @@ object Form2: TForm2
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBtnText
-            Font.Height = -47
+            Font.Height = -60
             Font.Name = 'Segoe UI'
             Font.Style = [fsBold]
             ParentFont = False
@@ -36671,8 +36681,8 @@ object Form2: TForm2
           end
           object scGPLabel2: TscGPLabel
             Left = 0
-            Top = 63
-            Width = 141
+            Top = 70
+            Width = 178
             Height = 11
             Align = alBottom
             Font.Charset = DEFAULT_CHARSET
@@ -36713,7 +36723,7 @@ object Form2: TForm2
             Caption = 'STA. MAGDALENA'
           end
           object scGPButton1: TscGPButton
-            Left = 121
+            Left = 161
             Top = 0
             Width = 16
             Height = 13
@@ -36849,35 +36859,34 @@ object Form2: TForm2
     object Panel2: TPanel
       Left = 0
       Top = 0
-      Width = 711
+      Width = 902
       Height = 37
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitWidth = 711
       object scGPLabel3: TLabel
-        Left = 0
-        Top = 0
-        Width = 711
-        Height = 37
-        Align = alClient
+        Left = 240
+        Top = -8
+        Width = 263
+        Height = 38
         Alignment = taCenter
         Caption = '30 Bags of Rice'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBtnHighlight
-        Font.Height = -27
-        Font.Name = 'Segoe UI'
+        Font.Height = -33
+        Font.Name = 'Cooper Black'
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = True
         OnDblClick = scGPLabel3DblClick
-        ExplicitWidth = 195
       end
     end
     object Panel4: TPanel
-      Left = 425
+      Left = 304
       Top = 130
-      Width = 273
-      Height = 223
+      Width = 505
+      Height = 351
       BevelOuter = bvNone
       TabOrder = 2
       Visible = False
@@ -36885,8 +36894,8 @@ object Form2: TForm2
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 267
-        Height = 217
+        Width = 499
+        Height = 345
         Align = alClient
         FluentUIOpaque = False
         TabOrder = 0
@@ -36928,20 +36937,24 @@ object Form2: TForm2
         Sizeable = False
         WallpaperIndex = -1
         WordWrap = False
+        ExplicitWidth = 267
+        ExplicitHeight = 217
         object Panel5: TPanel
           Left = 6
           Top = 6
-          Width = 255
-          Height = 205
+          Width = 487
+          Height = 333
           Align = alClient
           BevelOuter = bvNone
           Color = clWhite
           ParentBackground = False
           TabOrder = 0
+          ExplicitWidth = 255
+          ExplicitHeight = 205
           object Shape2: TShape
             Left = 0
-            Top = 174
-            Width = 255
+            Top = 302
+            Width = 487
             Height = 1
             Align = alBottom
             ExplicitLeft = 8
@@ -36951,7 +36964,7 @@ object Form2: TForm2
           object Shape3: TShape
             Left = 0
             Top = 33
-            Width = 255
+            Width = 487
             Height = 1
             Align = alTop
             ExplicitLeft = 8
@@ -36961,12 +36974,12 @@ object Form2: TForm2
           object scGPLabel4: TscGPLabel
             Left = 0
             Top = 34
-            Width = 255
-            Height = 140
+            Width = 487
+            Height = 268
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBtnText
-            Font.Height = -80
+            Font.Height = -160
             Font.Name = 'Segoe UI'
             Font.Style = [fsBold]
             ParentFont = False
@@ -37000,12 +37013,14 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '30000'
+            ExplicitWidth = 255
+            ExplicitHeight = 140
           end
           object scGPLabel5: TscGPLabel
             AlignWithMargins = True
             Left = 3
             Top = 3
-            Width = 249
+            Width = 481
             Height = 27
             Align = alTop
             Font.Charset = DEFAULT_CHARSET
@@ -37044,12 +37059,13 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '46th AGMA'
+            ExplicitWidth = 249
           end
           object scGPLabel6: TscGPLabel
             AlignWithMargins = True
             Left = 3
-            Top = 178
-            Width = 249
+            Top = 306
+            Width = 481
             Height = 24
             Align = alBottom
             Font.Charset = DEFAULT_CHARSET
@@ -37088,9 +37104,289 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '46th AGMA'
+            ExplicitTop = 178
+            ExplicitWidth = 249
           end
         end
       end
     end
+    object Panel6: TPanel
+      Left = 2
+      Top = 130
+      Width = 285
+      Height = 351
+      BevelOuter = bvNone
+      TabOrder = 3
+      Visible = False
+      object scGPPanel3: TscGPPanel
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 279
+        Height = 345
+        Align = alClient
+        FluentUIOpaque = False
+        TabOrder = 0
+        BlurBackground = False
+        BlurBackgroundAmount = 5
+        BackgroundStyle = gppbsColor
+        ContentMarginLeft = 0
+        ContentMarginRight = 0
+        ContentMarginTop = 0
+        ContentMarginBottom = 0
+        CustomImageIndex = -1
+        DragForm = False
+        DragTopForm = True
+        DrawTextMode = scdtmGDI
+        FillGradientAngle = 90
+        FillGradientBeginAlpha = 255
+        FillGradientEndAlpha = 255
+        FillGradientBeginColorOffset = 25
+        FillGradientEndColorOffset = 25
+        FrameWidth = 4
+        FillColor = clWhite
+        FillColorAlpha = 255
+        FillColor2 = clWhite
+        FrameColor = 354298
+        FrameColorAlpha = 255
+        FrameRadius = 5
+        ShowCaption = False
+        CaptionGlowEffect.Enabled = False
+        CaptionGlowEffect.Color = clBtnText
+        CaptionGlowEffect.AlphaValue = 255
+        CaptionGlowEffect.GlowSize = 50
+        CaptionGlowEffect.Offset = 50
+        CaptionGlowEffect.Intensive = True
+        CaptionGlowEffect.StyleColors = True
+        Color = clBtnHighlight
+        Caption = 'scGPPChart1'
+        TransparentBackground = True
+        StorePaintBuffer = True
+        Sizeable = False
+        WallpaperIndex = -1
+        WordWrap = False
+        ExplicitWidth = 267
+        ExplicitHeight = 217
+        object Panel7: TPanel
+          Left = 6
+          Top = 6
+          Width = 267
+          Height = 333
+          Align = alClient
+          BevelOuter = bvNone
+          Color = clWhite
+          ParentBackground = False
+          TabOrder = 0
+          ExplicitWidth = 255
+          ExplicitHeight = 205
+          object Shape4: TShape
+            Left = 0
+            Top = 302
+            Width = 267
+            Height = 1
+            Align = alBottom
+            ExplicitLeft = 8
+            ExplicitTop = 107
+            ExplicitWidth = 205
+          end
+          object Shape5: TShape
+            Left = 0
+            Top = 33
+            Width = 267
+            Height = 1
+            Align = alTop
+            ExplicitLeft = 8
+            ExplicitTop = 107
+            ExplicitWidth = 205
+          end
+          object scGPLabel7: TscGPLabel
+            Left = 0
+            Top = 34
+            Width = 267
+            Height = 249
+            Align = alClient
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBtnText
+            Font.Height = -187
+            Font.Name = 'Segoe UI'
+            Font.Style = [fsBold]
+            ParentFont = False
+            FluentUIOpaque = False
+            TabOrder = 0
+            DragForm = False
+            DragTopForm = True
+            DrawTextMode = scdtmGDI
+            ContentMarginLeft = 5
+            ContentMarginRight = 5
+            ContentMarginTop = 5
+            ContentMarginBottom = 5
+            DisabledFontColor = clNone
+            FrameWidth = 0
+            FillColor = clBtnText
+            FillColorAlpha = 0
+            FillColor2 = clNone
+            FillColor2Alpha = 255
+            FillGradientAngle = 0
+            FrameColor = clBtnHighlight
+            FrameColorAlpha = 0
+            FrameRadius = 0
+            GlowEffect.Enabled = False
+            GlowEffect.Color = clBtnHighlight
+            GlowEffect.AlphaValue = 255
+            GlowEffect.GlowSize = 7
+            GlowEffect.Offset = 0
+            GlowEffect.Intensive = False
+            GlowEffect.StyleColors = False
+            AutoSize = True
+            Alignment = taCenter
+            VertAlignment = scvtaCenter
+            Caption = '0'
+            ExplicitWidth = 255
+            ExplicitHeight = 140
+          end
+          object scGPLabel8: TscGPLabel
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 261
+            Height = 27
+            Align = alTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGray
+            Font.Height = -27
+            Font.Name = 'Segoe UI'
+            Font.Style = [fsBold]
+            ParentFont = False
+            FluentUIOpaque = False
+            TabOrder = 1
+            DragForm = False
+            DragTopForm = True
+            DrawTextMode = scdtmGDI
+            ContentMarginLeft = 5
+            ContentMarginRight = 5
+            ContentMarginTop = 5
+            ContentMarginBottom = 5
+            DisabledFontColor = clNone
+            FrameWidth = 0
+            FillColor = 354298
+            FillColorAlpha = 0
+            FillColor2 = 354298
+            FillColor2Alpha = 255
+            FillGradientAngle = 0
+            FrameColor = clBtnHighlight
+            FrameColorAlpha = 0
+            FrameRadius = 0
+            GlowEffect.Enabled = False
+            GlowEffect.Color = clBtnHighlight
+            GlowEffect.AlphaValue = 255
+            GlowEffect.GlowSize = 7
+            GlowEffect.Offset = 0
+            GlowEffect.Intensive = False
+            GlowEffect.StyleColors = False
+            AutoSize = True
+            Alignment = taCenter
+            VertAlignment = scvtaCenter
+            Caption = 'Countdown'
+            ExplicitWidth = 249
+          end
+          object scGPLabel9: TscGPLabel
+            AlignWithMargins = True
+            Left = 3
+            Top = 306
+            Width = 261
+            Height = 24
+            Align = alBottom
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGray
+            Font.Height = -27
+            Font.Name = 'Segoe UI'
+            Font.Style = [fsBold]
+            ParentFont = False
+            FluentUIOpaque = False
+            TabOrder = 2
+            DragForm = False
+            DragTopForm = True
+            DrawTextMode = scdtmGDI
+            ContentMarginLeft = 5
+            ContentMarginRight = 5
+            ContentMarginTop = 5
+            ContentMarginBottom = 5
+            DisabledFontColor = clNone
+            FrameWidth = 0
+            FillColor = clBtnText
+            FillColorAlpha = 0
+            FillColor2 = clNone
+            FillColor2Alpha = 255
+            FillGradientAngle = 0
+            FrameColor = clBtnHighlight
+            FrameColorAlpha = 0
+            FrameRadius = 0
+            GlowEffect.Enabled = False
+            GlowEffect.Color = clBtnHighlight
+            GlowEffect.AlphaValue = 255
+            GlowEffect.GlowSize = 7
+            GlowEffect.Offset = 0
+            GlowEffect.Intensive = False
+            GlowEffect.StyleColors = False
+            AutoSize = True
+            Alignment = taCenter
+            VertAlignment = scvtaCenter
+            Caption = 'Countdown'
+            ExplicitTop = 178
+            ExplicitWidth = 249
+          end
+          object scGPLabel10: TscGPLabel
+            AlignWithMargins = True
+            Left = 3
+            Top = 286
+            Width = 261
+            Height = 13
+            Align = alBottom
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clActiveBorder
+            Font.Height = -13
+            Font.Name = 'Segoe UI'
+            Font.Style = [fsBold]
+            ParentFont = False
+            FluentUIOpaque = False
+            TabOrder = 3
+            DragForm = False
+            DragTopForm = True
+            DrawTextMode = scdtmGDI
+            ContentMarginLeft = 5
+            ContentMarginRight = 5
+            ContentMarginTop = 5
+            ContentMarginBottom = 5
+            DisabledFontColor = clNone
+            FrameWidth = 0
+            FillColor = clBtnText
+            FillColorAlpha = 0
+            FillColor2 = clNone
+            FillColor2Alpha = 255
+            FillGradientAngle = 0
+            FrameColor = clBtnHighlight
+            FrameColorAlpha = 0
+            FrameRadius = 0
+            GlowEffect.Enabled = False
+            GlowEffect.Color = clBtnHighlight
+            GlowEffect.AlphaValue = 255
+            GlowEffect.GlowSize = 7
+            GlowEffect.Offset = 0
+            GlowEffect.Intensive = False
+            GlowEffect.StyleColors = False
+            AutoSize = True
+            Alignment = taCenter
+            VertAlignment = scvtaCenter
+            ExplicitTop = 285
+          end
+        end
+      end
+    end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    OnTimer = Timer1Timer
+    Left = 416
+    Top = 111
   end
 end

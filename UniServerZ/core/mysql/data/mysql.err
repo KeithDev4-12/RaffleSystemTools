@@ -331,3 +331,13 @@ mysqld_z: Can't sync file '.\binlog.index' to disk (OS errno 22 - Invalid argume
 2025-07-25T00:13:47.643293Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
 2025-07-25T00:13:47.644146Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
 2025-07-25T00:13:48.193501Z 0 [System] [MY-010931] [Server] E:\RaffleSystemTools\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.23'  socket: ''  port: 3312  MySQL Community Server - GPL.
+2025-07-25T14:14:36.123908Z 0 [System] [MY-010116] [Server] E:\SORECO\RaffleSystemTools\UniServerZ\core\mysql\bin\mysqld_z.exe (mysqld 8.0.23) starting as process 21704
+2025-07-25T14:14:36.140866Z 0 [Warning] [MY-013242] [Server] --character-set-server: 'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.
+2025-07-25T14:14:36.205126Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-07-25T14:14:37.390484Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2025-07-25T14:14:37.606690Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2025-07-25T14:14:37.711751Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2025-07-25T14:14:37.717660Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2025-07-25T14:14:37.815906Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2025-07-25T14:14:37.816453Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2025-07-25T14:14:37.892875Z 0 [System] [MY-010931] [Server] E:\SORECO\RaffleSystemTools\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.23'  socket: ''  port: 3312  MySQL Community Server - GPL.
