@@ -16702,19 +16702,19 @@ object RaffleTemplate2U: TRaffleTemplate2U
       end
       object Label1: TLabel
         Left = 0
-        Top = 101
+        Top = 111
         Width = 435
-        Height = 34
+        Height = 24
         Align = alBottom
         Alignment = taCenter
-        Caption = 'WINNER'
+        Caption = 'PRE-REGISTRATION WINNER'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 3426654
         Font.Height = -20
         Font.Name = 'Mukta Mahee ExtraBold'
         Font.Style = [fsBold]
         ParentFont = False
-        ExplicitWidth = 72
+        ExplicitWidth = 280
       end
     end
     object Panel2: TPanel
@@ -17022,7 +17022,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
           Left = 3
           Top = 4
           Width = 409
-          Height = 27
+          Height = 19
           Margins.Top = 4
           Align = alTop
           Alignment = taCenter
@@ -17033,7 +17033,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
           Font.Name = 'Mukta Mahee ExtraBold'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitWidth = 90
+          ExplicitWidth = 96
         end
       end
       object Panel5: TPanel
@@ -17065,8 +17065,8 @@ object RaffleTemplate2U: TRaffleTemplate2U
           Font.Name = 'Mukta Mahee ExtraBold'
           Font.Style = []
           ParentFont = False
-          ExplicitWidth = 42
-          ExplicitHeight = 28
+          ExplicitWidth = 41
+          ExplicitHeight = 19
         end
         object Panel6: TPanel
           Left = 0
@@ -17174,8 +17174,8 @@ object RaffleTemplate2U: TRaffleTemplate2U
             Font.Name = 'Mukta Mahee ExtraBold'
             Font.Style = []
             ParentFont = False
-            ExplicitWidth = 55
-            ExplicitHeight = 28
+            ExplicitWidth = 51
+            ExplicitHeight = 19
           end
         end
       end
@@ -17208,8 +17208,8 @@ object RaffleTemplate2U: TRaffleTemplate2U
           Font.Name = 'Mukta Mahee ExtraBold'
           Font.Style = []
           ParentFont = False
-          ExplicitWidth = 36
-          ExplicitHeight = 28
+          ExplicitWidth = 34
+          ExplicitHeight = 19
         end
         object Panel10: TPanel
           Left = 0
@@ -17322,8 +17322,8 @@ object RaffleTemplate2U: TRaffleTemplate2U
             Font.Name = 'Mukta Mahee ExtraBold'
             Font.Style = []
             ParentFont = False
-            ExplicitWidth = 36
-            ExplicitHeight = 28
+            ExplicitWidth = 34
+            ExplicitHeight = 19
           end
         end
       end
@@ -17356,8 +17356,8 @@ object RaffleTemplate2U: TRaffleTemplate2U
           Font.Name = 'Mukta Mahee ExtraBold'
           Font.Style = []
           ParentFont = False
-          ExplicitWidth = 152
-          ExplicitHeight = 28
+          ExplicitWidth = 161
+          ExplicitHeight = 19
         end
       end
     end

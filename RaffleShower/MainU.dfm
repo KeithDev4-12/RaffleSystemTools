@@ -36565,8 +36565,8 @@ object Form2: TForm2
         AlignWithMargins = True
         Left = 5
         Top = 5
-        Width = 192
-        Height = 95
+        Width = 198
+        Height = 97
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -36615,17 +36615,19 @@ object Form2: TForm2
         object Panel1: TPanel
           Left = 7
           Top = 7
-          Width = 178
-          Height = 81
+          Width = 184
+          Height = 83
           Align = alClient
           BevelOuter = bvNone
           Color = clBtnHighlight
           ParentBackground = False
           TabOrder = 0
+          ExplicitWidth = 178
+          ExplicitHeight = 81
           object Shape1: TShape
             Left = 0
-            Top = 69
-            Width = 178
+            Top = 71
+            Width = 184
             Height = 1
             Align = alBottom
             ExplicitLeft = 8
@@ -36635,8 +36637,8 @@ object Form2: TForm2
           object scGPLabel1: TscGPLabel
             Left = 0
             Top = 0
-            Width = 178
-            Height = 69
+            Width = 184
+            Height = 71
             Margins.Left = 0
             Margins.Top = 0
             Margins.Right = 0
@@ -36678,11 +36680,13 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '30000'
+            ExplicitWidth = 178
+            ExplicitHeight = 69
           end
           object scGPLabel2: TscGPLabel
             Left = 0
-            Top = 70
-            Width = 178
+            Top = 72
+            Width = 184
             Height = 11
             Align = alBottom
             Font.Charset = DEFAULT_CHARSET
@@ -36721,9 +36725,11 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = 'STA. MAGDALENA'
+            ExplicitTop = 70
+            ExplicitWidth = 178
           end
           object scGPButton1: TscGPButton
-            Left = 161
+            Left = 167
             Top = 0
             Width = 16
             Height = 13
@@ -36863,15 +36869,17 @@ object Form2: TForm2
       Height = 37
       Align = alTop
       BevelOuter = bvNone
+      DoubleBuffered = True
+      ParentDoubleBuffered = False
       TabOrder = 1
       ExplicitWidth = 711
       object scGPLabel3: TLabel
         Left = 240
         Top = -8
-        Width = 263
+        Width = 91
         Height = 38
         Alignment = taCenter
-        Caption = '30 Bags of Rice'
+        Caption = 'RICE'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBtnHighlight
         Font.Height = -33
@@ -37112,7 +37120,7 @@ object Form2: TForm2
     end
     object Panel6: TPanel
       Left = 2
-      Top = 130
+      Top = 170
       Width = 285
       Height = 351
       BevelOuter = bvNone
@@ -37388,5 +37396,12 @@ object Form2: TForm2
     OnTimer = Timer1Timer
     Left = 416
     Top = 111
+  end
+  object Timer2: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = Timer2Timer
+    Left = 824
+    Top = 127
   end
 end

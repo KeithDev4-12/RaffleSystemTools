@@ -53,6 +53,7 @@ type
     scGPLabel8: TscGPLabel;
     scGPLabel9: TscGPLabel;
     scGPLabel10: TscGPLabel;
+    Timer2: TTimer;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormResize(Sender: TObject);
@@ -65,6 +66,7 @@ type
     procedure SaveIntegerListToCSV(AList: TList<Integer>; const FileName: string);
     procedure CaptureFormScreenshot(Form: TForm; AFileName: String);
     procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
   private
     { Private declarations }
     LoadedImageFilename: String;
@@ -593,6 +595,11 @@ begin
       Panel4.Visible := False;
     end;
   end;
+end;
+
+procedure TForm2.Timer2Timer(Sender: TObject);
+begin
+//  scGPLabel3.Visible := not scGPLabel3.Visible;
 end;
 
 { TRecData }
