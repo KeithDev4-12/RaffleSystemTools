@@ -42130,7 +42130,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'Mbr. No. :'
+        Caption = 'ID No. :'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -42569,14 +42569,14 @@ object UReport: TUReport
         StretchHeightWithBand = False
       end
       object QRDBText30: TQRDBText
-        Left = 64
-        Top = 2
+        Left = 65
+        Top = 1
         Width = 109
         Height = 18
         Size.Values = (
           47.625000000000000000
-          169.333333333333300000
-          5.291666666666667000
+          171.979166666666700000
+          2.645833333333333000
           288.395833333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -42585,8 +42585,8 @@ object UReport: TUReport
         AlignToBand = False
         AutoSize = False
         Color = clWhite
-        DataSet = qryAGMAAttendance
-        DataField = 'MembershipNo'
+        DataSet = qryReportAttendance
+        DataField = 'id'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -43287,6 +43287,10 @@ object UReport: TUReport
       Origin = 'DisconnectionDesc'
       ProviderFlags = []
       ReadOnly = True
+    end
+    object qryReportAttendanceMembershipNo: TFDAutoIncField
+      FieldName = 'MembershipNo'
+      Origin = 'id'
     end
   end
   object qryReportWinners: TFDQuery

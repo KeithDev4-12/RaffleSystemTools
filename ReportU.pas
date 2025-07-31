@@ -486,6 +486,7 @@ type
     QRExpr6: TQRExpr;
     QRPShape82: TQRPShape;
     QRPDFFilter1: TQRPDFFilter;
+    qryReportAttendanceMembershipNo: TFDAutoIncField;
     procedure qryReportWinnersCalcFields(DataSet: TDataSet);
     function GetOrdinalNumber(num: Integer):String;
     procedure qryReportWinnersClassificationCalcFields(DataSet: TDataSet);
