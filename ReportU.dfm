@@ -34480,7 +34480,7 @@ object UReport: TUReport
     end
   end
   object AGMAAttendance: TQuickRep
-    Left = -96
+    Left = -16
     Top = -30
     Width = 1248
     Height = 816
@@ -41837,7 +41837,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = '201'
+        Caption = '189'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -42130,7 +42130,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'ID No. :'
+        Caption = 'Mem. No'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -42308,13 +42308,13 @@ object UReport: TUReport
       BandType = rbDetail
       object QRDBText25: TQRDBText
         Left = 176
-        Top = 1
+        Top = 2
         Width = 107
-        Height = 18
+        Height = 17
         Size.Values = (
-          47.625000000000000000
+          44.979166666666670000
           465.666666666666700000
-          2.645833333333333000
+          5.291666666666667000
           283.104166666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -42570,13 +42570,13 @@ object UReport: TUReport
       end
       object QRDBText30: TQRDBText
         Left = 65
-        Top = 1
+        Top = 2
         Width = 109
-        Height = 18
+        Height = 17
         Size.Values = (
-          47.625000000000000000
+          44.979166666666670000
           171.979166666666700000
-          2.645833333333333000
+          5.291666666666667000
           288.395833333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -42585,8 +42585,8 @@ object UReport: TUReport
         AlignToBand = False
         AutoSize = False
         Color = clWhite
-        DataSet = qryReportAttendance
-        DataField = 'id'
+        DataSet = qryAGMAAttendance
+        DataField = 'MembershipNo'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
@@ -42635,7 +42635,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = '2024/05/18'
+        Caption = '2025/07/26'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -42749,8 +42749,8 @@ object UReport: TUReport
       end
     end
     object QRPBand7: TQRPBand
-      Left = 38
-      Top = 328
+      Left = 179
+      Top = 332
       Width = 1172
       Height = 189
       AlignToBottom = False
@@ -43084,7 +43084,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'OIC-ISD MANAGER'
+        Caption = 'MS/HR- Supervisor'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -43132,7 +43132,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'ENGR. JANE H. SY'
+        Caption = 'Adrian M. Minorca'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -43162,7 +43162,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'CORPLAN MANAGER'
+        Caption = 'MS - Section chief'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -43287,10 +43287,6 @@ object UReport: TUReport
       Origin = 'DisconnectionDesc'
       ProviderFlags = []
       ReadOnly = True
-    end
-    object qryReportAttendanceMembershipNo: TFDAutoIncField
-      FieldName = 'MembershipNo'
-      Origin = 'id'
     end
   end
   object qryReportWinners: TFDQuery
@@ -43733,7 +43729,7 @@ object UReport: TUReport
       'WHEN EntryMode = '#39'ONLINE-REGISTRATION'#39
       'THEN '#39'NOT DEFINED LOCATION'#39
       'ELSE '#39'Casiguran Gymnasium'#39' END) as Location,'
-      'IFNULL(MembershipNo, FLOOR(RAND() * 1000000)) AS MembershipNo'
+      'IFNULL(null, FLOOR(RAND() * 1000000)) AS MembershipNo'
       'FROM memberconsumers m'
       'where year = :AYear'
       'and'
@@ -43747,59 +43743,63 @@ object UReport: TUReport
         Name = 'AYEAR'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '2024'
+        Value = '2025'
       end>
-    object FDAutoIncField2: TFDAutoIncField
+    object qryAGMAAttendanceid: TFDAutoIncField
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
     end
-    object StringField7: TStringField
+    object qryAGMAAttendanceAccountNumber: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'AccountNumber'
       Origin = 'AccountNumber'
       Size = 11
     end
-    object StringField8: TStringField
+    object qryAGMAAttendanceName: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Name'
-      Origin = 'Name'
+      Origin = '`Name`'
       Size = 99
     end
-    object StringField9: TStringField
+    object qryAGMAAttendanceArea: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Area'
       Origin = 'Area'
       FixedChar = True
       Size = 3
     end
-    object StringField10: TStringField
+    object qryAGMAAttendanceAddress: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Address'
       Origin = 'Address'
       Size = 99
     end
-    object IntegerField1: TIntegerField
+    object qryAGMAAttendanceShuffleOrder: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'ShuffleOrder'
       Origin = 'ShuffleOrder'
     end
-    object StringField11: TStringField
+    object qryAGMAAttendanceEntryMode: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'EntryMode'
       Origin = 'EntryMode'
-      Required = True
       Size = 45
     end
-    object LongWordField3: TLongWordField
+    object qryAGMAAttendanceYear: TLongWordField
+      AutoGenerateValue = arDefault
       FieldName = 'Year'
-      Origin = 'Year'
-      Required = True
+      Origin = '`Year`'
     end
-    object StringField12: TStringField
+    object qryAGMAAttendanceNotes: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'Notes'
       Origin = 'Notes'
       ProviderFlags = []
       ReadOnly = True
-      Size = 32
+      Size = 34
     end
-    object StringField13: TStringField
+    object qryAGMAAttendanceDisconnectionDesc: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'DisconnectionDesc'
       Origin = 'DisconnectionDesc'
@@ -43821,13 +43821,12 @@ object UReport: TUReport
       ProviderFlags = []
       ReadOnly = True
     end
-    object qryAGMAAttendanceMembershipNo: TStringField
+    object qryAGMAAttendanceMembershipNo: TFloatField
       AutoGenerateValue = arDefault
       FieldName = 'MembershipNo'
       Origin = 'MembershipNo'
       ProviderFlags = []
       ReadOnly = True
-      Size = 7
     end
   end
   object qrySummaryDetails: TFDQuery
