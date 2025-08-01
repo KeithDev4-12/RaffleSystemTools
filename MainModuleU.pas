@@ -387,6 +387,10 @@ type
     qryAllAttendieAccountNumber: TStringField;
     qryAllAttendieName: TStringField;
     qryAllAttendieMembershipNo: TStringField;
+    qryMembership: TFDQuery;
+    qryMembershipAccountNumber: TStringField;
+    qryMembershipMembershipOR: TStringField;
+    tblSearchMemberConsumerMembershipNo: TStringField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

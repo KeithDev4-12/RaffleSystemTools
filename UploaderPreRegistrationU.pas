@@ -55,6 +55,7 @@ type
     function IsQualified(Const AAccountNumber:String):Integer;
     function IsPictureAvailable(Const AAccountNumber:String):Integer;
     procedure SpeedButton5Click(Sender: TObject);
+    procedure SpeedButton6Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -136,11 +137,11 @@ var
 begin
 
   DecodeDate(Now(), wYear, wMonth, wDay);
-  if (wMonth = 05) AND (wDay >= 18) then begin
+  //if (wMonth = 05) AND (wDay >= 18) then begin
     AEntryModeValue := 'VENUE-REGISTRATION';
-  end else begin
-    AEntryModeValue :=  'PRE-REGISTRATION';
-  end;
+  //end else begin
+//    AEntryModeValue :=  'PRE-REGISTRATION';
+  //end;
   //AEntryModeValue :=  'PRE-REGISTRATION';
 
   with UmainModule do begin
@@ -356,6 +357,51 @@ begin
   end;
 
   FilteredOrNot := 1;
+end;
+
+procedure TUUploaderPreRegistration.SpeedButton6Click(Sender: TObject);
+begin
+  with UmainModule do begin
+    tblSearchMemberConsumer.Close;
+    tblSearchMemberConsumer.Open;
+    tblSearchMemberConsumer.Filtered := False;
+    tblSearchMemberConsumer.Filter := 'isPosted = 1';
+    tblSearchMemberConsumer.Filtered := True;
+    tblSearchMemberConsumer.First;
+    qryMembership.Close;
+    qryMembership.Open;
+    qryMembership.First;
+    while not tblSearchMemberConsumer.EOF do
+    begin
+      if qryMembership.Locate('AccountNumber',tblSearchMemberConsumerAccountNumber.AsString,[]) then
+      begin
+        tblSearchMemberConsumer.Edit;
+        tblSearchMemberConsumerMembershipNo.AsString := qryMembershipMembershipOR.AsString;
+        tblSearchMemberConsumer.Post;
+      end;
+
+      tblSearchMemberConsumer.Next;
+    end;
+
+    {qryMembership.Close;
+    qryMembership.Open;
+    qryMembership.First;
+    tblSearchMemberConsumer.Close;
+    tblSearchMemberConsumer.Open();
+    tblSearchMemberConsumer.First;
+    while not qryMembership.EOF do
+    begin
+      if tblSearchMemberConsumer.Locate('AccountNumber',qryMembershipAccountNUmber.AsString,[]) then
+      begin
+        tblSearchMemberConsumer.Edit;
+        tblSearchMemberConsumerMembershipNo.AsString := qryMembershipMembershipOR.AsString;
+        tblSearchMemberConsumer.Post;
+      end;
+
+      qryMembership.Next;
+    end;  }
+  end;
+
 end;
 
 end.

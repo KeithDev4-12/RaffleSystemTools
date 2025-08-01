@@ -485,7 +485,7 @@ type
     qryAGMAAttendanceDisconnectionDesc: TStringField;
     qryAGMAAttendanceVenueLocation: TStringField;
     qryAGMAAttendanceLocation: TStringField;
-    qryAGMAAttendanceMembershipNo: TFloatField;
+    qryAGMAAttendanceMembershipNo: TStringField;
     procedure qryReportWinnersCalcFields(DataSet: TDataSet);
     function GetOrdinalNumber(num: Integer):String;
     procedure qryReportWinnersClassificationCalcFields(DataSet: TDataSet);

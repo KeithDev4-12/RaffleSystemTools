@@ -319,6 +319,7 @@ begin
    end;
 
   SpeedButton6Click(Sender);
+  SpeedButton7Click(Sender);
 end;
 
 procedure TUMainForm.CreateABatchFile(AAccountNumber,AName:String);

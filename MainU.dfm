@@ -891,8 +891,8 @@ object UMainForm: TUMainForm
           237
           32)
         object ComboBox1: TComboBox
-          Left = -2
-          Top = -1
+          Left = 0
+          Top = -4
           Width = 240
           Height = 32
           Anchors = [akLeft, akTop, akRight]

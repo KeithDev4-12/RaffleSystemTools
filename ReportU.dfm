@@ -41837,7 +41837,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = '189'
+        Caption = '191'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -42749,8 +42749,8 @@ object UReport: TUReport
       end
     end
     object QRPBand7: TQRPBand
-      Left = 179
-      Top = 332
+      Left = 38
+      Top = 328
       Width = 1172
       Height = 189
       AlignToBottom = False
@@ -43729,7 +43729,7 @@ object UReport: TUReport
       'WHEN EntryMode = '#39'ONLINE-REGISTRATION'#39
       'THEN '#39'NOT DEFINED LOCATION'#39
       'ELSE '#39'Casiguran Gymnasium'#39' END) as Location,'
-      'IFNULL(null, FLOOR(RAND() * 1000000)) AS MembershipNo'
+      'IFNULL(MembershipNo, FLOOR(RAND() * 1000000)) AS MembershipNo'
       'FROM memberconsumers m'
       'where year = :AYear'
       'and'
@@ -43749,6 +43749,7 @@ object UReport: TUReport
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object qryAGMAAttendanceAccountNumber: TStringField
       AutoGenerateValue = arDefault
@@ -43821,12 +43822,13 @@ object UReport: TUReport
       ProviderFlags = []
       ReadOnly = True
     end
-    object qryAGMAAttendanceMembershipNo: TFloatField
+    object qryAGMAAttendanceMembershipNo: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'MembershipNo'
       Origin = 'MembershipNo'
       ProviderFlags = []
       ReadOnly = True
+      Size = 99
     end
   end
   object qrySummaryDetails: TFDQuery
