@@ -43,6 +43,8 @@ type
     Label5: TLabel;
     ComboBox1: TComboBox;
     CheckBox4: TCheckBox;
+    GroupBox6: TGroupBox;
+    CheckBox5: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure scGPButton1Click(Sender: TObject);
     function IntToBool(const AnInt: Integer): Boolean;

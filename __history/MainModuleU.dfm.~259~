@@ -5,6 +5,8 @@ object UMainModule: TUMainModule
   Width = 664
   object FDConnSQLite: TFDConnection
     Params.Strings = (
+      'Port=3306'
+      'Password='
       'ConnectionDef=MYSQL_PORTABLE')
     Left = 408
     Top = 40
@@ -1576,6 +1578,12 @@ object UMainModule: TUMainModule
       FieldName = 'DateRegistered'
       Origin = 'DateRegistered'
     end
+    object tblSearchMemberConsumerMembershipNo: TStringField
+      FieldName = 'MembershipNo'
+      Origin = 'MembershipNo'
+      Required = True
+      Size = 99
+    end
   end
   object tblNeedToBePosted: TFDTable
     IndexFieldNames = 'id'
@@ -1738,6 +1746,7 @@ object UMainModule: TUMainModule
   end
   object FDConnMYSQL: TFDConnection
     Params.Strings = (
+      'Server=Localhost'
       'ConnectionDef=MYSQL_COOP')
     Left = 48
     Top = 24
@@ -2359,7 +2368,7 @@ object UMainModule: TUMainModule
     SQL.Strings = (
       'SELECT AccountNumber,'
       '  BillMonth,'
-      '  IF((BillMonth LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
+      '  IF((BillMonth LIKE '#39'%0625%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
       '  FROM ((Select'
       '  Entry,'
       '  AccountNumber,'
@@ -2369,7 +2378,7 @@ object UMainModule: TUMainModule
       'Where'
       ' AccountNumber = :AAccountNumber'
       'AND'
-      ' BillMonth = '#39'0424'#39' )'
+      ' BillMonth = '#39'0625'#39' )'
       'UNION'
       '(Select'
       '  Entry,'
@@ -2739,6 +2748,26 @@ object UMainModule: TUMainModule
       FieldName = 'MembershipNo'
       Origin = 'MembershipNo'
       Size = 45
+    end
+  end
+  object qryMembership: TFDQuery
+    Connection = FDConnMYSQL
+    SQL.Strings = (
+      
+        'Select AccountNumber, MembershipOR FROM msd_new.membership WHERE' +
+        ' not length(accountNumber) = 0'
+      'Order by AccountNumber')
+    Left = 96
+    Top = 408
+    object qryMembershipAccountNumber: TStringField
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Required = True
+      Size = 10
+    end
+    object qryMembershipMembershipOR: TStringField
+      FieldName = 'MembershipOR'
+      Origin = 'MembershipOR'
     end
   end
 end

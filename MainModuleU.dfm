@@ -1745,6 +1745,7 @@ object UMainModule: TUMainModule
   end
   object FDConnMYSQL: TFDConnection
     Params.Strings = (
+      'Server=Localhost'
       'ConnectionDef=MYSQL_COOP')
     Connected = True
     Left = 48
@@ -2267,7 +2268,7 @@ object UMainModule: TUMainModule
         Name = 'ENTRYMODE1'
         DataType = ftWideString
         ParamType = ptInput
-        Value = ''
+        Value = 'VENUE-REGISTRATION'
       end
       item
         Name = 'ENTRYMODE2'
@@ -2285,7 +2286,7 @@ object UMainModule: TUMainModule
         Name = 'AYEAR'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '2024'
+        Value = '2026'
       end>
     object qryMCQualifiedAllid: TFDAutoIncField
       FieldName = 'id'

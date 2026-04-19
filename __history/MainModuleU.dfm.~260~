@@ -5,6 +5,8 @@ object UMainModule: TUMainModule
   Width = 664
   object FDConnSQLite: TFDConnection
     Params.Strings = (
+      'Port=3306'
+      'Password='
       'ConnectionDef=MYSQL_PORTABLE')
     Connected = True
     Left = 408
@@ -1577,6 +1579,12 @@ object UMainModule: TUMainModule
       FieldName = 'DateRegistered'
       Origin = 'DateRegistered'
     end
+    object tblSearchMemberConsumerMembershipNo: TStringField
+      FieldName = 'MembershipNo'
+      Origin = 'MembershipNo'
+      Required = True
+      Size = 99
+    end
   end
   object tblNeedToBePosted: TFDTable
     IndexFieldNames = 'id'
@@ -1739,7 +1747,9 @@ object UMainModule: TUMainModule
   end
   object FDConnMYSQL: TFDConnection
     Params.Strings = (
+      'Server=Localhost'
       'ConnectionDef=MYSQL_COOP')
+    Connected = True
     Left = 48
     Top = 24
   end
@@ -2360,7 +2370,7 @@ object UMainModule: TUMainModule
     SQL.Strings = (
       'SELECT AccountNumber,'
       '  BillMonth,'
-      '  IF((BillMonth LIKE '#39'%0424%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
+      '  IF((BillMonth LIKE '#39'%0625%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
       '  FROM ((Select'
       '  Entry,'
       '  AccountNumber,'
@@ -2370,7 +2380,7 @@ object UMainModule: TUMainModule
       'Where'
       ' AccountNumber = :AAccountNumber'
       'AND'
-      ' BillMonth = '#39'0424'#39' )'
+      ' BillMonth = '#39'0625'#39' )'
       'UNION'
       '(Select'
       '  Entry,'
@@ -2630,6 +2640,7 @@ object UMainModule: TUMainModule
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object FDQuery4AccountNumber: TStringField
       AutoGenerateValue = arDefault
@@ -2713,6 +2724,52 @@ object UMainModule: TUMainModule
       AutoGenerateValue = arDefault
       FieldName = 'DateRegistered'
       Origin = 'DateRegistered'
+    end
+  end
+  object qryAllAttendie: TFDQuery
+    Connection = FDConnSQLite
+    SQL.Strings = (
+      'Select AccountNumber,Name,MembershipNo'
+      ' From memberconsumers where isPosted = 1')
+    Left = 224
+    Top = 392
+    object qryAllAttendieAccountNumber: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 11
+    end
+    object qryAllAttendieName: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Name'
+      Origin = '`Name`'
+      Size = 99
+    end
+    object qryAllAttendieMembershipNo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'MembershipNo'
+      Origin = 'MembershipNo'
+      Size = 45
+    end
+  end
+  object qryMembership: TFDQuery
+    Connection = FDConnMYSQL
+    SQL.Strings = (
+      
+        'Select AccountNumber, MembershipOR FROM msd_new.membership WHERE' +
+        ' not length(accountNumber) = 0'
+      'Order by AccountNumber')
+    Left = 96
+    Top = 408
+    object qryMembershipAccountNumber: TStringField
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Required = True
+      Size = 10
+    end
+    object qryMembershipMembershipOR: TStringField
+      FieldName = 'MembershipOR'
+      Origin = 'MembershipOR'
     end
   end
 end

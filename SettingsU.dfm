@@ -3,7 +3,7 @@ object USettings: TUSettings
   Top = 110
   BorderStyle = bsDialog
   Caption = 'Settings'
-  ClientHeight = 482
+  ClientHeight = 567
   ClientWidth = 372
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
@@ -50,12 +50,13 @@ object USettings: TUSettings
   end
   object Panel1: TPanel
     Left = 0
-    Top = 441
+    Top = 526
     Width = 372
     Height = 41
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 441
     object scGPButton1: TscGPButton
       AlignWithMargins = True
       Left = 220
@@ -84,6 +85,7 @@ object USettings: TUSettings
       Badge.Text = '1'
       Badge.Visible = False
       Caption = 'Save Settings'
+      CaptionCenterAlignment = False
       CanFocused = True
       CustomDropDown = False
       DrawTextMode = scdtmGDI
@@ -134,6 +136,7 @@ object USettings: TUSettings
       Options.ShapeFillGradientColorOffset = 25
       Options.ShapeCornerRadius = 5
       Options.ShapeStyle = scgpRoundedRect
+      Options.ShapeStyleLineSize = 0
       Options.ArrowSize = 9
       Options.ArrowAreaSize = 0
       Options.ArrowType = scgpatDefault
@@ -430,6 +433,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'BarCode && QRCode Scanner Settings'
     TabOrder = 5
+    ExplicitLeft = 15
     object Panel8: TPanel
       Left = 111
       Top = 15
@@ -439,6 +443,7 @@ object USettings: TUSettings
       Alignment = taRightJustify
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitLeft = 114
       object Label6: TLabel
         AlignWithMargins = True
         Left = 0
@@ -574,6 +579,29 @@ object USettings: TUSettings
           'COM49'
           'COM50')
       end
+    end
+  end
+  object GroupBox6: TGroupBox
+    AlignWithMargins = True
+    Left = 10
+    Top = 444
+    Width = 352
+    Height = 61
+    Margins.Left = 10
+    Margins.Right = 10
+    Margins.Bottom = 10
+    Align = alTop
+    Caption = 'Other Settings'
+    TabOrder = 6
+    object CheckBox5: TCheckBox
+      Left = 14
+      Top = 24
+      Width = 146
+      Height = 17
+      Caption = 'Allow Unpaid Latest Billing'
+      Checked = True
+      State = cbChecked
+      TabOrder = 0
     end
   end
 end

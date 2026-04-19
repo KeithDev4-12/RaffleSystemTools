@@ -123,12 +123,12 @@ object UMainForm: TUMainForm
         Font.Color = clWindowText
         Font.Height = -11
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
         State = cbChecked
         TabOrder = 0
-        ExplicitLeft = 291
-        ExplicitWidth = 93
+        Visible = False
+        OnClick = CheckBox1Click
       end
     end
     object Panel4: TPanel
@@ -891,8 +891,8 @@ object UMainForm: TUMainForm
           237
           32)
         object ComboBox1: TComboBox
-          Left = -2
-          Top = -1
+          Left = 0
+          Top = -4
           Width = 240
           Height = 32
           Anchors = [akLeft, akTop, akRight]
@@ -963,12 +963,10 @@ object UMainForm: TUMainForm
       end
       object UploadMemberConsumers1: TMenuItem
         Caption = 'Upload Member Consumer'#39's'
-        Enabled = False
         OnClick = UploadMemberConsumers1Click
       end
       object GetFromCooptoLocalData1: TMenuItem
         Caption = 'Get From Coop to Local Data'
-        Enabled = False
         OnClick = GetFromCooptoLocalData1Click
       end
       object N2: TMenuItem
@@ -1021,11 +1019,17 @@ object UMainForm: TUMainForm
       end
       object AllWinnersPerClassification1: TMenuItem
         Caption = 'All Winners Per Classification (Consolation Prize)'
+        Visible = False
         OnClick = AllWinnersPerClassification1Click
       end
       object AllWinnersPerClassificationGrandPrize1: TMenuItem
         Caption = 'All Winners Per Classification (Grand Prize)'
+        Visible = False
         OnClick = AllWinnersPerClassificationGrandPrize1Click
+      end
+      object Winner2: TMenuItem
+        Caption = 'Winner'
+        OnClick = Winner2Click
       end
     end
     object est1: TMenuItem

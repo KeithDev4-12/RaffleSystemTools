@@ -34,12 +34,17 @@ type
     Edit3: TEdit;
     Panel7: TPanel;
     GroupBox5: TGroupBox;
+    Panel8: TPanel;
+    Label6: TLabel;
+    RadioButton3: TRadioButton;
+    RadioButton4: TRadioButton;
+    RadioButton5: TRadioButton;
+    Panel9: TPanel;
     Label5: TLabel;
     ComboBox1: TComboBox;
-    ComPort1: TComPort;
+    CheckBox4: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure scGPButton1Click(Sender: TObject);
-    function GetSerialPortNames: TStringList;
     function IntToBool(const AnInt: Integer): Boolean;
     function BoolToInt(const AnBool: Boolean): Integer;
   private
@@ -93,54 +98,12 @@ begin
     CheckBox1.Checked := IntToBool(qrySettingsIsVenueRegistration.AsInteger);
     CheckBox2.Checked := IntToBool(qrySettingsIsOnlineRegistration.AsInteger);
     CheckBox3.Checked := IntToBool(qrySettingsIsPreRegistration.AsInteger);
+    Combobox1.ItemIndex :=  ComboBox1.Items.IndexOf(qrySettingsCOMPort.AsString);
 
   end;
 
-  PortNames := GetSerialPortNames;
-  try
-    PortCount := PortNames.Count;
-    if PortCount > 0 then
-    begin
-      // Display the list of COM port names
-      for i := 0 to PortCount - 1 do
-        ShowMessage('COM Port ' + IntToStr(i + 1) + ': ' + PortNames[i]);
-    end
-    else
-      ShowMessage('No serial COM ports found.');
-  finally
-    PortNames.Free;
-  end;
 
 end;
-
-
-function TUSettings.GetSerialPortNames: TStringList;
-var
-  Reg: TRegistry;
-  PortName: string;
-begin
-  Result := TStringList.Create;
-  Reg := TRegistry.Create;
-  try
-    Reg.RootKey := HKEY_LOCAL_MACHINE;
-    if Reg.OpenKeyReadOnly('HARDWARE\DEVICEMAP\SERIALCOMM') then
-    begin
-      try
-        // Get the list of COM port names
-        Reg.GetValueNames(Result);
-      except
-        // Handle any exception
-        Result.Clear;
-      end;
-      Reg.CloseKey;
-    end;
-  finally
-    Reg.Free;
-  end;
-end;
-
-
-
 
 
 procedure TUSettings.scGPButton1Click(Sender: TObject);
@@ -160,6 +123,7 @@ begin
     qrySettingsIsVenueRegistration.AsInteger := BoolToInt(CheckBox1.Checked);
     qrySettingsIsOnlineRegistration.AsInteger := BoolToInt(CheckBox2.Checked);
     qrySettingsIsPreRegistration.AsInteger := BoolToInt(CheckBox3.Checked);
+    qrySettingsCOMPort.AsString := ComboBox1.Text;
 
     MessageDlg('Settings is Upto date!',mtInformation,[mbOk],0);
     qrySettings.Post;

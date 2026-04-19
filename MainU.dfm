@@ -975,6 +975,7 @@ object UMainForm: TUMainForm
       end
       object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
         Caption = 'Update Local Database From Online Database'
+        Visible = False
         OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
       end
       object DemoDummy1: TMenuItem
@@ -1074,7 +1075,7 @@ object UMainForm: TUMainForm
     Left = 632
     Top = 120
     Data = {
-      040003000D004163636F756E744E756D626572010096000000000004004E616D
+      030003000D004163636F756E744E756D626572010096000000000004004E616D
       6501002D00000000000700416464726573730100140000000000000000000000}
     object VTAccountNumber: TStringField
       FieldName = 'AccountNumber'
