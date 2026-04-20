@@ -394,3 +394,19 @@ mysqld_z: Can't sync file '.\binlog.index' to disk (OS errno 22 - Invalid argume
 2025-08-01T04:15:14.670660Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
 2025-08-01T04:15:14.671525Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
 2025-08-01T04:15:15.184173Z 0 [System] [MY-010931] [Server] E:\RaffleSystemTools\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.23'  socket: ''  port: 3312  MySQL Community Server - GPL.
+2026-04-19T15:41:44.320112Z 0 [System] [MY-010116] [Server] H:\Embarcadero_Email\UniServerZ\core\mysql\bin\mysqld_z.exe (mysqld 8.0.23) starting as process 32092
+2026-04-19T15:41:44.395169Z 0 [Warning] [MY-013242] [Server] --character-set-server: 'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.
+2026-04-19T15:41:44.599363Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-04-19T15:41:48.336227Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-04-19T15:41:48.669170Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2026-04-19T15:41:48.937547Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2026-04-19T15:41:48.945467Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2026-04-19T15:41:49.133702Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-04-19T15:41:49.134683Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-04-19T15:41:49.226835Z 0 [System] [MY-010931] [Server] H:\Embarcadero_Email\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.23'  socket: ''  port: 3312  MySQL Community Server - GPL.
+2026-04-19T16:43:06.898235Z 23 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.23).
+2026-04-19T16:43:06.900626Z 0 [System] [MY-013105] [Server] H:\Embarcadero_Email\UniServerZ\core\mysql\bin\mysqld_z.exe: Normal shutdown.
+2026-04-19T16:43:08.908949Z 0 [Warning] [MY-010909] [Server] H:\Embarcadero_Email\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 16  user: 'root'.
+2026-04-19T16:43:08.910311Z 0 [Warning] [MY-010909] [Server] H:\Embarcadero_Email\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 13  user: 'root'.
+2026-04-19T16:43:08.911635Z 0 [Warning] [MY-010909] [Server] H:\Embarcadero_Email\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 15  user: 'root'.
+2026-04-19T16:43:10.134874Z 0 [System] [MY-010910] [Server] H:\Embarcadero_Email\UniServerZ\core\mysql\bin\mysqld_z.exe: Shutdown complete (mysqld 8.0.23)  MySQL Community Server - GPL.

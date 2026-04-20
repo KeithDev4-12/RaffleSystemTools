@@ -948,6 +948,8 @@ object UMainForm: TUMainForm
     Height = 694
     Align = alClient
     TabOrder = 3
+    ExplicitLeft = 404
+    ExplicitTop = 147
   end
   object MainMenu1: TMainMenu
     Left = 432
@@ -1075,7 +1077,7 @@ object UMainForm: TUMainForm
     Left = 632
     Top = 120
     Data = {
-      030003000D004163636F756E744E756D626572010096000000000004004E616D
+      040003000D004163636F756E744E756D626572010096000000000004004E616D
       6501002D00000000000700416464726573730100140000000000000000000000}
     object VTAccountNumber: TStringField
       FieldName = 'AccountNumber'
@@ -1097,8 +1099,8 @@ object UMainForm: TUMainForm
   end
   object DSWinnerMemberConsumer: TDataSource
     DataSet = UMainModule.qryWinnerMemberConsumers
-    Left = 408
-    Top = 312
+    Left = 416
+    Top = 416
   end
   object Timer2: TTimer
     OnTimer = Timer2Timer
