@@ -34,7 +34,6 @@ type
     VirTab: TVirtualTable;
     DBGridEh1: TDBGridEh;
     DSVirTab: TDataSource;
-    GroupBox3: TGroupBox;
     FDBatchMove1: TFDBatchMove;
     FDBatchMoveTextReader1: TFDBatchMoveTextReader;
     FDBatchMoveDataSetWriter1: TFDBatchMoveDataSetWriter;
@@ -48,6 +47,7 @@ type
     VirTabDelAccountNumber: TStringField;
     OpenTextFileDialog1: TOpenTextFileDialog;
     SpeedButton6: TSpeedButton;
+    RadioGroup1: TRadioGroup;
     procedure SpeedButton2Click(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
@@ -138,11 +138,18 @@ begin
 
   DecodeDate(Now(), wYear, wMonth, wDay);
   //if (wMonth = 05) AND (wDay >= 18) then begin
-    AEntryModeValue := 'VENUE-REGISTRATION';
+//    AEntryModeValue := 'VENUE-REGISTRATION';
   //end else begin
 //    AEntryModeValue :=  'PRE-REGISTRATION';
   //end;
   //AEntryModeValue :=  'PRE-REGISTRATION';
+
+  if RadioGroup1.ItemIndex = 0 then
+    AEntryModeValue := 'PRE-REGISTRATION'
+  else if RadioGroup1.ItemIndex = 1 then
+    AEntryModeValue := 'VENUE-REGISTRATION'
+  else
+    AEntryModeValue := 'ONLINE-REGISTRATION';
 
   with UmainModule do begin
     VirTab.Close;

@@ -36545,7 +36545,6 @@ object Form2: TForm2
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 711
     object FlowPanel1: TFlowPanel
       AlignWithMargins = True
       Left = 0
@@ -36560,7 +36559,6 @@ object Form2: TForm2
       BevelOuter = bvNone
       FlowStyle = fsTopBottomLeftRight
       TabOrder = 0
-      ExplicitWidth = 711
       object scGPPanel1: TscGPPanel
         AlignWithMargins = True
         Left = 5
@@ -36622,8 +36620,6 @@ object Form2: TForm2
           Color = clBtnHighlight
           ParentBackground = False
           TabOrder = 0
-          ExplicitWidth = 178
-          ExplicitHeight = 81
           object Shape1: TShape
             Left = 0
             Top = 71
@@ -36680,8 +36676,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '30000'
-            ExplicitWidth = 178
-            ExplicitHeight = 69
           end
           object scGPLabel2: TscGPLabel
             Left = 0
@@ -36725,8 +36719,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = 'STA. MAGDALENA'
-            ExplicitTop = 70
-            ExplicitWidth = 178
           end
           object scGPButton1: TscGPButton
             Left = 167
@@ -36757,6 +36749,7 @@ object Form2: TForm2
             Badge.Text = '1'
             Badge.Visible = False
             Caption = 'x'
+            CaptionCenterAlignment = False
             CanFocused = True
             CustomDropDown = False
             DrawTextMode = scdtmGDI
@@ -36807,6 +36800,7 @@ object Form2: TForm2
             Options.ShapeFillGradientColorOffset = 25
             Options.ShapeCornerRadius = 5
             Options.ShapeStyle = scgpRoundedRect
+            Options.ShapeStyleLineSize = 0
             Options.ArrowSize = 9
             Options.ArrowAreaSize = 0
             Options.ArrowType = scgpatModern
@@ -36872,7 +36866,6 @@ object Form2: TForm2
       DoubleBuffered = True
       ParentDoubleBuffered = False
       TabOrder = 1
-      ExplicitWidth = 711
       object scGPLabel3: TLabel
         Left = 240
         Top = -8
@@ -36945,8 +36938,6 @@ object Form2: TForm2
         Sizeable = False
         WallpaperIndex = -1
         WordWrap = False
-        ExplicitWidth = 267
-        ExplicitHeight = 217
         object Panel5: TPanel
           Left = 6
           Top = 6
@@ -36957,8 +36948,6 @@ object Form2: TForm2
           Color = clWhite
           ParentBackground = False
           TabOrder = 0
-          ExplicitWidth = 255
-          ExplicitHeight = 205
           object Shape2: TShape
             Left = 0
             Top = 302
@@ -37021,8 +37010,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '30000'
-            ExplicitWidth = 255
-            ExplicitHeight = 140
           end
           object scGPLabel5: TscGPLabel
             AlignWithMargins = True
@@ -37067,7 +37054,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '46th AGMA'
-            ExplicitWidth = 249
           end
           object scGPLabel6: TscGPLabel
             AlignWithMargins = True
@@ -37112,8 +37098,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '46th AGMA'
-            ExplicitTop = 178
-            ExplicitWidth = 249
           end
         end
       end
@@ -37173,8 +37157,6 @@ object Form2: TForm2
         Sizeable = False
         WallpaperIndex = -1
         WordWrap = False
-        ExplicitWidth = 267
-        ExplicitHeight = 217
         object Panel7: TPanel
           Left = 6
           Top = 6
@@ -37185,8 +37167,6 @@ object Form2: TForm2
           Color = clWhite
           ParentBackground = False
           TabOrder = 0
-          ExplicitWidth = 255
-          ExplicitHeight = 205
           object Shape4: TShape
             Left = 0
             Top = 302
@@ -37249,8 +37229,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = '0'
-            ExplicitWidth = 255
-            ExplicitHeight = 140
           end
           object scGPLabel8: TscGPLabel
             AlignWithMargins = True
@@ -37295,7 +37273,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = 'Countdown'
-            ExplicitWidth = 249
           end
           object scGPLabel9: TscGPLabel
             AlignWithMargins = True
@@ -37340,8 +37317,6 @@ object Form2: TForm2
             Alignment = taCenter
             VertAlignment = scvtaCenter
             Caption = 'Countdown'
-            ExplicitTop = 178
-            ExplicitWidth = 249
           end
           object scGPLabel10: TscGPLabel
             AlignWithMargins = True
@@ -37385,7 +37360,6 @@ object Form2: TForm2
             AutoSize = True
             Alignment = taCenter
             VertAlignment = scvtaCenter
-            ExplicitTop = 285
           end
         end
       end

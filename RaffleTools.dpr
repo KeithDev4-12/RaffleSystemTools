@@ -19,7 +19,8 @@ uses
   U_UsbComponent in 'U_UsbComponent.pas',
   UpdateDatabase in 'UpdateDatabase.pas' {UpdateDatabaseU},
   CommandPromtUnit in 'CommandPromtUnit.pas',
-  WinnerForm in 'WinnerForm.pas' {UWinnerForm};
+  WinnerForm in 'WinnerForm.pas' {UWinnerForm},
+  WinnerDisplayU in 'WinnerDisplayU.pas' {WinnderDisplay};
 
 {$R *.res}
 

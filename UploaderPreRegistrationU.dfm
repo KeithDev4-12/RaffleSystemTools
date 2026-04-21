@@ -256,6 +256,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
             ParentFont = False
             ParentShowHint = False
             ShowHint = False
+            Visible = False
             OnClick = SpeedButton5Click
             ExplicitLeft = 5
             ExplicitTop = 55
@@ -320,6 +321,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
             ParentFont = False
             ParentShowHint = False
             ShowHint = False
+            Visible = False
           end
           object Shape3: TShape
             Left = 0
@@ -442,13 +444,20 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
         end
       end
     end
-    object GroupBox3: TGroupBox
+    object RadioGroup1: TRadioGroup
       Left = 0
-      Top = 131
+      Top = 113
       Width = 245
-      Height = 80
-      Caption = 'Legends'
+      Height = 82
+      Align = alTop
+      Caption = 'Registration Type'
+      ItemIndex = 0
+      Items.Strings = (
+        'PRE-REGISTRATION'
+        'VENUE-REGISTRATION'
+        'ONLINE-REGISTRATION')
       TabOrder = 2
+      ExplicitTop = 136
     end
   end
   object Panel3: TPanel
@@ -623,7 +632,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     Left = 296
     Top = 176
     Data = {
-      040001000D004163636F756E744E756D62657201000C00000000000000000000
+      030001000D004163636F756E744E756D62657201000C00000000000000000000
       00}
     object VirTabAccountNumber: TStringField
       FieldName = 'AccountNumber'
@@ -682,7 +691,7 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
     Left = 318
     Top = 240
     Data = {
-      040001000D004163636F756E744E756D62657201000C00000000000000000000
+      030001000D004163636F756E744E756D62657201000C00000000000000000000
       00}
     object VirTabDelAccountNumber: TStringField
       FieldName = 'AccountNumber'

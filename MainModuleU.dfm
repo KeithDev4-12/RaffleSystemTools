@@ -1960,6 +1960,16 @@ object UMainModule: TUMainModule
       Origin = 'SignatureDevice'
       Size = 45
     end
+    object qrySettingsIsAllowUnpaidInRaffle: TByteField
+      AutoGenerateValue = arDefault
+      FieldName = 'IsAllowUnpaidInRaffle'
+      Origin = 'IsAllowUnpaidInRaffle'
+    end
+    object qrySettingsIsAllowDiscoAndDiscoVacantInRaffle: TByteField
+      AutoGenerateValue = arDefault
+      FieldName = 'IsAllowDiscoAndDiscoVacantInRaffle'
+      Origin = 'IsAllowDiscoAndDiscoVacantInRaffle'
+    end
   end
   object qryCount: TFDQuery
     Connection = FDConnSQLite

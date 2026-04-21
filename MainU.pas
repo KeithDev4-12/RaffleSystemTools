@@ -636,11 +636,11 @@ begin
               if qryMasterConnCode.AsString = '3' then begin
                 //Disco Vacant
                 qryMemberConsumersConnectionStatus.AsInteger := 3;
-                qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+                  qryMemberConsumersIsQualifiedForRaffle.AsInteger := qrySettingsIsAllowDiscoAndDiscoVacantInRaffle.AsInteger;
               end else begin
                 //Disco
                 qryMemberConsumersConnectionStatus.AsInteger := 2;
-                qryMemberConsumersIsQualifiedForRaffle.AsInteger := 0;
+                qryMemberConsumersIsQualifiedForRaffle.AsInteger := qrySettingsIsAllowDiscoAndDiscoVacantInRaffle.AsInteger;
               end;
             end else begin
               qryMemberConsumersIsQualifiedForRaffle.AsInteger :=  IsQualified(qryMasterAccountNumber.AsString);
@@ -977,43 +977,23 @@ begin
   // WE WILL BE COMMENTING OUT THIS PART
 
   with UMainModule do begin
-    {qryAccountQualifier.Close;
-    qryAccountQualifier.ParamByName('AAccountNumber').AsString := AAccountNumber;
-    qryAccountQualifier.Open;
-    if qryAccountQualifier.IsEmpty then begin
-      Result := 0;
-    end else begin
-      if qryAccountQualifierStatus.AsString.Contains('OLD') then begin
-        Result := 0;
-      end else begin
-        Result := 1;
-      end;
-    end;}
+    if qryMasterRateCode.AsString[1] in ['S', 'G', 'I', 'P'] then
+      Exit(0);
 
-    // THIS IS THE CODE FOR COLLECTION CHECKING
-    {'C'
-  'G'
-  'I'
-  'P'
-  'R'
-  'S'}
-    if (qryMasterRateCode.AsString = 'S') OR (qryMasterRateCode.AsString = 'G')
-    OR (qryMasterRateCode.AsString = 'I') OR (qryMasterRateCode.AsString = 'P') then begin
-      Result := 0;
-    end else begin
-      qryAccountQualifier1.Close;
-      qryAccountQualifier1.ParamByName('AAccountNumber').AsString := AAccountNumber;
-      qryAccountQualifier1.Open;
-      if qryAccountQualifier1.IsEmpty then begin
-        Result := 0;
-      end else begin
-        if qryAccountQualifier1Status.AsString.Contains('OLD') then begin
-          Result := 0;
-        end else begin
-          Result := 1;
-        end;
-      end;
-    end;
+    if IntToBool(qrySettingsIsAllowUnpaidInRaffle.AsInteger) then
+      Exit(1);
+
+    qryAccountQualifier1.Close;
+    qryAccountQualifier1.ParamByName('AAccountNumber').AsString := AAccountNumber;
+    qryAccountQualifier1.Open;
+
+    if qryAccountQualifier1.IsEmpty then
+      Exit(0);
+
+    if qryAccountQualifier1Status.AsString.Contains('OLD') then
+      Exit(0);
+
+    Result := 1;
   end;
 
 

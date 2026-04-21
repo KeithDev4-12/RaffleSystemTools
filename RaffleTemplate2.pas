@@ -44,6 +44,7 @@ type
     Image5: TImage;
     Timer2: TTimer;
     Label5: TLabel;
+    Image6: TImage;
     procedure ShowInPanel(Panel: TPanel);
     procedure FormResize(Sender: TObject);
     procedure scGPPickerNameResize(Sender: TObject);
@@ -60,6 +61,7 @@ type
     procedure Timer2Timer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     function TruncateString(const Input: string; MaxLength: Integer): string;
+    procedure Label1DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -183,6 +185,16 @@ begin
   end;
 end;
 
+procedure TRaffleTemplate2U.Label1DblClick(Sender: TObject);
+var
+  NewTitle: string;
+begin
+  NewTitle := InputBox('Change Raffle Title', 'Enter new title:', Label1.Caption);
+
+  if NewTitle <> '' then
+    Label1.Caption := UpperCase(NewTitle);
+end;
+
 procedure TRaffleTemplate2U.FormCreate(Sender: TObject);
 begin
   //mpConfetti11.FileName := 'Confetti1.wav';
@@ -208,6 +220,10 @@ begin
   //scGPPickerName.Margins.Right := (Self.Width DIV 2) - ((Self.Width DIV 2)DIV 2);
   scGPButton4.Left := (scGPPanel2.Width DIV 2) - (scGPButton4.Width DIV 2);
   scGPButton4.Top := (scGPPanel2.Height DIV 2) - (scGPButton4.Height DIV 2);
+  Image6.Top := 0;
+  Image6.Left := 0;
+  Image6.Width := Self.Width;
+  Image6.Height := Self.Height;
 end;
 
 procedure TRaffleTemplate2U.FormShow(Sender: TObject);

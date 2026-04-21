@@ -1,0 +1,25 @@
+unit WinnerDisplayU;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, dxGDIPlusClasses, Vcl.ExtCtrls;
+
+type
+  TWinnderDisplay = class(TForm)
+    Image6: TImage;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  WinnderDisplay: TWinnderDisplay;
+
+implementation
+
+{$R *.dfm}
+
+end.

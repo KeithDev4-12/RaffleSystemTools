@@ -3,7 +3,7 @@ object USettings: TUSettings
   Top = 110
   BorderStyle = bsDialog
   Caption = 'Settings'
-  ClientHeight = 567
+  ClientHeight = 577
   ClientWidth = 372
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
@@ -50,13 +50,13 @@ object USettings: TUSettings
   end
   object Panel1: TPanel
     Left = 0
-    Top = 526
+    Top = 536
     Width = 372
     Height = 41
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 441
+    ExplicitTop = 526
     object scGPButton1: TscGPButton
       AlignWithMargins = True
       Left = 220
@@ -429,11 +429,10 @@ object USettings: TUSettings
     Margins.Left = 10
     Margins.Top = 5
     Margins.Right = 10
-    Margins.Bottom = 10
+    Margins.Bottom = 5
     Align = alTop
     Caption = 'BarCode && QRCode Scanner Settings'
     TabOrder = 5
-    ExplicitLeft = 15
     object Panel8: TPanel
       Left = 111
       Top = 15
@@ -443,7 +442,6 @@ object USettings: TUSettings
       Alignment = taRightJustify
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = 114
       object Label6: TLabel
         AlignWithMargins = True
         Left = 0
@@ -584,24 +582,66 @@ object USettings: TUSettings
   object GroupBox6: TGroupBox
     AlignWithMargins = True
     Left = 10
-    Top = 444
+    Top = 439
     Width = 352
-    Height = 61
+    Height = 42
     Margins.Left = 10
     Margins.Right = 10
-    Margins.Bottom = 10
+    Margins.Bottom = 5
     Align = alTop
-    Caption = 'Other Settings'
+    Caption = 'Unpaid Bills'
     TabOrder = 6
-    object CheckBox5: TCheckBox
-      Left = 14
-      Top = 24
-      Width = 146
+    ExplicitTop = 444
+    object RadioButton6: TRadioButton
+      Left = 12
+      Top = 16
+      Width = 148
       Height = 17
       Caption = 'Allow Unpaid Latest Billing'
       Checked = True
-      State = cbChecked
       TabOrder = 0
+      TabStop = True
+    end
+    object RadioButton7: TRadioButton
+      Left = 184
+      Top = 16
+      Width = 173
+      Height = 17
+      Caption = 'Don'#39't Allow Unpaid Latest Bill'
+      TabOrder = 1
+    end
+  end
+  object GroupBox7: TGroupBox
+    AlignWithMargins = True
+    Left = 10
+    Top = 489
+    Width = 352
+    Height = 42
+    Margins.Left = 10
+    Margins.Right = 10
+    Margins.Bottom = 5
+    Align = alTop
+    Caption = 'Disco and Disco-Vacant'
+    TabOrder = 7
+    ExplicitLeft = 18
+    ExplicitTop = 452
+    object RadioButton8: TRadioButton
+      Left = 12
+      Top = 16
+      Width = 157
+      Height = 17
+      Caption = 'Allow Disco and Disco-Vacant'
+      Checked = True
+      TabOrder = 0
+      TabStop = True
+    end
+    object RadioButton9: TRadioButton
+      Left = 184
+      Top = 16
+      Width = 173
+      Height = 17
+      Caption = 'Don'#39't Allow'
+      TabOrder = 1
     end
   end
 end

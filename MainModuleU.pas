@@ -391,6 +391,8 @@ type
     qryMembershipAccountNumber: TStringField;
     qryMembershipMembershipOR: TStringField;
     tblSearchMemberConsumerMembershipNo: TStringField;
+    qrySettingsIsAllowUnpaidInRaffle: TByteField;
+    qrySettingsIsAllowDiscoAndDiscoVacantInRaffle: TByteField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

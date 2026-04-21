@@ -44,7 +44,11 @@ type
     ComboBox1: TComboBox;
     CheckBox4: TCheckBox;
     GroupBox6: TGroupBox;
-    CheckBox5: TCheckBox;
+    RadioButton6: TRadioButton;
+    RadioButton7: TRadioButton;
+    GroupBox7: TGroupBox;
+    RadioButton8: TRadioButton;
+    RadioButton9: TRadioButton;
     procedure FormCreate(Sender: TObject);
     procedure scGPButton1Click(Sender: TObject);
     function IntToBool(const AnInt: Integer): Boolean;
@@ -102,8 +106,12 @@ begin
     CheckBox3.Checked := IntToBool(qrySettingsIsPreRegistration.AsInteger);
     Combobox1.ItemIndex :=  ComboBox1.Items.IndexOf(qrySettingsCOMPort.AsString);
 
-  end;
+    RadioButton6.Checked := IntToBool(qrySettingsIsAllowUnpaidInRaffle.AsInteger);
+    RadioButton7.Checked := not RadioButton6.Checked;
 
+    RadioButton8.Checked := IntToBool(qrySettingsIsAllowDiscoAndDiscoVacantInRaffle.AsInteger);
+    RadioButton9.Checked := not RadioButton6.Checked;
+  end;
 
 end;
 
@@ -126,6 +134,9 @@ begin
     qrySettingsIsOnlineRegistration.AsInteger := BoolToInt(CheckBox2.Checked);
     qrySettingsIsPreRegistration.AsInteger := BoolToInt(CheckBox3.Checked);
     qrySettingsCOMPort.AsString := ComboBox1.Text;
+
+    qrySettingsIsAllowUnpaidInRaffle.AsInteger := BoolToInt(RadioButton6.Checked);
+    qrySettingsIsAllowDiscoAndDiscoVacantInRaffle.AsInteger := BoolToInt(RadioButton8.Checked);
 
     MessageDlg('Settings is Upto date!',mtInformation,[mbOk],0);
     qrySettings.Post;
