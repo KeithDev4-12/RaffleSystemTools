@@ -424,3 +424,11 @@ mysqld_z: Can't sync file '.\binlog.index' to disk (OS errno 22 - Invalid argume
 2026-04-21T15:34:59.394273Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 29  user: 'root'.
 2026-04-21T15:34:59.395520Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 30  user: 'root'.
 2026-04-21T15:35:01.075453Z 0 [System] [MY-010910] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Shutdown complete (mysqld 8.0.23)  MySQL Community Server - GPL.
+2026-04-23T17:07:59.188829Z 0 [System] [MY-010116] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe (mysqld 8.0.23) starting as process 28664
+2026-04-23T17:07:59.492349Z 0 [Warning] [MY-013242] [Server] --character-set-server: 'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.
+2026-04-23T17:08:00.027999Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-04-23T17:08:05.049972Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-04-23T17:08:06.292927Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2026-04-23T17:08:08.111743Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-04-23T17:08:08.114179Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-04-23T17:08:08.335132Z 0 [System] [MY-010931] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.23'  socket: ''  port: 3312  MySQL Community Server - GPL.

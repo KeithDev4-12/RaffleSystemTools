@@ -177,7 +177,7 @@ implementation
 {$R *.dfm}
 
 Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU,
-     ReportU,RaffleTemplate1,RaffleTemplate2,SettingsU,UpdateDatabase,
+     ReportU,RaffleTemplate1,RaffleTemplate2,RaffleTemplate3,SettingsU,UpdateDatabase,
   WinnerForm;
 
 procedure TUMainForm.AllAttendie1Click(Sender: TObject);
@@ -315,7 +315,11 @@ begin
        //RaffleTemplate1U.ShowInPanel(pnlRaffleTemplate);
      end else if qrySettingsTheme.AsString.Contains('2')  then begin
        RaffleTemplate2U.Label4.Caption := StringReplace(StringReplace(ComboBox1.Text,'<','',[rfReplaceAll, rfIgnoreCase]),'>','',[rfReplaceAll, rfIgnoreCase]);
+     end else if qrySettingsTheme.AsString.Contains('3')  then begin
+       RaffleTemplate3U.Label4.Caption := StringReplace(StringReplace(ComboBox1.Text,'<','',[rfReplaceAll, rfIgnoreCase]),'>','',[rfReplaceAll, rfIgnoreCase]);
+
      end;
+
    end;
 
   SpeedButton6Click(Sender);
@@ -562,7 +566,11 @@ begin
      end else if qrySettingsTheme.AsString.Contains('2')  then begin
        RaffleTemplate2U := TRaffleTemplate2U.Create(Application);
        RaffleTemplate2U.ShowInPanel(pnlRaffleTemplate);
+     end else if qrySettingsTheme.AsString.Contains('3')  then begin
+       RaffleTemplate3U := TRaffleTemplate3U.Create(Application);
+       RaffleTemplate3U.ShowInPanel(pnlRaffleTemplate);
      end;
+
    end;
 
   SpeedButton6Click(Sender);
@@ -1166,6 +1174,7 @@ end;
 procedure TUMainForm.SpeedButton6Click(Sender: TObject);
 Var
   AListRegistration : String;
+  ALabel5: String;
 begin
   With UMainModule do begin
 
@@ -1177,7 +1186,10 @@ begin
     Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
     if qrySettingsTheme.AsString.Contains('2')  then begin
       RaffleTemplate2U.Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
-
+    end
+    else if qrySettingsTheme.AsString.Contains('3') then
+    begin
+      RaffleTemplate3U.Label3.Caption := FormatCurr('#,##0.00',(qryCountConsumerRegister.AsInteger));
     end;
     FDQuery2.Close;
     qryMCQualified.Close;
@@ -1193,39 +1205,45 @@ begin
       FDQuery2.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
       qryMCQualifiedAll.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
       Label7.Caption := 'V';
-      RaffleTemplate2U.Label5.Caption := 'VENUE REGISTRATION';
+      ALabel5 := 'VENUE REGISTRATION';
+//      RaffleTemplate2U.Label5.Caption := 'VENUE REGISTRATION';
     end else begin
       qryMCQualified.ParamByName('EntryMode1').AsString := '';
       FDQuery2.ParamByName('EntryMode1').AsString := '';
       qryMCQualifiedAll.ParamByName('EntryMode1').AsString := '';
       Label7.Caption := '';
-      RaffleTemplate2U.Label5.Caption := '';
+      ALabel5 := '';
+//      RaffleTemplate2U.Label5.Caption := '';
     end;
     if UMainModule.AIsOnlineReg then begin
       qryMCQualified.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
       qryMCQualifiedAll.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
       FDQuery2.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
       Label7.Caption := Label7.Caption + 'O';
-      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' ONLINE REGISTRATION ';
+      ALabel5 := ALabel5 + ' ONLINE REGISTRATION ';
+//      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' ONLINE REGISTRATION ';
     end else begin
       qryMCQualified.ParamByName('EntryMode2').AsString := '';
       qryMCQualifiedAll.ParamByName('EntryMode2').AsString := '';
       FDQuery2.ParamByName('EntryMode2').AsString := '';
       Label7.Caption := Label7.Caption + '';
-      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ''
+      ALabel5 := ALabel5 + '';
+//      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ''
     end;
     if UMainModule.AIsPreReg then begin
       qryMCQualified.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
       qryMCQualifiedAll.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
       FDQuery2.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
       Label7.Caption := Label7.Caption + 'P';
-      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' PRE-REGISTRATION ';
+      ALabel5 := ALabel5 + ' PRE-REGISTRATION ';
+//      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' PRE-REGISTRATION ';
     end else begin
       qryMCQualified.ParamByName('EntryMode3').AsString := '';
       FDQuery2.ParamByName('EntryMode3').AsString := '';
       qryMCQualifiedAll.ParamByName('EntryMode3').AsString := '';
       Label7.Caption := Label7.Caption + '';
-      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + '';
+      ALabel5 := ALabel5 + '';
+//      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + '';
     end;
 
     FDQuery2.ParamByName('AARea').AsString := AArea;
@@ -1251,7 +1269,17 @@ begin
     qryWinnerMC.ParamByName('AYear').AsInteger := CurrentYear;
     qryWinnerMC.Open;
 
-    RaffleTemplate2U.Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+
+    if qrySettingsTheme.AsString.Contains('2')  then begin
+      RaffleTemplate2U.Label5.Caption := ALabel5;
+      RaffleTemplate2U.Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+    end
+    else if qrySettingsTheme.AsString.Contains('3') then
+    begin
+      RaffleTemplate3U.Label5.Caption := ALabel5;
+      RaffleTemplate3U.Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+    end;
+
     Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
 
     Label6.Caption := ' - '+ FormatCurr('#,##0.00',(qryMCQualified.RecordCount));

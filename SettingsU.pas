@@ -49,6 +49,7 @@ type
     GroupBox7: TGroupBox;
     RadioButton8: TRadioButton;
     RadioButton9: TRadioButton;
+    RadioButton10: TRadioButton;
     procedure FormCreate(Sender: TObject);
     procedure scGPButton1Click(Sender: TObject);
     function IntToBool(const AnInt: Integer): Boolean;
@@ -124,7 +125,10 @@ begin
       qrySettingsTheme.AsString := 'RadioButton1';
     end else if RadioButton2.Checked then begin
       qrySettingsTheme.AsString := 'RadioButton2';
+    end else if RadioButton3.Checked then begin
+      qrySettingsTheme.AsString := 'RadioButton3';
     end;
+
 
     qrySettingsSecMin.AsInteger := StrToInt(Edit1.Text);
     qrySettingsSecMax.AsInteger := StrToInt(Edit2.Text);

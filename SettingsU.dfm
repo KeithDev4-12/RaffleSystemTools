@@ -21,7 +21,7 @@ object USettings: TUSettings
     Left = 10
     Top = 10
     Width = 352
-    Height = 55
+    Height = 61
     Margins.Left = 10
     Margins.Top = 10
     Margins.Right = 10
@@ -30,8 +30,8 @@ object USettings: TUSettings
     Caption = 'Raffle Template'
     TabOrder = 0
     object RadioButton1: TRadioButton
-      Left = 16
-      Top = 21
+      Left = 11
+      Top = 16
       Width = 113
       Height = 17
       Caption = 'Wheel Of Names'
@@ -40,12 +40,20 @@ object USettings: TUSettings
       TabStop = True
     end
     object RadioButton2: TRadioButton
-      Left = 178
-      Top = 21
+      Left = 204
+      Top = 17
       Width = 129
       Height = 17
       Caption = 'Random Name Picker'
       TabOrder = 1
+    end
+    object RadioButton10: TRadioButton
+      Left = 11
+      Top = 38
+      Width = 129
+      Height = 17
+      Caption = 'Modern Name Picker'
+      TabOrder = 2
     end
   end
   object Panel1: TPanel
@@ -56,7 +64,6 @@ object USettings: TUSettings
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 526
     object scGPButton1: TscGPButton
       AlignWithMargins = True
       Left = 220
@@ -202,7 +209,7 @@ object USettings: TUSettings
   object GroupBox2: TGroupBox
     AlignWithMargins = True
     Left = 10
-    Top = 75
+    Top = 81
     Width = 352
     Height = 68
     Margins.Left = 10
@@ -212,6 +219,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Seconds Range Random Draw'
     TabOrder = 2
+    ExplicitTop = 75
     object Panel2: TPanel
       Left = 2
       Top = 15
@@ -297,7 +305,7 @@ object USettings: TUSettings
   object GroupBox3: TGroupBox
     AlignWithMargins = True
     Left = 10
-    Top = 226
+    Top = 232
     Width = 352
     Height = 101
     Margins.Left = 10
@@ -307,6 +315,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Raffle Selection Options'
     TabOrder = 3
+    ExplicitTop = 226
     object Label3: TLabel
       AlignWithMargins = True
       Left = 7
@@ -355,7 +364,7 @@ object USettings: TUSettings
   object GroupBox4: TGroupBox
     AlignWithMargins = True
     Left = 10
-    Top = 153
+    Top = 159
     Width = 352
     Height = 63
     Margins.Left = 10
@@ -365,6 +374,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Confetti Settings'
     TabOrder = 4
+    ExplicitTop = 153
     object Panel5: TPanel
       Left = 2
       Top = 15
@@ -423,7 +433,7 @@ object USettings: TUSettings
   object GroupBox5: TGroupBox
     AlignWithMargins = True
     Left = 10
-    Top = 342
+    Top = 348
     Width = 352
     Height = 89
     Margins.Left = 10
@@ -433,6 +443,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'BarCode && QRCode Scanner Settings'
     TabOrder = 5
+    ExplicitTop = 342
     object Panel8: TPanel
       Left = 111
       Top = 15
@@ -582,7 +593,7 @@ object USettings: TUSettings
   object GroupBox6: TGroupBox
     AlignWithMargins = True
     Left = 10
-    Top = 439
+    Top = 445
     Width = 352
     Height = 42
     Margins.Left = 10
@@ -591,7 +602,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Unpaid Bills'
     TabOrder = 6
-    ExplicitTop = 444
+    ExplicitTop = 439
     object RadioButton6: TRadioButton
       Left = 12
       Top = 16
@@ -614,7 +625,7 @@ object USettings: TUSettings
   object GroupBox7: TGroupBox
     AlignWithMargins = True
     Left = 10
-    Top = 489
+    Top = 495
     Width = 352
     Height = 42
     Margins.Left = 10
@@ -623,8 +634,7 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Disco and Disco-Vacant'
     TabOrder = 7
-    ExplicitLeft = 18
-    ExplicitTop = 452
+    ExplicitTop = 489
     object RadioButton8: TRadioButton
       Left = 12
       Top = 16

@@ -3,8 +3,8 @@ object RaffleTemplate2U: TRaffleTemplate2U
   Top = 0
   BorderStyle = bsNone
   Caption = 'RaffleTemplate2U'
-  ClientHeight = 690
-  ClientWidth = 951
+  ClientHeight = 780
+  ClientWidth = 1047
   Color = clBtnHighlight
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,8 +16,8 @@ object RaffleTemplate2U: TRaffleTemplate2U
   OnResize = FormResize
   OnShow = FormShow
   DesignSize = (
-    951
-    690)
+    1047
+    780)
   PixelsPerInch = 96
   TextHeight = 13
   object Image3: TImage
@@ -7814,7 +7814,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
     Transparent = True
   end
   object Image5: TImage
-    Left = 585
+    Left = 681
     Top = -40
     Width = 583
     Height = 690
@@ -15606,6 +15606,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       FEFBF4FF4242FF6969FF7575FF8484FF8E8EFF9595FFC67FFFCFCEFFD6A4FFE4
       B3FFE5BEFFECCAFFEFD3FFF0E0FFF4E6FFF8EAFFFFFF080400010404003B}
     Transparent = True
+    ExplicitLeft = 585
   end
   object Label5: TLabel
     AlignWithMargins = True
@@ -15631,8 +15632,8 @@ object RaffleTemplate2U: TRaffleTemplate2U
   object Image6: TImage
     Left = -8
     Top = 0
-    Width = 959
-    Height = 690
+    Width = 1055
+    Height = 780
     Picture.Data = {
       0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000600
       000004000802000000A813051500005C4C6361425800005C4C6A756D62000000
@@ -59932,14 +59933,14 @@ object RaffleTemplate2U: TRaffleTemplate2U
   end
   object scGPPickerName: TscGPPanel
     AlignWithMargins = True
-    Left = 250
-    Top = 60
-    Width = 451
-    Height = 570
-    Margins.Left = 250
-    Margins.Top = 60
-    Margins.Right = 250
-    Margins.Bottom = 60
+    Left = 300
+    Top = 100
+    Width = 447
+    Height = 580
+    Margins.Left = 300
+    Margins.Top = 100
+    Margins.Right = 300
+    Margins.Bottom = 100
     Align = alClient
     FluentUIOpaque = False
     TabOrder = 0
@@ -59982,11 +59983,15 @@ object RaffleTemplate2U: TRaffleTemplate2U
     Sizeable = False
     WallpaperIndex = -1
     WordWrap = False
+    ExplicitLeft = 245
+    ExplicitTop = 55
+    ExplicitWidth = 451
+    ExplicitHeight = 570
     object lblName: TLabel
       AlignWithMargins = True
       Left = 8
       Top = 198
-      Width = 435
+      Width = 431
       Height = 39
       Margins.Left = 0
       Margins.Top = 5
@@ -60003,12 +60008,13 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Font.Style = [fsBold]
       ParentFont = False
       ExplicitTop = 197
+      ExplicitWidth = 435
     end
     object lblAccountNumber: TLabel
       AlignWithMargins = True
       Left = 8
       Top = 148
-      Width = 435
+      Width = 431
       Height = 40
       Margins.Left = 0
       Margins.Top = 5
@@ -60024,12 +60030,13 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Font.Name = 'Mukta Mahee ExtraBold'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitWidth = 435
     end
     object lblAddress: TLabel
       AlignWithMargins = True
       Left = 8
       Top = 247
-      Width = 435
+      Width = 431
       Height = 41
       Margins.Left = 0
       Margins.Top = 5
@@ -60046,12 +60053,13 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Font.Style = [fsBold]
       ParentFont = False
       ExplicitTop = 255
+      ExplicitWidth = 435
     end
     object scGPButton1: TscGPButton
       AlignWithMargins = True
       Left = 11
-      Top = 474
-      Width = 429
+      Top = 484
+      Width = 425
       Height = 44
       Align = alBottom
       Font.Charset = DEFAULT_CHARSET
@@ -60178,15 +60186,18 @@ object RaffleTemplate2U: TRaffleTemplate2U
       GroupIndex = 0
       AllowAllUp = False
       ToggleMode = False
+      ExplicitTop = 474
+      ExplicitWidth = 429
     end
     object Panel1: TPanel
       Left = 8
       Top = 8
-      Width = 435
+      Width = 431
       Height = 135
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitWidth = 435
       object Image1: TImage
         Left = 164
         Top = 0
@@ -61001,7 +61012,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       object Label1: TLabel
         Left = 0
         Top = 111
-        Width = 435
+        Width = 431
         Height = 24
         Align = alBottom
         Alignment = taCenter
@@ -61018,12 +61029,14 @@ object RaffleTemplate2U: TRaffleTemplate2U
     end
     object Panel2: TPanel
       Left = 8
-      Top = 521
-      Width = 435
+      Top = 531
+      Width = 431
       Height = 41
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitTop = 521
+      ExplicitWidth = 435
       object scGPButton2: TscGPButton
         AlignWithMargins = True
         Left = 5
@@ -61162,7 +61175,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       end
       object scGPButton3: TscGPButton
         AlignWithMargins = True
-        Left = 222
+        Left = 218
         Top = 5
         Width = 208
         Height = 31
@@ -61295,13 +61308,14 @@ object RaffleTemplate2U: TRaffleTemplate2U
         GroupIndex = 0
         AllowAllUp = False
         ToggleMode = False
+        ExplicitLeft = 222
       end
     end
     object Panel3: TPanel
       AlignWithMargins = True
       Left = 18
-      Top = 312
-      Width = 415
+      Top = 322
+      Width = 411
       Height = 149
       Margins.Left = 10
       Margins.Top = 15
@@ -61310,21 +61324,24 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 3
+      ExplicitTop = 312
+      ExplicitWidth = 415
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 415
+        Width = 411
         Height = 35
         Align = alTop
         BevelOuter = bvNone
         Color = 12421443
         ParentBackground = False
         TabOrder = 0
+        ExplicitWidth = 415
         object Label6: TLabel
           AlignWithMargins = True
           Left = 3
           Top = 4
-          Width = 409
+          Width = 405
           Height = 19
           Margins.Top = 4
           Align = alTop
@@ -61342,18 +61359,19 @@ object RaffleTemplate2U: TRaffleTemplate2U
       object Panel5: TPanel
         Left = 0
         Top = 35
-        Width = 415
+        Width = 411
         Height = 35
         Align = alTop
         BevelOuter = bvNone
         Color = 16119285
         ParentBackground = False
         TabOrder = 1
+        ExplicitWidth = 415
         object Label3: TLabel
           AlignWithMargins = True
           Left = 210
           Top = 6
-          Width = 200
+          Width = 196
           Height = 24
           Margins.Left = 5
           Margins.Top = 6
@@ -61485,18 +61503,19 @@ object RaffleTemplate2U: TRaffleTemplate2U
       object Panel9: TPanel
         Left = 0
         Top = 70
-        Width = 415
+        Width = 411
         Height = 35
         Align = alTop
         BevelOuter = bvNone
         Color = clWhite
         ParentBackground = False
         TabOrder = 2
+        ExplicitWidth = 415
         object Label7: TLabel
           AlignWithMargins = True
           Left = 210
           Top = 6
-          Width = 200
+          Width = 196
           Height = 24
           Margins.Left = 5
           Margins.Top = 6
@@ -61633,18 +61652,19 @@ object RaffleTemplate2U: TRaffleTemplate2U
       object Panel7: TPanel
         Left = 0
         Top = 105
-        Width = 415
+        Width = 411
         Height = 35
         Align = alTop
         BevelOuter = bvNone
         Color = 12763842
         ParentBackground = False
         TabOrder = 3
+        ExplicitWidth = 415
         object Label4: TLabel
           AlignWithMargins = True
           Left = 5
           Top = 6
-          Width = 405
+          Width = 401
           Height = 24
           Margins.Left = 5
           Margins.Top = 6
@@ -61667,10 +61687,10 @@ object RaffleTemplate2U: TRaffleTemplate2U
   end
   object scGPPanel1: TscGPPanel
     AlignWithMargins = True
-    Left = 723
-    Top = 65
+    Left = 788
+    Top = 100
     Width = 451
-    Height = 570
+    Height = 580
     Margins.Left = 250
     Margins.Top = 60
     Margins.Right = 250
@@ -61722,7 +61742,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Left = 58
       Top = 58
       Width = 335
-      Height = 454
+      Height = 464
       Margins.Left = 50
       Margins.Top = 50
       Margins.Right = 50
@@ -61769,6 +61789,7 @@ object RaffleTemplate2U: TRaffleTemplate2U
       Sizeable = False
       WallpaperIndex = -1
       WordWrap = False
+      ExplicitHeight = 454
       object scGPButton4: TscGPButton
         AlignWithMargins = True
         Left = 101
