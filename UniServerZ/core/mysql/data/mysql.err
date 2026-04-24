@@ -432,3 +432,24 @@ mysqld_z: Can't sync file '.\binlog.index' to disk (OS errno 22 - Invalid argume
 2026-04-23T17:08:08.111743Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
 2026-04-23T17:08:08.114179Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
 2026-04-23T17:08:08.335132Z 0 [System] [MY-010931] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.23'  socket: ''  port: 3312  MySQL Community Server - GPL.
+2026-04-24T10:42:56.164550Z 0 [System] [MY-010116] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe (mysqld 8.0.23) starting as process 24400
+2026-04-24T10:42:56.243829Z 0 [Warning] [MY-013242] [Server] --character-set-server: 'utf8' is currently an alias for the character set UTF8MB3, but will be an alias for UTF8MB4 in a future release. Please consider using UTF8MB4 in order to be unambiguous.
+2026-04-24T10:42:56.551984Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-04-24T10:43:00.673085Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-04-24T10:43:01.566392Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2026-04-24T10:43:03.011736Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2026-04-24T10:43:03.019790Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2026-04-24T10:43:03.675128Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-04-24T10:43:03.677422Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-04-24T10:43:03.823795Z 0 [System] [MY-010931] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: ready for connections. Version: '8.0.23'  socket: ''  port: 3312  MySQL Community Server - GPL.
+2026-04-24T18:49:32.153029Z 77 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.23).
+2026-04-24T18:49:32.164682Z 0 [System] [MY-013105] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Normal shutdown.
+2026-04-24T18:49:34.195746Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 8  user: 'root'.
+2026-04-24T18:49:34.196965Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 10  user: 'root'.
+2026-04-24T18:49:34.198188Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 11  user: 'root'.
+2026-04-24T18:49:34.199325Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 60  user: 'root'.
+2026-04-24T18:49:34.200410Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 13  user: 'root'.
+2026-04-24T18:49:34.201808Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 21  user: 'root'.
+2026-04-24T18:49:34.203194Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 22  user: 'root'.
+2026-04-24T18:49:34.204327Z 0 [Warning] [MY-010909] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Forcing close of thread 23  user: 'root'.
+2026-04-24T18:49:35.610482Z 0 [System] [MY-010910] [Server] H:\UniServerZ\core\mysql\bin\mysqld_z.exe: Shutdown complete (mysqld 8.0.23)  MySQL Community Server - GPL.

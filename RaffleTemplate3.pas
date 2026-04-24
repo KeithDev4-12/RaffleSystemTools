@@ -36,7 +36,6 @@ type
     Timer1: TTimer;
     Timer2: TTimer;
     Label5: TLabel;
-    Image6: TImage;
     scGPPanel3: TscGPPanel;
     Image3: TImage;
     Label9: TLabel;
@@ -48,7 +47,6 @@ type
     scGPPanel4: TscGPPanel;
     scGPButton10: TscGPButton;
     Label10: TLabel;
-    Image5: TImage;
     scGPPanel5: TscGPPanel;
     Image7: TImage;
     Panel5: TPanel;
@@ -61,6 +59,7 @@ type
     scGPPanel7: TscGPPanel;
     Panel1: TPanel;
     Image9: TImage;
+    scGPPanel8: TscGPPanel;
     procedure ShowInPanel(Panel: TPanel);
     procedure FormResize(Sender: TObject);
     procedure scGPPickerNameResize(Sender: TObject);
@@ -130,10 +129,10 @@ begin
   CounterClose := 0 ;
   //mpConfetti1.Play;
   //mpWinningBackGround.Play;
-  Image3.Visible := True;
-  (Image3.Picture.Graphic as TGIFImage).Animate := True;
-  Application.ProcessMessages;
-  (Image3.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
+//  Image3.Visible := True;
+//  (Image3.Picture.Graphic as TGIFImage).Animate := True;
+//  Application.ProcessMessages;
+//  (Image3.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
   Application.ProcessMessages;
   DoubleBuffered := True;// stops flickering
 
@@ -209,6 +208,8 @@ begin
 
   if NewTitle <> '' then
     Label1.Caption := UpperCase(NewTitle);
+
+  Label1.Left := (Image7.Width DIV 2) - (Label1.Width DIV 2);
 end;
 
 procedure TRaffleTemplate3U.FormCreate(Sender: TObject);
@@ -236,10 +237,6 @@ begin
   //scGPPickerName.Margins.Right := (Self.Width DIV 2) - ((Self.Width DIV 2)DIV 2);
   scGPButton4.Left := (scGPPanel2.Width DIV 2) - (scGPButton4.Width DIV 2);
   scGPButton4.Top := (scGPPanel2.Height DIV 2) - (scGPButton4.Height DIV 2);
-  Image5.Top := 0;
-  Image5.Left := 0;
-  Image5.Width := Self.CLientheight;
-  Image5.Height := Self.CLientWidth;
 
   scGPPanel3.Top := 17;
   scGPPanel3.Left := 12;
@@ -255,6 +252,34 @@ begin
   scGPPanel5.Left := scGPPanel3.Width + 17 + 17;
 
   scGPPickerName.Height := scGPPanel5.Top - 17;
+
+
+  Panel6.Width := scGPPanel5.Width DIV 3;
+  Panel7.Width := scGPPanel5.Width DIV 3;
+
+  Label8.Left := (Panel10.Width DIV 2) - (Label8.Width DIV 2);
+  Label7.Left := Label8.Left;
+
+  Image4.Left := Label8.Left - 15;
+
+
+  Image1.Top := Image7.Top + 10;
+  Image1.Left := (Image7.Width DIV 2) - (Image1.Width DIV 2);
+
+  Label1.Top := Image1.Top + Image1.Height +  10 ;
+  Label1.Left := (Image7.Width DIV 2) - (Label1.Width DIV 2);
+
+  scGPPanel6.Top := Label1.Top + Label1.Height + 20;
+  scGPPanel6.Left := (Image7.Width DIV 2) - (scGPPanel6.Width DIV 2);
+
+  scGPPanel7.Top :=  scGPPanel6.Top + scGPPanel6.Height + 20;
+  scGPPanel7.Left := (Image7.Width DIV 2) - (scGPPanel7.Width DIV 2);
+  scGPPanel7.Height := Image7.Height - scGPPanel7.Top - 20;
+
+  Image9.Left := ( scGPPanel7.Width DIV 2) - (Image9.Width DIV 2);
+
+
+
 end;
 
 procedure TRaffleTemplate3U.FormShow(Sender: TObject);
@@ -291,8 +316,8 @@ begin
      end;
      UMainModule.qryMCQualified.Refresh;
      UMainModule.qryWinnerMC.Refresh;
-     Image3.Visible := False;
-     Image5.Visible := False;
+//     Image3.Visible := False;
+
      Timer2.Enabled := False;
      CounterClose := 0;
      UMainForm.isRaffleTemplateCreated := True;
@@ -384,15 +409,12 @@ begin
         lblAccountNumber.Caption := AAccountNumber;
         lblName.Caption := TruncateString(AName,20);
         lblAddress.Caption := AAddress;
-        Image3.Visible := True;
-        (Image3.Picture.Graphic as TGIFImage).Animate := True;
-        Application.ProcessMessages;
-        (Image3.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
+//        Image3.Visible := True;
+//        (Image3.Picture.Graphic as TGIFImage).Animate := True;
+//        Application.ProcessMessages;
+//        (Image3.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
 
-        Image5.Visible := True;
-        (Image5.Picture.Graphic as TGIFImage).Animate := True;
-        Application.ProcessMessages;
-        (Image5.Picture.Graphic as TGIFImage ).AnimationSpeed:= 100;// adjust your speed
+        
         //UWinner := TUWinner.Create(nil);
         //UWinner.ShowModal();
         EmulateWinnerShow();
@@ -449,8 +471,7 @@ begin
   if CounterClose >= UMainModule.ACloseConfettiTimer then begin
     CounterClose := 0;
     Timer2.Enabled := False;
-    Image3.Visible := False;
-    Image5.Visible := False;
+//    Image3.Visible := False;
     Application.ProcessMessages;
   end;
   Application.ProcessMessages;

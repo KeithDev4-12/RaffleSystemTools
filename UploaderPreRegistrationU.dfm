@@ -457,7 +457,6 @@ object UUploaderPreRegistration: TUUploaderPreRegistration
         'VENUE-REGISTRATION'
         'ONLINE-REGISTRATION')
       TabOrder = 2
-      ExplicitTop = 136
     end
   end
   object Panel3: TPanel

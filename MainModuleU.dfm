@@ -1747,7 +1747,6 @@ object UMainModule: TUMainModule
     Params.Strings = (
       'Server=Localhost'
       'ConnectionDef=MYSQL_COOP')
-    Connected = True
     Left = 48
     Top = 24
   end
@@ -1901,6 +1900,7 @@ object UMainModule: TUMainModule
     end
   end
   object qrySettings: TFDQuery
+    Active = True
     Connection = FDConnSQLite
     SQL.Strings = (
       'Select * from Settings')
@@ -1969,6 +1969,12 @@ object UMainModule: TUMainModule
       AutoGenerateValue = arDefault
       FieldName = 'IsAllowDiscoAndDiscoVacantInRaffle'
       Origin = 'IsAllowDiscoAndDiscoVacantInRaffle'
+    end
+    object qrySettingsLatestBillMonth: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LatestBillMonth'
+      Origin = 'LatestBillMonth'
+      Size = 4
     end
   end
   object qryCount: TFDQuery
@@ -2378,7 +2384,7 @@ object UMainModule: TUMainModule
     SQL.Strings = (
       'SELECT AccountNumber,'
       '  BillMonth,'
-      '  IF((BillMonth LIKE '#39'%0625%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
+      '  IF((BillMonth LIKE '#39'%0326%'#39'),'#39'LATEST'#39','#39'OLD'#39') As Status'
       '  FROM ((Select'
       '  Entry,'
       '  AccountNumber,'
@@ -2388,7 +2394,7 @@ object UMainModule: TUMainModule
       'Where'
       ' AccountNumber = :AAccountNumber'
       'AND'
-      ' BillMonth = '#39'0625'#39' )'
+      ' BillMonth = 0326)'
       'UNION'
       '(Select'
       '  Entry,'

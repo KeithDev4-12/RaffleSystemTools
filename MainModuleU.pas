@@ -393,6 +393,7 @@ type
     tblSearchMemberConsumerMembershipNo: TStringField;
     qrySettingsIsAllowUnpaidInRaffle: TByteField;
     qrySettingsIsAllowDiscoAndDiscoVacantInRaffle: TByteField;
+    qrySettingsLatestBillMonth: TStringField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;

@@ -183,7 +183,6 @@ begin
               tblSearchMemberConsumerEntryMode.AsString := AEntryModeValue;
             //end;
 
-
             tblSearchMemberConsumerDateRegistered.AsDateTime := Now();
             tblSearchMemberConsumer.Post;
           end else begin
@@ -231,7 +230,8 @@ begin
         end;
         VirTabDelAccountNumber.AsString := VirTabAccountNumber.AsString;
         VirTabDel.Post;
-      end else begin
+      end else
+      begin
         VirTabDel.Cancel;
       end;
       VirTab.Next;

@@ -20,7 +20,8 @@ uses
   UpdateDatabase in 'UpdateDatabase.pas' {UpdateDatabaseU},
   CommandPromtUnit in 'CommandPromtUnit.pas',
   WinnerForm in 'WinnerForm.pas' {UWinnerForm},
-  WinnerDisplayU in 'WinnerDisplayU.pas' {WinnderDisplay};
+  WinnerDisplayU in 'WinnerDisplayU.pas' {WinnderDisplay},
+  RaffleTemplate3 in 'RaffleTemplate3.pas' {RaffleTemplate3U};
 
 {$R *.res}
 
@@ -40,5 +41,6 @@ begin
   Application.CreateForm(TUFormSignature, UFormSignature);
   Application.CreateForm(TUpdateDatabaseU, UpdateDatabaseU);
   Application.CreateForm(TUWinnerForm, UWinnerForm);
+  Application.CreateForm(TRaffleTemplate3U, RaffleTemplate3U);
   Application.Run;
 end.
