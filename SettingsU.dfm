@@ -64,7 +64,6 @@ object USettings: TUSettings
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 536
     object scGPButton1: TscGPButton
       AlignWithMargins = True
       Left = 220
@@ -93,7 +92,6 @@ object USettings: TUSettings
       Badge.Text = '1'
       Badge.Visible = False
       Caption = 'Save Settings'
-      CaptionCenterAlignment = False
       CanFocused = True
       CustomDropDown = False
       DrawTextMode = scdtmGDI
@@ -144,7 +142,6 @@ object USettings: TUSettings
       Options.ShapeFillGradientColorOffset = 25
       Options.ShapeCornerRadius = 5
       Options.ShapeStyle = scgpRoundedRect
-      Options.ShapeStyleLineSize = 0
       Options.ArrowSize = 9
       Options.ArrowAreaSize = 0
       Options.ArrowType = scgpatDefault
@@ -649,7 +646,6 @@ object USettings: TUSettings
     Align = alTop
     Caption = 'Disco and Disco-Vacant'
     TabOrder = 7
-    ExplicitTop = 495
     object RadioButton8: TRadioButton
       Left = 12
       Top = 16

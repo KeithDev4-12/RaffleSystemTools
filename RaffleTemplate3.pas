@@ -4,8 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, scControls, scGPControls,
-  Vcl.StdCtrls, dxGDIPlusClasses, System.Math, ConfettiEffect, Vcl.Imaging.GIFImg, Vcl.Imaging.pngimage, Vcl.MPlayer;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, scControls, scGPControls, System.StrUtils,
+  Vcl.StdCtrls, dxGDIPlusClasses, System.Math, ConfettiEffect, Vcl.Imaging.GIFImg, Vcl.Imaging.pngimage, Vcl.MPlayer,
+  Vcl.Grids;
 
 type
   TRaffleTemplate3U = class(TForm)
@@ -60,6 +61,7 @@ type
     Panel1: TPanel;
     Image9: TImage;
     scGPPanel8: TscGPPanel;
+    Label11: TLabel;
     procedure ShowInPanel(Panel: TPanel);
     procedure FormResize(Sender: TObject);
     procedure scGPPickerNameResize(Sender: TObject);
@@ -81,6 +83,8 @@ type
     { Private declarations }
   public
     { Public declarations }
+    protected
+  procedure CreateParams(var Params: TCreateParams); override;
   end;
 
 var
@@ -98,6 +102,13 @@ begin
   else
     Result := Input;
 end;
+procedure TRaffleTemplate3U.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+  inherited CreateParams(Params);
+  Params.ExStyle := Params.ExStyle or WS_EX_COMPOSITED;
+end;
+
 function TRaffleTemplate3U.DistrictToArea(ADistrict: String): String;
 begin
   if ADistrict.Contains('BULAN') then begin
@@ -173,10 +184,40 @@ begin
       qryCount.ParamByName('AYear').AsInteger := CurrentYear;
       qryCount.Open();
       qryCount.First;
-      UMainForm.Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
-      Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
-      
-
+//      qryMCQualified.Filtered := False;
+//      qryMCQualified.Filter := '';
+//      qryMCQualified.Filtered := True;
+      if IsAllDistrict then
+      begin
+        Counter.Close;
+        if UMainModule.AIsVenueReg then begin
+          Counter.ParamByName('EntryMode1').AsString := 'VENUE-REGISTRATION';
+        end else begin
+          Counter.ParamByName('EntryMode1').AsString := '';
+        end;
+        if UMainModule.AIsOnlineReg then begin
+          Counter.ParamByName('EntryMode2').AsString := 'ONLINE-REGISTRATION';
+    //      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' ONLINE REGISTRATION ';
+        end else begin
+          Counter.ParamByName('EntryMode2').AsString := '';
+        end;
+        if UMainModule.AIsPreReg then begin
+          Counter.ParamByName('EntryMode3').AsString := 'PRE-REGISTRATION';
+    //      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + ' PRE-REGISTRATION ';
+        end else begin
+          Counter.ParamByName('EntryMode3').AsString := '';
+    //      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + '';
+        end;
+        Counter.ParamByName('AARea').AsString := AArea;
+        Counter.ParamByName('AYear').AsInteger := CurrentYear;
+        Counter.Open();
+        UMainForm.Label3.Caption := FormatCurr('#,##0.00',(CounterCount.AsInteger));
+        Label3.Caption := FormatCurr('#,##0.00',(CounterCount.AsInteger));
+      end else
+      begin
+        UMainForm.Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+        Label3.Caption := FormatCurr('#,##0.00',(qryMCQualified.RecordCount));
+      end;
 
     end else begin
 
@@ -229,12 +270,15 @@ begin
   scGPPanel1.Align := alClient;
   
   Label7.Caption := FormatDateTime('MM/DD/YYYY, H:nn AM/PM', Now());
+  Label10.Caption := FormatDateTime('MM/DD/YYYY', Now()) + #13#10 + FormatDateTime('H:nn AM/PM', Now());
+  Label11.Caption := UMainModule.ModeEntry;
 end;
 
 procedure TRaffleTemplate3U.FormResize(Sender: TObject);
 begin
   //scGPPickerName.Margins.Left := (Self.Width DIV 2) - ((Self.Width DIV 2)DIV 2);
   //scGPPickerName.Margins.Right := (Self.Width DIV 2) - ((Self.Width DIV 2)DIV 2);
+
   scGPButton4.Left := (scGPPanel2.Width DIV 2) - (scGPButton4.Width DIV 2);
   scGPButton4.Top := (scGPPanel2.Height DIV 2) - (scGPButton4.Height DIV 2);
 
@@ -278,7 +322,8 @@ begin
 
   Image9.Left := ( scGPPanel7.Width DIV 2) - (Image9.Width DIV 2);
 
-
+  Label8.Left := 22 + Image4.Left + Image4.Width;
+  Label7.Left := 22 + Image4.Left + Image4.Width;
 
 end;
 
@@ -372,6 +417,8 @@ end;
 procedure TRaffleTemplate3U.TDateCheckerTimer(Sender: TObject);
 begin
   Label7.Caption := FormatDateTime('MM/DD/YYYY, H:nn AM/PM', Now());
+  Label10.Caption := FormatDateTime('MM/DD/YYYY', Now()) + #13#10 + FormatDateTime('H:nn AM/PM', Now());
+  Label11.Caption := UMainModule.ModeEntry;
 end;
 
 procedure TRaffleTemplate3U.Timer1Timer(Sender: TObject);
@@ -385,6 +432,7 @@ begin
   UMainForm.I := UMainForm.I + 1;
   UMainForm.TickInterval := UMainForm.TickInterval + Timer1.Interval;
 
+
   //UMainModule.qryMCQualifiedAccountNumber.AsString := ;
   if UMainForm.TickInterval = (UMainForm.SecLength*1000) then begin
 
@@ -392,6 +440,13 @@ begin
     //IndicatorID := UMainModule.qryMCQualified.RecNo;
     {nice indicator}
     IndicatorID := RandomRange(1, UMainModule.qryMCQualified.RecordCount+1);
+    if UMainModule.IsAllDistrict then
+    begin
+      UMainModule.qryMCQualified.Filtered := False;
+      UMainModule.qryMCQualified.Filter := 'Area <> '+ QuotedStr(UMainModule.LastDistrictAreaCode);
+      UMainModule.qryMCQualified.Filtered := True;
+      UMainModule.LastDistrictAreaCode :=  UMainModule.qryMCQualifiedArea.AsString;
+    end;
 
     UMainModule.qryMCQualified.RecNo := IndicatorID;
     Timer1.Enabled := False;
@@ -407,7 +462,7 @@ begin
         Application.ProcessMessages;
         screen.Cursor := crHourGlass;
         lblAccountNumber.Caption := AAccountNumber;
-        lblName.Caption := TruncateString(AName,20);
+        lblName.Caption := TruncateString(AName,40);
         lblAddress.Caption := AAddress;
 //        Image3.Visible := True;
 //        (Image3.Picture.Graphic as TGIFImage).Animate := True;
@@ -424,6 +479,7 @@ begin
         //lblAccountNumber.Caption := UWinner.lblAccountNumber.Caption;
         //lblName.Caption := UWinner.lblName.Caption;
         //lblAddress.Caption := UWinner.lblAddress.Caption;
+        UMainModule.qryMCQualified.Filtered := False;
 
         Application.ProcessMessages;
       finally

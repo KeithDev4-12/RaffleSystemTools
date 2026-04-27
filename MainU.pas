@@ -286,8 +286,11 @@ end;
 procedure TUMainForm.ComboBox1Change(Sender: TObject);
 begin
  Timer2.Enabled := True;
+
+    UMainModule.IsAllDistrict := False;
   if Combobox1.ItemIndex = 0 then begin
     AARea := 'ALL';
+    UMainModule.IsAllDistrict := True;
   end else if Combobox1.ItemIndex = 1 then begin
     AARea := '001';
   end else if Combobox1.ItemIndex = 2 then begin
@@ -305,6 +308,7 @@ begin
   end else begin
     AARea := '008';
   end;
+  UMainModule.AArea := AArea;
 
    with UMainModule do begin
      qrySettings.Close;
@@ -534,8 +538,11 @@ begin
   //DefaultSQL := UReport.qryReportWinnersClassification.SQL;
   AArea := UMainModule.ReadIniFile();
 
+  UMainModule.IsAllDistrict := False;
+
   if AArea = 'ALL' then begin
     AAreaName := '<ALL MUNICIPALITIES>';
+    UMainModule.IsAllDistrict := True;
   end else if AArea = '001' then begin
     AAreaName := 'BULAN';
   end else if AArea = '002' then begin
@@ -1246,6 +1253,7 @@ begin
 //      RaffleTemplate2U.Label5.Caption := RaffleTemplate2U.Label5.Caption + '';
     end;
 
+    UMainModule.ModeEntry := Label7.Caption;
     FDQuery2.ParamByName('AARea').AsString := AArea;
     qryMCQualified.ParamByName('AARea').AsString := AArea;
     qryMCQualified.ParamByName('AYear').AsInteger := CurrentYear;

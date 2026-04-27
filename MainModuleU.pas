@@ -394,6 +394,8 @@ type
     qrySettingsIsAllowUnpaidInRaffle: TByteField;
     qrySettingsIsAllowDiscoAndDiscoVacantInRaffle: TByteField;
     qrySettingsLatestBillMonth: TStringField;
+    Counter: TFDQuery;
+    CounterCount: TLargeintField;
     procedure CreateIniFile();
     procedure CloseIniFile(AArea:String);
     Function ReadIniFile():String;
@@ -406,7 +408,10 @@ type
     { Public declarations }
     ASecMin,ASecMax,ACloseConfettiTimer : Integer;
     AIsVenueReg,AIsOnlineReg,AIsPreReg : Boolean;
-
+    ModeEntry: String;
+    IsAllDistrict: Boolean;
+    LastDistrictAreaCode: String;
+    AArea : String;
     procedure CallSettings();
 
   end;

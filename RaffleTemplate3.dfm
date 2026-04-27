@@ -2,10 +2,10 @@ object RaffleTemplate3U: TRaffleTemplate3U
   AlignWithMargins = True
   Left = 0
   Top = 0
-  Margins.Left = 30
-  Margins.Top = 30
-  Margins.Right = 30
-  Margins.Bottom = 30
+  Margins.Left = 10
+  Margins.Top = 10
+  Margins.Right = 10
+  Margins.Bottom = 10
   Align = alClient
   BorderStyle = bsNone
   Caption = 'RaffleTemplate3U'
@@ -96,7 +96,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
     Sizeable = False
     WallpaperIndex = -1
     WordWrap = False
-    ExplicitTop = 15
     object Image3: TImage
       AlignWithMargins = True
       Left = 38
@@ -25390,6 +25389,18 @@ object RaffleTemplate3U: TRaffleTemplate3U
       ParentFont = False
       ExplicitWidth = 138
     end
+    object Label11: TLabel
+      Left = 11
+      Top = 3
+      Width = 3
+      Height = 13
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clScrollBar
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object scGPButton5: TscGPButton
       AlignWithMargins = True
       Left = 11
@@ -25419,7 +25430,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Badge.Text = '1'
       Badge.Visible = False
       Caption = 'Draw Result'
-      CaptionCenterAlignment = False
       CanFocused = True
       CustomDropDown = False
       DrawTextMode = scdtmGDI
@@ -25471,7 +25481,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Options.ShapeFillGradientColorOffset = 25
       Options.ShapeCornerRadius = 8
       Options.ShapeStyle = scgpRoundedRect
-      Options.ShapeStyleLineSize = 0
       Options.ArrowSize = 9
       Options.ArrowAreaSize = 0
       Options.ArrowType = scgpatModern
@@ -25523,7 +25532,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       GroupIndex = 0
       AllowAllUp = False
       ToggleMode = False
-      ExplicitTop = 237
     end
     object scGPButton6: TscGPButton
       AlignWithMargins = True
@@ -25555,7 +25563,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Badge.Text = '1'
       Badge.Visible = False
       Caption = 'Entries'
-      CaptionCenterAlignment = False
       CanFocused = True
       CustomDropDown = False
       DrawTextMode = scdtmGDI
@@ -25607,7 +25614,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Options.ShapeFillGradientColorOffset = 25
       Options.ShapeCornerRadius = 8
       Options.ShapeStyle = scgpRoundedRect
-      Options.ShapeStyleLineSize = 0
       Options.ArrowSize = 9
       Options.ArrowAreaSize = 0
       Options.ArrowType = scgpatModern
@@ -25690,7 +25696,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Badge.Text = '1'
       Badge.Visible = False
       Caption = 'Reports'
-      CaptionCenterAlignment = False
       CanFocused = True
       CustomDropDown = False
       DrawTextMode = scdtmGDI
@@ -25742,7 +25747,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Options.ShapeFillGradientColorOffset = 25
       Options.ShapeCornerRadius = 8
       Options.ShapeStyle = scgpRoundedRect
-      Options.ShapeStyleLineSize = 0
       Options.ArrowSize = 9
       Options.ArrowAreaSize = 0
       Options.ArrowType = scgpatModern
@@ -25794,7 +25798,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       GroupIndex = 0
       AllowAllUp = False
       ToggleMode = False
-      ExplicitTop = 355
     end
     object scGPButton8: TscGPButton
       AlignWithMargins = True
@@ -25826,7 +25829,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Badge.Text = '1'
       Badge.Visible = False
       Caption = 'Settings'
-      CaptionCenterAlignment = False
       CanFocused = True
       CustomDropDown = False
       DrawTextMode = scdtmGDI
@@ -25878,7 +25880,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Options.ShapeFillGradientColorOffset = 25
       Options.ShapeCornerRadius = 8
       Options.ShapeStyle = scgpRoundedRect
-      Options.ShapeStyleLineSize = 0
       Options.ArrowSize = 9
       Options.ArrowAreaSize = 0
       Options.ArrowType = scgpatModern
@@ -25930,7 +25931,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       GroupIndex = 0
       AllowAllUp = False
       ToggleMode = False
-      ExplicitTop = 414
     end
     object scGPButton9: TscGPButton
       AlignWithMargins = True
@@ -25961,7 +25961,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Badge.Text = '1'
       Badge.Visible = False
       Caption = 'About'
-      CaptionCenterAlignment = False
       CanFocused = True
       CustomDropDown = False
       DrawTextMode = scdtmGDI
@@ -26013,7 +26012,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Options.ShapeFillGradientColorOffset = 25
       Options.ShapeCornerRadius = 8
       Options.ShapeStyle = scgpRoundedRect
-      Options.ShapeStyleLineSize = 0
       Options.ArrowSize = 9
       Options.ArrowAreaSize = 0
       Options.ArrowType = scgpatModern
@@ -26065,7 +26063,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       GroupIndex = 0
       AllowAllUp = False
       ToggleMode = False
-      ExplicitTop = 473
     end
     object scGPPanel4: TscGPPanel
       AlignWithMargins = True
@@ -26116,7 +26113,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Sizeable = False
       WallpaperIndex = -1
       WordWrap = False
-      ExplicitTop = 650
       object Label10: TLabel
         AlignWithMargins = True
         Left = 64
@@ -26168,7 +26164,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Badge.Text = '1'
         Badge.Visible = False
         Caption = 'START'
-        CaptionCenterAlignment = False
         CanFocused = True
         CustomDropDown = False
         DrawTextMode = scdtmGDI
@@ -26219,7 +26214,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Options.ShapeFillGradientColorOffset = 25
         Options.ShapeCornerRadius = 70
         Options.ShapeStyle = scgpRoundedRect
-        Options.ShapeStyleLineSize = 0
         Options.ArrowSize = 9
         Options.ArrowAreaSize = 0
         Options.ArrowType = scgpatDefault
@@ -26409,7 +26403,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Badge.Text = '1'
         Badge.Visible = False
         Caption = 'START'
-        CaptionCenterAlignment = False
         CanFocused = True
         CustomDropDown = False
         DrawTextMode = scdtmGDI
@@ -26460,7 +26453,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Options.ShapeFillGradientColorOffset = 25
         Options.ShapeCornerRadius = 70
         Options.ShapeStyle = scgpRoundedRect
-        Options.ShapeStyleLineSize = 0
         Options.ArrowSize = 9
         Options.ArrowAreaSize = 0
         Options.ArrowType = scgpatDefault
@@ -26518,11 +26510,11 @@ object RaffleTemplate3U: TRaffleTemplate3U
   object scGPPanel8: TscGPPanel
     AlignWithMargins = True
     Left = 237
-    Top = 40
+    Top = 30
     Width = 1051
-    Height = 748
+    Height = 758
     Margins.Left = 0
-    Margins.Top = 40
+    Margins.Top = 30
     Margins.Right = 15
     Margins.Bottom = 10
     Align = alClient
@@ -26567,14 +26559,12 @@ object RaffleTemplate3U: TRaffleTemplate3U
     Sizeable = False
     WallpaperIndex = -1
     WordWrap = False
-    ExplicitTop = 35
-    ExplicitHeight = 756
     object scGPPickerName: TscGPPanel
       AlignWithMargins = True
       Left = 8
       Top = 18
       Width = 1035
-      Height = 498
+      Height = 525
       Margins.Left = 0
       Margins.Top = 10
       Margins.Right = 0
@@ -26628,17 +26618,15 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Sizeable = False
       WallpaperIndex = -1
       WordWrap = False
-      ExplicitTop = 64
-      ExplicitHeight = 772
       DesignSize = (
         1035
-        498)
+        525)
       object Image7: TImage
         AlignWithMargins = True
         Left = 3
         Top = 3
         Width = 1029
-        Height = 492
+        Height = 519
         Align = alClient
         Picture.Data = {
           0B546478504E47496D61676589504E470D0A1A0A0000000D49484452000006CA
@@ -32899,6 +32887,7 @@ object RaffleTemplate3U: TRaffleTemplate3U
           4E2030DC0000000049454E44AE426082}
         Stretch = True
         ExplicitLeft = -53
+        ExplicitHeight = 492
       end
       object Image1: TImage
         Left = 449
@@ -33812,7 +33801,7 @@ object RaffleTemplate3U: TRaffleTemplate3U
       object scGPPanel7: TscGPPanel
         AlignWithMargins = True
         Left = 144
-        Top = 258
+        Top = 269
         Width = 761
         Height = 210
         Margins.Left = 250
@@ -33864,9 +33853,9 @@ object RaffleTemplate3U: TRaffleTemplate3U
         object lblName: TLabel
           AlignWithMargins = True
           Left = 8
-          Top = 158
+          Top = 86
           Width = 745
-          Height = 10
+          Height = 82
           Margins.Left = 0
           Margins.Top = 5
           Margins.Right = 0
@@ -33880,9 +33869,8 @@ object RaffleTemplate3U: TRaffleTemplate3U
           Font.Name = 'Mukta Mahee ExtraBold'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 126
-          ExplicitHeight = 42
+          ExplicitWidth = 544
+          ExplicitHeight = 55
         end
         object lblAddress: TLabel
           AlignWithMargins = True
@@ -33903,22 +33891,23 @@ object RaffleTemplate3U: TRaffleTemplate3U
           Font.Name = 'Mukta Mahee ExtraBold'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitTop = 192
           ExplicitWidth = 264
         end
         object Panel1: TPanel
           Left = 8
           Top = 8
           Width = 745
-          Height = 145
+          Height = 73
           Align = alTop
           BevelOuter = bvNone
+          DoubleBuffered = True
+          ParentDoubleBuffered = False
           TabOrder = 0
           object Image9: TImage
-            Left = 251
-            Top = -15
-            Width = 201
-            Height = 179
+            Left = 296
+            Top = -14
+            Width = 117
+            Height = 105
             Margins.Left = 60
             Margins.Top = 10
             Margins.Right = 10
@@ -77958,9 +77947,9 @@ object RaffleTemplate3U: TRaffleTemplate3U
     object scGPPanel5: TscGPPanel
       AlignWithMargins = True
       Left = 13
-      Top = 536
+      Top = 563
       Width = 1025
-      Height = 106
+      Height = 89
       Margins.Left = 5
       Margins.Top = 10
       Margins.Right = 5
@@ -78011,20 +78000,16 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Left = 5
         Top = 5
         Width = 1015
-        Height = 96
+        Height = 79
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitLeft = 8
-        ExplicitTop = 8
-        ExplicitWidth = 1008
-        ExplicitHeight = 72
         object Bevel1: TBevel
           AlignWithMargins = True
           Left = 303
           Top = 10
           Width = 2
-          Height = 76
+          Height = 59
           Margins.Top = 10
           Margins.Bottom = 10
           Align = alLeft
@@ -78037,7 +78022,7 @@ object RaffleTemplate3U: TRaffleTemplate3U
           Left = 710
           Top = 10
           Width = 2
-          Height = 76
+          Height = 59
           Margins.Top = 10
           Margins.Bottom = 10
           Align = alRight
@@ -78049,18 +78034,16 @@ object RaffleTemplate3U: TRaffleTemplate3U
           Left = 308
           Top = 0
           Width = 399
-          Height = 96
+          Height = 79
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 392
-          ExplicitHeight = 72
           object Image4: TImage
             AlignWithMargins = True
             Left = 60
             Top = 10
-            Width = 77
-            Height = 76
+            Width = 59
+            Height = 59
             Margins.Left = 60
             Margins.Top = 10
             Margins.Right = 10
@@ -84382,13 +84365,11 @@ object RaffleTemplate3U: TRaffleTemplate3U
               65F98BFAA805CA7A794ECA9225FF0B5EC45D90511EC8F50000000049454E44AE
               426082}
             Stretch = True
-            ExplicitLeft = 52
-            ExplicitHeight = 84
           end
           object Label8: TLabel
             AlignWithMargins = True
-            Left = 157
-            Top = 31
+            Left = 141
+            Top = 19
             Width = 101
             Height = 19
             Margins.Left = 5
@@ -84405,10 +84386,10 @@ object RaffleTemplate3U: TRaffleTemplate3U
           end
           object Label7: TLabel
             AlignWithMargins = True
-            Left = 157
-            Top = 54
-            Width = 34
-            Height = 19
+            Left = 141
+            Top = 42
+            Width = 27
+            Height = 16
             Margins.Left = 5
             Margins.Top = 6
             Margins.Right = 5
@@ -84417,7 +84398,7 @@ object RaffleTemplate3U: TRaffleTemplate3U
             Caption = 'Date'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 6179124
-            Font.Height = -17
+            Font.Height = -13
             Font.Name = 'Mukta Mahee ExtraBold'
             Font.Style = []
             ParentFont = False
@@ -84427,17 +84408,16 @@ object RaffleTemplate3U: TRaffleTemplate3U
           Left = 0
           Top = 0
           Width = 300
-          Height = 96
+          Height = 79
           Align = alLeft
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitHeight = 72
           object Image2: TImage
             AlignWithMargins = True
             Left = 60
             Top = 10
-            Width = 77
-            Height = 76
+            Width = 59
+            Height = 59
             Margins.Left = 60
             Margins.Top = 10
             Margins.Right = 10
@@ -90689,12 +90669,11 @@ object RaffleTemplate3U: TRaffleTemplate3U
               655DC0B1CE588A6D352EF8C254DE5239E79CFF02EA5854C881C4FA6800000000
               49454E44AE426082}
             Stretch = True
-            ExplicitHeight = 84
           end
           object Label2: TLabel
             AlignWithMargins = True
-            Left = 154
-            Top = 31
+            Left = 138
+            Top = 19
             Width = 92
             Height = 27
             Margins.Left = 5
@@ -90712,8 +90691,8 @@ object RaffleTemplate3U: TRaffleTemplate3U
           end
           object Label3: TLabel
             AlignWithMargins = True
-            Left = 154
-            Top = 54
+            Left = 138
+            Top = 42
             Width = 41
             Height = 19
             Margins.Left = 5
@@ -90734,18 +90713,16 @@ object RaffleTemplate3U: TRaffleTemplate3U
           Left = 715
           Top = 0
           Width = 300
-          Height = 96
+          Height = 79
           Align = alRight
           BevelOuter = bvNone
           Color = clWhite
           ParentBackground = False
           TabOrder = 2
-          ExplicitLeft = 713
-          ExplicitHeight = 104
           object Label4: TLabel
             AlignWithMargins = True
-            Left = 159
-            Top = 54
+            Left = 143
+            Top = 42
             Width = 141
             Height = 19
             Margins.Left = 5
@@ -90765,8 +90742,8 @@ object RaffleTemplate3U: TRaffleTemplate3U
             AlignWithMargins = True
             Left = 60
             Top = 10
-            Width = 77
-            Height = 76
+            Width = 59
+            Height = 59
             Margins.Left = 60
             Margins.Top = 10
             Margins.Right = 10
@@ -97103,12 +97080,11 @@ object RaffleTemplate3U: TRaffleTemplate3U
               04438150757EFF747FA9F3FB4EBFD0D640A6012E0723461F0B885A8769B0C40F
               E40F4579474AA9F43FBAC0EF7940FAED840000000049454E44AE426082}
             Stretch = True
-            ExplicitHeight = 84
           end
           object Label6: TLabel
             AlignWithMargins = True
-            Left = 159
-            Top = 31
+            Left = 143
+            Top = 19
             Width = 135
             Height = 19
             Margins.Left = 5
@@ -97129,7 +97105,7 @@ object RaffleTemplate3U: TRaffleTemplate3U
     object Panel3: TPanel
       AlignWithMargins = True
       Left = 11
-      Top = 667
+      Top = 677
       Width = 1029
       Height = 53
       Margins.Top = 15
@@ -97137,9 +97113,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitLeft = 13
-      ExplicitTop = 690
-      ExplicitWidth = 1035
       object scGPButton1: TscGPButton
         AlignWithMargins = True
         Left = 315
@@ -97172,7 +97145,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Badge.Text = '1'
         Badge.Visible = False
         Caption = 'PICK ANOTHER WINNER'
-        CaptionCenterAlignment = False
         CanFocused = True
         CustomDropDown = False
         DrawTextMode = scdtmGDI
@@ -97223,7 +97195,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Options.ShapeFillGradientColorOffset = 25
         Options.ShapeCornerRadius = 8
         Options.ShapeStyle = scgpRoundedRect
-        Options.ShapeStyleLineSize = 0
         Options.ArrowSize = 9
         Options.ArrowAreaSize = 0
         Options.ArrowType = scgpatModern
@@ -97275,8 +97246,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         GroupIndex = 0
         AllowAllUp = False
         ToggleMode = False
-        ExplicitWidth = 394
-        ExplicitHeight = 56
       end
       object scGPButton2: TscGPButton
         AlignWithMargins = True
@@ -97310,7 +97279,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Badge.Text = '1'
         Badge.Visible = False
         Caption = 'SHUFFLE ENTRIES'
-        CaptionCenterAlignment = False
         CanFocused = True
         CustomDropDown = False
         DrawTextMode = scdtmGDI
@@ -97361,7 +97329,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Options.ShapeFillGradientColorOffset = 25
         Options.ShapeCornerRadius = 5
         Options.ShapeStyle = scgpRoundedRect
-        Options.ShapeStyleLineSize = 0
         Options.ArrowSize = 9
         Options.ArrowAreaSize = 0
         Options.ArrowType = scgpatDefault
@@ -97413,7 +97380,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         GroupIndex = 0
         AllowAllUp = False
         ToggleMode = False
-        ExplicitHeight = 56
       end
       object scGPButton3: TscGPButton
         AlignWithMargins = True
@@ -97447,7 +97413,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Badge.Text = '1'
         Badge.Visible = False
         Caption = 'REFRESH RECORDS'
-        CaptionCenterAlignment = False
         CanFocused = True
         CustomDropDown = False
         DrawTextMode = scdtmGDI
@@ -97498,7 +97463,6 @@ object RaffleTemplate3U: TRaffleTemplate3U
         Options.ShapeFillGradientColorOffset = 25
         Options.ShapeCornerRadius = 13
         Options.ShapeStyle = scgpRoundedRect
-        Options.ShapeStyleLineSize = 0
         Options.ArrowSize = 9
         Options.ArrowAreaSize = 0
         Options.ArrowType = scgpatDefault
@@ -97550,13 +97514,10 @@ object RaffleTemplate3U: TRaffleTemplate3U
         GroupIndex = 0
         AllowAllUp = False
         ToggleMode = False
-        ExplicitLeft = 719
-        ExplicitHeight = 56
       end
     end
   end
   object TDateChecker: TTimer
-    Interval = 60000
     OnTimer = TDateCheckerTimer
     Left = 96
     Top = 480
