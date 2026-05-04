@@ -290,7 +290,7 @@ begin
     UMainModule.IsAllDistrict := False;
   if Combobox1.ItemIndex = 0 then begin
     AARea := 'ALL';
-//    UMainModule.IsAllDistrict := True;
+    UMainModule.IsAllDistrict := True;
   end else if Combobox1.ItemIndex = 1 then begin
     AARea := '001';
   end else if Combobox1.ItemIndex = 2 then begin
@@ -308,6 +308,7 @@ begin
   end else begin
     AARea := '008';
   end;
+  UMainModule.AArea := AArea;
 
    with UMainModule do begin
      qrySettings.Close;
