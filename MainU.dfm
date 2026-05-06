@@ -1007,6 +1007,10 @@ object UMainForm: TUMainForm
         Caption = 'All Attendees'
         OnClick = AllAttendie1Click
       end
+      object AllAttendeeswithManipulation1: TMenuItem
+        Caption = 'All Attendees with Manipulation'
+        OnClick = AllAttendeeswithManipulation1Click
+      end
       object N3: TMenuItem
         Caption = '-'
       end

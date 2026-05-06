@@ -8,7 +8,7 @@ uses
   dxGDIPlusClasses, Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, QRPDFFilt;
 
 type
   TUReport = class(TForm)
@@ -319,8 +319,6 @@ type
     QRPShape80: TQRPShape;
     QRLabel53: TQRLabel;
     QRPShape81: TQRPShape;
-    QRPShape82: TQRPShape;
-    QRPShape83: TQRPShape;
     QRBand12: TQRBand;
     QRDBText25: TQRDBText;
     QRDBText27: TQRDBText;
@@ -347,20 +345,7 @@ type
     QRLabel58: TQRLabel;
     QRDBText28: TQRDBText;
     qryAGMAAttendance: TFDQuery;
-    FDAutoIncField2: TFDAutoIncField;
-    StringField7: TStringField;
-    StringField8: TStringField;
-    StringField9: TStringField;
-    StringField10: TStringField;
-    IntegerField1: TIntegerField;
-    StringField11: TStringField;
-    LongWordField3: TLongWordField;
-    StringField12: TStringField;
-    StringField13: TStringField;
     QRExpr2: TQRExpr;
-    qryAGMAAttendanceVenueLocation: TStringField;
-    qryAGMAAttendanceLocation: TStringField;
-    qryAGMAAttendanceMembershipNo: TStringField;
     QRDBText26: TQRDBText;
     QRPBand7: TQRPBand;
     QRLabel55: TQRLabel;
@@ -485,7 +470,22 @@ type
     QRLabel101: TQRLabel;
     QRLabel102: TQRLabel;
     QRLabel103: TQRLabel;
-    QRLabel104: TQRLabel;
+    QRExpr6: TQRExpr;
+    QRPShape82: TQRPShape;
+    QRPDFFilter1: TQRPDFFilter;
+    qryAGMAAttendanceid: TFDAutoIncField;
+    qryAGMAAttendanceAccountNumber: TStringField;
+    qryAGMAAttendanceName: TStringField;
+    qryAGMAAttendanceArea: TStringField;
+    qryAGMAAttendanceAddress: TStringField;
+    qryAGMAAttendanceShuffleOrder: TIntegerField;
+    qryAGMAAttendanceEntryMode: TStringField;
+    qryAGMAAttendanceYear: TLongWordField;
+    qryAGMAAttendanceNotes: TStringField;
+    qryAGMAAttendanceDisconnectionDesc: TStringField;
+    qryAGMAAttendanceVenueLocation: TStringField;
+    qryAGMAAttendanceLocation: TStringField;
+    qryAGMAAttendanceMembershipNo: TStringField;
     procedure qryReportWinnersCalcFields(DataSet: TDataSet);
     function GetOrdinalNumber(num: Integer):String;
     procedure qryReportWinnersClassificationCalcFields(DataSet: TDataSet);

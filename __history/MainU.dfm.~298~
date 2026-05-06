@@ -127,9 +127,8 @@ object UMainForm: TUMainForm
         ParentFont = False
         State = cbChecked
         TabOrder = 0
+        Visible = False
         OnClick = CheckBox1Click
-        ExplicitLeft = 291
-        ExplicitWidth = 93
       end
     end
     object Panel4: TPanel
@@ -892,8 +891,8 @@ object UMainForm: TUMainForm
           237
           32)
         object ComboBox1: TComboBox
-          Left = -2
-          Top = -1
+          Left = 0
+          Top = -4
           Width = 240
           Height = 32
           Anchors = [akLeft, akTop, akRight]
@@ -964,12 +963,10 @@ object UMainForm: TUMainForm
       end
       object UploadMemberConsumers1: TMenuItem
         Caption = 'Upload Member Consumer'#39's'
-        Enabled = False
         OnClick = UploadMemberConsumers1Click
       end
       object GetFromCooptoLocalData1: TMenuItem
         Caption = 'Get From Coop to Local Data'
-        Enabled = False
         OnClick = GetFromCooptoLocalData1Click
       end
       object N2: TMenuItem
@@ -978,6 +975,7 @@ object UMainForm: TUMainForm
       end
       object UpdateLocalDatabaseFromOnlineDatabase1: TMenuItem
         Caption = 'Update Local Database From Online Database'
+        Visible = False
         OnClick = UpdateLocalDatabaseFromOnlineDatabase1Click
       end
       object DemoDummy1: TMenuItem
@@ -1022,11 +1020,17 @@ object UMainForm: TUMainForm
       end
       object AllWinnersPerClassification1: TMenuItem
         Caption = 'All Winners Per Classification (Consolation Prize)'
+        Visible = False
         OnClick = AllWinnersPerClassification1Click
       end
       object AllWinnersPerClassificationGrandPrize1: TMenuItem
         Caption = 'All Winners Per Classification (Grand Prize)'
+        Visible = False
         OnClick = AllWinnersPerClassificationGrandPrize1Click
+      end
+      object Winner2: TMenuItem
+        Caption = 'Winner'
+        OnClick = Winner2Click
       end
     end
     object est1: TMenuItem
@@ -1071,7 +1075,7 @@ object UMainForm: TUMainForm
     Left = 632
     Top = 120
     Data = {
-      040003000D004163636F756E744E756D626572010096000000000004004E616D
+      030003000D004163636F756E744E756D626572010096000000000004004E616D
       6501002D00000000000700416464726573730100140000000000000000000000}
     object VTAccountNumber: TStringField
       FieldName = 'AccountNumber'
@@ -1093,8 +1097,8 @@ object UMainForm: TUMainForm
   end
   object DSWinnerMemberConsumer: TDataSource
     DataSet = UMainModule.qryWinnerMemberConsumers
-    Left = 408
-    Top = 312
+    Left = 416
+    Top = 416
   end
   object Timer2: TTimer
     OnTimer = Timer2Timer

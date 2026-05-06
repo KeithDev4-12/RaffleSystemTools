@@ -195,7 +195,7 @@ object UReport: TUReport
         Width = 1169
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           2.645833333333333000
           47.625000000000000000
           3092.979166666667000000)
@@ -261,10 +261,10 @@ object UReport: TUReport
         Width = 1168
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           5.291666666666667000
           2.645833333333333000
-          3090.333333333334000000)
+          3090.333333333333000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -297,7 +297,7 @@ object UReport: TUReport
           129.645833333333300000
           5.291666666666667000
           127.000000000000000000
-          3090.333333333334000000)
+          3090.333333333333000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -329,7 +329,7 @@ object UReport: TUReport
         Size.Values = (
           47.625000000000000000
           2.645833333333333000
-          272.520833333333400000
+          272.520833333333300000
           3092.979166666667000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -7787,7 +7787,7 @@ object UReport: TUReport
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        76.729166666666680000
+        76.729166666666670000
         3100.916666666667000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
@@ -8339,7 +8339,7 @@ object UReport: TUReport
         Width = 741
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           0.000000000000000000
           47.625000000000000000
           1960.562500000000000000)
@@ -8405,7 +8405,7 @@ object UReport: TUReport
         Width = 741
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           0.000000000000000000
           2.645833333333333000
           1960.562500000000000000)
@@ -8473,7 +8473,7 @@ object UReport: TUReport
         Size.Values = (
           47.625000000000000000
           0.000000000000000000
-          272.520833333333400000
+          272.520833333333300000
           1960.562500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -8505,7 +8505,7 @@ object UReport: TUReport
         Height = 18
         Size.Values = (
           47.625000000000000000
-          719.666666666666800000
+          719.666666666666700000
           314.854166666666700000
           285.750000000000000000)
         XLColumn = 0
@@ -15835,7 +15835,7 @@ object UReport: TUReport
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        66.145833333333340000
+        66.145833333333330000
         1957.916666666667000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
@@ -16327,7 +16327,7 @@ object UReport: TUReport
         Width = 741
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           0.000000000000000000
           47.625000000000000000
           1960.562500000000000000)
@@ -16393,7 +16393,7 @@ object UReport: TUReport
         Width = 741
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           0.000000000000000000
           2.645833333333333000
           1960.562500000000000000)
@@ -16461,7 +16461,7 @@ object UReport: TUReport
         Size.Values = (
           47.625000000000000000
           0.000000000000000000
-          272.520833333333400000
+          272.520833333333300000
           1960.562500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -23524,7 +23524,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           1590.145833333333000000
-          939.270833333333400000
+          939.270833333333300000
           306.916666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -23547,7 +23547,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           1590.145833333333000000
-          886.354166666666800000
+          886.354166666666700000
           150.812500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -23805,7 +23805,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           306.916666666666700000
-          367.770833333333400000
+          367.770833333333300000
           164.041666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -23851,7 +23851,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           306.916666666666700000
-          470.958333333333400000
+          470.958333333333300000
           203.729166666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24774,7 +24774,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           306.916666666666700000
-          886.354166666666800000
+          886.354166666666700000
           150.812500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24797,7 +24797,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           306.916666666666700000
-          939.270833333333400000
+          939.270833333333300000
           306.916666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24934,8 +24934,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          84.666666666666680000
-          783.166666666666800000
+          84.666666666666670000
+          783.166666666666700000
           206.375000000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -26380,7 +26380,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          994.833333333333400000
+          994.833333333333300000
           0.000000000000000000
           103.187500000000000000)
         XLColumn = 0
@@ -26440,7 +26440,7 @@ object UReport: TUReport
           44.979166666666670000
           912.812500000000000000
           0.000000000000000000
-          66.145833333333340000)
+          66.145833333333330000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -26672,7 +26672,7 @@ object UReport: TUReport
         Width = 741
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           0.000000000000000000
           47.625000000000000000
           1960.562500000000000000)
@@ -26738,7 +26738,7 @@ object UReport: TUReport
         Width = 741
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           0.000000000000000000
           2.645833333333333000
           1960.562500000000000000)
@@ -26806,7 +26806,7 @@ object UReport: TUReport
         Size.Values = (
           47.625000000000000000
           0.000000000000000000
-          272.520833333333400000
+          272.520833333333300000
           1960.562500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -34168,7 +34168,7 @@ object UReport: TUReport
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        66.145833333333340000
+        66.145833333333330000
         1957.916666666667000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
@@ -34480,8 +34480,8 @@ object UReport: TUReport
     end
   end
   object AGMAAttendance: TQuickRep
-    Left = -16
-    Top = -30
+    Left = -235
+    Top = 79
     Width = 1248
     Height = 816
     ShowingPreview = False
@@ -34660,7 +34660,7 @@ object UReport: TUReport
         Width = 1169
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           2.645833333333333000
           47.625000000000000000
           3092.979166666667000000)
@@ -34726,10 +34726,10 @@ object UReport: TUReport
         Width = 1168
         Height = 22
         Size.Values = (
-          58.208333333333340000
+          58.208333333333330000
           5.291666666666667000
           2.645833333333333000
-          3090.333333333334000000)
+          3090.333333333333000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -34762,7 +34762,7 @@ object UReport: TUReport
           129.645833333333300000
           5.291666666666667000
           127.000000000000000000
-          3090.333333333334000000)
+          3090.333333333333000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -34794,7 +34794,7 @@ object UReport: TUReport
         Size.Values = (
           47.625000000000000000
           2.645833333333333000
-          272.520833333333400000
+          272.520833333333300000
           3092.979166666667000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -41772,7 +41772,7 @@ object UReport: TUReport
           44.979166666666670000
           1357.312500000000000000
           0.000000000000000000
-          66.145833333333340000)
+          66.145833333333330000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -42301,7 +42301,7 @@ object UReport: TUReport
       ForceNewColumn = False
       ForceNewPage = False
       Size.Values = (
-        58.208333333333340000
+        58.208333333333330000
         3100.916666666667000000)
       PreCaluculateBandHeight = False
       KeepOnOnePage = False
@@ -42773,7 +42773,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          66.145833333333340000
+          66.145833333333330000
           164.041666666666700000
           177.270833333333300000)
         XLColumn = 0
@@ -42802,7 +42802,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          870.479166666666800000
+          870.479166666666700000
           164.041666666666700000
           190.500000000000000000)
         XLColumn = 0
@@ -43132,7 +43132,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'Adrian M. Minorca'
+        Caption = 'Engr. Jane H. Sy'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -43162,7 +43162,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'MS - Section chief'
+        Caption = 'CORPLAN Manager'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -44139,5 +44139,158 @@ object UReport: TUReport
     SuppressDateTime = False
     Left = 430
     Top = 216
+  end
+  object qryAGMAAttendanceMagic: TFDQuery
+    Connection = UMainModule.FDConnSQLite
+    SQL.Strings = (
+      'SELECT'#10' '
+      'id,'
+      #10'AccountNumber,'
+      #10'Name,'
+      #10'Area,'#10
+      'Address,'
+      #10'ShuffleOrder,'
+      #10'EntryMode,'
+      #10'Year,'
+      #10'if(Status=1,'#39'Attendeed'#39','#10
+      'if(Status=2,'#39'Winner Also Attendeed'#39', '
+      
+        'IF(Status='#39'3'#39','#39'Attendeed But Disconnected Meter'#39','#39'Attendeed But ' +
+        'Latest Bill Not Paid'#39'))) As Notes,'
+      
+        #10'if(ConnectionStatus=1,'#39'Active Account'#39','#39'Disconnected Account'#39') ' +
+        'As DisconnectionDesc,'
+      '(CASE '#10'  '
+      'WHEN EntryMode = '#39'VENUE-REGISTRATION'#39' THEN '#39'ON-SITE REG'#39#10
+      'WHEN EntryMode = '#39'PRE-REGISTRATION'#39#10' THEN '#39'PRE-REG'#39#10'  '
+      'ELSE '#39'ONLINE REG'#39#10' END) as VenueLocation,'
+      '(CASE '#10'  '
+      'WHEN EntryMode = '#39'VENUE-REGISTRATION'#39' THEN '#39'SORECOI HQ'#39#10
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'001'#39#10' THEN '#39'BULA' +
+        'N SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'002'#39#10' THEN '#39'MATN' +
+        'OG SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'003'#39#10' THEN '#39'STA.' +
+        ' MAGDALENA SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'004'#39#10' THEN '#39'IROS' +
+        'IN SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'005'#39#10' THEN '#39'BULU' +
+        'SAN SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'006'#39#10' THEN '#39'JUBA' +
+        'N SC'#39#10' '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'007'#39#10' THEN '#39'CASI' +
+        'GURAN SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'008'#39#10' THEN '#39'MAGA' +
+        'LLANES SC'#39#10'   '
+      'ELSE '#39'NOT DEFINED LOCATION'#39#10' END) as Location,'
+      'IFNULL(MembershipNo, FLOOR(RAND() * 1000000)) AS MembershipNo'
+      'FROM memberconsumers m'
+      'where year = :AYear'
+      'and'
+      '-- Status in (1,2,3,4)'
+      'IsPosted <> 0'
+      'order by Left(AccountNumber,4)')
+    Left = 88
+    Top = 152
+    ParamData = <
+      item
+        Name = 'AYEAR'
+        DataType = ftWideString
+        ParamType = ptInput
+        Value = '2026'
+      end>
+    object FDAutoIncField2: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object StringField7: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'AccountNumber'
+      Origin = 'AccountNumber'
+      Size = 11
+    end
+    object StringField8: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Name'
+      Origin = '`Name`'
+      Size = 99
+    end
+    object StringField9: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Area'
+      Origin = 'Area'
+      FixedChar = True
+      Size = 3
+    end
+    object StringField10: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Address'
+      Origin = 'Address'
+      Size = 99
+    end
+    object IntegerField1: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ShuffleOrder'
+      Origin = 'ShuffleOrder'
+    end
+    object StringField11: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EntryMode'
+      Origin = 'EntryMode'
+      Size = 45
+    end
+    object LongWordField3: TLongWordField
+      AutoGenerateValue = arDefault
+      FieldName = 'Year'
+      Origin = '`Year`'
+    end
+    object StringField12: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Notes'
+      Origin = 'Notes'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 34
+    end
+    object StringField13: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DisconnectionDesc'
+      Origin = 'DisconnectionDesc'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object StringField14: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'VenueLocation'
+      Origin = 'VenueLocation'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 11
+    end
+    object StringField15: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Location'
+      Origin = 'Location'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object StringField16: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'MembershipNo'
+      Origin = 'MembershipNo'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 99
+    end
   end
 end

@@ -96,6 +96,7 @@ type
     AllWinnersPerClassificationGrandPrize1: TMenuItem;
     CheckBox1: TCheckBox;
     Winner2: TMenuItem;
+    AllAttendeeswithManipulation1: TMenuItem;
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -148,6 +149,7 @@ type
     procedure CheckBox1Click(Sender: TObject);
     procedure PrizeCategory(Sender: TObject);
     procedure Winner2Click(Sender: TObject);
+    procedure AllAttendeeswithManipulation1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -179,6 +181,37 @@ implementation
 Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU,
      ReportU,RaffleTemplate1,RaffleTemplate2,RaffleTemplate3,SettingsU,UpdateDatabase,
   WinnerForm;
+
+procedure TUMainForm.AllAttendeeswithManipulation1Click(Sender: TObject);
+Var
+  value : String;
+  Date: String;
+  Count: String;
+begin
+  if not InputQuery('Reports', 'Please Put the Year of AGMA!', value) then begin
+    ShowMessage('User cancelled the dialog');
+  end else begin
+    with Ureport do begin
+      {qryReportAttendance.Close;
+      qryReportAttendance.ParamByName('AYear').AsString := value;
+      qryReportAttendance.Open;
+      qryReportAttendance.First;
+      qrlblDateRange.Caption := 'Y.R. ' + value;
+      qrAttendance.Preview;}
+      InputQuery('Reports', 'Put Date!', Date);
+      InputQuery('Reports', 'Put Page Last No!', Count);
+      qryAGMAAttendance.Close;
+      qryAGMAAttendance.ParamByName('AYear').AsString := value;
+      qryAGMAAttendance.Open;
+      qryAGMAAttendance.First;
+      QRPLabel46.Caption := 'Y.R. ' + value;
+      QRLabel58.Caption := Date;
+      QRLabel70.Caption := Count;
+      AGMAAttendance.Preview;
+
+    end;
+  end;
+end;
 
 procedure TUMainForm.AllAttendie1Click(Sender: TObject);
 Var

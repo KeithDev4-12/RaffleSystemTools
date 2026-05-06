@@ -495,7 +495,7 @@ object UReport: TUReport
         Height = 124
         Size.Values = (
           327.319587628866000000
-          83.793814432989690000
+          83.793814432989700000
           23.567010309278350000
           327.319587628866000000)
         XLColumn = 0
@@ -7276,7 +7276,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          994.833333333333300000
+          994.833333333333200000
           0.000000000000000000
           103.187500000000000000)
         XLColumn = 0
@@ -7336,7 +7336,7 @@ object UReport: TUReport
           44.979166666666670000
           912.812500000000000000
           0.000000000000000000
-          66.145833333333330000)
+          66.145833333333320000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -7637,7 +7637,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          7.855670103092784000
+          7.855670103092785000
           5.237113402061856000
           288.041237113402100000)
         XLColumn = 0
@@ -7866,7 +7866,7 @@ object UReport: TUReport
         Height = 25
         Size.Values = (
           65.463917525773200000
-          989.814432989690700000
+          989.814432989690800000
           5.237113402061856000
           112.597938144329900000)
         XLColumn = 0
@@ -7933,7 +7933,7 @@ object UReport: TUReport
         Width = 1
         Height = 32
         Size.Values = (
-          83.793814432989690000
+          83.793814432989700000
           298.515463917525800000
           -5.237113402061856000
           2.618556701030928000)
@@ -7951,7 +7951,7 @@ object UReport: TUReport
         Width = 1
         Height = 30
         Size.Values = (
-          78.556701030927840000
+          78.556701030927830000
           981.958762886597900000
           -5.237113402061856000
           2.618556701030928000)
@@ -8008,7 +8008,7 @@ object UReport: TUReport
           65.463917525773200000
           311.608247422680400000
           5.237113402061856000
-          667.731958762886600000)
+          667.731958762886700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -15420,7 +15420,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          994.833333333333300000
+          994.833333333333200000
           0.000000000000000000
           103.187500000000000000)
         XLColumn = 0
@@ -15480,7 +15480,7 @@ object UReport: TUReport
           44.979166666666670000
           912.812500000000000000
           0.000000000000000000
-          66.145833333333330000)
+          66.145833333333320000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -15733,7 +15733,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          7.855670103092784000
+          7.855670103092785000
           5.237113402061856000
           288.041237113402100000)
         XLColumn = 0
@@ -15880,7 +15880,7 @@ object UReport: TUReport
         Height = 21
         Size.Values = (
           54.989690721649480000
-          937.443298969072200000
+          937.443298969072300000
           5.237113402061856000
           112.597938144329900000)
         XLColumn = 0
@@ -16493,7 +16493,7 @@ object UReport: TUReport
         Height = 18
         Size.Values = (
           47.625000000000000000
-          719.666666666666700000
+          719.666666666666800000
           314.854166666666700000
           285.750000000000000000)
         XLColumn = 0
@@ -23593,7 +23593,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           1590.145833333333000000
-          783.166666666666700000
+          783.166666666666800000
           267.229166666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -23616,8 +23616,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
-          783.166666666666700000
+          955.145833333333200000
+          783.166666666666800000
           309.562500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -23641,7 +23641,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           1275.291666666667000000
-          783.166666666666700000
+          783.166666666666800000
           301.625000000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -23664,7 +23664,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
+          670.350515463917400000
           104.742268041237100000
           356.123711340206200000)
         XLColumn = 0
@@ -23896,7 +23896,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          84.666666666666670000
+          84.666666666666680000
           105.833333333333300000
           206.375000000000000000)
         XLColumn = 0
@@ -23921,7 +23921,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           146.639175257732000000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -23939,7 +23939,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           201.628865979381400000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -23957,7 +23957,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           254.000000000000000000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -23975,7 +23975,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           306.371134020618600000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -23993,7 +23993,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           358.742268041237100000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -24011,7 +24011,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           411.113402061855700000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -24029,7 +24029,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           463.484536082474200000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -24047,7 +24047,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           515.855670103092800000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -24065,7 +24065,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           568.226804123711300000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -24243,7 +24243,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          78.556701030927840000
+          78.556701030927830000
           471.340206185567000000
           196.391752577319600000)
         XLColumn = 0
@@ -24308,7 +24308,7 @@ object UReport: TUReport
         Width = 1
         Height = 222
         Size.Values = (
-          586.556701030927800000
+          586.556701030927700000
           75.938144329896910000
           52.371134020618560000
           2.618556701030928000)
@@ -24329,7 +24329,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           99.505154639175260000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -24345,7 +24345,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
+          670.350515463917400000
           157.113402061855700000
           356.123711340206200000)
         XLColumn = 0
@@ -24372,7 +24372,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
+          670.350515463917400000
           209.484536082474200000
           356.123711340206200000)
         XLColumn = 0
@@ -24399,7 +24399,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
+          670.350515463917400000
           261.855670103092800000
           356.123711340206200000)
         XLColumn = 0
@@ -24426,7 +24426,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
+          670.350515463917400000
           314.226804123711300000
           356.123711340206200000)
         XLColumn = 0
@@ -24453,7 +24453,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
+          670.350515463917400000
           366.597938144329900000
           356.123711340206200000)
         XLColumn = 0
@@ -24480,7 +24480,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
+          670.350515463917400000
           418.969072164948500000
           356.123711340206200000)
         XLColumn = 0
@@ -24507,7 +24507,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
+          670.350515463917400000
           471.340206185567000000
           356.123711340206200000)
         XLColumn = 0
@@ -24560,7 +24560,7 @@ object UReport: TUReport
         Width = 1
         Height = 222
         Size.Values = (
-          586.556701030927800000
+          586.556701030927700000
           1029.092783505155000000
           52.371134020618560000
           2.618556701030928000)
@@ -24611,7 +24611,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           52.371134020618560000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -24628,7 +24628,7 @@ object UReport: TUReport
         Size.Values = (
           44.515463917525770000
           81.175257731958760000
-          583.938144329896900000
+          583.938144329897000000
           573.463917525773200000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24653,7 +24653,7 @@ object UReport: TUReport
           2.618556701030928000
           75.938144329896910000
           636.309278350515500000
-          955.773195876288700000)
+          955.773195876288600000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -24669,8 +24669,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          670.350515463917500000
-          583.938144329896900000
+          670.350515463917400000
+          583.938144329897000000
           356.123711340206200000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24702,8 +24702,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
-          783.166666666666700000
+          669.395833333333200000
+          783.166666666666800000
           277.812500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24727,7 +24727,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           298.979166666666700000
-          783.166666666666700000
+          783.166666666666800000
           357.187500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24957,8 +24957,8 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
-          822.854166666666700000
+          76.729166666666680000
+          822.854166666666800000
           1788.583333333333000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24975,8 +24975,8 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
-          878.416666666666700000
+          76.729166666666680000
+          878.416666666666800000
           1788.583333333333000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -24993,8 +24993,8 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
-          931.333333333333300000
+          76.729166666666680000
+          931.333333333333200000
           1788.583333333333000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25011,7 +25011,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
+          76.729166666666680000
           984.250000000000000000
           1788.583333333333000000)
         XLColumn = 0
@@ -25029,7 +25029,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
+          76.729166666666680000
           1037.166666666667000000
           1788.583333333333000000)
         XLColumn = 0
@@ -25047,7 +25047,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
+          76.729166666666680000
           1090.083333333333000000
           1788.583333333333000000)
         XLColumn = 0
@@ -25065,7 +25065,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
+          76.729166666666680000
           1140.354166666667000000
           1788.583333333333000000)
         XLColumn = 0
@@ -25083,7 +25083,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
+          76.729166666666680000
           1193.270833333333000000
           1788.583333333333000000)
         XLColumn = 0
@@ -25101,7 +25101,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
+          76.729166666666680000
           1246.187500000000000000
           1788.583333333333000000)
         XLColumn = 0
@@ -25120,7 +25120,7 @@ object UReport: TUReport
         Size.Values = (
           468.312500000000000000
           291.041666666666700000
-          780.520833333333300000
+          780.520833333333200000
           2.645833333333333000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25137,7 +25137,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          82.020833333333330000
+          82.020833333333320000
           833.437500000000000000
           195.791666666666700000)
         XLColumn = 0
@@ -25161,8 +25161,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          82.020833333333330000
-          886.354166666666700000
+          82.020833333333320000
+          886.354166666666800000
           195.791666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25185,8 +25185,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          82.020833333333330000
-          939.270833333333300000
+          82.020833333333320000
+          939.270833333333200000
           195.791666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25209,7 +25209,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          82.020833333333330000
+          82.020833333333320000
           992.187500000000000000
           195.791666666666700000)
         XLColumn = 0
@@ -25233,7 +25233,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          82.020833333333330000
+          82.020833333333320000
           1045.104166666667000000
           195.791666666666700000)
         XLColumn = 0
@@ -25257,7 +25257,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          82.020833333333330000
+          82.020833333333320000
           1095.375000000000000000
           195.791666666666700000)
         XLColumn = 0
@@ -25305,7 +25305,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          82.020833333333330000
+          82.020833333333320000
           1195.916666666667000000
           195.791666666666700000)
         XLColumn = 0
@@ -25347,7 +25347,7 @@ object UReport: TUReport
         Height = 222
         Size.Values = (
           587.375000000000000000
-          76.729166666666670000
+          76.729166666666680000
           730.250000000000000000
           2.645833333333333000)
         XLColumn = 0
@@ -25365,7 +25365,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
+          76.729166666666680000
           777.875000000000000000
           1788.583333333333000000)
         XLColumn = 0
@@ -25383,7 +25383,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          672.041666666666700000
+          672.041666666666800000
           825.500000000000000000
           275.166666666666700000)
         XLColumn = 0
@@ -25410,8 +25410,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
-          886.354166666666700000
+          669.395833333333200000
+          886.354166666666800000
           275.166666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25437,8 +25437,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
-          939.270833333333300000
+          669.395833333333200000
+          939.270833333333200000
           275.166666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25464,7 +25464,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
+          669.395833333333200000
           992.187500000000000000
           275.166666666666700000)
         XLColumn = 0
@@ -25491,7 +25491,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
+          669.395833333333200000
           1045.104166666667000000
           275.166666666666700000)
         XLColumn = 0
@@ -25518,7 +25518,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
+          669.395833333333200000
           1095.375000000000000000
           275.166666666666700000)
         XLColumn = 0
@@ -25545,7 +25545,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
+          669.395833333333200000
           1148.291666666667000000
           275.166666666666700000)
         XLColumn = 0
@@ -25572,7 +25572,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
+          669.395833333333200000
           1201.208333333333000000
           275.166666666666700000)
         XLColumn = 0
@@ -25599,7 +25599,7 @@ object UReport: TUReport
         Height = 222
         Size.Values = (
           587.375000000000000000
-          949.854166666666700000
+          949.854166666666800000
           730.250000000000000000
           2.645833333333333000)
         XLColumn = 0
@@ -25647,8 +25647,8 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
-          724.958333333333300000
+          76.729166666666680000
+          724.958333333333200000
           1788.583333333333000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25665,7 +25665,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          82.020833333333330000
+          82.020833333333320000
           1262.062500000000000000
           574.145833333333300000)
         XLColumn = 0
@@ -25689,7 +25689,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          76.729166666666670000
+          76.729166666666680000
           1312.333333333333000000
           1788.583333333333000000)
         XLColumn = 0
@@ -25707,7 +25707,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          669.395833333333300000
+          669.395833333333200000
           1262.062500000000000000
           277.812500000000000000)
         XLColumn = 0
@@ -25776,7 +25776,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
+          955.145833333333200000
           1262.062500000000000000
           306.916666666666700000)
         XLColumn = 0
@@ -25809,7 +25809,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
+          955.145833333333200000
           1201.208333333333000000
           306.916666666666700000)
         XLColumn = 0
@@ -25836,7 +25836,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
+          955.145833333333200000
           1148.291666666667000000
           306.916666666666700000)
         XLColumn = 0
@@ -25863,7 +25863,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
+          955.145833333333200000
           1095.375000000000000000
           306.916666666666700000)
         XLColumn = 0
@@ -25890,7 +25890,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
+          955.145833333333200000
           1045.104166666667000000
           306.916666666666700000)
         XLColumn = 0
@@ -25917,8 +25917,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
-          989.541666666666700000
+          955.145833333333200000
+          989.541666666666800000
           306.916666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25944,8 +25944,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
-          939.270833333333300000
+          955.145833333333200000
+          939.270833333333200000
           306.916666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25971,8 +25971,8 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
-          886.354166666666700000
+          955.145833333333200000
+          886.354166666666800000
           306.916666666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -25998,7 +25998,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          955.145833333333300000
+          955.145833333333200000
           825.500000000000000000
           306.916666666666700000)
         XLColumn = 0
@@ -26194,7 +26194,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           1277.937500000000000000
-          939.270833333333300000
+          939.270833333333200000
           298.979166666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -26221,7 +26221,7 @@ object UReport: TUReport
         Size.Values = (
           44.979166666666670000
           1277.937500000000000000
-          886.354166666666700000
+          886.354166666666800000
           298.979166666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -26838,7 +26838,7 @@ object UReport: TUReport
         Height = 18
         Size.Values = (
           47.625000000000000000
-          719.666666666666700000
+          719.666666666666800000
           314.854166666666700000
           285.750000000000000000)
         XLColumn = 0
@@ -33753,7 +33753,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          994.833333333333300000
+          994.833333333333200000
           0.000000000000000000
           103.187500000000000000)
         XLColumn = 0
@@ -33813,7 +33813,7 @@ object UReport: TUReport
           44.979166666666670000
           912.812500000000000000
           0.000000000000000000
-          66.145833333333330000)
+          66.145833333333320000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -34066,7 +34066,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.515463917525770000
-          7.855670103092784000
+          7.855670103092785000
           5.237113402061856000
           288.041237113402100000)
         XLColumn = 0
@@ -34213,7 +34213,7 @@ object UReport: TUReport
         Height = 21
         Size.Values = (
           54.989690721649480000
-          937.443298969072200000
+          937.443298969072300000
           5.237113402061856000
           112.597938144329900000)
         XLColumn = 0
@@ -34480,8 +34480,8 @@ object UReport: TUReport
     end
   end
   object AGMAAttendance: TQuickRep
-    Left = -96
-    Top = -30
+    Left = -235
+    Top = 79
     Width = 1248
     Height = 816
     ShowingPreview = False
@@ -34960,7 +34960,7 @@ object UReport: TUReport
         Height = 124
         Size.Values = (
           327.319587628866000000
-          83.793814432989690000
+          83.793814432989700000
           23.567010309278350000
           327.319587628866000000)
         XLColumn = 0
@@ -41837,7 +41837,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = '201'
+        Caption = '191'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -41875,9 +41875,9 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          756.708333333333300000
+          756.708333333333200000
           87.312500000000000000
-          844.020833333333300000)
+          844.020833333333200000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -41935,7 +41935,7 @@ object UReport: TUReport
         Height = 18
         Size.Values = (
           47.625000000000000000
-          751.416666666666700000
+          751.416666666666800000
           87.312500000000000000
           2.645833333333333000)
         XLColumn = 0
@@ -42008,7 +42008,7 @@ object UReport: TUReport
         Size.Values = (
           2.645833333333333000
           0.000000000000000000
-          84.666666666666670000
+          84.666666666666680000
           3103.562500000000000000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -42130,7 +42130,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'ID No. :'
+        Caption = 'Mem. No'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -42308,13 +42308,13 @@ object UReport: TUReport
       BandType = rbDetail
       object QRDBText25: TQRDBText
         Left = 176
-        Top = 1
+        Top = 2
         Width = 107
-        Height = 18
+        Height = 17
         Size.Values = (
-          47.625000000000000000
+          44.979166666666670000
           465.666666666666700000
-          2.645833333333333000
+          5.291666666666667000
           283.104166666666700000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -42379,8 +42379,8 @@ object UReport: TUReport
         Width = 1
         Height = 23
         Size.Values = (
-          60.854166666666670000
-          751.416666666666700000
+          60.854166666666680000
+          751.416666666666800000
           -5.291666666666667000
           2.645833333333333000)
         XLColumn = 0
@@ -42397,7 +42397,7 @@ object UReport: TUReport
         Width = 1
         Height = 23
         Size.Values = (
-          60.854166666666670000
+          60.854166666666680000
           1603.375000000000000000
           -5.291666666666667000
           2.645833333333333000)
@@ -42415,7 +42415,7 @@ object UReport: TUReport
         Width = 1
         Height = 23
         Size.Values = (
-          60.854166666666670000
+          60.854166666666680000
           1725.083333333333000000
           -5.291666666666667000
           2.645833333333333000)
@@ -42434,9 +42434,9 @@ object UReport: TUReport
         Height = 18
         Size.Values = (
           47.625000000000000000
-          756.708333333333300000
+          756.708333333333200000
           5.291666666666667000
-          844.020833333333300000)
+          844.020833333333200000)
         XLColumn = 0
         XLNumFormat = nfGeneral
         ActiveInPreview = False
@@ -42466,7 +42466,7 @@ object UReport: TUReport
         Width = 1
         Height = 23
         Size.Values = (
-          60.854166666666670000
+          60.854166666666680000
           2584.979166666667000000
           -5.291666666666667000
           2.645833333333333000)
@@ -42538,7 +42538,7 @@ object UReport: TUReport
         Width = 1
         Height = 23
         Size.Values = (
-          60.854166666666670000
+          60.854166666666680000
           164.041666666666700000
           -5.291666666666667000
           2.645833333333333000)
@@ -42556,7 +42556,7 @@ object UReport: TUReport
         Width = 1
         Height = 23
         Size.Values = (
-          60.854166666666670000
+          60.854166666666680000
           460.375000000000000000
           -5.291666666666667000
           2.645833333333333000)
@@ -42570,13 +42570,13 @@ object UReport: TUReport
       end
       object QRDBText30: TQRDBText
         Left = 65
-        Top = 1
+        Top = 2
         Width = 109
-        Height = 18
+        Height = 17
         Size.Values = (
-          47.625000000000000000
+          44.979166666666670000
           171.979166666666700000
-          2.645833333333333000
+          5.291666666666667000
           288.395833333333300000)
         XLColumn = 0
         XLNumFormat = nfGeneral
@@ -42607,7 +42607,7 @@ object UReport: TUReport
         Width = 1
         Height = 23
         Size.Values = (
-          60.854166666666670000
+          60.854166666666680000
           2076.979166666667000000
           -5.291666666666667000
           2.645833333333333000)
@@ -42635,7 +42635,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = '2024/05/18'
+        Caption = '2025/07/26'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -43045,7 +43045,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          870.479166666666700000
+          870.479166666666800000
           219.604166666666700000
           470.958333333333300000)
         XLColumn = 0
@@ -43075,7 +43075,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          870.479166666666700000
+          870.479166666666800000
           280.458333333333300000
           470.958333333333300000)
         XLColumn = 0
@@ -43084,7 +43084,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'OIC-ISD MANAGER'
+        Caption = 'MS/HR- Supervisor'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -43105,7 +43105,7 @@ object UReport: TUReport
         Height = 1
         Size.Values = (
           2.645833333333333000
-          838.729166666666700000
+          838.729166666666800000
           275.166666666666700000
           537.104166666666700000)
         XLColumn = 0
@@ -43123,7 +43123,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          66.145833333333330000
+          66.145833333333320000
           219.604166666666700000
           470.958333333333300000)
         XLColumn = 0
@@ -43132,7 +43132,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'ENGR. JANE H. SY'
+        Caption = 'Engr. Jane H. Sy'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -43153,7 +43153,7 @@ object UReport: TUReport
         Height = 17
         Size.Values = (
           44.979166666666670000
-          66.145833333333330000
+          66.145833333333320000
           280.458333333333300000
           470.958333333333300000)
         XLColumn = 0
@@ -43162,7 +43162,7 @@ object UReport: TUReport
         Alignment = taCenter
         AlignToBand = False
         AutoSize = False
-        Caption = 'CORPLAN MANAGER'
+        Caption = 'CORPLAN Manager'
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -43720,16 +43720,37 @@ object UReport: TUReport
         #10'if(ConnectionStatus=1,'#39'Active Account'#39','#39'Disconnected Account'#39') ' +
         'As DisconnectionDesc,'
       '(CASE '#10'  '
-      
-        'WHEN EntryMode = '#39'VENUE-REGISTRATION'#39' OR EntryMode = '#39'PRE-REGIST' +
-        'RATION'#39#10'  '
-      'THEN '#39'ON-SITE REG'#39#10'  '
+      'WHEN EntryMode = '#39'VENUE-REGISTRATION'#39' THEN '#39'ON-SITE REG'#39#10
+      'WHEN EntryMode = '#39'PRE-REGISTRATION'#39#10' THEN '#39'PRE-REG'#39#10'  '
       'ELSE '#39'ONLINE REG'#39#10' END) as VenueLocation,'
-      '(CASE'
-      'WHEN EntryMode = '#39'ONLINE-REGISTRATION'#39
-      'THEN '#39'NOT DEFINED LOCATION'#39
-      'ELSE '#39'Casiguran Gymnasium'#39' END) as Location,'
-      'IFNULL(null, FLOOR(RAND() * 1000000)) AS MembershipNo'
+      '(CASE '#10'  '
+      'WHEN EntryMode = '#39'VENUE-REGISTRATION'#39' THEN '#39'SORECOI HQ'#39#10
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'001'#39#10' THEN '#39'BULA' +
+        'N SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'002'#39#10' THEN '#39'MATN' +
+        'OG SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'003'#39#10' THEN '#39'STA.' +
+        ' MAGDALENA SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'004'#39#10' THEN '#39'IROS' +
+        'IN SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'005'#39#10' THEN '#39'BULU' +
+        'SAN SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'006'#39#10' THEN '#39'JUBA' +
+        'N SC'#39#10' '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'007'#39#10' THEN '#39'CASI' +
+        'GURAN SC'#39#10'  '
+      
+        'WHEN EntryMode = '#39'PRE-REGISTRATION'#39' AND Area = '#39'008'#39#10' THEN '#39'MAGA' +
+        'LLANES SC'#39#10'   '
+      'ELSE '#39'NOT DEFINED LOCATION'#39#10' END) as Location,'
+      'IFNULL(MembershipNo, FLOOR(RAND() * 1000000)) AS MembershipNo'
       'FROM memberconsumers m'
       'where year = :AYear'
       'and'
@@ -43743,59 +43764,64 @@ object UReport: TUReport
         Name = 'AYEAR'
         DataType = ftWideString
         ParamType = ptInput
-        Value = '2024'
+        Value = '2026'
       end>
-    object FDAutoIncField2: TFDAutoIncField
+    object qryAGMAAttendanceid: TFDAutoIncField
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object StringField7: TStringField
+    object qryAGMAAttendanceAccountNumber: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'AccountNumber'
       Origin = 'AccountNumber'
       Size = 11
     end
-    object StringField8: TStringField
+    object qryAGMAAttendanceName: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Name'
-      Origin = 'Name'
+      Origin = '`Name`'
       Size = 99
     end
-    object StringField9: TStringField
+    object qryAGMAAttendanceArea: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Area'
       Origin = 'Area'
       FixedChar = True
       Size = 3
     end
-    object StringField10: TStringField
+    object qryAGMAAttendanceAddress: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'Address'
       Origin = 'Address'
       Size = 99
     end
-    object IntegerField1: TIntegerField
+    object qryAGMAAttendanceShuffleOrder: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'ShuffleOrder'
       Origin = 'ShuffleOrder'
     end
-    object StringField11: TStringField
+    object qryAGMAAttendanceEntryMode: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'EntryMode'
       Origin = 'EntryMode'
-      Required = True
       Size = 45
     end
-    object LongWordField3: TLongWordField
+    object qryAGMAAttendanceYear: TLongWordField
+      AutoGenerateValue = arDefault
       FieldName = 'Year'
-      Origin = 'Year'
-      Required = True
+      Origin = '`Year`'
     end
-    object StringField12: TStringField
+    object qryAGMAAttendanceNotes: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'Notes'
       Origin = 'Notes'
       ProviderFlags = []
       ReadOnly = True
-      Size = 32
+      Size = 34
     end
-    object StringField13: TStringField
+    object qryAGMAAttendanceDisconnectionDesc: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'DisconnectionDesc'
       Origin = 'DisconnectionDesc'
@@ -43823,7 +43849,7 @@ object UReport: TUReport
       Origin = 'MembershipNo'
       ProviderFlags = []
       ReadOnly = True
-      Size = 7
+      Size = 99
     end
   end
   object qrySummaryDetails: TFDQuery

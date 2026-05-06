@@ -183,6 +183,8 @@ Uses MainModuleU,SearchMemberConsumerU,WinnerU,UploaderPreRegistrationU, LogInU,
 procedure TUMainForm.AllAttendie1Click(Sender: TObject);
 Var
   value : String;
+  Date: String;
+  Count: String;
 begin
   if not InputQuery('Reports', 'Please Put the Year of AGMA!', value) then begin
     ShowMessage('User cancelled the dialog');
@@ -194,12 +196,15 @@ begin
       qryReportAttendance.First;
       qrlblDateRange.Caption := 'Y.R. ' + value;
       qrAttendance.Preview;}
-
+      InputQuery('Reports', 'Put Date!', Date);
+      InputQuery('Reports', 'Put Page Last No!', Count);
       qryAGMAAttendance.Close;
       qryAGMAAttendance.ParamByName('AYear').AsString := value;
       qryAGMAAttendance.Open;
       qryAGMAAttendance.First;
       QRPLabel46.Caption := 'Y.R. ' + value;
+      QRLabel58.Caption := Date;
+      QRLabel70.Caption := Count;
       AGMAAttendance.Preview;
 
     end;
@@ -290,7 +295,7 @@ begin
     UMainModule.IsAllDistrict := False;
   if Combobox1.ItemIndex = 0 then begin
     AARea := 'ALL';
-//    UMainModule.IsAllDistrict := True;
+    UMainModule.IsAllDistrict := True;
   end else if Combobox1.ItemIndex = 1 then begin
     AARea := '001';
   end else if Combobox1.ItemIndex = 2 then begin
@@ -308,6 +313,7 @@ begin
   end else begin
     AARea := '008';
   end;
+  UMainModule.AArea := AArea;
 
    with UMainModule do begin
      qrySettings.Close;
@@ -541,7 +547,7 @@ begin
 
   if AArea = 'ALL' then begin
     AAreaName := '<ALL MUNICIPALITIES>';
-//    UMainModule.IsAllDistrict := True;
+    UMainModule.IsAllDistrict := True;
   end else if AArea = '001' then begin
     AAreaName := 'BULAN';
   end else if AArea = '002' then begin
